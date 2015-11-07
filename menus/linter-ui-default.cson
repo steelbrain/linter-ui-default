@@ -1,0 +1,22 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle linter-ui-default'
+      'command': 'linter-ui-default:toggle'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'linter-ui-default'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'linter-ui-default:toggle'
+        }
+      ]
+    ]
+  }
+]
