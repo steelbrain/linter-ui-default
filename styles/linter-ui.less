@@ -3,12 +3,11 @@
 
 linter-new-panel {
   display: block;
-  @padding: 2px 20px;
+  max-height: 500px;
 
-  .header {
+  .panel-heading {
     display: flex;
     width: 100%;
-    padding: @padding;
 
     .header-icons {
       align-self: flex-end;
@@ -20,12 +19,12 @@ linter-new-panel {
     }
   }
 
-  .content {
-    background-color: @panel-heading-background-color;
-    padding: @padding;
-
-    &.empty {
-      padding: 0;
+  .panel-body {
+    padding: 5px;
+    max-height: 88px;
+    overflow-x: scroll;
+    &.hide {
+      display: none;
     }
   }
 
