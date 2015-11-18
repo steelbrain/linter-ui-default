@@ -1,0 +1,28 @@
+@import "ui-variables";
+@import 'octicon-utf-codes';
+
+linter-new-panel {
+  display: block;
+  @padding: 2px 20px;
+
+  .header {
+    display: flex;
+    width: 100%;
+    padding: @padding;
+
+    .header-close {
+      align-self: flex-end;
+      margin-left: auto;
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    background-color: @panel-heading-background-color;
+    padding: @padding;
+
+    &.empty {
+      padding: 0;
+    }
+  }
+}
