@@ -7,10 +7,19 @@ linter-new-panel {
 
   .panel-heading {
     display: flex;
+    flex-direction: row;
     width: 100%;
 
+    .heading-counts {
+      margin-left: 50px;
+
+      span {
+        padding-left: 5px;
+      }
+    }
+
     .heading-icons {
-      align-self: flex-end;
+      justify-content: flex-end;
       margin-left: auto;
       cursor: pointer;
       span:first-child {
