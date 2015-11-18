@@ -10,10 +10,13 @@ linter-new-panel {
     width: 100%;
     padding: @padding;
 
-    .header-close {
+    .header-icons {
       align-self: flex-end;
       margin-left: auto;
       cursor: pointer;
+      span:first-child {
+        padding-right: 10px;
+      }
     }
   }
 
@@ -23,6 +26,9 @@ linter-new-panel {
 
     &.empty {
       padding: 0;
+    }
+    &[hidden] {
+      display: none;
     }
   }
 }
