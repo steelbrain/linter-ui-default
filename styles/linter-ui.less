@@ -10,10 +10,10 @@ linter-new-panel {
     flex-direction: row;
     width: 100%;
 
-    .heading-counts {
+    .heading-status {
       margin-left: 50px;
 
-      span {
+      > span {
         padding-left: 5px;
       }
     }
@@ -39,5 +39,14 @@ linter-new-panel {
 
   [hidden] {
     display: none;
+  }
+}
+
+linter-bottom-status {
+  &.status-success {
+    color: @background-color-success;
+  }
+  &.status-error {
+    color: @background-color-error;
   }
 }
