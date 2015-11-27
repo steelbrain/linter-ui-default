@@ -50,3 +50,9 @@ linter-bottom-status {
     color: @background-color-error;
   }
 }
+
+// Make linter tooltips overflow
+atom-text-editor::shadow  .gutter[gutter-name="linter-ui-default"] {
+  z-index: 1;
+  overflow: visible;
+}
