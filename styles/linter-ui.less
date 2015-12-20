@@ -16,6 +16,10 @@ linter-new-panel {
       > span {
         padding-left: 5px;
       }
+
+      linter-bottom-status .icon-hourglass::before {
+        -webkit-animation: linter-ui-default-spin 1s infinite linear;
+      }
     }
 
     .heading-icons {
@@ -49,4 +53,9 @@ linter-bottom-status {
   &.status-error {
     color: @background-color-error;
   }
+}
+
+@-webkit-keyframes linter-ui-default-spin {
+  0%   {-webkit-transform: rotate(0deg)}
+  100% {-webkit-transform: rotate(360deg)}
 }
