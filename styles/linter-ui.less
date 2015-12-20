@@ -1,7 +1,7 @@
 @import "ui-variables";
 @import 'octicon-utf-codes';
 
-linter-new-panel {
+linter-ui-default-panel {
   display: block;
   max-height: 500px;
 
@@ -17,7 +17,7 @@ linter-new-panel {
         padding-left: 5px;
       }
 
-      linter-bottom-status .icon-hourglass::before {
+      heading-status .icon-hourglass::before {
         -webkit-animation: linter-ui-default-spin 1s infinite linear;
       }
     }
@@ -36,7 +36,7 @@ linter-new-panel {
     padding: 5px;
     max-height: 88px;
     overflow-x: scroll;
-    &.hide {
+    &.hide, &.empty {
       display: none;
     }
   }
@@ -46,7 +46,7 @@ linter-new-panel {
   }
 }
 
-linter-bottom-status {
+.heading-status {
   &.status-success {
     color: @background-color-success;
   }
