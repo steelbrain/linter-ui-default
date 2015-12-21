@@ -5,4 +5,4 @@
  - Messages from the same file are organized in DOM by default
  - Inline bubbles cost a lot less than they used to, they are no longer calculated each time user moves cursor, instead they are counted when messages are inserted
 
-All of these changes combined should be significantly faster for all of the user, I hope you like 'em :)
+All of these changes combined should improve the linter experience significantly, I hope you like 'em :)
