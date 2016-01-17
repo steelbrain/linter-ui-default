@@ -3,20 +3,22 @@ Linter-UI-Default
 
 The default UI for linter.
 
-### How to try it out?
+### Installation
 
 The support for UI Service isn't merged into the linter package yet, here's how
 you can try this until then, this demonstration uses some [hub](https://github.com/github/hub)
-APIs
+commands
 
-```ShellSession
+```
 cd ~/.atom/packages
-rm -rf linter-ui-default
+apm uninstall linter linter-ui-default
+
+# Clone linter-ui-default package
 git clone AtomLinter/linter-ui-default
 cd linter-ui-default
 apm install
-cd ..
-rm -rf linter
+
+# Remove old linter and install the new one
 git clone atom-community/linter
 cd linter
 git checkout https://github.com/atom-community/linter/pull/995
