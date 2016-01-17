@@ -1,3 +1,13 @@
+#### v0.0.2
+
+- Add `linter-ui-default:toggle-panel` command
+- Add showProviderName config
+- Add file link support in messages
+- Make traces in bubble work
+- Fix status icon in panel
+- Show all available messages in bubble
+- Initialize panel with existing errors
+
 #### Improvements over linter package
  - No DOM operations are performed on panel if it's closed, it's not `hidden` like it used to be, it's completely removed from the document
  - DOM Elements of linter messages are cached as much as possible
