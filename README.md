@@ -18,7 +18,7 @@ git clone AtomLinter/linter-ui-default
 cd linter-ui-default
 apm install
 
-# Remove old linter and install the new one
+# Install the UI service patch over linter
 git clone atom-community/linter
 cd linter
 git checkout https://github.com/atom-community/linter/pull/995
