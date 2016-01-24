@@ -10,15 +10,16 @@ you can try this until then, this demonstration uses some [hub](https://github.c
 commands
 
 ```
-cd ~/.atom/packages
 apm uninstall linter linter-ui-default
 
 # Clone linter-ui-default package
+cd ~/.atom/packages
 git clone AtomLinter/linter-ui-default
 cd linter-ui-default
 apm install
 
 # Install the UI service patch over linter
+cd ~/.atom/packages
 git clone atom-community/linter
 cd linter
 git checkout https://github.com/atom-community/linter/pull/995
