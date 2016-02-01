@@ -1,3 +1,7 @@
+### Upcoming
+
+- Fix an editor leak
+
 #### v0.0.2
 
 - Add `linter-ui-default:toggle-panel` command
