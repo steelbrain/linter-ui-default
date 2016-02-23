@@ -9,9 +9,7 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
-    "vanilla-jsx": "^2.0.0"
-  },
+  "dependencies": { },
   "providedServices": {
     "linter-ui": {
       "versions": {
