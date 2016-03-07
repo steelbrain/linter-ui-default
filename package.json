@@ -18,5 +18,36 @@
         "1.0.0": "provideUI"
       }
     }
+  },
+  "configSchema": {
+    "showPanel": {
+      "type": "boolean",
+      "description": "Show panel at the bottom of screen",
+      "default": true
+    },
+    "showIssuesFrom": {
+      "title": "Show issues in Panel From",
+      "type": "boolean",
+      "enum": ["All Files", "Current File", "Current Line"],
+      "default": "Current File"
+    },
+    "highlightIssues": {
+      "title": "'Underline and highlight gutters of issues",
+      "description": "Requires a restart to take effect",
+      "type": "boolean",
+      "default": true
+    },
+    "showBubble": {
+      "description": "Show inline issue bubbles",
+      "type": "boolean",
+      "default": true
+    },
+    "gutterPosition": {
+      "title": "'Position of Gutter Highlights",
+      "description": "Relative to line number gutter",
+      "type": "string",
+      "enum": ["Left", "Right"],
+      "default": "Right"
+    }
   }
 }
