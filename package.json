@@ -10,7 +10,8 @@
     "atom": ">=1.4.0 <2.0.0"
   },
   "dependencies": {
-    "preact": "^4.1.1"
+    "preact": "^4.1.1",
+    "sb-debounce": "^1.0.1"
   },
   "providedServices": {
     "linter-ui": {
@@ -28,7 +29,11 @@
     "showIssuesFrom": {
       "title": "Show issues in Panel From",
       "type": "string",
-      "enum": ["All Files", "Current File", "Current Line"],
+      "enum": [
+        "All Files",
+        "Current File",
+        "Current Line"
+      ],
       "default": "Current File"
     },
     "highlightIssues": {
@@ -46,7 +51,10 @@
       "title": "'Position of Gutter Highlights",
       "description": "Relative to line number gutter",
       "type": "string",
-      "enum": ["Left", "Right"],
+      "enum": [
+        "Left",
+        "Right"
+      ],
       "default": "Right"
     }
   }
