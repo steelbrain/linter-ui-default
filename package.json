@@ -7,7 +7,7 @@
   "repository": "https://github.com/AtomLinter/linter-ui-default",
   "license": "MIT",
   "engines": {
-    "atom": ">=1.0.0 <2.0.0"
+    "atom": ">=1.4.0 <2.0.0"
   },
   "dependencies": {
     "preact": "^4.1.1"
@@ -27,7 +27,7 @@
     },
     "showIssuesFrom": {
       "title": "Show issues in Panel From",
-      "type": "boolean",
+      "type": "string",
       "enum": ["All Files", "Current File", "Current Line"],
       "default": "Current File"
     },
