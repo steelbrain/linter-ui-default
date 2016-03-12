@@ -10,8 +10,7 @@
     "atom": ">=1.4.0 <2.0.0"
   },
   "dependencies": {
-    "preact": "^4.1.1",
-    "sb-debounce": "^1.0.1"
+    "preact": "^4.1.1"
   },
   "providedServices": {
     "linter-ui": {
