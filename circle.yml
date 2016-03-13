@@ -9,8 +9,7 @@ dependencies:
 test:
   override:
     - npm test
-    # TODO: Make this required
-    - npm run lint || true
+    - npm run lint
 
 machine:
   node:
