@@ -1,5 +1,6 @@
 ### Upcoming
 
+- The messages in panel are now sorted by both file path and range
 - Make tooltips trigger on mouse move instead of cursor move
 - Huge performance improvements
 
