@@ -10,7 +10,9 @@
     "atom": ">=1.4.0 <2.0.0"
   },
   "dependencies": {
-    "preact": "^4.1.1"
+    "disposable-event": "^1.0.0",
+    "preact": "^4.1.1",
+    "sb-debounce": "^1.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0",
