@@ -1,6 +1,7 @@
 ### Upcoming
 
-- Fix an editor leak
+- Make tooltips trigger on mouse move instead of cursor move
+- Huge performance improvements
 
 #### v0.0.2
 
