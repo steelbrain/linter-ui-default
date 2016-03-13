@@ -54,7 +54,6 @@
     },
     "highlightIssues": {
       "title": "'Underline and highlight gutters of issues",
-      "description": "Requires a restart to take effect",
       "type": "boolean",
       "default": true
     },
