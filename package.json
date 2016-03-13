@@ -37,6 +37,11 @@
       "description": "Show panel at the bottom of screen",
       "default": true
     },
+    "showProviderName": {
+      "type": "boolean",
+      "description": "Show provider name in messages",
+      "default": true
+    },
     "showIssuesFrom": {
       "title": "Show issues in Panel From",
       "type": "string",
