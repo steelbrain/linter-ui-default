@@ -9,6 +9,10 @@
   "engines": {
     "atom": ">=1.4.0 <2.0.0"
   },
+  "scripts": {
+    "test": "apm test",
+    "lint": "eslint ."
+  },
   "dependencies": {
     "disposable-event": "^1.0.0",
     "preact": "^4.1.1",
