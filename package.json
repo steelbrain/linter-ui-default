@@ -54,7 +54,7 @@
       "default": "Current File"
     },
     "highlightIssues": {
-      "title": "'Underline and highlight gutters of issues",
+      "title": "Underline and highlight gutters of issues",
       "type": "boolean",
       "default": true
     },
