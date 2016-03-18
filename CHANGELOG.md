@@ -1,6 +1,9 @@
 ### Upcoming
 
-- Fix an editor leak
+- The messages in panel are now sorted by both file path and range
+- Make tooltips trigger on mouse move instead of cursor move
+- Huge performance improvements
+- Automatically update positions in panel to match latest ones from the Editor (Fixes #47)
 
 #### v0.0.2
 

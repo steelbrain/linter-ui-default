@@ -7,16 +7,71 @@
   "repository": "https://github.com/AtomLinter/linter-ui-default",
   "license": "MIT",
   "engines": {
-    "atom": ">=1.0.0 <2.0.0"
+    "atom": ">=1.4.0 <2.0.0"
+  },
+  "scripts": {
+    "test": "apm test",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "vanilla-jsx": "^2.0.0"
+    "disposable-event": "^1.0.0",
+    "lodash.filter": "^4.2.1",
+    "preact": "^4.4.0",
+    "sb-debounce": "^1.0.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^5.0.0",
+    "eslint": "~2.2.0",
+    "eslint-config-airbnb": "^6.1.0",
+    "eslint-plugin-react": "^4.2.1"
   },
   "providedServices": {
     "linter-ui": {
       "versions": {
         "1.0.0": "provideUI"
       }
+    }
+  },
+  "configSchema": {
+    "showPanel": {
+      "type": "boolean",
+      "description": "Show panel at the bottom of screen",
+      "default": true
+    },
+    "showProviderName": {
+      "type": "boolean",
+      "description": "Show provider name in messages",
+      "default": true
+    },
+    "showIssuesFrom": {
+      "title": "Show issues in Panel From",
+      "type": "string",
+      "enum": [
+        "All Files",
+        "Current File",
+        "Current Line"
+      ],
+      "default": "Current File"
+    },
+    "highlightIssues": {
+      "title": "Underline and highlight gutters of issues",
+      "type": "boolean",
+      "default": true
+    },
+    "showBubble": {
+      "description": "Show inline issue bubbles",
+      "type": "boolean",
+      "default": true
+    },
+    "gutterPosition": {
+      "title": "'Position of Gutter Highlights",
+      "description": "Relative to line number gutter",
+      "type": "string",
+      "enum": [
+        "Left",
+        "Right"
+      ],
+      "default": "Right"
     }
   }
 }

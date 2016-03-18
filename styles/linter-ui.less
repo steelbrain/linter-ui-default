@@ -1,65 +1,9 @@
 @import "ui-variables";
 @import 'octicon-utf-codes';
 
-linter-ui-default-panel {
+linter-panel-messages {
   display: block;
-  max-height: 500px;
-
-  .panel-heading {
-    padding: 3px 10px;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    width: 100%;
-
-    .heading-status {
-      margin-left: 50px;
-
-      > span {
-        padding-left: 5px;
-      }
-
-      heading-status .icon-hourglass::before {
-        -webkit-animation: linter-ui-default-spin 1s infinite linear;
-      }
-    }
-
-    .heading-icons {
-      justify-content: flex-end;
-      margin-left: auto;
-      cursor: pointer;
-      span:first-child {
-        padding-right: 10px;
-      }
-    }
-  }
-
-  .panel-body {
-    padding: 2px 5px;
-    max-height: 88px;
-    overflow-x: scroll;
-    &.hide, &.empty {
-      display: none;
-    }
-  }
-
-  [hidden] {
-    display: none;
-  }
-
-  .heading-status {
-    &.status-success {
-      color: @background-color-success;
-    }
-    &.status-error {
-      color: @background-color-error;
-    }
-  }
-}
-
-@-webkit-keyframes linter-ui-default-spin {
-  0%   {-webkit-transform: rotate(0deg)}
-  100% {-webkit-transform: rotate(360deg)}
+  overflow-y: scroll;
 }
 
 @spacing: 3px;
