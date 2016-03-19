@@ -39,6 +39,7 @@
     }
   },
   "package-deps": [
+    "busy-signal",
     "intentions"
   ],
   "configSchema": {
