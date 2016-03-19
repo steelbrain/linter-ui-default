@@ -38,7 +38,15 @@
       }
     }
   },
+  "consumedServices": {
+    "busy-signal": {
+      "versions": {
+        "1.0.0": "consumeSignal"
+      }
+    }
+  },
   "package-deps": [
+    "busy-signal",
     "intentions"
   ],
   "configSchema": {
