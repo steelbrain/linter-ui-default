@@ -14,15 +14,14 @@ apm uninstall linter linter-ui-default
 
 # Clone linter-ui-default package
 cd ~/.atom/packages
-git clone AtomLinter/linter-ui-default
+git clone steelbrain/linter-ui-default
 cd linter-ui-default
 apm install
 
-# Install the UI service patch over linter
+# Install the latest, unreleased linter
 cd ~/.atom/packages
-git clone atom-community/linter
+git clone steelbrain/linter
 cd linter
-git checkout https://github.com/atom-community/linter/pull/995
 apm install
 ```
 
