@@ -89,6 +89,14 @@
         "Right"
       ],
       "default": "Right"
+    },
+    "messageTypesToIgnoreInPanel": {
+      "description": "If you want to see a message type higlighted in editor but not in panel",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
     }
   }
 }
