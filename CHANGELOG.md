@@ -4,6 +4,9 @@
 - Make tooltips trigger on mouse move instead of cursor move
 - Huge performance improvements
 - Automatically update positions in panel to match latest ones from the Editor (Fixes #47)
+- Add `messageTypesToIgnoreInPanel` config
+- Fix a bug with Atom where it would null out ranges in messages of project scoped linters
+- Add next and previous error commands
 
 #### v0.0.2
 
