@@ -89,6 +89,14 @@
         "Right"
       ],
       "default": "Right"
+    },
+    "messageTypesToIgnoreInPanel": {
+      "description": "Comma separated list of message types to *only* show in editor, and not in panel",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
     }
   }
 }
