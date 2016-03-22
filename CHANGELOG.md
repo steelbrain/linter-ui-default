@@ -1,12 +1,20 @@
 ### Upcoming
 
-- The messages in panel are now sorted by both file path and range
-- Make tooltips trigger on mouse move instead of cursor move
-- Huge performance improvements
-- Automatically update positions in panel to match latest ones from the Editor (Fixes #47)
 - Add `messageTypesToIgnoreInPanel` config
 - Fix a bug with Atom where it would null out ranges in messages of project scoped linters
 - Add next and previous error commands
+
+### v0.0.3
+
+- The messages in panel are now sorted by both file path and range
+- Make tooltips trigger on mouse move instead of cursor move
+- Huge performance improvements
+- Improve handling of messages with no range
+- Implement `Current Line`, `Current File` and `All Files` filters for Panel
+- Live update coords in panel messages
+- Sort messages in panel by both Line and File
+- Integrate with busy-signal package
+- Allow copy from linter panel
 
 #### v0.0.2
 
