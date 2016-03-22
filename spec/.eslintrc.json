@@ -1,0 +1,12 @@
+{
+  "globals": {
+    "waitsForPromise": true,
+    "describe": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "jasmine": true,
+    "expect": true,
+    "spyOn": true,
+    "it": true
+  }
+}
