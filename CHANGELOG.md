@@ -4,6 +4,7 @@
 - Fix a bug with Atom where it would null out ranges in messages of project scoped linters
 - Add next and previous error commands
 - Add support for `selected` attribute on linter messages
+- Fix a bug where messages intersection in text manipulation in editor won't be painted in their real range
 
 ### v0.0.3
 
