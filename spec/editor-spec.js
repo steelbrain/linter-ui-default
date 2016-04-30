@@ -5,13 +5,13 @@
 /* eslint-disable prefer-const */
 
 import { Range } from 'atom'
-import Buffer from '../lib/buffer'
+import Editor from '../lib/editor'
 import { getMessage } from './helpers'
 
-describe('Buffer', function() {
-  let buffer
+describe('Editor', function() {
+  let editor
   let message
-  let textBuffer
+  let textEditor
 
   beforeEach(function() {
     message = getMessage()
@@ -19,34 +19,34 @@ describe('Buffer', function() {
     message.filePath = __filename
     waitsForPromise(function() {
       return atom.workspace.open(__filename).then(function() {
-        textBuffer = atom.workspace.getActiveTextEditor().getBuffer()
-        buffer = new Buffer(textBuffer)
+        textEditor = atom.workspace.getActiveTextEditor()
+        editor = new Editor(textEditor, true)
       })
     })
   })
   afterEach(function() {
-    buffer.dispose()
+    editor.dispose()
     atom.workspace.destroyActivePaneItem()
   })
 
   describe('apply', function() {
-    it('applies the messages to the buffer', function() {
-      expect(textBuffer.getMarkerCount()).toBe(0)
-      buffer.apply([message], [])
-      expect(textBuffer.getMarkerCount()).toBe(1)
-      buffer.apply([], [message])
-      expect(textBuffer.getMarkerCount()).toBe(0)
+    it('applies the messages to the editor', function() {
+      expect(textEditor.getMarkerCount()).toBe(0)
+      editor.apply([message], [])
+      expect(textEditor.getMarkerCount()).toBe(1)
+      editor.apply([], [message])
+      expect(textEditor.getMarkerCount()).toBe(0)
     })
     it('makes sure that the message is updated if text is manipulated', function() {
-      expect(textBuffer.getMarkerCount()).toBe(0)
-      buffer.apply([message], [])
-      expect(textBuffer.getMarkerCount()).toBe(1)
+      expect(textEditor.getMarkerCount()).toBe(0)
+      editor.apply([message], [])
+      expect(textEditor.getMarkerCount()).toBe(1)
       expect(Range.fromObject(message.range)).toEqual({ start: { row: 2, column: 0 }, end: { row: 2, column: 1 } })
-      textBuffer.insert([2, 0], 'Hello')
+      textEditor.getBuffer().insert([2, 0], 'Hello')
       expect(Range.fromObject(message.range)).toEqual({ start: { row: 2, column: 0 }, end: { row: 2, column: 6 } })
-      buffer.apply([], [message])
+      editor.apply([], [message])
       expect(Range.fromObject(message.range)).toEqual({ start: { row: 2, column: 0 }, end: { row: 2, column: 6 } })
-      expect(textBuffer.getMarkerCount()).toBe(0)
+      expect(textEditor.getMarkerCount()).toBe(0)
     })
   })
 })
