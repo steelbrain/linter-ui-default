@@ -4,9 +4,9 @@
 
 /* eslint-disable prefer-const */
 
-import { Range } from 'atom'
+import { Range, Point } from 'atom'
 import Editor from '../lib/editor'
-import { it, wait, getMessage } from './helpers'
+import { it, wait, getMessage, generateEvent } from './helpers'
 
 describe('Editor', function() {
   let editor
@@ -52,6 +52,7 @@ describe('Editor', function() {
   describe('Response to config', function() {
     it('responds to `tooltipFollows` config', async function() {
       const position = [2, 1]
+      const editorElement = atom.views.getView(textEditor)
       editor.apply([
         getMessage('Error', __filename, Range.fromObject([position, [Infinity, Infinity]]))
       ], [])
@@ -65,6 +66,15 @@ describe('Editor', function() {
 
       atom.config.set('linter-ui-default.tooltipFollows', 'Mouse')
       expect(editor.bubble).toBe(null)
+      const event = generateEvent(editorElement, 'mousemove')
+      Object.defineProperty(event, 'target', { value: editorElement })
+      editorElement.dispatchEvent(event)
+      spyOn(textEditor, 'bufferPositionForScreenPosition').andCallFake(function() {
+        return Point.fromObject(position)
+      })
+      await wait(200)
+      expect(editor.bubble).not.toBe(null)
+      expect(typeof editor.bubble.destroy).toBe('function')
     })
   })
 })

@@ -8,6 +8,12 @@ export function dispatchCommand(target: Object, commandName: string) {
   atom.commands.dispatch(atom.views.getView(target), commandName)
 }
 
+export function generateEvent(element: Element, name: string) {
+  const event = document.createEvent('HTMLEvents')
+  event.initEvent(name, true, false)
+  return event
+}
+
 // Our sugar method that allows us to pass async functions and do await in it
 export function it(name, callback) {
   global.it(name, function() {
