@@ -64,6 +64,7 @@ describe('Editor', function() {
       expect(editor.bubble).not.toBe(null)
       expect(typeof editor.bubble.destroy).toBe('function')
 
+      const pixelPosition = { top: 0, left: 0 }
       atom.config.set('linter-ui-default.tooltipFollows', 'Mouse')
       expect(editor.bubble).toBe(null)
       const event = generateEvent(editorElement, 'mousemove')
@@ -71,6 +72,12 @@ describe('Editor', function() {
       editorElement.dispatchEvent(event)
       spyOn(textEditor, 'bufferPositionForScreenPosition').andCallFake(function() {
         return Point.fromObject(position)
+      })
+      spyOn(textEditor, 'pixelPositionForScreenPosition').andCallFake(function() {
+        return pixelPosition
+      })
+      spyOn(editorElement.component, 'pixelPositionForMouseEvent').andCallFake(function() {
+        return pixelPosition
       })
       await wait(200)
       expect(editor.bubble).not.toBe(null)
