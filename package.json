@@ -80,6 +80,14 @@
       "type": "boolean",
       "default": true
     },
+    "tooltipFollows": {
+      "type": "string",
+      "enum": [
+        "Mouse",
+        "Keyboard"
+      ],
+      "default": "Mouse"
+    },
     "gutterPosition": {
       "title": "Position of Gutter Highlights",
       "description": "Relative to line number gutter",

@@ -1,6 +1,7 @@
 ### Upcoming
 
 - Add `messageTypesToIgnoreInPanel` config
+- Add `tooltipFollows` config
 - Fix a bug with Atom where it would null out ranges in messages of project scoped linters
 - Add next and previous error commands
 - Add support for `selected` attribute on linter messages
