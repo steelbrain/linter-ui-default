@@ -77,4 +77,10 @@ describe('Editor', function() {
       expect(typeof editor.bubble.destroy).toBe('function')
     })
   })
+  it('responds to `gutterPosition` config', function() {
+    atom.config.set('linter-ui-default.gutterPosition', 'Left')
+    expect(editor.gutter.priority).toBe(-100)
+    atom.config.set('linter-ui-default.gutterPosition', 'Right')
+    expect(editor.gutter.priority).toBe(100)
+  })
 })
