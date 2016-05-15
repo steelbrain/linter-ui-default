@@ -20,7 +20,7 @@ describe('Editor', function() {
     waitsForPromise(function() {
       return atom.workspace.open(__filename).then(function() {
         textEditor = atom.workspace.getActiveTextEditor()
-        editor = new Editor(textEditor, true)
+        editor = new Editor(textEditor)
       })
     })
   })
