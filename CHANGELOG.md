@@ -1,5 +1,6 @@
 ### Upcoming
 
+- Add new icon to message to copy item
 - Add `messageTypesToIgnoreInPanel` config
 - Add `tooltipFollows` config
 - Fix a bug with Atom where it would null out ranges in messages of project scoped linters
