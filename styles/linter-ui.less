@@ -162,3 +162,13 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight{
     }
   }
 }
+
+atom-text-editor::shadow .gutter[gutter-name="linter"] {
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+
+  .custom-decorations {
+    background-color: transparent !important;
+  }
+}
