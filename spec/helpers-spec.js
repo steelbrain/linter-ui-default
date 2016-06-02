@@ -1,6 +1,6 @@
 'use babel'
 
-import { visitMessage } from '../lib/helpers'
+import { visitMessage, htmlToText } from '../lib/helpers'
 
 describe('Helpers', function() {
   afterEach(function() {
@@ -40,6 +40,16 @@ describe('Helpers', function() {
           expect(selected.mostRecentCall.args[0]).toBe(message)
         })
       })
+    })
+  })
+  describe('htmlToText', function() {
+    it('converts html to text properly', function() {
+      expect(htmlToText('<button>Hey&nbsp;Man</button> What\'s Up?')).toBe('Hey Man What\'s Up?')
+    })
+    it('also accepts html elements', function() {
+      const element = document.createElement('div')
+      element.innerHTML = '<button>Hey&nbsp;Man</button> What\'s Up?'
+      expect(htmlToText(element)).toBe('Hey Man What\'s Up?')
     })
   })
 })
