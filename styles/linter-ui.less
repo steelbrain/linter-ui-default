@@ -125,7 +125,7 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight{
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  &.error {
+  &.linter-error {
     &:not(.line-number){
       background-color: @background-color-error;
       color: white;
@@ -137,7 +137,7 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight{
       border-bottom: 1px dashed @background-color-error;
     }
   }
-  &.warning {
+  &.linter-warning {
     &:not(.line-number){
       background-color: @background-color-warning;
       color: white;
@@ -149,7 +149,7 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight{
       border-bottom: 1px dashed @background-color-warning;
     }
   }
-  &.trace, &.info {
+  &.linter-info {
     &:not(.line-number){
       background-color: @background-color-info;
       color: white;
