@@ -70,7 +70,7 @@
       ],
       "default": "Current File"
     },
-    "highlightIssues": {
+    "showDecorations": {
       "description": "Underline editor text and highlight gutter of issues",
       "type": "boolean",
       "default": true
