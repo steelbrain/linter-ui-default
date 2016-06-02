@@ -1,14 +1,15 @@
 ### Upcoming
 
 - Add `tooltipFollows` config
+- Make the gutter transparent
+- Add new icon to message to copy item
+- Add next and previous error commands
+- Add `messageTypesToIgnoreInPanel` config
+- Make `showPanel` config change apply live
 - Make `gutterPosition` config change apply live
 - Make `highlightIssues` config change apply live
-- Fix a bug with Atom where it would null out ranges in messages of project scoped linters
-- Make the gutter transparent
-- Add next and previous error commands
-- Add new icon to message to copy item
-- Add `messageTypesToIgnoreInPanel` config
 - Add support for `selected` attribute on linter messages
+- Fix a bug with Atom where it would null out ranges in messages of project scoped linters
 - Fix a bug with Atom where it would null out ranges in messages of project scoped linters
 - Fix a bug where messages intersection in text manipulation in editor won't be painted in their real range
 - Fix a bug where tooltip won't be hidden if cursor was out of line bounds (steelbrain/linter-ui-default#63)
