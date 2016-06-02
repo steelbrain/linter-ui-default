@@ -7,7 +7,7 @@
 - Add `messageTypesToIgnoreInPanel` config
 - Make `showPanel` config change apply live
 - Make `gutterPosition` config change apply live
-- Make `highlightIssues` config change apply live
+- Make `showDecorations` config change apply live
 - Add support for `selected` attribute on linter messages
 - Fix a bug with Atom where it would null out ranges in messages of project scoped linters
 - Fix a bug with Atom where it would null out ranges in messages of project scoped linters

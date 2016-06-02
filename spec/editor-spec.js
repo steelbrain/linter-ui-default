@@ -55,7 +55,7 @@ describe('Editor', function() {
       const position = [2, 1]
       const editorElement = atom.views.getView(textEditor)
       editor.apply([
-        getMessage('Error', __filename, Range.fromObject([position, [Infinity, Infinity]]))
+        getMessage('Error', __filename, Range.fromObject([position, [Infinity, Infinity]])),
       ], [])
 
       atom.config.set('linter-ui-default.tooltipFollows', 'Keyboard')
@@ -91,11 +91,11 @@ describe('Editor', function() {
     atom.config.set('linter-ui-default.gutterPosition', 'Right')
     expect(editor.gutter.priority).toBe(100)
   })
-  it('responds to `highlightIssues` config', function() {
+  it('responds to `showDecorations` config', function() {
     expect(editor.gutter).not.toBe(null)
-    atom.config.set('linter-ui-default.highlightIssues', false)
+    atom.config.set('linter-ui-default.showDecorations', false)
     expect(editor.gutter).toBe(null)
-    atom.config.set('linter-ui-default.highlightIssues', true)
+    atom.config.set('linter-ui-default.showDecorations', true)
     expect(editor.gutter).not.toBe(null)
   })
 })
