@@ -2,6 +2,7 @@
 
 - Add `tooltipFollows` config
 - Make `gutterPosition` config change apply live
+- Make `highlightIssues` config change apply live
 - Fix a bug with Atom where it would null out ranges in messages of project scoped linters
 - Make the gutter transparent
 - Add next and previous error commands
