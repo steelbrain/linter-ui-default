@@ -55,10 +55,25 @@
       "description": "Show panel at the bottom of screen",
       "default": true
     },
+    "showBubble": {
+      "description": "Show inline issue bubbles",
+      "type": "boolean",
+      "default": true
+    },
+    "showDecorations": {
+      "description": "Underline editor text and highlight gutter of issues",
+      "type": "boolean",
+      "default": true
+    },
     "showProviderName": {
       "type": "boolean",
       "description": "Show provider name in messages",
       "default": true
+    },
+    "showCopyButton": {
+      "type": "boolean",
+      "description": "Show copy button with messages in Panel",
+      "default": false
     },
     "showIssuesFrom": {
       "title": "Show issues in Panel From",
@@ -69,16 +84,6 @@
         "Current Line"
       ],
       "default": "Current File"
-    },
-    "showDecorations": {
-      "description": "Underline editor text and highlight gutter of issues",
-      "type": "boolean",
-      "default": true
-    },
-    "showBubble": {
-      "description": "Show inline issue bubbles",
-      "type": "boolean",
-      "default": true
     },
     "tooltipFollows": {
       "type": "string",
