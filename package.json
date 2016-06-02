@@ -71,7 +71,7 @@
       "default": "Current File"
     },
     "highlightIssues": {
-      "title": "Show gutter dots and editor highlights for issues",
+      "description": "Underline editor text and highlight gutter of issues",
       "type": "boolean",
       "default": true
     },

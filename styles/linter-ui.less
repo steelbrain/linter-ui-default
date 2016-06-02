@@ -28,6 +28,13 @@ linter-message {
   margin: 0 0 0 @spacing;
 }
 
+.linter-message-copy-link {
+  &::before {
+    font-family: 'Octicons Regular';
+    content: @clippy;
+  }
+}
+
 linter-message-line {
   white-space: pre-wrap; /* Enable whitespace to be maintained from the user message. */
 }
@@ -153,5 +160,15 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight{
     .region {
       border-bottom: 1px dashed @background-color-info;
     }
+  }
+}
+
+atom-text-editor::shadow .gutter[gutter-name="linter"] {
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+
+  .custom-decorations {
+    background-color: transparent !important;
   }
 }
