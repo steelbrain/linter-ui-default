@@ -23,6 +23,7 @@ describe('Editor', function() {
         editor = new Editor(textEditor)
       })
     })
+    atom.packages.loadPackage('linter-ui-default')
   })
   afterEach(function() {
     editor.dispose()
