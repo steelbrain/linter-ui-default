@@ -91,4 +91,11 @@ describe('Editor', function() {
     atom.config.set('linter-ui-default.gutterPosition', 'Right')
     expect(editor.gutter.priority).toBe(100)
   })
+  it('responds to `highlightIssues` config', function() {
+    expect(editor.gutter).not.toBe(null)
+    atom.config.set('linter-ui-default.highlightIssues', false)
+    expect(editor.gutter).toBe(null)
+    atom.config.set('linter-ui-default.highlightIssues', true)
+    expect(editor.gutter).not.toBe(null)
+  })
 })
