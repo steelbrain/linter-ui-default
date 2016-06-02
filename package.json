@@ -53,27 +53,32 @@
     "showPanel": {
       "type": "boolean",
       "description": "Show panel at the bottom of screen",
-      "default": true
+      "default": true,
+      "order": 1
     },
     "showBubble": {
       "description": "Show inline issue bubbles",
       "type": "boolean",
-      "default": true
+      "default": true,
+      "order": 1
     },
     "showDecorations": {
       "description": "Underline editor text and highlight gutter of issues",
       "type": "boolean",
-      "default": true
+      "default": true,
+      "order": 1
     },
     "showProviderName": {
       "type": "boolean",
       "description": "Show provider name in messages",
-      "default": true
+      "default": true,
+      "order": 1
     },
     "showCopyButton": {
       "type": "boolean",
-      "description": "Show copy button with messages in Panel",
-      "default": false
+      "description": "Show copy button with messages in Panel and Bubble",
+      "default": false,
+      "order": 1
     },
     "showIssuesFrom": {
       "title": "Show issues in Panel From",
@@ -83,7 +88,8 @@
         "Current File",
         "Current Line"
       ],
-      "default": "Current File"
+      "default": "Current File",
+      "order": 2
     },
     "tooltipFollows": {
       "type": "string",
@@ -91,7 +97,8 @@
         "Mouse",
         "Keyboard"
       ],
-      "default": "Mouse"
+      "default": "Mouse",
+      "order": 2
     },
     "gutterPosition": {
       "title": "Position of Gutter Highlights",
@@ -101,7 +108,8 @@
         "Left",
         "Right"
       ],
-      "default": "Right"
+      "default": "Right",
+      "order": 2
     },
     "messageTypesToIgnoreInPanel": {
       "description": "Comma separated list of message types to *only* show in editor, and not in panel",
@@ -109,7 +117,8 @@
       "items": {
         "type": "string"
       },
-      "default": []
+      "default": [],
+      "order": 3
     }
   }
 }
