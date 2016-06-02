@@ -20,9 +20,10 @@ describe('Editor', function() {
     waitsForPromise(function() {
       return atom.workspace.open(__filename).then(function() {
         textEditor = atom.workspace.getActiveTextEditor()
-        editor = new Editor(textEditor, true)
+        editor = new Editor(textEditor)
       })
     })
+    atom.packages.loadPackage('linter-ui-default')
   })
   afterEach(function() {
     editor.dispose()
@@ -83,5 +84,18 @@ describe('Editor', function() {
       expect(editor.bubble).not.toBe(null)
       expect(typeof editor.bubble.destroy).toBe('function')
     })
+  })
+  it('responds to `gutterPosition` config', function() {
+    atom.config.set('linter-ui-default.gutterPosition', 'Left')
+    expect(editor.gutter.priority).toBe(-100)
+    atom.config.set('linter-ui-default.gutterPosition', 'Right')
+    expect(editor.gutter.priority).toBe(100)
+  })
+  it('responds to `highlightIssues` config', function() {
+    expect(editor.gutter).not.toBe(null)
+    atom.config.set('linter-ui-default.highlightIssues', false)
+    expect(editor.gutter).toBe(null)
+    atom.config.set('linter-ui-default.highlightIssues', true)
+    expect(editor.gutter).not.toBe(null)
   })
 })
