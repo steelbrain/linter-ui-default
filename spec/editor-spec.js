@@ -55,7 +55,7 @@ describe('Editor', function() {
       const position = [2, 1]
       const editorElement = atom.views.getView(textEditor)
       editor.apply([
-        getMessage('Error', __filename, Range.fromObject([position, [Infinity, Infinity]]))
+        getMessage('Error', __filename, Range.fromObject([position, [Infinity, Infinity]])),
       ], [])
 
       atom.config.set('linter-ui-default.tooltipFollows', 'Keyboard')
