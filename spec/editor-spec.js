@@ -74,7 +74,7 @@ describe('Editor', function() {
       spyOn(textEditor, 'bufferPositionForScreenPosition').andCallFake(function() {
         return Point.fromObject(position)
       })
-      spyOn(textEditor, 'pixelPositionForScreenPosition').andCallFake(function() {
+      spyOn(editorElement, 'pixelPositionForScreenPosition').andCallFake(function() {
         return pixelPosition
       })
       spyOn(editorElement.component, 'pixelPositionForMouseEvent').andCallFake(function() {
