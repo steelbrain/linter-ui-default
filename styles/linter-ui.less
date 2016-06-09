@@ -1,11 +1,34 @@
-@import "ui-variables";
-@import 'octicon-utf-codes';
+#linter-tooltip {
+  margin-top: 3px;
 
-linter-message {
-  display: flex;
-  align-items: center;
-  font-size: @font-size;
-  line-height: 1.2;
+  .message-with-severity(@color) {
+    background-color: @color;
+    &::before {
+      border-color: transparent transparent @color @color;
+    }
+  }
+
+  linter-message {
+    display: block;
+    color: black;
+    padding: 2px 5px;
+
+    &.error {
+      .message-with-severity(#db5656);
+    }
+    &.warning {
+      .message-with-severity(#d2bf73);
+    }
+
+    // Arrow pointer
+    &::before {
+      content: "";
+      position: absolute;
+      top: -4px;
+      left: 0;
+      border: 4px solid;
+    }
+  }
 }
 
 atom-text-editor::shadow .gutter[gutter-name="linter"] {
