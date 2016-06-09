@@ -9,10 +9,7 @@
   }
 
   linter-message {
-    display: block;
     color: black;
-    padding: 2px 5px;
-
     &.error {
       .message-with-severity(#db5656);
     }
@@ -33,6 +30,17 @@
       font-weight: bold;
     }
   }
+}
+
+linter-panel {
+  display: block;
+  max-height: 110px;
+  overflow-y: scroll;
+}
+
+linter-message {
+  display: block;
+  padding: 2px 5px;
 }
 
 atom-text-editor::shadow .gutter[gutter-name="linter"] {
