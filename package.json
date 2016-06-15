@@ -74,12 +74,6 @@
       "default": true,
       "order": 1
     },
-    "showCopyButton": {
-      "type": "boolean",
-      "description": "Show copy button with messages in Panel and Bubble",
-      "default": false,
-      "order": 1
-    },
     "showIssuesFrom": {
       "title": "Show issues in Panel From",
       "type": "string",
