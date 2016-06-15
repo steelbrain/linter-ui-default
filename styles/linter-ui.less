@@ -1,3 +1,5 @@
+@import "ui-variables";
+
 #linter-tooltip {
   margin-top: 3px;
 
@@ -50,5 +52,22 @@ atom-text-editor::shadow .gutter[gutter-name="linter"] {
 
   .custom-decorations {
     background-color: transparent !important;
+  }
+}
+
+atom-text-editor::shadow .linter-highlight, .linter-highlight {
+  .error_type(@color) {
+    .region {
+      border-bottom: 1px dotted @color;
+    }
+  }
+  &.linter-error {
+    .error_type(@background-color-error);
+  }
+  &.linter-warning {
+    .error_type(@background-color-warning);
+  }
+  &.linter-info {
+    .error_type(@background-color-info);
   }
 }
