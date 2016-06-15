@@ -53,7 +53,7 @@
     "showPanel": {
       "type": "boolean",
       "description": "Show panel at the bottom of screen",
-      "default": true,
+      "default": false,
       "order": 1
     },
     "showBubble": {
@@ -71,7 +71,7 @@
     "showProviderName": {
       "type": "boolean",
       "description": "Show provider name in messages",
-      "default": true,
+      "default": false,
       "order": 1
     },
     "showIssuesFrom": {
