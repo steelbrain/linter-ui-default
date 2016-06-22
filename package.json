@@ -74,6 +74,16 @@
       "default": false,
       "order": 1
     },
+    "decorateOnTreeView": {
+      "type": "string",
+      "default": "Files",
+      "enum": [
+        "Files and Directories",
+        "Files",
+        "None"
+      ],
+      "order": 2
+    },
     "showIssuesFrom": {
       "title": "Show issues in Panel From",
       "type": "string",
