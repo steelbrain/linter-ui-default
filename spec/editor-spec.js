@@ -5,8 +5,9 @@
 /* eslint-disable prefer-const */
 
 import { Range, Point } from 'atom'
+import { it, wait } from 'jasmine-fix'
 import Editor from '../lib/editor'
-import { it, wait, getMessage, generateEvent } from './helpers'
+import { getMessage, generateEvent } from './helpers'
 
 describe('Editor', function() {
   let editor

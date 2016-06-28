@@ -1,7 +1,8 @@
 'use babel'
 
 import Commands from '../lib/commands'
-import { it, wait, dispatchCommand, getMessage } from './helpers'
+import { it, wait } from 'jasmine-fix'
+import { dispatchCommand, getMessage } from './helpers'
 
 describe('Commands', function() {
   let commands
