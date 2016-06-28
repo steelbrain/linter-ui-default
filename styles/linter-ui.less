@@ -82,16 +82,24 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight {
   }
 }
 .tree-view {
+  span.name {
+    position: relative;
+  }
   .error_type(@color) {
+    top: -3px;
+    left: 21px;
+    height: 100%;
+    width: calc(~"100% - 18px");
+    position: absolute;
     border-bottom: 1px dotted @color;
   }
   .linter-info {
     .error_type(@background-color-info);
   }
-  span.linter-warning {
+  linter-decoration.linter-warning {
     .error_type(@background-color-warning);
   }
-  span.icon.linter-error {
+  span linter-decoration.linter-error {
     .error_type(@background-color-error);
   }
 }
