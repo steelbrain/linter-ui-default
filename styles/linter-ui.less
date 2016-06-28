@@ -82,13 +82,13 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight {
   .error_type(@color) {
     border-bottom: 1px dotted @color;
   }
-  .linter-error {
-    .error_type(@background-color-error);
-  }
-  .linter-warning {
-    .error_type(@background-color-warning);
-  }
   .linter-info {
     .error_type(@background-color-info);
+  }
+  span.linter-warning {
+    .error_type(@background-color-warning);
+  }
+  span.icon.linter-error {
+    .error_type(@background-color-error);
   }
 }
