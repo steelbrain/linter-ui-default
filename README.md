@@ -20,7 +20,7 @@ apm install
 
 # Install the latest, unreleased linter
 cd ~/.atom/packages
-git clone steelbrain/linter
+git clone steelbrain/linter -b steelbrain/transition-towards-ide
 cd linter
 apm install
 ```
