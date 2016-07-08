@@ -18,7 +18,8 @@
     "disposable-event": "^1.0.0",
     "lodash.filter": "^4.2.1",
     "preact": "^4.4.0",
-    "sb-debounce": "^1.0.1"
+    "sb-debounce": "^1.0.1",
+    "sb-event-kit": "^2.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.2",
