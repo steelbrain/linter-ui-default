@@ -1,7 +1,7 @@
 'use babel'
 
 export function getMessage(type = 'Error', filePath, range) {
-  return { type, text: 'Some Message', filePath, range }
+  return { type, text: 'Some Message', filePath, range, version: 1 }
 }
 
 export function dispatchCommand(target: Object, commandName: string) {

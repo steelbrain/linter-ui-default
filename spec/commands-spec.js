@@ -1,5 +1,6 @@
 'use babel'
 
+import { Range } from 'atom'
 import { it, wait } from 'jasmine-fix'
 import Commands from '../lib/commands'
 import { dispatchCommand, getMessage } from './helpers'
@@ -32,7 +33,7 @@ describe('Commands', function() {
   })
   it('sets position properly', async function() {
     const message = getMessage()
-    message.range = [[5, 0], [5, 1]]
+    message.range = Range.fromObject([[5, 0], [5, 1]])
     message.filePath = __filename
     commands.onShouldProvideMessages(function(event) {
       event.messages = [message]
@@ -45,7 +46,7 @@ describe('Commands', function() {
     let line = 2
     const messages = [getMessage('Error', __filename), getMessage('Error', __filename), getMessage('Error', __filename)]
     for (const message of messages) {
-      message.range = [[line, 0], [line, 1]]
+      message.range = Range.fromObject([[line, 0], [line, 1]])
       line++
     }
     commands.onShouldProvideMessages(function(event) {
