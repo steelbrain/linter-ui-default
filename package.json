@@ -18,13 +18,15 @@
     "disposable-event": "^1.0.0",
     "lodash.filter": "^4.2.1",
     "preact": "^4.4.0",
-    "sb-debounce": "^1.0.1"
+    "sb-debounce": "^1.0.1",
+    "sb-event-kit": "^2.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.2",
     "eslint": "^2.6.0",
     "eslint-config-airbnb": "^6.1.0",
-    "eslint-plugin-react": "^4.2.1"
+    "eslint-plugin-react": "^4.2.1",
+    "jasmine-fix": "^1.0.0"
   },
   "providedServices": {
     "linter-ui": {
@@ -53,7 +55,7 @@
     "showPanel": {
       "type": "boolean",
       "description": "Show panel at the bottom of screen",
-      "default": true,
+      "default": false,
       "order": 1
     },
     "showBubble": {
@@ -71,14 +73,18 @@
     "showProviderName": {
       "type": "boolean",
       "description": "Show provider name in messages",
-      "default": true,
-      "order": 1
-    },
-    "showCopyButton": {
-      "type": "boolean",
-      "description": "Show copy button with messages in Panel and Bubble",
       "default": false,
       "order": 1
+    },
+    "decorateOnTreeView": {
+      "type": "string",
+      "default": "Files",
+      "enum": [
+        "Files and Directories",
+        "Files",
+        "None"
+      ],
+      "order": 2
     },
     "showIssuesFrom": {
       "title": "Show issues in Panel From",
