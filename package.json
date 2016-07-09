@@ -22,10 +22,7 @@
     "sb-event-kit": "^2.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "^6.0.2",
-    "eslint": "^2.6.0",
-    "eslint-config-airbnb": "^6.1.0",
-    "eslint-plugin-react": "^4.2.1",
+    "eslint-config-steelbrain": "^1.0.2",
     "jasmine-fix": "^1.0.0"
   },
   "providedServices": {
