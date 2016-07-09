@@ -2,8 +2,6 @@
 
 /* @flow */
 
-/* eslint-disable prefer-const */
-
 import { Range, Point } from 'atom'
 import { it, wait } from 'jasmine-fix'
 import Editor from '../lib/editor'
