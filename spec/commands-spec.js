@@ -1,4 +1,4 @@
-'use babel'
+/* @flow */
 
 import { Range } from 'atom'
 import { it, wait } from 'jasmine-fix'

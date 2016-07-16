@@ -1,4 +1,4 @@
-'use babel'
+/* @flow */
 
 import Panel from '../lib/panel'
 import { getMessage } from './helpers'
