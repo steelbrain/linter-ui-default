@@ -20,5 +20,5 @@ class SignalRegistry {
 }
 
 describe('BusySignal', function() {
-
+  console.log(it, wait, BusySignal, SignalRegistry)
 })
