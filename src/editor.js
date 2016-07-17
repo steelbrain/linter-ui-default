@@ -34,21 +34,18 @@ export default class Editor {
     this.bubbleMessage = null
     this.subscriptions = new CompositeDisposable()
 
-    let lastshowDecorations = false
-    this.subscriptions.add(atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
-      this.updateGutter(showDecorations)
-      lastshowDecorations = showDecorations
-    }))
-    this.subscriptions.add(atom.config.onDidChange('linter-ui-default.gutterPosition', ({ newValue }) => {
-      this.updateGutter(lastshowDecorations, newValue)
-    }))
-
     this.subscriptions.add(this.emitter)
     this.subscriptions.add(atom.config.observe('linter-ui-default.showBubble', showBubble => {
       this.showBubble = showBubble
     }))
     this.subscriptions.add(atom.config.observe('linter-ui-default.showProviderName', showProviderName => {
       this.showProviderName = showProviderName
+    }))
+    this.subscriptions.add(atom.config.onDidChange('linter-ui-default.showDecorations', () => {
+      this.updateGutter()
+    }))
+    this.subscriptions.add(atom.config.onDidChange('linter-ui-default.gutterPosition', () => {
+      this.updateGutter()
     }))
     this.subscriptions.add(textEditor.onDidDestroy(() => {
       this.dispose()
@@ -93,11 +90,13 @@ export default class Editor {
     this.subscriptions.add(new Disposable(function() {
       tooltipSubscription.dispose()
     }))
+    this.updateGutter()
   }
-  updateGutter(visibility: boolean, position: ? 'Left' | 'Right') {
+  updateGutter() {
     this.removeGutter()
+    const visibility = atom.config.get('linter-ui-default.showDecorations')
     if (visibility) {
-      position = position || atom.config.get('linter-ui-default.gutterPosition')
+      const position = atom.config.get('linter-ui-default.gutterPosition')
       const gutter = this.gutter = this.textEditor.addGutter({
         name: 'linter-ui-default',
         priority: position === 'Left' ? -100 : 100,
@@ -127,25 +126,26 @@ export default class Editor {
     this.removeBubble()
 
     const messages = getMessagesOnPoint(this.messages, this.textEditor.getPath(), position)
-    if (messages.length) {
-      this.bubbleMessage = messages.length === 1 ? messages[0] : null
-      if (this.bubbleMessage) {
-        this.bubbleRange = this.bubbleMessage.version === 1 ? this.bubbleMessage.range : this.bubbleMessage.location.position
-      } else {
-        this.bubbleRange = null
-      }
-      this.bubble = this.textEditor.markBufferRange([position, position])
-      this.bubble.onDidDestroy(() => {
-        this.bubble = null
-        this.bubbleRange = null
-        this.bubbleMessage = null
-      })
-      this.textEditor.decorateMarker(this.bubble, {
-        type: 'overlay',
-        persistent: false,
-        item: getBubbleElement(messages, this.showProviderName),
-      })
+    if (!messages.length) {
+      return
     }
+    this.bubbleMessage = messages.length === 1 ? messages[0] : null
+    if (this.bubbleMessage) {
+      this.bubbleRange = this.bubbleMessage.version === 1 ? this.bubbleMessage.range : this.bubbleMessage.location.position
+    } else {
+      this.bubbleRange = null
+    }
+    this.bubble = this.textEditor.markBufferRange([position, position])
+    this.bubble.onDidDestroy(() => {
+      this.bubble = null
+      this.bubbleRange = null
+      this.bubbleMessage = null
+    })
+    this.textEditor.decorateMarker(this.bubble, {
+      type: 'overlay',
+      persistent: false,
+      item: getBubbleElement(messages, this.showProviderName),
+    })
   }
   removeBubble() {
     if (this.bubble) {
@@ -178,12 +178,13 @@ export default class Editor {
       this.messages.add(message)
       this.applyMarker(message)
       marker.onDidChange(({ oldHeadPosition, newHeadPosition, isValid }) => {
-        if (isValid && (newHeadPosition.row !== 0 || oldHeadPosition.row === 0)) {
-          if (message.version === 1) {
-            message.range = marker.previousEventState.range
-          } else {
-            message.location.position = marker.previousEventState.range
-          }
+        if (!isValid || (newHeadPosition.row === 0 && oldHeadPosition.row !== 0)) {
+          return
+        }
+        if (message.version === 1) {
+          message.range = marker.previousEventState.range
+        } else {
+          message.location.position = marker.previousEventState.range
         }
       })
     }
@@ -198,12 +199,13 @@ export default class Editor {
       type: 'highlight',
       class: `linter-highlight ${messageClass}`,
     })
-    if (gutter) {
-      gutter.decorateMarker(marker, {
-        class: 'linter-row',
-        item: getGutterElement(messageClass),
-      })
+    if (!gutter) {
+      return
     }
+    gutter.decorateMarker(marker, {
+      class: 'linter-row',
+      item: getGutterElement(messageClass),
+    })
   }
   onDidDestroy(callback: Function): Disposable {
     return this.emitter.on('did-destroy', callback)
