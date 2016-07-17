@@ -18,9 +18,6 @@
   },
   "dependencies": {
     "atom-package-deps": "^4.0.1",
-    "babel-cli": "^6.10.1",
-    "babel-plugin-for-of-efficient": "^1.0.0",
-    "babel-preset-steelbrain": "^4.0.1",
     "disposable-event": "^1.0.1",
     "lodash.filter": "^4.2.1",
     "preact": "^4.4.0",
@@ -29,7 +26,10 @@
   },
   "devDependencies": {
     "eslint-config-steelbrain": "^1.0.4",
-    "jasmine-fix": "^1.0.0"
+    "jasmine-fix": "^1.0.0",
+    "babel-cli": "^6.10.1",
+    "babel-plugin-for-of-efficient": "^1.0.0",
+    "babel-preset-steelbrain": "^4.0.1"
   },
   "providedServices": {
     "linter-ui": {
