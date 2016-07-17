@@ -16,13 +16,14 @@ apm uninstall linter linter-ui-default
 cd ~/.atom/packages
 git clone steelbrain/linter-ui-default
 cd linter-ui-default
-apm install
+npm install
+npm run compile
 
 # Install the latest, unreleased linter
 cd ~/.atom/packages
 git clone steelbrain/linter -b steelbrain/transition-towards-ide
 cd linter
-apm install
+npm install
 ```
 
 ### License
