@@ -2,7 +2,7 @@
 /** @jsx React.h */
 
 import { CompositeDisposable } from 'sb-event-kit'
-import React from 'preact'
+import * as React from 'preact'
 import MessageElement from './message' // eslint-disable-line no-unused-vars
 import MessageElementLegacy from './message-legacy' // eslint-disable-line no-unused-vars
 import { sortMessages, copySelection } from '../helpers'

@@ -1,7 +1,7 @@
 /* @flow */
 /** @jsx React.h */
 
-import React from 'preact'
+import * as React from 'preact'
 import MessageElement from './message' // eslint-disable-line no-unused-vars
 import MessageElementLegacy from './message-legacy' // eslint-disable-line no-unused-vars
 import type { LinterMessage } from '../types'

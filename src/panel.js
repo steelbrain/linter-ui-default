@@ -1,7 +1,7 @@
 /* @flow */
 /** @jsx React.h */
 
-import { render } from 'preact'
+import * as React from 'preact'
 import filter from 'lodash.filter'
 import { Range } from 'atom'
 import { Emitter, CompositeDisposable } from 'sb-event-kit'
@@ -30,7 +30,7 @@ export default class Panel {
       visible: true,
       priority: 500,
     })
-    render(<Messages panel={this} />, element)
+    React.render(<Messages panel={this} />, element)
 
     this.subscriptions.add(this.emitter)
     this.subscriptions.add(atom.config.observe('linter-ui-default.showIssuesFrom', showIssuesFrom => {

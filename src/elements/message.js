@@ -1,10 +1,10 @@
 /* @flow */
 /** @jsx React.h */
 
-import { Component } from 'preact'
+import * as React from 'preact'
 import type { Message } from '../types'
 
-export default class MessageElement extends Component {
+export default class MessageElement extends React.Component {
   props: {
     message: Message,
     showProviderName: boolean,

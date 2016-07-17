@@ -1,14 +1,14 @@
 /* @flow */
 /** @jsx React.h */
 
-import { Component } from 'preact'
+import * as React from 'preact'
 import { htmlToText } from './helpers'
 import type { MessageLegacy } from '../types'
 
 const NEWLINE = /\r\n|\n/
 let MESSAGE_NUMBER = 0
 
-export default class Message extends Component {
+export default class Message extends React.Component {
   props: {
     message: MessageLegacy,
     showProviderName: boolean,
