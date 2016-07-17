@@ -1,11 +1,11 @@
 /* @flow */
 
-import type { Message, MessageLegacy } from '../types'
+import type { LinterMessage } from '../types'
 
 // Code Point 160 === &nbsp;
 const replacementRegex = new RegExp(String.fromCodePoint(160), 'g')
 
-export function visitMessage(message: Message | MessageLegacy) {
+export function visitMessage(message: LinterMessage) {
   const messageFile = message.version === 1 ? message.filePath : message.location.file
   const messageRange = message.version === 1 ? message.range : message.location.position
   atom.workspace.open(messageFile, { searchAllPanes: true }).then(function() {

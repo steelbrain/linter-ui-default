@@ -4,12 +4,12 @@ import { CompositeDisposable, Emitter } from 'sb-event-kit'
 import debounce from 'sb-debounce'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
-import type { Message, MessageLegacy, MessagesPatch, TreeViewHighlight } from '../types'
+import type { LinterMessage, MessagesPatch, TreeViewHighlight } from '../types'
 
 export default class TreeView {
   element: HTMLElement;
   emitter: Emitter;
-  messages: Array<Message | MessageLegacy>;
+  messages: Array<LinterMessage>;
   decorations: Object;
   subscriptions: CompositeDisposable;
   decorateOnTreeView: 'Files and Directories' | 'Files' | 'None';
@@ -52,7 +52,7 @@ export default class TreeView {
 
     this.applyDecorations(calculateDecorations(decorateOnTreeView, difference.messages))
   }
-  render(messages: Array<Message | MessageLegacy> = []) {
+  render(messages: Array<LinterMessage> = []) {
     this.apply({ added: [], messages: [], removed: this.messages })
     if (messages.length) {
       this.apply({ added: messages, messages, removed: [] })

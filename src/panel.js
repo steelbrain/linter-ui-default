@@ -8,12 +8,12 @@ import { Emitter, CompositeDisposable } from 'sb-event-kit'
 import type { Disposable } from 'sb-event-kit'
 import type { Panel as Atom$Panel } from 'atom'
 import Messages from './elements/messages' // eslint-disable-line no-unused-vars
-import type { Message, MessageLegacy, Config$ShowIssues } from './types'
+import type { LinterMessage, Config$ShowIssues } from './types'
 
 export default class Panel {
   panel: Atom$Panel;
   emitter: Emitter;
-  messages: Array<Message | MessageLegacy>;
+  messages: Array<LinterMessage>;
   subscriptions: CompositeDisposable;
   showIssuesFrom: Config$ShowIssues;
   messageTypesToIgnoreInPanel: Set<string>;
@@ -51,7 +51,7 @@ export default class Panel {
       this.apply()
     }))
   }
-  apply(messages: ?Array<Message | MessageLegacy> = null) {
+  apply(messages: ?Array<LinterMessage> = null) {
     if (messages) {
       this.messages = messages
     } else {

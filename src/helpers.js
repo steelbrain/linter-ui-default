@@ -4,7 +4,7 @@ import invariant from 'assert'
 import { Range, Point } from 'atom'
 import type { TextEditor } from 'atom'
 import type Editors from './editors'
-import type { Message, MessageLegacy } from './types'
+import type { LinterMessage } from './types'
 
 export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths: Array<string> } {
   const editorsMap = {}
@@ -25,7 +25,7 @@ export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths
   return { editorsMap, filePaths }
 }
 
-export function getMessagesOnPoint(messages: Set<Message | MessageLegacy>, filePath: string, cursorPosition: Point): Array<Message | MessageLegacy> {
+export function getMessagesOnPoint(messages: Set<LinterMessage>, filePath: string, cursorPosition: Point): Array<LinterMessage> {
   const filtered = []
   const range = new Range(cursorPosition, cursorPosition)
   for (const message of messages) {
@@ -38,7 +38,7 @@ export function getMessagesOnPoint(messages: Set<Message | MessageLegacy>, fileP
   return filtered
 }
 
-export function sortMessages(messages: Array<Message | MessageLegacy>): Array<Message | MessageLegacy> {
+export function sortMessages(messages: Array<LinterMessage>): Array<LinterMessage> {
   return messages.sort(function(a, b) {
     const locationA = a.version === 1 ? a.filePath : a.location.file
     const locationB = b.version === 1 ? b.filePath : b.location.file

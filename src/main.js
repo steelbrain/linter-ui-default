@@ -7,7 +7,7 @@ import TreeView from './tree-view'
 import Commands from './commands'
 import BusySignal from './busy-signal'
 import Intentions from './intentions'
-import type { Linter, Message, MessageLegacy, MessagesPatch } from './types'
+import type { Linter, LinterMessage, MessagesPatch } from './types'
 
 export default class LinterUI {
   name: string;
@@ -16,7 +16,7 @@ export default class LinterUI {
   editors: Editors;
   treeview: TreeView;
   commands: Commands;
-  messages: Array<Message | MessageLegacy>;
+  messages: Array<LinterMessage>;
   intentions: Intentions;
   subscriptions: CompositeDisposable;
   signalRegistry: Object;
