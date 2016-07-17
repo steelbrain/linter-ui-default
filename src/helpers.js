@@ -1,8 +1,6 @@
 /* @flow */
 
 import invariant from 'assert'
-import { Range, Point } from 'atom'
-import type { TextEditor } from 'atom'
 import type Editors from './editors'
 import type { LinterMessage } from './types'
 
@@ -23,19 +21,6 @@ export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths
     }
   }
   return { editorsMap, filePaths }
-}
-
-export function getMessagesOnPoint(messages: Set<LinterMessage>, filePath: string, cursorPosition: Point): Array<LinterMessage> {
-  const filtered = []
-  const range = new Range(cursorPosition, cursorPosition)
-  for (const message of messages) {
-    if (message.version === 1 && message.filePath === filePath && range.intersectsWith(message.range)) {
-      filtered.push(message)
-    } else if (message.version === 2 && message.location.file === filePath && range.intersectsWith(message.location.position)) {
-      filtered.push(message)
-    }
-  }
-  return filtered
 }
 
 export function sortMessages(messages: Array<LinterMessage>): Array<LinterMessage> {
@@ -71,20 +56,4 @@ export function copySelection() {
   if (selection) {
     atom.clipboard.write(selection.toString())
   }
-}
-
-export function getBufferPositionFromMouseEvent(event: MouseEvent, editor: TextEditor, editorElement: Object): ?Point {
-  const pixelPosition = editorElement.component.pixelPositionForMouseEvent(event)
-  const screenPosition = editorElement.component.screenPositionForPixelPosition(pixelPosition)
-  const expectedPixelPosition = editorElement.pixelPositionForScreenPosition(screenPosition)
-  const differenceTop = pixelPosition.top - expectedPixelPosition.top
-  const differentLeft = pixelPosition.left - expectedPixelPosition.left
-  // Only allow offset of 20px - Fixes steelbrain/linter-ui-default#63
-  if (
-    (differenceTop === 0 || (differenceTop > 0 && differenceTop < 20) || (differenceTop < 0 && differenceTop > -20)) &&
-    (differentLeft === 0 || (differentLeft > 0 && differentLeft < 20) || (differentLeft < 0 && differentLeft > -20))
-  ) {
-    return editor.bufferPositionForScreenPosition(screenPosition)
-  }
-  return null
 }

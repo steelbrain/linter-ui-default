@@ -1,25 +1,26 @@
 /* @flow */
 
-import { Range } from 'atom'
 import { CompositeDisposable, Emitter, Disposable } from 'sb-event-kit'
 import debounce from 'sb-debounce'
 import disposableEvent from 'disposable-event'
 import type { TextEditor, BufferMarker, TextEditorGutter, TextEditorMarker, Point } from 'atom'
-import { getMessagesOnPoint, getBufferPositionFromMouseEvent } from './helpers'
-import getGutterElement from './elements/gutter'
-import getBubbleElement from './elements/bubble'
-import type { LinterMessage } from './types'
+import getGutterElement from '../elements/gutter'
+import getBubbleElement from '../elements/bubble'
+import type { LinterMessage } from '../types'
+import { pointInMessageRange, getMessagesOnPoint, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
 
 export default class Editor {
   gutter: ?TextEditorGutter;
-  bubble: ?TextEditorMarker;
+  bubble: ?{
+    marker: TextEditorMarker,
+    message: ?LinterMessage,
+    element: HTMLElement,
+  };
   emitter: Emitter;
   markers: Map<LinterMessage, BufferMarker>;
   messages: Set<LinterMessage>;
   textEditor: TextEditor;
   showBubble: boolean;
-  bubbleRange: ?Range;
-  bubbleMessage: ?LinterMessage;
   subscriptions: CompositeDisposable;
   cursorPosition: ?Point;
   showProviderName: boolean;
@@ -30,8 +31,6 @@ export default class Editor {
     this.markers = new Map()
     this.messages = new Set()
     this.textEditor = textEditor
-    this.bubbleRange = null
-    this.bubbleMessage = null
     this.subscriptions = new CompositeDisposable()
 
     this.subscriptions.add(this.emitter)
@@ -56,41 +55,38 @@ export default class Editor {
       if (tooltipSubscription) {
         tooltipSubscription.dispose()
       }
-      if (tooltipFollows === 'Mouse') {
-        const editorElement = atom.views.getView(textEditor)
-        tooltipSubscription = new CompositeDisposable()
-        tooltipSubscription.add(disposableEvent(editorElement, 'mousemove', debounce(e => {
-          if (editorElement.component && e.target.nodeName === 'ATOM-TEXT-EDITOR') {
-            if (this.bubbleRange) {
-              this.cursorPosition = getBufferPositionFromMouseEvent(e, textEditor, editorElement)
-              if (this.cursorPosition && this.bubbleRange && this.bubbleRange.containsPoint(this.cursorPosition)) {
-                return
-              }
-            }
-            this.removeBubble()
-          }
-        }, 200, true)))
-        tooltipSubscription.add(disposableEvent(editorElement, 'mousemove', debounce(e => {
-          if (editorElement.component && e.target.nodeName === 'ATOM-TEXT-EDITOR') {
-            this.cursorPosition = getBufferPositionFromMouseEvent(e, textEditor, editorElement)
-            if (this.cursorPosition) {
-              this.updateBubble()
-            }
-          } // The property `component` is removed after an editor is disposed
-        }, 200)))
-        this.removeBubble()
-      } else {
-        tooltipSubscription = textEditor.onDidChangeCursorPosition(debounce(({ newBufferPosition }) => {
-          this.cursorPosition = newBufferPosition
-          this.updateBubble()
-        }, 60))
-        this.updateBubble(textEditor.getCursorBufferPosition())
-      }
+      tooltipSubscription = tooltipFollows === 'Mouse' ? this.listenForMouseMovement() : this.listenForKeyboardMovement()
+      this.removeBubble()
     }))
     this.subscriptions.add(new Disposable(function() {
       tooltipSubscription.dispose()
     }))
     this.updateGutter()
+  }
+  listenForMouseMovement() {
+    const editorElement = atom.views.getView(this.textEditor)
+    return disposableEvent(editorElement, 'mousemove', debounce(e => {
+      if (!editorElement.component || e.target.nodeName !== 'ATOM-TEXT-EDITOR') {
+        return
+      }
+      const bubble = this.bubble
+      if (bubble && mouseEventNearPosition(e, editorElement, bubble.marker.getStartScreenPosition(), bubble.element.offsetWidth, bubble.element.offsetHeight)) {
+        return
+      }
+      const cursorPosition = getBufferPositionFromMouseEvent(e, this.textEditor, editorElement)
+      this.cursorPosition = cursorPosition
+      if (cursorPosition) {
+        this.updateBubble(this.cursorPosition)
+      } else {
+        this.removeBubble()
+      }
+    }, 200, true))
+  }
+  listenForKeyboardMovement() {
+    return this.textEditor.onDidChangeCursorPosition(debounce(({ newBufferPosition }) => {
+      this.cursorPosition = newBufferPosition
+      this.updateBubble(newBufferPosition)
+    }, 60))
   }
   updateGutter() {
     this.removeGutter()
@@ -118,9 +114,11 @@ export default class Editor {
       } catch (_) { /* No Op */ }
     }
   }
-  updateBubble(position: ?Point = null) {
-    position = position || this.cursorPosition
-    if (!position || (this.bubbleRange && this.bubbleRange.containsPoint(position) && this.bubbleMessage && this.messages.has(this.bubbleMessage))) {
+  updateBubble(position: ?Point) {
+    if (!position) {
+      return
+    }
+    if (this.bubble && this.bubble.message && this.messages.has(this.bubble.message) && pointInMessageRange(position, this.bubble.message)) {
       return
     }
     this.removeBubble()
@@ -129,27 +127,23 @@ export default class Editor {
     if (!messages.length) {
       return
     }
-    this.bubbleMessage = messages.length === 1 ? messages[0] : null
-    if (this.bubbleMessage) {
-      this.bubbleRange = this.bubbleMessage.version === 1 ? this.bubbleMessage.range : this.bubbleMessage.location.position
-    } else {
-      this.bubbleRange = null
-    }
-    this.bubble = this.textEditor.markBufferRange([position, position])
-    this.bubble.onDidDestroy(() => {
+    const bubble = {}
+    bubble.message = messages.length === 1 ? messages[0] : null
+    bubble.marker = this.textEditor.markBufferRange([position, position])
+    bubble.marker.onDidDestroy(() => {
       this.bubble = null
-      this.bubbleRange = null
-      this.bubbleMessage = null
     })
-    this.textEditor.decorateMarker(this.bubble, {
+    bubble.element = getBubbleElement(messages, this.showProviderName)
+    this.textEditor.decorateMarker(bubble.marker, {
       type: 'overlay',
       persistent: false,
-      item: getBubbleElement(messages, this.showProviderName),
+      item: bubble.element,
     })
+    this.bubble = bubble
   }
   removeBubble() {
     if (this.bubble) {
-      this.bubble.destroy()
+      this.bubble.marker.destroy()
     }
   }
   apply(added: Array<LinterMessage>, removed: Array<LinterMessage>) {
@@ -189,7 +183,7 @@ export default class Editor {
       })
     }
 
-    this.updateBubble()
+    this.updateBubble(this.cursorPosition)
   }
   applyMarker(message: LinterMessage) {
     const marker = this.markers.get(message)
