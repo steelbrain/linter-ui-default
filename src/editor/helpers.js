@@ -1,7 +1,6 @@
 /* @flow */
 
-import { Range, Point } from 'atom'
-import type { TextEditor } from 'atom'
+import type { Point, TextEditor } from 'atom'
 import type { LinterMessage } from '../types'
 
 export function getBufferPositionFromMouseEvent(event: MouseEvent, editor: TextEditor, editorElement: Object): ?Point {
@@ -35,19 +34,6 @@ export function mouseEventNearPosition(event: MouseEvent, editorElement: Object,
     return false
   }
   return (differenceLeft > 0 && differenceLeft < (elementWidth + 20)) || (differenceLeft < 0 && differenceLeft > -5)
-}
-
-export function getMessagesOnPoint(messages: Set<LinterMessage>, filePath: string, cursorPosition: Point): Array<LinterMessage> {
-  const filtered = []
-  const range = new Range(cursorPosition, cursorPosition)
-  for (const message of messages) {
-    if (message.version === 1 && message.filePath === filePath && range.intersectsWith(message.range)) {
-      filtered.push(message)
-    } else if (message.version === 2 && message.location.file === filePath && range.intersectsWith(message.location.position)) {
-      filtered.push(message)
-    }
-  }
-  return filtered
 }
 
 export function pointInMessageRange(point: Point, message: LinterMessage): boolean {

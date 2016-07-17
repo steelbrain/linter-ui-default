@@ -20,7 +20,7 @@
     "atom-package-deps": "^4.0.1",
     "disposable-event": "^1.0.1",
     "lodash.filter": "^4.2.1",
-    "preact": "^4.4.0",
+    "preact": "^5.3.1",
     "sb-debounce": "^1.0.1",
     "sb-event-kit": "^2.0.0"
   },

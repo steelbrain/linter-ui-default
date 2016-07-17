@@ -7,7 +7,8 @@ import type { TextEditor, BufferMarker, TextEditorGutter, TextEditorMarker, Poin
 import getGutterElement from '../elements/gutter'
 import getBubbleElement from '../elements/bubble'
 import type { LinterMessage } from '../types'
-import { pointInMessageRange, getMessagesOnPoint, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
+import { pointInMessageRange, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
+import { getMessagesOnRangeOrPoint } from '../helpers'
 
 export default class Editor {
   gutter: ?TextEditorGutter;
@@ -123,7 +124,7 @@ export default class Editor {
     }
     this.removeBubble()
 
-    const messages = getMessagesOnPoint(this.messages, this.textEditor.getPath(), position)
+    const messages = getMessagesOnRangeOrPoint(this.messages, this.textEditor.getPath(), position)
     if (!messages.length) {
       return
     }

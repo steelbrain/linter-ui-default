@@ -1,6 +1,8 @@
 /* @flow */
 
 import invariant from 'assert'
+import { Range } from 'atom'
+import type { Point } from 'atom'
 import type Editors from './editors'
 import type { LinterMessage } from './types'
 
@@ -21,6 +23,19 @@ export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths
     }
   }
   return { editorsMap, filePaths }
+}
+
+export function getMessagesOnRangeOrPoint(messages: Set<LinterMessage> | Array<LinterMessage>, filePath: string, rangeOrPoint: Point | Range): Array<LinterMessage> {
+  const filtered = []
+  const range = rangeOrPoint.constructor.name === 'Point' ? new Range(rangeOrPoint, rangeOrPoint) : rangeOrPoint
+  for (const message of messages) {
+    if (message.version === 1 && message.filePath === filePath && range.intersectsWith(message.range)) {
+      filtered.push(message)
+    } else if (message.version === 2 && message.location.file === filePath && range.intersectsWith(message.location.position)) {
+      filtered.push(message)
+    }
+  }
+  return filtered
 }
 
 export function sortMessages(messages: Array<LinterMessage>): Array<LinterMessage> {
