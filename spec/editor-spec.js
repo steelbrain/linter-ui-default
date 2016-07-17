@@ -1,8 +1,4 @@
-'use babel'
-
 /* @flow */
-
-/* eslint-disable prefer-const */
 
 import { Range, Point } from 'atom'
 import { it, wait } from 'jasmine-fix'

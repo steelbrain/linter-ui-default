@@ -4,13 +4,16 @@ dependencies:
     - sudo dpkg --install atom-amd64.deb || true
     - sudo apt-get update
     - sudo apt-get -f install
-    - nvm use 5.1.0
-    - npm install
+    - node --version
+    - npm --version
+    - atom --version
+    - rm -rf node_modules; npm install
+
 test:
   override:
-    - npm test
     - npm run lint
+    - npm test
 
 machine:
   node:
-    version: 5.1.0
+    version: 6.3.0
