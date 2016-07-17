@@ -1,17 +1,16 @@
 /* @flow */
 /** @jsx React.h */
 
-import React from 'preact'
+import * as React from 'preact'
 import MessageElement from './message' // eslint-disable-line no-unused-vars
 import MessageElementLegacy from './message-legacy' // eslint-disable-line no-unused-vars
-import type { Message, MessageLegacy } from '../types'
+import type { LinterMessage } from '../types'
 
-export default function getElement(messages: Array<Message | MessageLegacy>, showProviderName: boolean): HTMLElement {
+export default function getElement(messages: Array<LinterMessage>, showProviderName: boolean): HTMLElement {
   const bubble = document.createElement('div')
   const children = []
   bubble.id = 'linter-tooltip'
-  for (let i = 0, length = messages.length, message; i < length; ++i) {
-    message = messages[i]
+  for (const message of (messages: Array<LinterMessage>)) {
     if (message.version === 2) {
       children.push(<MessageElement showProviderName={showProviderName} message={message} />)
     } else {

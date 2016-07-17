@@ -1,7 +1,7 @@
 /* @flow */
 /** @jsx React.h */
 
-import React from 'preact'
+import * as React from 'preact'
 import { htmlToText } from './helpers'
 import type { MessageLegacy } from '../types'
 
@@ -11,7 +11,6 @@ let MESSAGE_NUMBER = 0
 export default class Message extends React.Component {
   props: {
     message: MessageLegacy,
-    reference: 'external' | 'internal',
     showProviderName: boolean,
   };
 

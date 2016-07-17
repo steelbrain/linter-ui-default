@@ -2,13 +2,13 @@
 /** @jsx React.h */
 
 import { CompositeDisposable } from 'sb-event-kit'
-import React from 'preact'
+import * as React from 'preact'
 import MessageElement from './message' // eslint-disable-line no-unused-vars
 import MessageElementLegacy from './message-legacy' // eslint-disable-line no-unused-vars
 import { sortMessages, copySelection } from '../helpers'
-import type { Message, MessageLegacy } from '../types'
+import type { LinterMessage } from '../types'
 
-type Messages$State = { messages: Array<Message | MessageLegacy>, showProviderName: boolean }
+type Messages$State = { messages: Array<LinterMessage>, showProviderName: boolean }
 export default class Messages extends React.Component {
   state: Messages$State;
   subscriptions: CompositeDisposable;

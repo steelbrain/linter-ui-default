@@ -1,16 +1,15 @@
 /* @flow */
 
 import { CompositeDisposable, Emitter } from 'sb-event-kit'
-import type { Disposable } from 'sb-event-kit'
 import type { TextEditor } from 'atom'
 import Editor from './editor'
 import { getEditorsMap } from './helpers'
-import type { Message, MessageLegacy, MessagesPatch, Config$ShowIssues } from './types'
+import type { LinterMessage, MessagesPatch, Config$ShowIssues } from './types'
 
 export default class Editors {
   emitter: Emitter;
   editors: Set<Editor>;
-  messages: Array<Message | MessageLegacy>;
+  messages: Array<LinterMessage>;
   subscriptions: CompositeDisposable;
   showIssuesFrom: Config$ShowIssues;
   showDecorations: boolean;
@@ -46,22 +45,19 @@ export default class Editors {
     }
 
     const { editorsMap, filePaths } = getEditorsMap(this)
-    for (let i = 0, length = difference.added.length, message; i < length; ++i) {
-      message = difference.added[i]
+    for (const message of (difference.added: Array<LinterMessage>)) {
       const filePath = message.version === 1 ? message.filePath : message.location.file
       if (filePath && editorsMap[filePath]) {
         editorsMap[filePath].added.push(message)
       }
     }
-    for (let i = 0, length = difference.removed.length, message; i < length; ++i) {
-      message = difference.removed[i]
+    for (const message of (difference.removed: Array<LinterMessage>)) {
       const filePath = message.version === 1 ? message.filePath : message.location.file
       if (filePath && editorsMap[filePath]) {
         editorsMap[filePath].removed.push(message)
       }
     }
-    for (let i = 0, length = filePaths.length, filePath; i < length; ++i) {
-      filePath = filePaths[i]
+    for (const filePath of (filePaths: Array<string>)) {
       const value = editorsMap[filePath]
       if (value.added.length || value.removed.length) {
         if (value.editors.length === 1) {
@@ -70,8 +66,8 @@ export default class Editors {
           value.editors[0].apply(value.added, value.removed)
           value.editors[1].apply(value.added, value.removed)
         } else {
-          for (let _i = 0, _length = value.editors.length; _i < _length; ++_i) {
-            value.editors[_i].apply(value.added, value.removed)
+          for (const editor of (value.editors: Array<Editor>)) {
+            editor.apply(value.added, value.removed)
           }
         }
       }
@@ -80,8 +76,7 @@ export default class Editors {
   filterAndApply(editor: Editor) {
     const messages = []
     const editorPath = editor.textEditor.getPath()
-    for (let i = 0, length = this.messages.length, message; i < length; ++i) {
-      message = this.messages[i]
+    for (const message of (this.messages: Array<LinterMessage>)) {
       if (message.version === 1 && message.filePath === editorPath) {
         messages.push(message)
       } else if (message.version === 2 && message.location.file === editorPath) {
@@ -101,9 +96,10 @@ export default class Editors {
     editor.onDidDestroy(() => {
       this.editors.delete(editor)
     })
-    editor.onShouldRender(() => {
-      this.emitter.emit('should-render')
-    })
+    editor.subscriptions.add(textEditor.onDidChangePath(() => {
+      editor.dispose()
+      this.getEditor(textEditor)
+    }))
     this.filterAndApply(editor)
     return editor
   }
@@ -115,9 +111,6 @@ export default class Editors {
       }
     }
     return editors
-  }
-  onShouldRender(callback: Function): Disposable {
-    return this.emitter.on('should-render', callback)
   }
   dispose() {
     for (const entry of this.editors) {

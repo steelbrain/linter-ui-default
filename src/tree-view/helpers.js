@@ -1,7 +1,7 @@
 /* @flow */
 
 import Path from 'path'
-import type { Message, MessageLegacy } from '../types'
+import type { LinterMessage } from '../types'
 
 export function getChunks(filePath: string, projectPath: string): Array<string> {
   const toReturn = []
@@ -30,8 +30,7 @@ export function getChunksByProjects(filePath: string, projectPaths: Array<string
     }
     return [filePath]
   }
-  for (let i = 0, length = projectPaths.length, projectPath; i < length; ++i) {
-    projectPath = projectPaths[i]
+  for (const projectPath of (projectPaths: Array<string>)) {
     if (filePath.indexOf(projectPath) === 0) {
       return getChunks(filePath, projectPath)
     }
@@ -50,11 +49,10 @@ export function mergeChange(change: Object, filePath: string, severity: string):
   change[filePath][severity] = true
 }
 
-export function calculateDecorations(decorateOnTreeView: 'Files and Directories' | 'Files', messages: Array<Message | MessageLegacy>): Object {
+export function calculateDecorations(decorateOnTreeView: 'Files and Directories' | 'Files', messages: Array<LinterMessage>): Object {
   const toReturn = {}
   const projectPaths: Array<string> = atom.project.getPaths()
-  for (let i = 0, length = messages.length, message; i < length; ++i) {
-    message = messages[i]
+  for (const message of (messages: Array<LinterMessage>)) {
     const filePath = message.version === 1 ? message.filePath : message.location.file
     if (!filePath) {
       // For compatibility purpose only
@@ -76,9 +74,8 @@ export function calculateDecorations(decorateOnTreeView: 'Files and Directories'
     if (chunks.length < 5) {
       continue
     }
-    for (let _i = 4, _length = chunks.length, _filePath; _i < _length; ++_i) {
-      _filePath = chunks[_i]
-      mergeChange(toReturn, _filePath, message.severity)
+    for (const chunk of (chunks: Array<string>)) {
+      mergeChange(toReturn, chunk, message.severity)
     }
   }
   return toReturn

@@ -1,9 +1,8 @@
 /* @flow */
 
-import { Range, Point } from 'atom'
-import { it, wait } from 'jasmine-fix'
+import { Range } from 'atom'
 import Editor from '../lib/editor'
-import { getMessage, generateEvent } from './helpers'
+import { getMessage } from './helpers'
 
 describe('Editor', function() {
   let editor
@@ -48,51 +47,18 @@ describe('Editor', function() {
     })
   })
   describe('Response to config', function() {
-    it('responds to `tooltipFollows` config', async function() {
-      const position = [2, 1]
-      const editorElement = atom.views.getView(textEditor)
-      editor.apply([
-        getMessage('Error', __filename, Range.fromObject([position, [Infinity, Infinity]])),
-      ], [])
-
-      atom.config.set('linter-ui-default.tooltipFollows', 'Keyboard')
-      expect(editor.bubble).toBe(null)
-      textEditor.setCursorBufferPosition(position)
-      await wait(60)
-      expect(editor.bubble).not.toBe(null)
-      expect(typeof editor.bubble.destroy).toBe('function')
-
-      const pixelPosition = { top: 0, left: 0 }
-      atom.config.set('linter-ui-default.tooltipFollows', 'Mouse')
-      expect(editor.bubble).toBe(null)
-      const event = generateEvent(editorElement, 'mousemove')
-      Object.defineProperty(event, 'target', { value: editorElement })
-      editorElement.dispatchEvent(event)
-      spyOn(textEditor, 'bufferPositionForScreenPosition').andCallFake(function() {
-        return Point.fromObject(position)
-      })
-      spyOn(editorElement, 'pixelPositionForScreenPosition').andCallFake(function() {
-        return pixelPosition
-      })
-      spyOn(editorElement.component, 'pixelPositionForMouseEvent').andCallFake(function() {
-        return pixelPosition
-      })
-      await wait(200)
-      expect(editor.bubble).not.toBe(null)
-      expect(typeof editor.bubble.destroy).toBe('function')
+    it('responds to `gutterPosition`', function() {
+      atom.config.set('linter-ui-default.gutterPosition', 'Left')
+      expect(editor.gutter.priority).toBe(-100)
+      atom.config.set('linter-ui-default.gutterPosition', 'Right')
+      expect(editor.gutter.priority).toBe(100)
     })
-  })
-  it('responds to `gutterPosition` config', function() {
-    atom.config.set('linter-ui-default.gutterPosition', 'Left')
-    expect(editor.gutter.priority).toBe(-100)
-    atom.config.set('linter-ui-default.gutterPosition', 'Right')
-    expect(editor.gutter.priority).toBe(100)
-  })
-  it('responds to `showDecorations` config', function() {
-    expect(editor.gutter).not.toBe(null)
-    atom.config.set('linter-ui-default.showDecorations', false)
-    expect(editor.gutter).toBe(null)
-    atom.config.set('linter-ui-default.showDecorations', true)
-    expect(editor.gutter).not.toBe(null)
+    it('responds to `showDecorations`', function() {
+      expect(editor.gutter).not.toBe(null)
+      atom.config.set('linter-ui-default.showDecorations', false)
+      expect(editor.gutter).toBe(null)
+      atom.config.set('linter-ui-default.showDecorations', true)
+      expect(editor.gutter).not.toBe(null)
+    })
   })
 })

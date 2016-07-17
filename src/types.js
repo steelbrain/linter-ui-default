@@ -49,6 +49,8 @@ export type MessageLegacy = {
   }
 }
 
+export type LinterMessage = Message | MessageLegacy
+
 export type Linter = {
   name: string,
   scope: 'file' | 'project',

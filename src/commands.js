@@ -3,7 +3,7 @@
 import { CompositeDisposable, Emitter } from 'sb-event-kit'
 import type { Disposable } from 'sb-event-kit'
 import { sortMessages } from './helpers'
-import type { Message, MessageLegacy } from './types'
+import type { LinterMessage } from './types'
 
 export default class Commands {
   emitter: Emitter;
@@ -26,8 +26,7 @@ export default class Commands {
     if (!forward) {
       messages.reverse()
     }
-    for (let i = 0, length = messages.length, message; i < length; i++) {
-      message = messages[i]
+    for (const message of (messages: Array<LinterMessage>)) {
       const messageFile = message.version === 1 ? message.filePath : message.location.file
       const messageRange = message.version === 1 ? message.range : message.location.position
       if (messageRange && currentPosition.compare(messageRange.start) === expectedValue) {
@@ -41,7 +40,7 @@ export default class Commands {
       }
     }
   }
-  requestMessages(): Array<Message | MessageLegacy> {
+  requestMessages(): Array<LinterMessage> {
     const filePath = atom.workspace.getActiveTextEditor().getPath()
     const event = { messages: [], filePath }
     this.emitter.emit('should-provide-messages', event)

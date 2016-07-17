@@ -1,19 +1,20 @@
 /* @flow */
 /** @jsx React.h */
 
-import React from 'preact'
+import * as React from 'preact'
 import filter from 'lodash.filter'
 import { Range } from 'atom'
 import { Emitter, CompositeDisposable } from 'sb-event-kit'
 import type { Disposable } from 'sb-event-kit'
 import type { Panel as Atom$Panel } from 'atom'
 import Messages from './elements/messages' // eslint-disable-line no-unused-vars
-import type { Message, MessageLegacy, Config$ShowIssues } from './types'
+import { getMessagesOnRangeOrPoint } from './helpers'
+import type { LinterMessage, Config$ShowIssues } from './types'
 
 export default class Panel {
   panel: Atom$Panel;
   emitter: Emitter;
-  messages: Array<Message | MessageLegacy>;
+  messages: Array<LinterMessage>;
   subscriptions: CompositeDisposable;
   showIssuesFrom: Config$ShowIssues;
   messageTypesToIgnoreInPanel: Set<string>;
@@ -51,7 +52,7 @@ export default class Panel {
       this.apply()
     }))
   }
-  apply(messages: ?Array<Message | MessageLegacy> = null) {
+  apply(messages: ?Array<LinterMessage> = null) {
     if (messages) {
       this.messages = messages
     } else {
@@ -75,13 +76,7 @@ export default class Panel {
       if (activeEditor) {
         const activePath = activeEditor.getPath() || NaN
         const editorPosition = activeEditor.getCursorBufferPosition()
-        const editorRange = Range.fromObject([[editorPosition.row, 0], [editorPosition.row, Infinity]])
-        filteredMessages = filter(messages, function(message) {
-          if (message.version === 1) {
-            return message.filePath === activePath && editorRange.intersectsWith(message.range)
-          }
-          return message.location.file === activePath && editorRange.intersectsWith(message.location.position)
-        })
+        filteredMessages = getMessagesOnRangeOrPoint(messages, activePath, Range.fromObject([[editorPosition.row, 0], [editorPosition.row, Infinity]]))
       } else filteredMessages = []
     }
     if (this.messageTypesToIgnoreInPanel) {
