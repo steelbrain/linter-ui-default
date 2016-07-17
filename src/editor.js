@@ -8,18 +8,18 @@ import type { TextEditor, BufferMarker, TextEditorGutter, TextEditorMarker, Poin
 import { getMessagesOnPoint, getBufferPositionFromMouseEvent } from './helpers'
 import getGutterElement from './elements/gutter'
 import getBubbleElement from './elements/bubble'
-import type { Message, MessageLegacy } from './types'
+import type { LinterMessage } from './types'
 
 export default class Editor {
   gutter: ?TextEditorGutter;
   bubble: ?TextEditorMarker;
   emitter: Emitter;
-  markers: Map<Message | MessageLegacy, BufferMarker>;
-  messages: Set<Message | MessageLegacy>;
+  markers: Map<LinterMessage, BufferMarker>;
+  messages: Set<LinterMessage>;
   textEditor: TextEditor;
   showBubble: boolean;
   bubbleRange: ?Range;
-  bubbleMessage: Message | MessageLegacy;
+  bubbleMessage: ?LinterMessage;
   subscriptions: CompositeDisposable;
   cursorPosition: ?Point;
   showProviderName: boolean;
@@ -155,11 +155,10 @@ export default class Editor {
       this.bubble.destroy()
     }
   }
-  apply(added: Array<Message | MessageLegacy>, removed: Array<Message | MessageLegacy>) {
+  apply(added: Array<LinterMessage>, removed: Array<LinterMessage>) {
     const textBuffer = this.textEditor.getBuffer()
 
-    for (let i = 0, length = removed.length, message; i < length; ++i) {
-      message = removed[i]
+    for (const message of (removed: Array<LinterMessage>)) {
       const marker = this.markers.get(message)
       if (marker) {
         marker.destroy()
@@ -168,8 +167,7 @@ export default class Editor {
       this.markers.delete(message)
     }
 
-    for (let i = 0, length = added.length, message; i < length; ++i) {
-      message = added[i]
+    for (const message of (added: Array<LinterMessage>)) {
       const markerRange = message.version === 1 ? message.range : message.location.position
       if (!markerRange) {
         // Only for backward compatibility
@@ -195,7 +193,7 @@ export default class Editor {
 
     this.updateBubble()
   }
-  applyMarker(message: Message | MessageLegacy) {
+  applyMarker(message: LinterMessage) {
     const marker = this.markers.get(message)
     const gutter = this.gutter
     const messageClass = `linter-${message.severity}`

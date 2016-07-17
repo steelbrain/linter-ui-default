@@ -76,8 +76,7 @@ export default class Editors {
   filterAndApply(editor: Editor) {
     const messages = []
     const editorPath = editor.textEditor.getPath()
-    for (let i = 0, length = this.messages.length, message; i < length; ++i) {
-      message = this.messages[i]
+    for (const message of (this.messages: Array<LinterMessage>)) {
       if (message.version === 1 && message.filePath === editorPath) {
         messages.push(message)
       } else if (message.version === 2 && message.location.file === editorPath) {

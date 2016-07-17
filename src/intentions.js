@@ -31,16 +31,15 @@ export default class Intentions {
       if (!isInRange) {
         continue
       }
-      const fixes = message.version === 1 ? [message.fix] : message.solutions
+      let fixes = []
+      if (message.version === 1 && message.fix) {
+        fixes.push(message.fix)
+      } else if (message.version === 2 && message.solutions && message.solutions.length) {
+        fixes = message.solutions
+      }
       const linterName = message.linterName || 'Linter'
 
-      invariant(Array.isArray(fixes))
-
-      for (let i = 0, length = fixes.length; i < length; ++i) {
-        const fix = fixes[i]
-        if (!fix || typeof fix !== 'object') {
-          continue
-        }
+      for (const fix of (fixes: Array<Object>)) {
         allFixes.push({
           priority: 200,
           icon: 'tools',
