@@ -96,6 +96,10 @@ export default class Editors {
     editor.onDidDestroy(() => {
       this.editors.delete(editor)
     })
+    editor.subscriptions.add(textEditor.onDidChangePath(() => {
+      editor.dispose()
+      this.getEditor(textEditor)
+    }))
     this.filterAndApply(editor)
     return editor
   }

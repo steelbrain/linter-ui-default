@@ -53,9 +53,6 @@ export default class Editor {
     this.subscriptions.add(textEditor.onDidDestroy(() => {
       this.dispose()
     }))
-    this.subscriptions.add(textEditor.onDidChangePath(() => {
-      this.emitter.emit('did-change-path')
-    }))
 
     let tooltipSubscription
     this.subscriptions.add(atom.config.observe('linter-ui-default.tooltipFollows', tooltipFollows => {
@@ -210,9 +207,6 @@ export default class Editor {
   }
   onDidDestroy(callback: Function): Disposable {
     return this.emitter.on('did-destroy', callback)
-  }
-  onDidChangePath(callback: Function): Disposable {
-    return this.emitter.on('did-change-path', callback)
   }
   dispose() {
     this.emitter.emit('did-destroy')
