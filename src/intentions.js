@@ -1,6 +1,5 @@
 /* @flow */
 
-import invariant from 'assert'
 import { CompositeDisposable, Emitter } from 'sb-event-kit'
 import type { Disposable } from 'sb-event-kit'
 import type { Point, TextBuffer, TextEditor } from 'atom'
