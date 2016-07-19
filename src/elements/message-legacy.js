@@ -57,7 +57,17 @@ export default class Message extends React.Component {
   }
 
   openLink: (() => void) = () => {
-    atom.applicationDelegate.openExternal(
+    // TODO: Remove this when new panel is implemented
+    const range = this.props.message.range
+    if (range) {
+      const textEditor = atom.workspace.getActiveTextEditor()
+      console.log(range.start)
+      if (textEditor) {
+        textEditor.setCursorBufferPosition(range.start)
+      }
+    }
+    return
+    atom.applicationDelegate.openExternal( // eslint-disable-line
       `https://www.google.com/search?q=${encodeURIComponent(`${this.props.message.linterName} ${this.props.message.text || htmlToText(this.props.message.html)}`)}`
     )
   };
@@ -71,7 +81,7 @@ export default class Message extends React.Component {
         Message.getSingleLineMessage(message)}
       {' '}
       <a href="#" onClick={this.openLink}>
-        <span className="icon icon-search linter-icon"></span>
+        <span className="icon icon-code linter-icon"></span>
       </a>
     </linter-message>)
   }
