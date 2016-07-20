@@ -65,10 +65,11 @@ export default class Intentions {
 
   static applyFix(textBuffer: TextBuffer, version: 1 | 2, fix: Object) {
     const range = version === 1 ? fix.range : fix.position
-    if (version === 1 || fix.replaceWith) {
-      const currentText = version === 1 ? fix.oldText : fix.currentText
-      const replaceWith = version === 1 ? fix.newText : fix.replaceWith
-
+    const currentText = version === 1 ? fix.oldText : fix.currentText
+    const replaceWith = version === 1 ? fix.newText : fix.replaceWith
+    if (fix.apply) {
+      fix.apply()
+    } else {
       if (currentText) {
         const textInRange = textBuffer.getTextInRange(range)
         if (currentText !== textInRange) {
@@ -77,8 +78,6 @@ export default class Intentions {
         }
       }
       textBuffer.setTextInRange(range, replaceWith)
-    } else {
-      fix.apply()
     }
   }
 }
