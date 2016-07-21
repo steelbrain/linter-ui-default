@@ -54,6 +54,7 @@ export type LinterMessage = Message | MessageLegacy
 export type Linter = {
   name: string,
   scope: 'file' | 'project',
+  lintOnFly: boolean,
   grammarScopes: Array<string>,
   lint: ((textEditor: TextEditor) => ?Array<Message> | Promise<?Array<Message>>),
 }
