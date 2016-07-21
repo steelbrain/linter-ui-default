@@ -65,19 +65,19 @@ export default class Intentions {
 
   static applyFix(textBuffer: TextBuffer, version: 1 | 2, fix: Object) {
     const range = version === 1 ? fix.range : fix.position
-    const currentText = version === 1 ? fix.oldText : fix.currentText
-    const replaceWith = version === 1 ? fix.newText : fix.replaceWith
     if (fix.apply) {
       fix.apply()
-    } else {
-      if (currentText) {
-        const textInRange = textBuffer.getTextInRange(range)
-        if (currentText !== textInRange) {
-          console.warn('[linter-ui-default] Not applying fix because text did not match the expected one', 'expected', currentText, 'but got', textInRange)
-          return
-        }
-      }
-      textBuffer.setTextInRange(range, replaceWith)
+      return
     }
+    const currentText = version === 1 ? fix.oldText : fix.currentText
+    const replaceWith = version === 1 ? fix.newText : fix.replaceWith
+    if (currentText) {
+      const textInRange = textBuffer.getTextInRange(range)
+      if (currentText !== textInRange) {
+        console.warn('[linter-ui-default] Not applying fix because text did not match the expected one', 'expected', currentText, 'but got', textInRange)
+        return
+      }
+    }
+    textBuffer.setTextInRange(range, replaceWith)
   }
 }
