@@ -5,10 +5,12 @@ import { TextEditor, Point, Range } from 'atom'
 export type Config$ShowIssues = 'All Files' | 'Current File' | 'Current Line';
 
 export type Message = {
-  key: string, // <-- Automatically added
-  version: 2, // <-- Automatically added
-  linterName: string, // <-- Automatically added
+  // Automatically added
+  key: string,
+  version: 2,
+  linterName: string,
 
+  // From providers
   location: {
     file: string,
     position: Range,
@@ -34,10 +36,12 @@ export type Message = {
 }
 
 export type MessageLegacy = {
-  key: string, // <-- Automatically Added
-  version: 1, // <-- Automatically added
-  linterName: string, // <-- Automatically added
+  // Automatically added
+  key: string,
+  version: 1,
+  linterName: string,
 
+  // From providers
   type: string,
   text?: string,
   html?: string,
@@ -56,11 +60,18 @@ export type MessageLegacy = {
 export type LinterMessage = Message | MessageLegacy
 
 export type Linter = {
+  // Automatically added
+  __$sb_linter_version: number,
+  __$sb_linter_activated: boolean,
+  __$sb_linter_request_latest: number,
+  __$sb_linter_request_last_received: number,
+
+  // From providers
   name: string,
   scope: 'file' | 'project',
   lintOnFly: boolean,
   grammarScopes: Array<string>,
-  lint: ((textEditor: TextEditor) => ?Array<Message> | Promise<?Array<Message>>),
+  lint: ((textEditor: TextEditor) => ?Array<Message | MessageLegacy> | Promise<?Array<Message | MessageLegacy>>),
 }
 
 export type MessagesPatch = {
