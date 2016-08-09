@@ -137,7 +137,6 @@ export default class Editor {
     bubble.element = getBubbleElement(messages, this.showProviderName)
     this.textEditor.decorateMarker(bubble.marker, {
       type: 'overlay',
-      persistent: false,
       item: bubble.element,
     })
     this.bubble = bubble
@@ -167,7 +166,6 @@ export default class Editor {
       }
       const marker = textBuffer.markRange(markerRange, {
         invalidate: 'never',
-        persistent: false,
       })
       this.markers.set(message, marker)
       this.messages.add(message)
