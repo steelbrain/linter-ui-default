@@ -19,21 +19,15 @@ export default class LinterUI {
   messages: Array<LinterMessage>;
   intentions: Intentions;
   subscriptions: CompositeDisposable;
-  signalRegistry: Object;
 
   constructor() {
     this.name = 'Linter'
-    this.intentions = new Intentions()
-    this.intentions.onShouldProvideEditor(event => {
-      event.editor = this.editors.getEditor(event.textEditor)
-    })
-  }
-  activate() {
     this.signal = new BusySignal()
     this.editors = new Editors()
     this.treeview = new TreeView()
     this.commands = new Commands()
     this.messages = []
+    this.intentions = new Intentions()
     this.subscriptions = new CompositeDisposable()
 
     this.subscriptions.add(this.signal)
@@ -46,6 +40,9 @@ export default class LinterUI {
         event.messages = Array.from(editor[0].messages)
       }
     })
+    this.intentions.onShouldProvideEditor(event => {
+      event.editor = this.editors.getEditor(event.textEditor)
+    })
 
     this.subscriptions.add(atom.config.observe('linter-ui-default.showPanel', showPanel => {
       if (showPanel && !this.panel) {
@@ -56,9 +53,6 @@ export default class LinterUI {
         this.panel = null
       }
     }))
-    if (this.signalRegistry) {
-      this.signal.attach(this.signalRegistry)
-    }
   }
   render(difference: MessagesPatch) {
     this.messages = difference.messages

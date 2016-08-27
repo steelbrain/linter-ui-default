@@ -1,32 +1,38 @@
 /* @flow */
 
-import { CompositeDisposable } from 'sb-event-kit'
 import LinterUI from './main'
 import type Intentions from './intentions'
 
-module.exports = {
+const linterUiDefault = {
+  ui: new Set(),
+  signalRegistry: null,
   activate() {
     if (!atom.inSpecMode()) {
       require('atom-package-deps').install('linter-ui-default') // eslint-disable-line global-require
     }
-    this.ui = new LinterUI()
-    this.subscriptions = new CompositeDisposable()
-
-    this.subscriptions.add(this.ui)
   },
   deactivate() {
-    this.subscriptions.dispose()
-  },
-  provideUI(): LinterUI {
-    return this.ui
-  },
-  provideIntentions(): Intentions {
-    return this.ui.intentions
-  },
-  consumeSignal(registry: Object) {
-    this.ui.signalRegistry = registry
-    if (this.ui.signal) {
-      this.ui.signal.attach(registry)
+    for (const entry of this.ui) {
+      entry.dispose()
     }
   },
+  provideUI(): LinterUI {
+    const ui = new LinterUI()
+    this.ui.add(ui)
+    if (this.signalRegistry) {
+      ui.signal.attach(this.signalRegistry)
+    }
+    return ui
+  },
+  provideIntentions(): Intentions {
+    return Array.from(this.ui).map(entry => entry.intentions)
+  },
+  consumeSignal(signalRegistry: Object) {
+    this.signalRegistry = signalRegistry
+    this.ui.forEach(function(ui) {
+      ui.signal.attach(signalRegistry)
+    })
+  },
 }
+
+module.exports = linterUiDefault
