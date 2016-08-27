@@ -6,22 +6,21 @@ The default UI for linter.
 ### Installation
 
 The support for UI Service isn't merged into the linter package yet, here's how
-you can try this until then, this demonstration uses some [hub](https://github.com/github/hub)
-commands
+you can try this until then.
 
 ```
 apm uninstall linter linter-ui-default
 
 # Clone linter-ui-default package
 cd ~/.atom/packages
-git clone steelbrain/linter-ui-default
+git clone git@github.com:steelbrain/linter-ui-default.git
 cd linter-ui-default
 npm install
 npm run compile
 
 # Install the latest, unreleased linter
 cd ~/.atom/packages
-git clone steelbrain/linter -b steelbrain/transition-towards-ide
+git clone git@github.com:steelbrain/linter.git -b steelbrain/transition-towards-ide
 cd linter
 npm install
 ```
