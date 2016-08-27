@@ -42,7 +42,7 @@ export default class TreeView {
       this.subscriptions.add(disposableEvent(element, 'click', debounce(() => {
         this.render(this.messages)
       })))
-    }, 1000)
+    }, 100);
   }
   apply(difference: MessagesPatch) {
     this.messages = difference.messages
