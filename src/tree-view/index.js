@@ -7,7 +7,6 @@ import { calculateDecorations } from './helpers'
 import type { LinterMessage, MessagesPatch, TreeViewHighlight } from '../types'
 
 export default class TreeView {
-  element: HTMLElement;
   emitter: Emitter;
   messages: Array<LinterMessage>;
   decorations: Object;
@@ -15,7 +14,6 @@ export default class TreeView {
   decorateOnTreeView: 'Files and Directories' | 'Files' | 'None';
 
   constructor() {
-    this.element = TreeView.getElement()
     this.emitter = new Emitter()
     this.messages = []
     this.decorations = {}
@@ -36,11 +34,15 @@ export default class TreeView {
       }
     }))
 
-    if (this.element) {
-      this.subscriptions.add(disposableEvent(this.element, 'click', debounce(() => {
+    setTimeout(() => {
+      const element = TreeView.getElement()
+      if (this.subscriptions.disposed || !element) {
+        return
+      }
+      this.subscriptions.add(disposableEvent(element, 'click', debounce(() => {
         this.render(this.messages)
       })))
-    }
+    }, 1000)
   }
   apply(difference: MessagesPatch) {
     this.messages = difference.messages
@@ -59,7 +61,8 @@ export default class TreeView {
     }
   }
   applyDecorations(decorations: Object) {
-    if (!this.element) {
+    const treeViewElement = TreeView.getElement()
+    if (!treeViewElement) {
       return
     }
     for (const filePath in this.decorations) {
@@ -68,7 +71,7 @@ export default class TreeView {
       }
       if (!decorations[filePath]) {
         // Removed
-        const element = TreeView.getElementByPath(this.element, filePath)
+        const element = TreeView.getElementByPath(treeViewElement, filePath)
         if (element) {
           this.removeDecoration(element)
         }
@@ -78,7 +81,7 @@ export default class TreeView {
       if (!{}.hasOwnProperty.call(decorations, filePath)) {
         continue
       }
-      const element = TreeView.getElementByPath(this.element, filePath)
+      const element = TreeView.getElementByPath(treeViewElement, filePath)
       if (!element) {
         continue
       }
