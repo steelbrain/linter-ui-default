@@ -3,27 +3,28 @@
 #linter-tooltip {
   margin-top: 3px;
 
-  .message-with-severity(@color) {
-    color: contrast(@color);
-    background-color: @color;
+  .message-with-severity(@color, @background-color) {
+    color: @color;
+    background-color: @background-color;
+
     &::before {
-      border-color: transparent transparent @color @color;
+      border-color: transparent transparent @background-color @background-color;
     }
 
     a {
-      color: contrast(@color);
+      color: @color;
     }
   }
 
   linter-message {
     &.error {
-      .message-with-severity(@text-color-error);
+      .message-with-severity(@text-color-error, @background-color-error);
     }
     &.warning {
-      .message-with-severity(@text-color-warning);
+      .message-with-severity(@text-color-warning, @background-color-warning);
     }
     &.info {
-      .message-with-severity(@text-color-info);
+      .message-with-severity(@text-color-info, @background-color-info);
     }
 
     // Arrow pointer
