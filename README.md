@@ -20,7 +20,7 @@ npm run compile
 
 # Install the latest, unreleased linter
 cd ~/.atom/packages
-git clone git@github.com:steelbrain/linter.git -b steelbrain/transition-towards-ide
+git clone git@github.com:steelbrain/linter.git
 cd linter
 npm install
 ```
