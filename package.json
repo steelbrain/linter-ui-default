@@ -10,8 +10,7 @@
     "atom": ">=1.4.0 <2.0.0"
   },
   "scripts": {
-    "test": "apm test",
-    "lint": "eslint .",
+    "test": "(apm test) && (flow check) && (eslint . )",
     "clean": "rm -rf lib",
     "compile": "npm run clean && babel src --out-dir lib",
     "watch": "npm run clean && babel src --out-dir lib --watch"
@@ -25,11 +24,12 @@
     "sb-event-kit": "^2.0.0"
   },
   "devDependencies": {
-    "eslint-config-steelbrain": "^1.0.4",
-    "jasmine-fix": "^1.0.0",
     "babel-cli": "^6.10.1",
     "babel-plugin-for-of-efficient": "^1.0.0",
-    "babel-preset-steelbrain": "^4.0.1"
+    "babel-preset-steelbrain": "^4.0.1",
+    "eslint-config-steelbrain": "^1.0.4",
+    "flow-bin": "^0.31.1",
+    "jasmine-fix": "^1.0.0"
   },
   "providedServices": {
     "linter-ui": {
