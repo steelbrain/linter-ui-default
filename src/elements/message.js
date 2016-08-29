@@ -20,10 +20,6 @@ export default class MessageElement extends React.Component {
         textEditor.setCursorBufferPosition(range.start)
       }
     }
-    return
-    atom.applicationDelegate.openExternal( // eslint-disable-line
-      this.props.message.reference || `https://www.google.com/search?q=${encodeURIComponent(`${this.props.message.linterName} ${this.props.message.excerpt}`)}`
-    )
   };
 
   render() {

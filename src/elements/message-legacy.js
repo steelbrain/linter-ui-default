@@ -2,7 +2,6 @@
 /** @jsx React.h */
 
 import * as React from 'preact'
-import { htmlToText } from './helpers'
 import type { MessageLegacy } from '../types'
 
 const NEWLINE = /\r\n|\n/
@@ -61,15 +60,10 @@ export default class Message extends React.Component {
     const range = this.props.message.range
     if (range) {
       const textEditor = atom.workspace.getActiveTextEditor()
-      console.log(range.start)
       if (textEditor) {
         textEditor.setCursorBufferPosition(range.start)
       }
     }
-    return
-    atom.applicationDelegate.openExternal( // eslint-disable-line
-      `https://www.google.com/search?q=${encodeURIComponent(`${this.props.message.linterName} ${this.props.message.text || htmlToText(this.props.message.html)}`)}`
-    )
   };
 
   render() {
