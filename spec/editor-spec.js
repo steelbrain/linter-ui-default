@@ -1,7 +1,8 @@
 /* @flow */
 
 import { Range } from 'atom'
-import Editor from '../lib/editor'
+import { beforeEach } from 'jasmine-fix'
+import Editor from '../src/editor'
 import { getMessage } from './helpers'
 
 describe('Editor', function() {
@@ -9,16 +10,13 @@ describe('Editor', function() {
   let message
   let textEditor
 
-  beforeEach(function() {
+  beforeEach(async function() {
     message = getMessage()
     message.range = [[2, 0], [2, 1]]
     message.filePath = __filename
-    waitsForPromise(function() {
-      return atom.workspace.open(__filename).then(function() {
-        textEditor = atom.workspace.getActiveTextEditor()
-        editor = new Editor(textEditor)
-      })
-    })
+    await atom.workspace.open(__filename)
+    textEditor = atom.workspace.getActiveTextEditor()
+    editor = new Editor(textEditor)
     atom.packages.loadPackage('linter-ui-default')
   })
   afterEach(function() {
@@ -49,9 +47,9 @@ describe('Editor', function() {
   describe('Response to config', function() {
     it('responds to `gutterPosition`', function() {
       atom.config.set('linter-ui-default.gutterPosition', 'Left')
-      expect(editor.gutter.priority).toBe(-100)
+      expect(editor.gutter && editor.gutter.priority).toBe(-100)
       atom.config.set('linter-ui-default.gutterPosition', 'Right')
-      expect(editor.gutter.priority).toBe(100)
+      expect(editor.gutter && editor.gutter.priority).toBe(100)
     })
     it('responds to `showDecorations`', function() {
       expect(editor.gutter).not.toBe(null)

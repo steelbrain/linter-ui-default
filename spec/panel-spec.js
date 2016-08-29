@@ -1,6 +1,6 @@
 /* @flow */
 
-import Panel from '../lib/panel'
+import Panel from '../src/panel'
 import { getMessage } from './helpers'
 
 describe('Panel', function() {

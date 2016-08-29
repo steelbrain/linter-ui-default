@@ -1,21 +1,18 @@
 /* @flow */
 
 import { Range } from 'atom'
-import { it, wait } from 'jasmine-fix'
-import Commands from '../lib/commands'
+import { it, wait, beforeEach } from 'jasmine-fix'
+import Commands from '../src/commands'
 import { dispatchCommand, getMessage } from './helpers'
 
 describe('Commands', function() {
   let commands
   let activeEditor
 
-  beforeEach(function() {
+  beforeEach(async function() {
     commands = new Commands()
-    waitsForPromise(function() {
-      return atom.workspace.open(__filename).then(function() {
-        activeEditor = atom.workspace.getActiveTextEditor()
-      })
-    })
+    await atom.workspace.open(__filename)
+    activeEditor = atom.workspace.getActiveTextEditor()
   })
   afterEach(function() {
     commands.dispose()
