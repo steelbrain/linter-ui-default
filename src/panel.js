@@ -74,7 +74,7 @@ export default class Panel {
     } else if (this.showIssuesFrom === 'Current Line') {
       const activeEditor = atom.workspace.getActiveTextEditor()
       if (activeEditor) {
-        const activePath = activeEditor.getPath() || NaN
+        const activePath = activeEditor.getPath() || ''
         const editorPosition = activeEditor.getCursorBufferPosition()
         filteredMessages = getMessagesOnRangeOrPoint(messages, activePath, Range.fromObject([[editorPosition.row, 0], [editorPosition.row, Infinity]]))
       } else filteredMessages = []

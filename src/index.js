@@ -24,7 +24,7 @@ const linterUiDefault = {
     }
     return ui
   },
-  provideIntentions(): Intentions {
+  provideIntentions(): Array<Intentions> {
     return Array.from(this.ui).map(entry => entry.intentions)
   },
   consumeSignal(signalRegistry: Object) {
