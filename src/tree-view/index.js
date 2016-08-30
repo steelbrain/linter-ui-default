@@ -4,7 +4,7 @@ import { CompositeDisposable, Emitter } from 'sb-event-kit'
 import debounce from 'sb-debounce'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
-import type { LinterMessage, MessagesPatch, TreeViewHighlight } from '../types'
+import type { LinterMessage, TreeViewHighlight } from '../types'
 
 export default class TreeView {
   emitter: Emitter;
@@ -24,13 +24,12 @@ export default class TreeView {
       if (typeof this.decorateOnTreeView === 'undefined') {
         this.decorateOnTreeView = decorateOnTreeView
       } else if (decorateOnTreeView === 'None') {
-        this.render()
+        this.apply([])
         this.decorateOnTreeView = decorateOnTreeView
       } else {
         const messages = this.messages
-        this.render()
         this.decorateOnTreeView = decorateOnTreeView
-        this.render(messages)
+        this.apply(messages)
       }
     }))
 
@@ -40,54 +39,53 @@ export default class TreeView {
         return
       }
       this.subscriptions.add(disposableEvent(element, 'click', debounce(() => {
-        this.render(this.messages)
+        this.apply(this.messages)
       })))
     }, 100)
   }
-  apply(difference: MessagesPatch) {
-    this.messages = difference.messages
+  apply(messages: Array<LinterMessage>) {
+    this.messages = messages
     const element = TreeView.getElement()
     const decorateOnTreeView = this.decorateOnTreeView
     if (!element || decorateOnTreeView === 'None') {
       return
     }
 
-    this.applyDecorations(calculateDecorations(decorateOnTreeView, difference.messages))
-  }
-  render(messages: Array<LinterMessage> = []) {
-    this.apply({ added: [], messages: [], removed: this.messages })
-    if (messages.length) {
-      this.apply({ added: messages, messages, removed: [] })
-    }
+    this.applyDecorations(calculateDecorations(decorateOnTreeView, messages))
   }
   applyDecorations(decorations: Object) {
     const treeViewElement = TreeView.getElement()
     if (!treeViewElement) {
       return
     }
+
+    const elementCache = {}
+    const appliedDecorations = {}
+
     for (const filePath in this.decorations) {
       if (!{}.hasOwnProperty.call(this.decorations, filePath)) {
         continue
       }
       if (!decorations[filePath]) {
         // Removed
-        const element = TreeView.getElementByPath(treeViewElement, filePath)
+        const element = elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
         if (element) {
           this.removeDecoration(element)
         }
       }
     }
+
     for (const filePath in decorations) {
       if (!{}.hasOwnProperty.call(decorations, filePath)) {
         continue
       }
-      const element = TreeView.getElementByPath(treeViewElement, filePath)
-      if (!element) {
-        continue
+      const element = elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
+      if (element) {
+        this.handleDecoration(element, !!this.decorations[filePath], decorations[filePath])
+        appliedDecorations[filePath] = decorations[filePath]
       }
-      this.handleDecoration(element, this.decorations[filePath], decorations[filePath])
     }
-    this.decorations = decorations
+    this.decorations = appliedDecorations
   }
   handleDecoration(element: HTMLElement, update: boolean = false, highlights: TreeViewHighlight) {
     let decoration
