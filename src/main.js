@@ -60,7 +60,7 @@ export default class LinterUI {
     if (this.panel) {
       this.panel.apply(difference.messages)
     }
-    this.treeview.apply(difference)
+    this.treeview.apply(difference.messages)
   }
   didBeginLinting(linter: Linter, filePath: string) {
     this.signal.didBeginLinting(linter, filePath)
