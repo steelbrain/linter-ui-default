@@ -1,12 +1,17 @@
 Linter-UI-Default
 ================
 
+[![Slack Badge](https://img.shields.io/badge/chat-atom.io%20slack-blue.svg?style=flat-square)](http://atom-slack.herokuapp.com/)
+[![Build Status](https://img.shields.io/circleci/project/steelbrain/linter-ui-default.svg?style=flat-square)](https://travis-ci.org/steelbrain/linter)
+[![Plugin installs!](https://img.shields.io/apm/dm/linter-ui-default.svg?style=flat-square)](https://atom.io/packages/linter)
+[![Package version!](https://img.shields.io/apm/v/linter-ui-default.svg?style=flat-square)](https://atom.io/packages/linter)
+[![Dependencies!](https://img.shields.io/david/steelbrain/linter-ui-default.svg?style=flat-square)](https://david-dm.org/steelbrain/linter)
+
 The default UI for linter.
 
 ### Installation
 
-The support for UI Service isn't merged into the linter package yet, here's how
-you can try this until then.
+Linter v2 isn't released yet, here's how you can try this until then.
 
 ```
 apm uninstall linter linter-ui-default
@@ -18,7 +23,7 @@ cd linter-ui-default
 npm install
 npm run compile
 
-# Install the latest, unreleased linter
+# Install Linter v2
 cd ~/.atom/packages
 git clone git@github.com:steelbrain/linter.git
 cd linter
