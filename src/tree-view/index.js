@@ -58,30 +58,32 @@ export default class TreeView {
     if (!treeViewElement) {
       return
     }
+
+    const elementCache = {}
+    const appliedDecorations = {}
+
     for (const filePath in this.decorations) {
       if (!{}.hasOwnProperty.call(this.decorations, filePath)) {
         continue
       }
       if (!decorations[filePath]) {
         // Removed
-        const element = TreeView.getElementByPath(treeViewElement, filePath)
+        const element = elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
         if (element) {
           this.removeDecoration(element)
         }
       }
     }
 
-    const appliedDecorations = {}
     for (const filePath in decorations) {
       if (!{}.hasOwnProperty.call(decorations, filePath)) {
         continue
       }
-      const element = TreeView.getElementByPath(treeViewElement, filePath)
-      if (!element) {
-        continue
+      const element = elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
+      if (element) {
+        this.handleDecoration(element, !!this.decorations[filePath], decorations[filePath])
+        appliedDecorations[filePath] = decorations[filePath]
       }
-      this.handleDecoration(element, !!this.decorations[filePath], decorations[filePath])
-      appliedDecorations[filePath] = decorations[filePath]
     }
     this.decorations = appliedDecorations
   }
