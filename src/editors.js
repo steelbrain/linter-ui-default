@@ -26,9 +26,9 @@ export default class Editors {
       const previousValue = this.showDecorations
       this.showDecorations = showDecorations
       if (showDecorations && !previousValue) {
-        this.apply({ added: this.messages, messages: this.messages, removed: [] }, true)
+        this.update({ added: this.messages, messages: this.messages, removed: [] }, true)
       } else if (!showDecorations && previousValue) {
-        this.apply({ added: [], messages: [], removed: this.messages }, true)
+        this.update({ added: [], messages: [], removed: this.messages }, true)
       }
     }))
 
@@ -37,7 +37,7 @@ export default class Editors {
       this.getEditor(textEditor)
     }))
   }
-  apply(difference: MessagesPatch, force: boolean = false) {
+  update(difference: MessagesPatch, force: boolean = false) {
     this.messages = difference.messages
     if (!this.showDecorations && !force) {
       // Do not paint anything if highlighting issues is disabled
