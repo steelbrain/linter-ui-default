@@ -13,12 +13,11 @@
     "test": "(apm test) && (flow check) && (eslint . )",
     "clean": "rm -rf lib",
     "compile": "npm run clean && babel src --out-dir lib",
-    "watch": "npm run clean && babel src --out-dir lib --watch"
+    "watch": "npm run compile -- -w"
   },
   "dependencies": {
     "atom-package-deps": "^4.3.1",
     "disposable-event": "^1.0.1",
-    "fixed-data-table": "^0.6.3",
     "preact": "^5.3.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
@@ -30,6 +29,7 @@
     "babel-plugin-for-of-efficient": "^1.0.0",
     "babel-preset-steelbrain": "^4.0.1",
     "eslint-config-steelbrain": "^1.0.4",
+    "eslint-plugin-react": "^6.2.0",
     "flow-bin": "^0.31.1",
     "jasmine-fix": "^1.0.1"
   },
