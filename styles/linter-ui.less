@@ -45,7 +45,7 @@
 
 linter-panel {
   display: block;
-  max-height: 110px;
+  max-height: 140px;
   overflow-y: scroll;
 }
 
@@ -105,8 +105,8 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight {
   .error_type(@color) {
     top: 0;
     left: 1.8rem;
+    width: calc(~"100% - 1.8rem");
     height: 100%;
-    width: calc(~"100% - 1.7rem");
     position: absolute;
     border-bottom: 1px dotted @color;
   }
