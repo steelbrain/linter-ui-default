@@ -23,7 +23,7 @@ export default class PanelElement extends React.Component {
       { key: 'linterName', label: 'Provider', sortable: true },
       { key: 'excerpt', label: 'Description' },
       { key: 'file', label: 'File', sortable: true },
-      { key: 'line', label: 'Line', sortbale: true },
+      { key: 'line', label: 'Line', sortable: true },
     ]
 
     return (
@@ -31,7 +31,8 @@ export default class PanelElement extends React.Component {
         rows={this.state.messages}
         columns={columns}
 
-        sort={(_, i) => i}
+        initialSort={[{ column: 'severity', type: 'desc' }, { column: 'file', type: 'asc' }]}
+        sort={PanelElement.sortRows}
         rowKey={i => i.key}
 
         renderHeaderColumn={i => i.label}
@@ -65,5 +66,70 @@ export default class PanelElement extends React.Component {
       default:
         return row[column]
     }
+  }
+  static sortRows(sortInfo: Array<{ column: string, type: 'asc' | 'desc' }>, rows: Array<LinterMessage>): Array<LinterMessage> {
+    const sortColumns = {
+      severity: null,
+      linterName: null,
+      file: null,
+      line: null,
+    }
+
+    const severityScore = {
+      error: 3,
+      warning: 2,
+      info: 1,
+    }
+
+    for (let i = 0, length = sortInfo.length; i < length; i++) {
+      const entry = sortInfo[i]
+      sortColumns[entry.column] = entry.type
+    }
+
+    return rows.slice().sort(function(a, b) {
+      if (sortColumns.severity) {
+        const multiplyWith = sortColumns.severity === 'asc' ? 1 : -1
+        const severityA = severityScore[a.severity]
+        const severityB = severityScore[b.severity]
+        if (severityA !== severityB) {
+          return multiplyWith * (severityA > severityB ? 1 : -1)
+        }
+      }
+      if (sortColumns.linterName) {
+        const multiplyWith = sortColumns.linterName === 'asc' ? 1 : -1
+        const sortValue = a.severity.localeCompare(b.severity)
+        if (sortValue !== 0) {
+          return multiplyWith * sortValue
+        }
+      }
+      if (sortColumns.file) {
+        const multiplyWith = sortColumns.file === 'asc' ? 1 : -1
+        const fileA = atom.project.relativizePath(a.version === 1 ? (a.filePath || '') : a.location.file)[1].length
+        const fileB = atom.project.relativizePath(b.version === 1 ? (b.filePath || '') : b.location.file)[1].length
+        if (fileA !== fileB) {
+          return multiplyWith * (fileA > fileB ? 1 : -1)
+        }
+      }
+      if (sortColumns.line) {
+        const multiplyWith = sortColumns.line === 'asc' ? 1 : -1
+        let lineA
+        if (a.version === 1) {
+          lineA = a.range ? a.range.start.row : 0
+        } else {
+          lineA = a.location.position.start.row
+        }
+        let lineB
+        if (b.version === 1) {
+          lineB = b.range ? b.range.start.row : 0
+        } else {
+          lineB = b.location.position.start.row
+        }
+        if (lineA !== lineB) {
+          return multiplyWith * (lineA > lineB ? 1 : -1)
+        }
+      }
+
+      return 0
+    })
   }
 }
