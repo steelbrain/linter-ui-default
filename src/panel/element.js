@@ -2,6 +2,7 @@
 
 import React from 'react'
 import ReactTable from 'sb-react-table'
+import { getFileOfMessage, getLineOfMessage } from './helpers'
 import type Delegate from './delegate'
 import type { LinterMessage } from '../types'
 
@@ -46,15 +47,9 @@ export default class PanelElement extends React.Component {
   static renderRowColumn(row: LinterMessage, column: string): string | Object {
     switch (column) {
       case 'file':
-        if (row.version === 1) {
-          return row.filePath ? atom.project.relativizePath(row.filePath)[1] : ''
-        }
-        return atom.project.relativizePath(row.location.file)[1]
+        return getFileOfMessage(row)
       case 'line':
-        if (row.version === 1) {
-          return row.range ? row.range.start.row : ''
-        }
-        return row.location.position.start.row
+        return getLineOfMessage(row).toString()
       case 'excerpt':
         if (row.version === 1) {
           if (row.html) {
@@ -104,26 +99,16 @@ export default class PanelElement extends React.Component {
       }
       if (sortColumns.file) {
         const multiplyWith = sortColumns.file === 'asc' ? 1 : -1
-        const fileA = atom.project.relativizePath(a.version === 1 ? (a.filePath || '') : a.location.file)[1].length
-        const fileB = atom.project.relativizePath(b.version === 1 ? (b.filePath || '') : b.location.file)[1].length
+        const fileA = getFileOfMessage(a).length
+        const fileB = getFileOfMessage(b).length
         if (fileA !== fileB) {
           return multiplyWith * (fileA > fileB ? 1 : -1)
         }
       }
       if (sortColumns.line) {
         const multiplyWith = sortColumns.line === 'asc' ? 1 : -1
-        let lineA
-        if (a.version === 1) {
-          lineA = a.range ? a.range.start.row : 0
-        } else {
-          lineA = a.location.position.start.row
-        }
-        let lineB
-        if (b.version === 1) {
-          lineB = b.range ? b.range.start.row : 0
-        } else {
-          lineB = b.location.position.start.row
-        }
+        const lineA = getLineOfMessage(a)
+        const lineB = getLineOfMessage(b)
         if (lineA !== lineB) {
           return multiplyWith * (lineA > lineB ? 1 : -1)
         }
