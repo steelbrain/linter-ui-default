@@ -15,7 +15,6 @@ export default class MessageElement extends React.Component {
     const range = this.props.message.location.position
     if (range) {
       const textEditor = atom.workspace.getActiveTextEditor()
-      console.log(range.start)
       if (textEditor) {
         textEditor.setCursorBufferPosition(range.start)
       }
