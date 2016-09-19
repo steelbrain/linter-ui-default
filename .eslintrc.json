@@ -2,10 +2,10 @@
   "extends": "steelbrain",
   "plugins": ["react"],
   "rules": {
-    "no-param-reassign": 0,
-    "no-duplicate-imports": 0,
-    "no-underscore-dangle": 0,
-    "react/jsx-uses-vars": 1,
+    "no-param-reassign": "off",
+    "no-duplicate-imports": "off",
+    "no-underscore-dangle": "off",
+    "react/jsx-uses-vars": "error",
     "no-unused-vars": ["error", { "varsIgnorePattern": "React" }]
   }
 }
