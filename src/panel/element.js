@@ -53,7 +53,7 @@ export default class PanelElement extends React.Component {
       case 'excerpt':
         if (row.version === 1) {
           if (row.html) {
-            return <span dangerouslySetInnerHTML={{ ___html: row.html }} />
+            return <span dangerouslySetInnerHTML={{ __html: row.html }} />
           }
           return row.text || ''
         }
