@@ -22,7 +22,8 @@
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "sb-debounce": "^1.0.1",
-    "sb-event-kit": "^2.0.0"
+    "sb-event-kit": "^2.0.0",
+    "sb-react-table": "^0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
