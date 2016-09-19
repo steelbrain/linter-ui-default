@@ -68,12 +68,12 @@ export default class PanelElement extends React.Component {
     }
   }
   static sortRows(sortInfo: Array<{ column: string, type: 'asc' | 'desc' }>, rows: Array<LinterMessage>): Array<LinterMessage> {
-    const sortColumns = {
-      severity: null,
-      linterName: null,
-      file: null,
-      line: null,
-    }
+    const sortColumns : {
+      severity?: 'asc' | 'desc',
+      linterName?: 'asc' | 'desc',
+      file?: 'asc' | 'desc',
+      line?: 'asc' | 'desc'
+    } = {}
 
     const severityScore = {
       error: 3,
