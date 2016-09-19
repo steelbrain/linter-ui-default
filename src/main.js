@@ -34,17 +34,17 @@ export default class LinterUI {
     this.subscriptions.add(this.editors)
     this.subscriptions.add(this.treeview)
     this.subscriptions.add(this.commands)
-    this.commands.onShouldProvideMessages(event => {
+    this.commands.onShouldProvideMessages((event) => {
       const editor = this.editors.getByFilePath(event.filePath)
       if (editor.length) {
         event.messages = Array.from(editor[0].messages)
       }
     })
-    this.intentions.onShouldProvideEditor(event => {
+    this.intentions.onShouldProvideEditor((event) => {
       event.editor = this.editors.getEditor(event.textEditor)
     })
 
-    this.subscriptions.add(atom.config.observe('linter-ui-default.showPanel', showPanel => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showPanel', (showPanel) => {
       if (showPanel && !this.panel) {
         this.panel = new Panel()
         this.panel.update(this.messages)

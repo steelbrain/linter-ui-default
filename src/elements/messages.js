@@ -26,7 +26,7 @@ export default class Messages extends React.Component {
   }
   componentDidMount() {
     const { panel } = this.props
-    this.subscriptions.add(panel.observeMessages(messages => {
+    this.subscriptions.add(panel.observeMessages((messages) => {
       this.setState({ messages })
     }))
   }
@@ -40,7 +40,7 @@ export default class Messages extends React.Component {
     }
 
     return (<linter-messages style={messageStyle} tabindex="-1" onKeyDown={Messages.onKeyDown}>
-      { sortMessages(this.state.messages).map(message => {
+      { sortMessages(this.state.messages).map((message) => {
         if (message.version === 1) {
           return <MessageElementLegacy message={message} showProviderName={this.state.showProviderName} key={message.key} />
         }
@@ -53,10 +53,8 @@ export default class Messages extends React.Component {
       if (e.metaKey && e.which === 67) {
         copySelection()
       }
-    } else {
-      if (e.ctrlKey && e.which === 67) {
-        copySelection()
-      }
+    } else if (e.ctrlKey && e.which === 67) {
+      copySelection()
     }
   }
 }

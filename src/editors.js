@@ -19,10 +19,10 @@ export default class Editors {
     this.editors = new Set()
     this.messages = []
     this.subscriptions = new CompositeDisposable()
-    this.subscriptions.add(atom.config.observe('linter-ui-default.showIssuesFrom', showIssuesFrom => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showIssuesFrom', (showIssuesFrom) => {
       this.showIssuesFrom = showIssuesFrom
     }))
-    this.subscriptions.add(atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showDecorations', (showDecorations) => {
       const previousValue = this.showDecorations
       this.showDecorations = showDecorations
       if (showDecorations && !previousValue) {
@@ -33,7 +33,7 @@ export default class Editors {
     }))
 
     this.subscriptions.add(this.emitter)
-    this.subscriptions.add(atom.workspace.observeTextEditors(textEditor => {
+    this.subscriptions.add(atom.workspace.observeTextEditors((textEditor) => {
       this.getEditor(textEditor)
     }))
   }

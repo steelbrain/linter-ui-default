@@ -35,10 +35,10 @@ export default class Editor {
     this.subscriptions = new CompositeDisposable()
 
     this.subscriptions.add(this.emitter)
-    this.subscriptions.add(atom.config.observe('linter-ui-default.showBubble', showBubble => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showBubble', (showBubble) => {
       this.showBubble = showBubble
     }))
-    this.subscriptions.add(atom.config.observe('linter-ui-default.showProviderName', showProviderName => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showProviderName', (showProviderName) => {
       this.showProviderName = showProviderName
     }))
     this.subscriptions.add(atom.config.onDidChange('linter-ui-default.showDecorations', () => {
@@ -52,7 +52,7 @@ export default class Editor {
     }))
 
     let tooltipSubscription
-    this.subscriptions.add(atom.config.observe('linter-ui-default.tooltipFollows', tooltipFollows => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.tooltipFollows', (tooltipFollows) => {
       if (tooltipSubscription) {
         tooltipSubscription.dispose()
       }
@@ -66,7 +66,7 @@ export default class Editor {
   }
   listenForMouseMovement() {
     const editorElement = atom.views.getView(this.textEditor)
-    return disposableEvent(editorElement, 'mousemove', debounce(e => {
+    return disposableEvent(editorElement, 'mousemove', debounce((e) => {
       if (!editorElement.component || e.target.nodeName !== 'ATOM-TEXT-EDITOR') {
         return
       }

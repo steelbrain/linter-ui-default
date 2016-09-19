@@ -14,7 +14,7 @@ export default class PanelElement extends React.Component {
     messages: Array<LinterMessage>,
   } = { messages: [] };
   componentDidMount() {
-    this.props.delegate.observeMessages(messages => {
+    this.props.delegate.observeMessages((messages) => {
       this.setState({ messages })
     })
   }
