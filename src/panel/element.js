@@ -46,9 +46,9 @@ export default class PanelElement extends React.Component {
     switch (column) {
       case 'file':
         if (row.version === 1) {
-          return row.filePath ? atom.project.relativizePath(row.filePath) : ''
+          return row.filePath ? atom.project.relativizePath(row.filePath)[1] : ''
         }
-        return atom.project.relativizePath(row.location.file)
+        return atom.project.relativizePath(row.location.file)[1]
       case 'line':
         if (row.version === 1) {
           return row.range ? row.range.start.row : ''

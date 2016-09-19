@@ -1,1 +1,20 @@
 @import (inline) "../node_modules/sb-react-table/styles/base.css";
+@import "ui-variables";
+
+.sb-table.linter {
+  color: @text-color;
+  border-color: @base-border-color;
+}
+
+.sb-table.linter thead {
+  background-color: @base-background-color;
+}
+
+.sb-table.linter th {
+  border-right-color: @base-border-color;
+  border-bottom-color: @base-border-color;
+}
+
+.sb-table.linter tbody {
+  background-color: @inset-panel-background-color;
+}
