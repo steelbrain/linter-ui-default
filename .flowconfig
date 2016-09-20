@@ -9,5 +9,6 @@ decls
 
 [options]
 module.system=node
-suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
 esproposal.class_instance_fields=enable
+unsafe.enable_getters_and_setters=true
+suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore

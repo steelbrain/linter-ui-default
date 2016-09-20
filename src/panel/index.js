@@ -16,7 +16,7 @@ export default class Panel {
     this.delegate = new Delegate()
     this.subscriptions = new CompositeDisposable()
 
-    const element = document.createElement('linter-panel')
+    const element = document.createElement('div')
     const panel = atom.workspace.addBottomPanel({
       item: element,
       visible: true,

@@ -12,11 +12,16 @@ export default class PanelElement extends React.Component {
   };
   state: {
     messages: Array<LinterMessage>,
-  } = { messages: [] };
+    visibility: boolean,
+  } = { messages: [], visibility: false };
   componentDidMount() {
-    this.props.delegate.observeMessages((messages) => {
+    this.props.delegate.onDidChangeMessages((messages) => {
       this.setState({ messages })
     })
+    this.props.delegate.onDidChangeVisibility((visibility) => {
+      this.setState({ visibility })
+    })
+    this.setState({ messages: this.props.delegate.messages, visibility: this.props.delegate.visibility })
   }
   render() {
     const columns = [
@@ -26,22 +31,25 @@ export default class PanelElement extends React.Component {
       { key: 'file', label: 'File', sortable: true },
       { key: 'line', label: 'Line', sortable: true },
     ]
+    const showPanel = this.state.visibility && this.state.messages.length
 
     return (
-      <ReactTable
-        rows={this.state.messages}
-        columns={columns}
+      <linter-panel style={{ display: showPanel ? 'block' : 'none' }}>
+        <ReactTable
+          rows={this.state.messages}
+          columns={columns}
 
-        initialSort={[{ column: 'severity', type: 'desc' }, { column: 'file', type: 'asc' }]}
-        sort={PanelElement.sortRows}
-        rowKey={i => i.key}
+          initialSort={[{ column: 'severity', type: 'desc' }, { column: 'file', type: 'asc' }]}
+          sort={PanelElement.sortRows}
+          rowKey={i => i.key}
 
-        renderHeaderColumn={i => i.label}
-        renderBodyColumn={PanelElement.renderRowColumn}
+          renderHeaderColumn={i => i.label}
+          renderBodyColumn={PanelElement.renderRowColumn}
 
-        style={{ width: '100%' }}
-        className='linter'
-      />
+          style={{ width: '100%' }}
+          className='linter'
+        />
+      </linter-panel>
     )
   }
   static renderRowColumn(row: LinterMessage, column: string): string | Object {
