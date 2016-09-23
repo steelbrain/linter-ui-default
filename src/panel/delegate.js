@@ -7,8 +7,7 @@ import type { LinterMessage } from '../types'
 export default class PanelDelegate {
   emitter: Emitter;
   messages: Array<LinterMessage>;
-  paneVisibility: boolean;
-  configVisibility: boolean;
+  visibility: boolean;
   subscriptions: CompositeDisposable;
 
   constructor() {
@@ -16,21 +15,11 @@ export default class PanelDelegate {
     this.messages = []
     this.subscriptions = new CompositeDisposable()
 
-    this.subscriptions.add(atom.config.observe('linter-ui-default.showPanel', (configVisibility) => {
-      const triggerChange = typeof this.configVisibility !== 'undefined'
-      this.configVisibility = configVisibility
-      if (triggerChange) {
-        this.emitter.emit('observe-visibility', this.visibility)
-      }
-    }))
     this.subscriptions.add(atom.workspace.onDidChangeActivePaneItem((paneItem) => {
-      this.paneVisibility = atom.workspace.isTextEditor(paneItem)
+      this.visibility = atom.workspace.isTextEditor(paneItem)
       this.emitter.emit('observe-visibility', this.visibility)
     }))
-    this.paneVisibility = !!atom.workspace.getActiveTextEditor()
-  }
-  get visibility(): boolean {
-    return this.configVisibility && this.paneVisibility
+    this.visibility = !!atom.workspace.getActiveTextEditor()
   }
   update(messages: Array<LinterMessage>): void {
     this.emitter.emit('observe-messages', this.messages = messages)
