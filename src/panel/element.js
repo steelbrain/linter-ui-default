@@ -107,10 +107,14 @@ export default class PanelElement extends React.Component {
       }
       if (sortColumns.file) {
         const multiplyWith = sortColumns.file === 'asc' ? 1 : -1
-        const fileA = getFileOfMessage(a).length
-        const fileB = getFileOfMessage(b).length
-        if (fileA !== fileB) {
-          return multiplyWith * (fileA > fileB ? 1 : -1)
+        const fileA = getFileOfMessage(a)
+        const fileALength = fileA.length
+        const fileB = getFileOfMessage(b)
+        const fileBLength = fileB.length
+        if (fileALength !== fileBLength) {
+          return multiplyWith * (fileALength > fileBLength ? 1 : -1)
+        } else if (fileA !== fileB) {
+          return multiplyWith * fileA.localeCompare(fileB)
         }
       }
       if (sortColumns.line) {
