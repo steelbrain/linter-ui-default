@@ -43,7 +43,7 @@
   }
 }
 
-linter-panel {
+#linter-panel {
   display: block;
   max-height: 140px;
   overflow-y: scroll;
@@ -88,14 +88,14 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight {
       background-color: @color;
     }
   }
-  &.linter-error {
-    .error_type(@background-color-error);
+  &.linter-info {
+    .error_type(@background-color-info);
   }
   &.linter-warning {
     .error_type(@background-color-warning);
   }
-  &.linter-info {
-    .error_type(@background-color-info);
+  &.linter-error {
+    .error_type(@background-color-error);
   }
 }
 .tree-view {

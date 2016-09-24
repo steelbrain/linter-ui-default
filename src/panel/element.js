@@ -34,7 +34,7 @@ export default class PanelElement extends React.Component {
     const showPanel = this.state.visibility && this.state.messages.length
 
     return (
-      <linter-panel style={{ display: showPanel ? 'block' : 'none' }}>
+      <div id="linter-panel" style={{ display: showPanel ? 'block' : 'none' }}>
         <ReactTable
           rows={this.state.messages}
           columns={columns}
@@ -49,7 +49,7 @@ export default class PanelElement extends React.Component {
           style={{ width: '100%' }}
           className='linter'
         />
-      </linter-panel>
+      </div>
     )
   }
   static renderRowColumn(row: LinterMessage, column: string): string | Object {
