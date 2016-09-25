@@ -84,7 +84,7 @@ export function visitMessage(message: LinterMessage) {
   const messageRange = message[$range]
   atom.workspace.open(messageFile, { searchAllPanes: true }).then(function() {
     const textEditor = atom.workspace.getActiveTextEditor()
-    if (textEditor && textEditor.getPath() === messageFile && messageRange) {
+    if (messageRange && textEditor && textEditor.getPath() === messageFile) {
       textEditor.setCursorBufferPosition(messageRange.start)
     }
   })

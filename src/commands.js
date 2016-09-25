@@ -40,7 +40,7 @@ export default class Commands {
     }
 
     for (const message of (messages: Array<LinterMessage>)) {
-      if (message[$file] === currentFile && message[$range] && currentPosition.compare(message[$range].start) === expectedValue) {
+      if (message[$file] && message[$range] && message[$file] === currentFile && currentPosition.compare(message[$range].start) === expectedValue) {
         visitMessage(message)
         break
       }

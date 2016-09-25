@@ -77,9 +77,11 @@ export default class Editors {
   filterAndApply(editor: Editor) {
     const messages = []
     const editorPath = editor.textEditor.getPath()
-    for (const message of (this.messages: Array<LinterMessage>)) {
-      if (message[$file] === editorPath) {
-        messages.push(message)
+    if (editorPath) {
+      for (const message of (this.messages: Array<LinterMessage>)) {
+        if (message[$file] === editorPath) {
+          messages.push(message)
+        }
       }
     }
     editor.apply(messages, editor.messages.size ? Array.from(editor.messages) : [])
