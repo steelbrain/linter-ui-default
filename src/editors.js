@@ -19,25 +19,25 @@ export default class Editors {
     this.editors = new Set()
     this.messages = []
     this.subscriptions = new CompositeDisposable()
-    this.subscriptions.add(atom.config.observe('linter-ui-default.showIssuesFrom', showIssuesFrom => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showIssuesFrom', (showIssuesFrom) => {
       this.showIssuesFrom = showIssuesFrom
     }))
-    this.subscriptions.add(atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showDecorations', (showDecorations) => {
       const previousValue = this.showDecorations
       this.showDecorations = showDecorations
       if (showDecorations && !previousValue) {
-        this.apply({ added: this.messages, messages: this.messages, removed: [] }, true)
+        this.update({ added: this.messages, messages: this.messages, removed: [] }, true)
       } else if (!showDecorations && previousValue) {
-        this.apply({ added: [], messages: [], removed: this.messages }, true)
+        this.update({ added: [], messages: [], removed: this.messages }, true)
       }
     }))
 
     this.subscriptions.add(this.emitter)
-    this.subscriptions.add(atom.workspace.observeTextEditors(textEditor => {
+    this.subscriptions.add(atom.workspace.observeTextEditors((textEditor) => {
       this.getEditor(textEditor)
     }))
   }
-  apply(difference: MessagesPatch, force: boolean = false) {
+  update(difference: MessagesPatch, force: boolean = false) {
     this.messages = difference.messages
     if (!this.showDecorations && !force) {
       // Do not paint anything if highlighting issues is disabled

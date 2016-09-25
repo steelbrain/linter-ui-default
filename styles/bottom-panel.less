@@ -1,0 +1,37 @@
+@import (inline) "../node_modules/sb-react-table/styles/base.css";
+@import "ui-variables";
+
+.sb-table.linter {
+  color: @text-color;
+  border-color: @base-border-color;
+}
+
+.sb-table.linter thead {
+  background-color: @base-background-color;
+}
+
+.sb-table.linter tbody {
+  background-color: @inset-panel-background-color;
+}
+
+.sb-table.linter td, .sb-table.linter th {
+  padding: 3px 10px;
+}
+
+.sb-table.linter td {
+  min-width: 100px;
+}
+
+.sb-table.linter th {
+  border-right-color: @base-border-color;
+  border-bottom-color: @base-border-color;
+}
+
+.sb-table.linter td:nth-child(4) {
+  cursor: pointer;
+}
+
+#linter-panel {
+  display: block;
+  overflow-y: scroll;
+}

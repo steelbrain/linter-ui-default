@@ -19,7 +19,7 @@ describe('Commands', function() {
     atom.workspace.destroyActivePaneItem()
   })
 
-  it('moves properly', async function() {
+  it('moves properly', function() {
     spyOn(commands, 'move').andCallThrough()
     dispatchCommand(atom.workspace.getActiveTextEditor(), 'linter-ui-default:next-error')
     dispatchCommand(atom.workspace.getActiveTextEditor(), 'linter-ui-default:previous-error')

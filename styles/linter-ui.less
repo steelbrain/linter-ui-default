@@ -43,12 +43,6 @@
   }
 }
 
-linter-panel {
-  display: block;
-  max-height: 110px;
-  overflow-y: scroll;
-}
-
 linter-message {
   display: block;
   padding: 2px 5px;
@@ -88,14 +82,14 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight {
       background-color: @color;
     }
   }
-  &.linter-error {
-    .error_type(@background-color-error);
+  &.linter-info {
+    .error_type(@background-color-info);
   }
   &.linter-warning {
     .error_type(@background-color-warning);
   }
-  &.linter-info {
-    .error_type(@background-color-info);
+  &.linter-error {
+    .error_type(@background-color-error);
   }
 }
 .tree-view {
@@ -105,8 +99,8 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight {
   .error_type(@color) {
     top: 0;
     left: 1.8rem;
+    width: calc(~"100% - 1.8rem");
     height: 100%;
-    width: calc(~"100% - 1.7rem");
     position: absolute;
     border-bottom: 1px dotted @color;
   }

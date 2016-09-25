@@ -66,6 +66,17 @@ export function sortMessages(messages: Array<LinterMessage>): Array<LinterMessag
   })
 }
 
+export function visitMessage(message: LinterMessage) {
+  const messageFile = message.version === 1 ? message.filePath : message.location.file
+  const messageRange = message.version === 1 ? message.range : message.location.position
+  atom.workspace.open(messageFile, { searchAllPanes: true }).then(function() {
+    const textEditor = atom.workspace.getActiveTextEditor()
+    if (textEditor && textEditor.getPath() === messageFile && messageRange) {
+      textEditor.setCursorBufferPosition(messageRange.start)
+    }
+  })
+}
+
 export function copySelection() {
   const selection = getSelection()
   if (selection) {

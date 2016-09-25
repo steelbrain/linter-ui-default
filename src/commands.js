@@ -2,7 +2,7 @@
 
 import { CompositeDisposable, Emitter } from 'sb-event-kit'
 import type { Disposable } from 'sb-event-kit'
-import { sortMessages } from './helpers'
+import { visitMessage, sortMessages } from './helpers'
 import type { LinterMessage } from './types'
 
 export default class Commands {
@@ -17,25 +17,32 @@ export default class Commands {
     this.subscriptions.add(atom.commands.add('atom-text-editor:not([mini])', {
       'linter-ui-default:next-error': () => this.move(true),
       'linter-ui-default:previous-error': () => this.move(),
+      'linter-ui-default:toggle-panel': () => this.togglePanel(),
     }))
+  }
+  togglePanel(): void {
+    atom.config.set('linter-ui-default.showPanel', !atom.config.get('linter-ui-default.showPanel'))
   }
   move(forward: boolean = false) {
     const messages = sortMessages(this.requestMessages())
+    const textEditor = atom.workspace.getActiveTextEditor()
     const expectedValue = forward ? -1 : 1
-    const currentPosition = atom.workspace.getActiveTextEditor().getCursorBufferPosition()
+
+    const currentFile = textEditor.getPath()
+    const currentPosition = textEditor.getCursorBufferPosition()
+
+    // NOTE: Iterate bottom to top to find the previous message
+    // Because if we search top to bottom when sorted, first item will always
+    // be the smallest
     if (!forward) {
       messages.reverse()
     }
+
     for (const message of (messages: Array<LinterMessage>)) {
       const messageFile = message.version === 1 ? message.filePath : message.location.file
       const messageRange = message.version === 1 ? message.range : message.location.position
-      if (messageRange && currentPosition.compare(messageRange.start) === expectedValue) {
-        atom.workspace.open(messageFile, { searchAllPanes: true }).then(function() {
-          const textEditor = atom.workspace.getActiveTextEditor()
-          if (textEditor && textEditor.getPath() === messageFile) {
-            textEditor.setCursorBufferPosition(messageRange.start)
-          }
-        })
+      if (messageFile === currentFile && messageRange && currentPosition.compare(messageRange.start) === expectedValue) {
+        visitMessage(message)
         break
       }
     }

@@ -20,16 +20,16 @@ export default class TreeView {
     this.subscriptions = new CompositeDisposable()
 
     this.subscriptions.add(this.emitter)
-    this.subscriptions.add(atom.config.observe('linter-ui-default.decorateOnTreeView', decorateOnTreeView => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.decorateOnTreeView', (decorateOnTreeView) => {
       if (typeof this.decorateOnTreeView === 'undefined') {
         this.decorateOnTreeView = decorateOnTreeView
       } else if (decorateOnTreeView === 'None') {
-        this.apply([])
+        this.update([])
         this.decorateOnTreeView = decorateOnTreeView
       } else {
         const messages = this.messages
         this.decorateOnTreeView = decorateOnTreeView
-        this.apply(messages)
+        this.update(messages)
       }
     }))
 
@@ -39,11 +39,11 @@ export default class TreeView {
         return
       }
       this.subscriptions.add(disposableEvent(element, 'click', debounce(() => {
-        this.apply(this.messages)
+        this.update(this.messages)
       })))
     }, 100)
   }
-  apply(messages: Array<LinterMessage>) {
+  update(messages: Array<LinterMessage>) {
     this.messages = messages
     const element = TreeView.getElement()
     const decorateOnTreeView = this.decorateOnTreeView
