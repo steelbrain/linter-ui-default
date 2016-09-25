@@ -2,8 +2,7 @@
 
 import React from 'react'
 import ReactTable from 'sb-react-table'
-import { severityNames, sortRows, getFileOfMessage, getLineOfMessage } from './helpers'
-import { visitMessage } from '../helpers'
+import { severityNames, sortMessages, visitMessage, getFileOfMessage, getLineOfMessage } from '../helpers'
 import type Delegate from './delegate'
 import type { LinterMessage } from '../types'
 
@@ -41,7 +40,7 @@ export default class PanelElement extends React.Component {
           columns={columns}
 
           initialSort={[{ column: 'severity', type: 'desc' }, { column: 'file', type: 'asc' }]}
-          sort={sortRows}
+          sort={sortMessages}
           rowKey={i => i.key}
 
           renderHeaderColumn={i => i.label}

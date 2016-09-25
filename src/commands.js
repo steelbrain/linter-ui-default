@@ -25,7 +25,7 @@ export default class Commands {
     atom.config.set('linter-ui-default.showPanel', !atom.config.get('linter-ui-default.showPanel'))
   }
   move(forward: boolean = false) {
-    const messages = sortMessages(this.requestMessages())
+    const messages = sortMessages([{ column: 'file', type: 'asc' }, { column: 'line', type: 'asc' }], this.requestMessages())
     const textEditor = atom.workspace.getActiveTextEditor()
     const expectedValue = forward ? -1 : 1
 

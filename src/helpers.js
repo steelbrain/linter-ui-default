@@ -9,6 +9,18 @@ import type { LinterMessage } from './types'
 export const $file = '__sb_linter_ui_default$file'
 export const $range = '__sb_linter_ui_default$range'
 
+export const severityScore = {
+  error: 3,
+  warning: 2,
+  info: 1,
+}
+
+export const severityNames = {
+  error: 'Error',
+  warning: 'Warning',
+  info: 'Info',
+}
+
 export function normalizeMessages(messages: Array<LinterMessage>) {
   for (let i = 0, length = messages.length; i < length; ++i) {
     const message = messages[i]
@@ -51,34 +63,6 @@ export function getMessagesOnRangeOrPoint(messages: Set<LinterMessage> | Array<L
   return filtered
 }
 
-export function sortMessages(messages: Array<LinterMessage>): Array<LinterMessage> {
-  return messages.sort(function(a, b) {
-    const locationA = a.version === 1 ? a.filePath : a.location.file
-    const locationB = b.version === 1 ? b.filePath : b.location.file
-    const lengthA = locationA && locationA.length ? locationA.length : 0
-    const lengthB = locationB && locationB.length ? locationB.length : 0
-
-    if (lengthA > lengthB) {
-      return 1
-    } else if (lengthA < lengthB) {
-      return -1
-    }
-
-    const positionA = a.version === 1 ? a.range : a.location.position
-    const positionB = b.version === 1 ? b.range : b.location.position
-
-    if (positionA && !positionB) {
-      // Show those without a position above others
-      return -1
-    } else if (positionB && !positionA) {
-      return -1
-    }
-    invariant(positionA && positionB)
-
-    return positionA.compare(positionB)
-  })
-}
-
 export function visitMessage(message: LinterMessage) {
   const messageFile = message[$file]
   const messageRange = message[$range]
@@ -95,4 +79,67 @@ export function copySelection() {
   if (selection) {
     atom.clipboard.write(selection.toString())
   }
+}
+
+export function getFileOfMessage(message: LinterMessage): string {
+  return atom.project.relativizePath(message[$file] || '')[1]
+}
+
+export function getLineOfMessage(message: LinterMessage): number {
+  const range = message[$range]
+  return range ? range.start.row : 0
+}
+
+export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'desc' }>, rows: Array<LinterMessage>): Array<LinterMessage> {
+  const sortColumns : {
+    severity?: 'asc' | 'desc',
+    linterName?: 'asc' | 'desc',
+    file?: 'asc' | 'desc',
+    line?: 'asc' | 'desc'
+  } = {}
+
+  for (let i = 0, length = sortInfo.length; i < length; i++) {
+    const entry = sortInfo[i]
+    sortColumns[entry.column] = entry.type
+  }
+
+  return rows.slice().sort(function(a, b) {
+    if (sortColumns.severity) {
+      const multiplyWith = sortColumns.severity === 'asc' ? 1 : -1
+      const severityA = severityScore[a.severity]
+      const severityB = severityScore[b.severity]
+      if (severityA !== severityB) {
+        return multiplyWith * (severityA > severityB ? 1 : -1)
+      }
+    }
+    if (sortColumns.linterName) {
+      const multiplyWith = sortColumns.linterName === 'asc' ? 1 : -1
+      const sortValue = a.severity.localeCompare(b.severity)
+      if (sortValue !== 0) {
+        return multiplyWith * sortValue
+      }
+    }
+    if (sortColumns.file) {
+      const multiplyWith = sortColumns.file === 'asc' ? 1 : -1
+      const fileA = getFileOfMessage(a)
+      const fileALength = fileA.length
+      const fileB = getFileOfMessage(b)
+      const fileBLength = fileB.length
+      if (fileALength !== fileBLength) {
+        return multiplyWith * (fileALength > fileBLength ? 1 : -1)
+      } else if (fileA !== fileB) {
+        return multiplyWith * fileA.localeCompare(fileB)
+      }
+    }
+    if (sortColumns.line) {
+      const multiplyWith = sortColumns.line === 'asc' ? 1 : -1
+      const lineA = getLineOfMessage(a)
+      const lineB = getLineOfMessage(b)
+      if (lineA !== lineB) {
+        return multiplyWith * (lineA > lineB ? 1 : -1)
+      }
+    }
+
+    return 0
+  })
 }
