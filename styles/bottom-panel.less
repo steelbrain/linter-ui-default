@@ -10,11 +10,6 @@
   background-color: @base-background-color;
 }
 
-.sb-table.linter th {
-  border-right-color: @base-border-color;
-  border-bottom-color: @base-border-color;
-}
-
 .sb-table.linter tbody {
   background-color: @inset-panel-background-color;
 }
@@ -25,6 +20,15 @@
 
 .sb-table.linter td {
   min-width: 100px;
+}
+
+.sb-table.linter th {
+  border-right-color: @base-border-color;
+  border-bottom-color: @base-border-color;
+}
+
+.sb-table.linter td:nth-child(4) {
+  cursor: pointer;
 }
 
 #linter-panel {

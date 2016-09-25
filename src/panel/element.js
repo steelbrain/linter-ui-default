@@ -3,6 +3,7 @@
 import React from 'react'
 import ReactTable from 'sb-react-table'
 import { severityNames, sortRows, getFileOfMessage, getLineOfMessage } from './helpers'
+import { visitMessage } from '../helpers'
 import type Delegate from './delegate'
 import type { LinterMessage } from '../types'
 
@@ -28,7 +29,7 @@ export default class PanelElement extends React.Component {
       { key: 'severity', label: 'Severity', sortable: true },
       { key: 'linterName', label: 'Provider', sortable: true },
       { key: 'excerpt', label: 'Description' },
-      { key: 'file', label: 'File', sortable: true },
+      { key: 'file', label: 'File', sortable: true, onClick: (e, row) => visitMessage(row) },
       { key: 'line', label: 'Line', sortable: true },
     ]
     const showPanel = this.state.visibility && this.state.messages.length
