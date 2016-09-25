@@ -17,7 +17,11 @@ export default class Commands {
     this.subscriptions.add(atom.commands.add('atom-text-editor:not([mini])', {
       'linter-ui-default:next-error': () => this.move(true),
       'linter-ui-default:previous-error': () => this.move(),
+      'linter-ui-default:toggle-panel': () => this.togglePanel(),
     }))
+  }
+  togglePanel(): void {
+    atom.config.set('linter-ui-default.showPanel', !atom.config.get('linter-ui-default.showPanel'))
   }
   move(forward: boolean = false) {
     const messages = sortMessages(this.requestMessages())
