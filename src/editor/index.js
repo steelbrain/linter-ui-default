@@ -59,9 +59,9 @@ export default class Editor {
       tooltipSubscription = tooltipFollows === 'Mouse' ? this.listenForMouseMovement() : this.listenForKeyboardMovement()
       this.removeBubble()
     }))
-    this.subscriptions.add(new Disposable(function() {
+    this.subscriptions.add(function() {
       tooltipSubscription.dispose()
-    }))
+    })
     this.updateGutter()
   }
   listenForMouseMovement() {
@@ -128,13 +128,15 @@ export default class Editor {
     if (!messages.length) {
       return
     }
-    const bubble = {}
-    bubble.message = messages.length === 1 ? messages[0] : null
-    bubble.marker = this.textEditor.markBufferRange([position, position])
+
+    const bubble = {
+      message: messages.length === 1 ? messages[0] : null,
+      marker: this.textEditor.markBufferRange([position, position]),
+      element: getBubbleElement(messages, this.showProviderName),
+    }
     bubble.marker.onDidDestroy(() => {
       this.bubble = null
     })
-    bubble.element = getBubbleElement(messages, this.showProviderName)
     this.textEditor.decorateMarker(bubble.marker, {
       type: 'overlay',
       item: bubble.element,

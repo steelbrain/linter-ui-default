@@ -2,7 +2,7 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CompositeDisposable, Disposable } from 'sb-event-kit'
+import { CompositeDisposable } from 'sb-event-kit'
 
 import Element from './element'
 import Delegate from './delegate'
@@ -23,9 +23,9 @@ export default class Panel {
       priority: 500,
     })
     ReactDOM.render(<Element delegate={this.delegate} />, element)
-    this.subscriptions.add(new Disposable(function() {
+    this.subscriptions.add(function() {
       panel.destroy()
-    }))
+    })
     this.subscriptions.add(this.delegate)
   }
   update(messages: Array<LinterMessage>): void {
