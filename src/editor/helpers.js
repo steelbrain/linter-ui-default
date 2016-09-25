@@ -1,6 +1,7 @@
 /* @flow */
 
 import type { Point, TextEditor } from 'atom'
+import { $range } from '../helpers'
 import type { LinterMessage } from '../types'
 
 export function getBufferPositionFromMouseEvent(event: MouseEvent, editor: TextEditor, editorElement: Object): ?Point {
@@ -37,6 +38,6 @@ export function mouseEventNearPosition(event: MouseEvent, editorElement: Object,
 }
 
 export function pointInMessageRange(point: Point, message: LinterMessage): boolean {
-  const range = message.version === 1 ? message.range : message.location.position
+  const range = message[$range]
   return !!(range && range.containsPoint(point))
 }

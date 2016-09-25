@@ -2,7 +2,8 @@
 
 import { CompositeDisposable, Emitter } from 'sb-event-kit'
 import type { Disposable } from 'sb-event-kit'
-import { visitMessage, sortMessages } from './helpers'
+
+import { $file, $range, visitMessage, sortMessages } from './helpers'
 import type { LinterMessage } from './types'
 
 export default class Commands {
@@ -39,9 +40,7 @@ export default class Commands {
     }
 
     for (const message of (messages: Array<LinterMessage>)) {
-      const messageFile = message.version === 1 ? message.filePath : message.location.file
-      const messageRange = message.version === 1 ? message.range : message.location.position
-      if (messageFile === currentFile && messageRange && currentPosition.compare(messageRange.start) === expectedValue) {
+      if (message[$file] === currentFile && message[$range] && currentPosition.compare(message[$range].start) === expectedValue) {
         visitMessage(message)
         break
       }

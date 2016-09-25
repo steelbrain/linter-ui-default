@@ -7,6 +7,7 @@ import TreeView from './tree-view'
 import Commands from './commands'
 import BusySignal from './busy-signal'
 import Intentions from './intentions'
+import { normalizeMessages } from './helpers'
 import type { Linter, LinterMessage, MessagesPatch } from './types'
 
 export default class LinterUI {
@@ -17,6 +18,7 @@ export default class LinterUI {
   treeview: TreeView;
   commands: Commands;
   messages: Array<LinterMessage>;
+  firstRender: boolean;
   intentions: Intentions;
   subscriptions: CompositeDisposable;
 
@@ -28,6 +30,7 @@ export default class LinterUI {
     this.commands = new Commands()
     this.messages = []
     this.intentions = new Intentions()
+    this.firstRender = true
     this.subscriptions = new CompositeDisposable()
 
     this.subscriptions.add(this.signal)
@@ -56,6 +59,12 @@ export default class LinterUI {
   }
   render(difference: MessagesPatch) {
     this.messages = difference.messages
+    if (this.firstRender) {
+      normalizeMessages(difference.messages)
+      this.firstRender = false
+    } else {
+      normalizeMessages(difference.added)
+    }
     this.editors.update(difference)
     if (this.panel) {
       this.panel.update(difference.messages)

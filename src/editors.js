@@ -3,7 +3,7 @@
 import { CompositeDisposable, Emitter } from 'sb-event-kit'
 import type { TextEditor } from 'atom'
 import Editor from './editor'
-import { getEditorsMap } from './helpers'
+import { $file, getEditorsMap } from './helpers'
 import type { LinterMessage, MessagesPatch, Config$ShowIssues } from './types'
 
 export default class Editors {
@@ -46,17 +46,18 @@ export default class Editors {
 
     const { editorsMap, filePaths } = getEditorsMap(this)
     for (const message of (difference.added: Array<LinterMessage>)) {
-      const filePath = message.version === 1 ? message.filePath : message.location.file
+      const filePath = message[$file]
       if (filePath && editorsMap[filePath]) {
         editorsMap[filePath].added.push(message)
       }
     }
     for (const message of (difference.removed: Array<LinterMessage>)) {
-      const filePath = message.version === 1 ? message.filePath : message.location.file
+      const filePath = message[$file]
       if (filePath && editorsMap[filePath]) {
         editorsMap[filePath].removed.push(message)
       }
     }
+
     for (const filePath of (filePaths: Array<string>)) {
       const value = editorsMap[filePath]
       if (value.added.length || value.removed.length) {
@@ -77,9 +78,7 @@ export default class Editors {
     const messages = []
     const editorPath = editor.textEditor.getPath()
     for (const message of (this.messages: Array<LinterMessage>)) {
-      if (message.version === 1 && message.filePath === editorPath) {
-        messages.push(message)
-      } else if (message.version === 2 && message.location.file === editorPath) {
+      if (message[$file] === editorPath) {
         messages.push(message)
       }
     }

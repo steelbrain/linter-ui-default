@@ -3,6 +3,8 @@
 import { CompositeDisposable, Emitter } from 'sb-event-kit'
 import type { Disposable } from 'sb-event-kit'
 import type { Point, TextBuffer, TextEditor } from 'atom'
+
+import { $range } from './helpers'
 import type Editor from './editor'
 
 export default class Intentions {
@@ -19,14 +21,14 @@ export default class Intentions {
   }
   getIntentions({ textEditor, bufferPosition } : { textEditor: TextEditor, bufferPosition: Point }): Array<Object> {
     const editor = this.requestEditor(textEditor)
-    const allFixes = []
+    const toReturn = []
 
     for (const message of editor.messages) {
       const hasFixes = message.version === 1 ? message.fix : message.solutions && message.solutions.length
       if (!hasFixes) {
         continue
       }
-      const isInRange = message.version === 1 ? message.range && message.range.containsPoint(bufferPosition) : message.location.position.containsPoint(bufferPosition)
+      const isInRange = message[$range] && message[$range].containsPoint(bufferPosition)
       if (!isInRange) {
         continue
       }
@@ -39,7 +41,7 @@ export default class Intentions {
       const linterName = message.linterName || 'Linter'
 
       for (const fix of (fixes: Array<Object>)) {
-        allFixes.push({
+        toReturn.push({
           priority: 200,
           icon: 'tools',
           title: fix.title || `Fix ${linterName} issue`,
@@ -49,7 +51,7 @@ export default class Intentions {
         })
       }
     }
-    return allFixes
+    return toReturn
   }
   requestEditor(textEditor: TextEditor): Editor {
     const event = { textEditor, editor: null }
@@ -64,11 +66,12 @@ export default class Intentions {
   }
 
   static applyFix(textBuffer: TextBuffer, version: 1 | 2, fix: Object) {
-    const range = version === 1 ? fix.range : fix.position
     if (fix.apply) {
       fix.apply()
       return
     }
+
+    const range = version === 1 ? fix.range : fix.position
     const currentText = version === 1 ? fix.oldText : fix.currentText
     const replaceWith = version === 1 ? fix.newText : fix.replaceWith
     if (currentText) {

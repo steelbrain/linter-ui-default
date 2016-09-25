@@ -5,7 +5,11 @@ import { TextEditor, Point, Range } from 'atom'
 export type Config$ShowIssues = 'All Files' | 'Current File' | 'Current Line';
 
 export type Message = {
-  // Automatically added
+  // Automatically added by this package
+  __sb_linter_ui_default$file: ?string,
+  __sb_linter_ui_default$range: ?Range,
+
+  // Automatically added by Linter
   key: string,
   version: 2,
   linterName: string,
@@ -36,7 +40,11 @@ export type Message = {
 }
 
 export type MessageLegacy = {
-  // Automatically added
+  // Automatically added by this package
+  __sb_linter_ui_default$file: ?string,
+  __sb_linter_ui_default$range: ?Range,
+
+  // Automatically added by Linter
   key: string,
   version: 1,
   linterName: string,

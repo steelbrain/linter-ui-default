@@ -6,6 +6,21 @@ import type { Point } from 'atom'
 import type Editors from './editors'
 import type { LinterMessage } from './types'
 
+export const $file = '__sb_linter_ui_default$file'
+export const $range = '__sb_linter_ui_default$range'
+
+export function normalizeMessages(messages: Array<LinterMessage>) {
+  for (let i = 0, length = messages.length; i < length; ++i) {
+    const message = messages[i]
+    if (typeof message[$file] === 'undefined') {
+      message[$file] = message.version === 1 ? message.filePath : message.location.file
+    }
+    if (typeof message[$range] === 'undefined') {
+      message[$range] = message.version === 1 ? message.range : message.location.position
+    }
+  }
+}
+
 export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths: Array<string> } {
   const editorsMap = {}
   const filePaths = []
@@ -29,9 +44,7 @@ export function getMessagesOnRangeOrPoint(messages: Set<LinterMessage> | Array<L
   const filtered = []
   const range = rangeOrPoint.constructor.name === 'Point' ? new Range(rangeOrPoint, rangeOrPoint) : rangeOrPoint
   for (const message of messages) {
-    if (message.version === 1 && message.filePath === filePath && range.intersectsWith(message.range)) {
-      filtered.push(message)
-    } else if (message.version === 2 && message.location.file === filePath && range.intersectsWith(message.location.position)) {
+    if (message[$file] && message[$range] && message[$file] === filePath && range.intersectsWith(message[$range])) {
       filtered.push(message)
     }
   }
@@ -67,8 +80,8 @@ export function sortMessages(messages: Array<LinterMessage>): Array<LinterMessag
 }
 
 export function visitMessage(message: LinterMessage) {
-  const messageFile = message.version === 1 ? message.filePath : message.location.file
-  const messageRange = message.version === 1 ? message.range : message.location.position
+  const messageFile = message[$file]
+  const messageRange = message[$range]
   atom.workspace.open(messageFile, { searchAllPanes: true }).then(function() {
     const textEditor = atom.workspace.getActiveTextEditor()
     if (textEditor && textEditor.getPath() === messageFile && messageRange) {

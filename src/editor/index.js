@@ -1,14 +1,15 @@
 /* @flow */
 
-import { CompositeDisposable, Emitter, Disposable } from 'sb-event-kit'
 import debounce from 'sb-debounce'
 import disposableEvent from 'disposable-event'
+import { CompositeDisposable, Emitter, Disposable } from 'sb-event-kit'
 import type { TextEditor, BufferMarker, TextEditorGutter, TextEditorMarker, Point } from 'atom'
+
 import getGutterElement from '../elements/gutter'
 import getBubbleElement from '../elements/bubble'
-import type { LinterMessage } from '../types'
+import { $range, getMessagesOnRangeOrPoint } from '../helpers'
 import { pointInMessageRange, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
-import { getMessagesOnRangeOrPoint } from '../helpers'
+import type { LinterMessage } from '../types'
 
 export default class Editor {
   gutter: ?TextEditorGutter;
@@ -161,7 +162,7 @@ export default class Editor {
     }
 
     for (const message of (added: Array<LinterMessage>)) {
-      const markerRange = message.version === 1 ? message.range : message.location.position
+      const markerRange = message[$range]
       if (!markerRange) {
         // Only for backward compatibility
         continue

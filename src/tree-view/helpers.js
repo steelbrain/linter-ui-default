@@ -1,6 +1,7 @@
 /* @flow */
 
 import Path from 'path'
+import { $file } from '../helpers'
 import type { LinterMessage } from '../types'
 
 export function getChunks(filePath: string, projectPath: string): Array<string> {
@@ -53,7 +54,7 @@ export function calculateDecorations(decorateOnTreeView: 'Files and Directories'
   const toReturn = {}
   const projectPaths: Array<string> = atom.project.getPaths()
   for (const message of (messages: Array<LinterMessage>)) {
-    const filePath = message.version === 1 ? message.filePath : message.location.file
+    const filePath = message[$file]
     if (!filePath) {
       // For compatibility purpose only
       continue

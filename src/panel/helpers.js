@@ -1,5 +1,6 @@
 /* @flow */
 
+import { $range } from '../helpers'
 import type { LinterMessage } from '../types'
 
 export const severityScore = {
@@ -19,10 +20,8 @@ export function getFileOfMessage(message: LinterMessage): string {
 }
 
 export function getLineOfMessage(message: LinterMessage): number {
-  if (message.version === 1) {
-    return message.range ? message.range.start.row : 0
-  }
-  return message.location.position.start.row
+  const range = message[$range]
+  return range ? range.start.row : 0
 }
 
 export function sortRows(sortInfo: Array<{ column: string, type: 'asc' | 'desc' }>, rows: Array<LinterMessage>): Array<LinterMessage> {
