@@ -2,7 +2,7 @@
 
 import React from 'react'
 import ReactTable from 'sb-react-table'
-import { sortRows, getFileOfMessage, getLineOfMessage } from './helpers'
+import { severityNames, sortRows, getFileOfMessage, getLineOfMessage } from './helpers'
 import type Delegate from './delegate'
 import type { LinterMessage } from '../types'
 
@@ -66,6 +66,8 @@ export default class PanelElement extends React.Component {
           return row.text || ''
         }
         return row.excerpt
+      case 'severity':
+        return severityNames[row.severity]
       default:
         return row[column]
     }

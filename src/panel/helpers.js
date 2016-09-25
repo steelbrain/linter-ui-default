@@ -2,6 +2,18 @@
 
 import type { LinterMessage } from '../types'
 
+export const severityScore = {
+  error: 3,
+  warning: 2,
+  info: 1,
+}
+
+export const severityNames = {
+  error: 'Error',
+  warning: 'Warning',
+  info: 'Info',
+}
+
 export function getFileOfMessage(message: LinterMessage): string {
   return atom.project.relativizePath(message.version === 1 ? (message.filePath || '') : message.location.file)[1]
 }
@@ -20,12 +32,6 @@ export function sortRows(sortInfo: Array<{ column: string, type: 'asc' | 'desc' 
     file?: 'asc' | 'desc',
     line?: 'asc' | 'desc'
   } = {}
-
-  const severityScore = {
-    error: 3,
-    warning: 2,
-    info: 1,
-  }
 
   for (let i = 0, length = sortInfo.length; i < length; i++) {
     const entry = sortInfo[i]
