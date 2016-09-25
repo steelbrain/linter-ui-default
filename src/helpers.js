@@ -1,6 +1,5 @@
 /* @flow */
 
-import invariant from 'assert'
 import { Range } from 'atom'
 import type { Point } from 'atom'
 import type Editors from './editors'
