@@ -78,12 +78,13 @@
     },
     "showProviderName": {
       "type": "boolean",
-      "description": "Show provider name in messages",
+      "description": "Show provider name in bubble. It's always shown in the panel",
       "default": false,
       "order": 1
     },
     "decorateOnTreeView": {
       "type": "string",
+      "description": "Underline the selected type in TreeView to indicate issues",
       "default": "Files",
       "enum": [
         "Files and Directories",
@@ -93,7 +94,7 @@
       "order": 2
     },
     "showIssuesFrom": {
-      "title": "Show issues in Panel From",
+      "title": "Show issues in Bottom Panel from",
       "type": "string",
       "enum": [
         "All Files",
@@ -105,6 +106,7 @@
     },
     "tooltipFollows": {
       "type": "string",
+      "description": "Select mouse if you want it to show errors on hover, or keyboard otherwise",
       "enum": [
         "Mouse",
         "Keyboard"
@@ -114,7 +116,7 @@
     },
     "gutterPosition": {
       "title": "Position of Gutter Highlights",
-      "description": "Relative to line number gutter",
+      "description": "Position of the Linter Gutter relative to the Line Number Gutter",
       "type": "string",
       "enum": [
         "Left",
@@ -124,7 +126,7 @@
       "order": 2
     },
     "messageTypesToIgnoreInPanel": {
-      "description": "Comma separated list of message types to *only* show in editor, and not in panel",
+      "description": "Comma separated list of message types to ignore only in panel",
       "type": "array",
       "items": {
         "type": "string"
