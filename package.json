@@ -124,15 +124,6 @@
       ],
       "default": "Right",
       "order": 2
-    },
-    "messageTypesToIgnoreInPanel": {
-      "description": "Comma separated list of message types to ignore only in panel",
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "default": [],
-      "order": 3
     }
   }
 }
