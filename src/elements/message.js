@@ -1,7 +1,6 @@
 /* @flow */
-/** @jsx React.h */
 
-import * as React from 'preact'
+import React from 'react'
 import type { Message } from '../types'
 
 export default class MessageElement extends React.Component {

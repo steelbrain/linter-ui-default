@@ -1,7 +1,7 @@
 /* @flow */
-/** @jsx React.h */
 
-import * as React from 'preact'
+import React from 'react'
+import ReactDOM from 'react-dom'
 // eslint-disable-next-line no-unused-vars
 import MessageElement from './message'
 // eslint-disable-next-line no-unused-vars
@@ -19,6 +19,6 @@ export default function getElement(messages: Array<LinterMessage>, showProviderN
       children.push(<MessageElementLegacy showProviderName={showProviderName} message={message} />)
     }
   }
-  React.render(<linter-messages>{ children }</linter-messages>, bubble)
+  ReactDOM.render(<linter-messages>{ children }</linter-messages>, bubble)
   return bubble
 }

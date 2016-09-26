@@ -1,7 +1,6 @@
 /* @flow */
-/** @jsx React.h */
 
-import * as React from 'preact'
+import React from 'react'
 import type { MessageLegacy } from '../types'
 
 const NEWLINE = /\r\n|\n/
