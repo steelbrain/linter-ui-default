@@ -21,7 +21,7 @@ export default class PanelElement extends React.Component {
     this.props.delegate.onDidChangeVisibility((visibility) => {
       this.setState({ visibility })
     })
-    this.setState({ messages: this.props.delegate.messages, visibility: this.props.delegate.visibility })
+    this.setState({ messages: this.props.delegate.filteredMessages, visibility: this.props.delegate.visibility })
   }
   render() {
     const columns = [

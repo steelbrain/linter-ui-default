@@ -8,7 +8,8 @@ const linterUiDefault = {
   signalRegistry: null,
   activate() {
     if (!atom.inSpecMode()) {
-      require('atom-package-deps').install('linter-ui-default') // eslint-disable-line global-require
+      // eslint-disable-next-line global-require
+      require('atom-package-deps').install('linter-ui-default')
     }
   },
   deactivate() {

@@ -2,8 +2,10 @@
 /** @jsx React.h */
 
 import * as React from 'preact'
-import MessageElement from './message' // eslint-disable-line no-unused-vars
-import MessageElementLegacy from './message-legacy' // eslint-disable-line no-unused-vars
+// eslint-disable-next-line no-unused-vars
+import MessageElement from './message'
+// eslint-disable-next-line no-unused-vars
+import MessageElementLegacy from './message-legacy'
 import type { LinterMessage } from '../types'
 
 export default function getElement(messages: Array<LinterMessage>, showProviderName: boolean): HTMLElement {
