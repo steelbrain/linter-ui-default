@@ -78,7 +78,7 @@
     },
     "showProviderName": {
       "type": "boolean",
-      "description": "Show provider name in bubble. It's always shown in the panel",
+      "description": "Show provider name in bubble (Hint: It's always shown in the panel)",
       "default": false,
       "order": 1
     },
