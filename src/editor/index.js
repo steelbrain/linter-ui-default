@@ -53,11 +53,11 @@ export default class Editor {
     }))
 
     let tooltipSubscription
-    this.subscriptions.add(atom.config.observe('linter-ui-default.tooltipFollows', (tooltipFollows) => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.bubbleFollows', (bubbleFollows) => {
       if (tooltipSubscription) {
         tooltipSubscription.dispose()
       }
-      tooltipSubscription = tooltipFollows === 'Mouse' ? this.listenForMouseMovement() : this.listenForKeyboardMovement()
+      tooltipSubscription = bubbleFollows === 'Mouse' ? this.listenForMouseMovement() : this.listenForKeyboardMovement()
       this.removeBubble()
     }))
     this.subscriptions.add(function() {

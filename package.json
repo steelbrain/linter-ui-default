@@ -103,9 +103,9 @@
       "default": "Current File",
       "order": 2
     },
-    "tooltipFollows": {
+    "bubbleFollows": {
       "type": "string",
-      "description": "Select mouse if you want it to show errors on hover, or keyboard otherwise",
+      "description": "Choose whether bubbles show on mouseover, or follow the keyboard cursor",
       "enum": [
         "Mouse",
         "Keyboard"
@@ -115,7 +115,7 @@
     },
     "gutterPosition": {
       "title": "Position of Gutter Highlights",
-      "description": "Position of the Linter Gutter relative to the Line Number Gutter",
+      "description": "Show the line highlights to the left or right of the line numbers",
       "type": "string",
       "enum": [
         "Left",

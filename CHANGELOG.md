@@ -1,6 +1,6 @@
 ### Upcoming
 
-- Add `tooltipFollows` config
+- Add `bubbleFollows` config
 - Make the gutter transparent
 - Add new icon to message to copy item
 - Add next and previous error commands
