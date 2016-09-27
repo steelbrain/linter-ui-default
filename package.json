@@ -64,8 +64,8 @@
       "default": false,
       "order": 1
     },
-    "showBubble": {
-      "description": "Show inline issue bubbles",
+    "showTooltip": {
+      "description": "Show inline issue tooltips",
       "type": "boolean",
       "default": true,
       "order": 1
@@ -78,7 +78,7 @@
     },
     "showProviderName": {
       "type": "boolean",
-      "description": "Show provider name in bubble (Hint: It's always shown in the panel)",
+      "description": "Show provider name in tooltip (Hint: It's always shown in the panel)",
       "default": false,
       "order": 1
     },
@@ -103,9 +103,9 @@
       "default": "Current File",
       "order": 2
     },
-    "bubbleFollows": {
+    "tooltipFollows": {
       "type": "string",
-      "description": "Choose whether bubbles show on mouseover, or follow the keyboard cursor",
+      "description": "Choose whether tooltips show on mouseover, or follow the keyboard cursor",
       "enum": [
         "Mouse",
         "Keyboard"

@@ -6,14 +6,14 @@ import { CompositeDisposable, Emitter, Disposable } from 'sb-event-kit'
 import type { TextEditor, BufferMarker, TextEditorGutter, TextEditorMarker, Point } from 'atom'
 
 import getGutterElement from '../elements/gutter'
-import getBubbleElement from '../elements/bubble'
+import getTooltipElement from '../elements/tooltip'
 import { $range, getMessagesOnRangeOrPoint } from '../helpers'
 import { pointInMessageRange, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
 import type { LinterMessage } from '../types'
 
 export default class Editor {
   gutter: ?TextEditorGutter;
-  bubble: ?{
+  tooltip: ?{
     marker: TextEditorMarker,
     message: ?LinterMessage,
     element: HTMLElement,
@@ -22,13 +22,13 @@ export default class Editor {
   markers: Map<LinterMessage, BufferMarker>;
   messages: Set<LinterMessage>;
   textEditor: TextEditor;
-  showBubble: boolean;
+  showTooltip: boolean;
   subscriptions: CompositeDisposable;
   cursorPosition: ?Point;
   showProviderName: boolean;
 
   constructor(textEditor: TextEditor) {
-    this.bubble = null
+    this.tooltip = null
     this.emitter = new Emitter()
     this.markers = new Map()
     this.messages = new Set()
@@ -36,8 +36,8 @@ export default class Editor {
     this.subscriptions = new CompositeDisposable()
 
     this.subscriptions.add(this.emitter)
-    this.subscriptions.add(atom.config.observe('linter-ui-default.showBubble', (showBubble) => {
-      this.showBubble = showBubble
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showTooltip', (showTooltip) => {
+      this.showTooltip = showTooltip
     }))
     this.subscriptions.add(atom.config.observe('linter-ui-default.showProviderName', (showProviderName) => {
       this.showProviderName = showProviderName
@@ -53,12 +53,12 @@ export default class Editor {
     }))
 
     let tooltipSubscription
-    this.subscriptions.add(atom.config.observe('linter-ui-default.bubbleFollows', (bubbleFollows) => {
+    this.subscriptions.add(atom.config.observe('linter-ui-default.tooltipFollows', (tooltipFollows) => {
       if (tooltipSubscription) {
         tooltipSubscription.dispose()
       }
-      tooltipSubscription = bubbleFollows === 'Mouse' ? this.listenForMouseMovement() : this.listenForKeyboardMovement()
-      this.removeBubble()
+      tooltipSubscription = tooltipFollows === 'Mouse' ? this.listenForMouseMovement() : this.listenForKeyboardMovement()
+      this.removeTooltip()
     }))
     this.subscriptions.add(function() {
       tooltipSubscription.dispose()
@@ -71,23 +71,23 @@ export default class Editor {
       if (!editorElement.component || e.target.nodeName !== 'ATOM-TEXT-EDITOR') {
         return
       }
-      const bubble = this.bubble
-      if (bubble && mouseEventNearPosition(e, editorElement, bubble.marker.getStartScreenPosition(), bubble.element.offsetWidth, bubble.element.offsetHeight)) {
+      const tooltip = this.tooltip
+      if (tooltip && mouseEventNearPosition(e, editorElement, tooltip.marker.getStartScreenPosition(), tooltip.element.offsetWidth, tooltip.element.offsetHeight)) {
         return
       }
       const cursorPosition = getBufferPositionFromMouseEvent(e, this.textEditor, editorElement)
       this.cursorPosition = cursorPosition
       if (cursorPosition) {
-        this.updateBubble(this.cursorPosition)
+        this.updateTooltip(this.cursorPosition)
       } else {
-        this.removeBubble()
+        this.removeTooltip()
       }
     }, 200, true))
   }
   listenForKeyboardMovement() {
     return this.textEditor.onDidChangeCursorPosition(debounce(({ newBufferPosition }) => {
       this.cursorPosition = newBufferPosition
-      this.updateBubble(newBufferPosition)
+      this.updateTooltip(newBufferPosition)
     }, 60))
   }
   updateGutter() {
@@ -116,37 +116,37 @@ export default class Editor {
       } catch (_) { /* No Op */ }
     }
   }
-  updateBubble(position: ?Point) {
+  updateTooltip(position: ?Point) {
     if (!position) {
       return
     }
-    if (this.bubble && this.bubble.message && this.messages.has(this.bubble.message) && pointInMessageRange(position, this.bubble.message)) {
+    if (this.tooltip && this.tooltip.message && this.messages.has(this.tooltip.message) && pointInMessageRange(position, this.tooltip.message)) {
       return
     }
-    this.removeBubble()
+    this.removeTooltip()
 
     const messages = getMessagesOnRangeOrPoint(this.messages, this.textEditor.getPath(), position)
     if (!messages.length) {
       return
     }
 
-    const bubble = {
+    const tooltip = {
       message: messages.length === 1 ? messages[0] : null,
       marker: this.textEditor.markBufferRange([position, position]),
-      element: getBubbleElement(messages, this.showProviderName),
+      element: getTooltipElement(messages, this.showProviderName),
     }
-    bubble.marker.onDidDestroy(() => {
-      this.bubble = null
+    tooltip.marker.onDidDestroy(() => {
+      this.tooltip = null
     })
-    this.textEditor.decorateMarker(bubble.marker, {
+    this.textEditor.decorateMarker(tooltip.marker, {
       type: 'overlay',
-      item: bubble.element,
+      item: tooltip.element,
     })
-    this.bubble = bubble
+    this.tooltip = tooltip
   }
-  removeBubble() {
-    if (this.bubble) {
-      this.bubble.marker.destroy()
+  removeTooltip() {
+    if (this.tooltip) {
+      this.tooltip.marker.destroy()
     }
   }
   apply(added: Array<LinterMessage>, removed: Array<LinterMessage>) {
@@ -185,7 +185,7 @@ export default class Editor {
       })
     }
 
-    this.updateBubble(this.cursorPosition)
+    this.updateTooltip(this.cursorPosition)
   }
   applyMarker(message: LinterMessage) {
     const marker = this.markers.get(message)
@@ -210,6 +210,6 @@ export default class Editor {
     this.emitter.emit('did-destroy')
     this.subscriptions.dispose()
     this.removeGutter()
-    this.removeBubble()
+    this.removeTooltip()
   }
 }

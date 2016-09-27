@@ -1,6 +1,6 @@
 ### Upcoming
 
-- Add `bubbleFollows` config
+- Add `tooltipFollows` config
 - Make the gutter transparent
 - Add new icon to message to copy item
 - Add next and previous error commands
@@ -31,9 +31,9 @@
 - Add `linter-ui-default:toggle-panel` command
 - Add showProviderName config
 - Add file link support in messages
-- Make traces in bubble work
+- Make traces in tooltip work
 - Fix status icon in panel
-- Show all available messages in bubble
+- Show all available messages in tooltip
 - Initialize panel with existing errors
 
 #### Improvements over linter package
@@ -41,6 +41,6 @@
  - DOM Elements of linter messages are cached as much as possible
  - Messages from all files are not painted on panel and hidden, they are never inserted unless they belong to opened file or showAll option is ticked
  - Messages from the same file are organized in DOM by default
- - Inline bubbles cost a lot less than they used to, they are no longer calculated each time user moves cursor, instead they are counted when messages are inserted
+ - Inline tooltips cost a lot less than they used to, they are no longer calculated each time user moves cursor, instead they are counted when messages are inserted
 
 All of these changes combined should improve the linter experience significantly, I hope you like 'em :)
