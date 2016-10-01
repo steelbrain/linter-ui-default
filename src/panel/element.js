@@ -34,7 +34,7 @@ export default class PanelElement extends React.Component {
     const showPanel = this.state.visibility && this.state.messages.length
 
     return (
-      <div id="linter-panel" style={{ display: showPanel ? 'block' : 'none' }}>
+      <div id="linter-panel" style={{ display: showPanel ? 'block' : 'none', maxHeight: 150 }}>
         <ReactTable
           rows={this.state.messages}
           columns={columns}
