@@ -2,9 +2,7 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-// eslint-disable-next-line no-unused-vars
 import MessageElement from './message'
-// eslint-disable-next-line no-unused-vars
 import MessageElementLegacy from './message-legacy'
 import type { LinterMessage } from '../types'
 
