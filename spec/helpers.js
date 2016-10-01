@@ -12,11 +12,9 @@ export function getMessage(type: ?string = 'Error', filePath: ?string, range: ?O
   }
   Object.defineProperty(message, $file, {
     get: () => message.filePath,
-    set: (value) => { message.filePath = value },
   })
   Object.defineProperty(message, $range, {
     get: () => message.range,
-    set: (value) => { message.range = value },
   })
 
   return message
