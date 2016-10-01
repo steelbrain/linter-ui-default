@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react'
+import { openMessage } from './helpers'
 import type { MessageLegacy } from '../types'
 
 const NEWLINE = /\r\n|\n/
@@ -54,17 +55,6 @@ export default class Message extends React.Component {
     </span>)
   }
 
-  openLink: (() => void) = () => {
-    // TODO: Remove this when new panel is implemented
-    const range = this.props.message.range
-    if (range) {
-      const textEditor = atom.workspace.getActiveTextEditor()
-      if (textEditor) {
-        textEditor.setCursorBufferPosition(range.start)
-      }
-    }
-  };
-
   render() {
     const { message, showProviderName } = this.props
     return (<linter-message class={message.severity}>
@@ -73,8 +63,8 @@ export default class Message extends React.Component {
         Message.getMultiLineMessage(message) :
         Message.getSingleLineMessage(message)}
       {' '}
-      <a href="#" onClick={this.openLink}>
-        <span className="icon icon-code linter-icon"></span>
+      <a href="#" onClick={() => openMessage(message)}>
+        <span className="icon icon-link linter-icon"></span>
       </a>
     </linter-message>)
   }
