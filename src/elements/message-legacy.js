@@ -67,7 +67,7 @@ export default class Message extends React.Component {
 
   render() {
     const { message, showProviderName } = this.props
-    return (<linter-message className={message.severity}>
+    return (<linter-message class={message.severity}>
       { showProviderName ? `${message.linterName}: ` : '' }
       { NEWLINE.test(message.text || '') ?
         Message.getMultiLineMessage(message) :

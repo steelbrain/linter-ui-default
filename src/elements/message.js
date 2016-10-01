@@ -23,7 +23,7 @@ export default class MessageElement extends React.Component {
   render() {
     const { message, showProviderName } = this.props
 
-    return (<linter-message className={message.severity}>
+    return (<linter-message class={message.severity}>
       <linter-excerpt>
         { showProviderName ? `${message.linterName}: ` : '' }
         { message.excerpt }
