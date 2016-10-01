@@ -44,11 +44,12 @@ export default class Message extends React.Component {
         children.push(<linter-message-line>{ chunk }</linter-message-line>)
       }
     })
+    // TODO: Confirm support for multi-line messages
     return (<span>
       <linter-multiline-message onClick={function onClick(e) {
         const link = e.target.tagName === 'A' ? e.target : e.target.parentNode
 
-        if (!link.classList.contains('linter-message-link')) {
+        if (!link.classList.contains('linter-message-line')) {
           this.classList.toggle('expanded')
         }
       }}>{ children }</linter-multiline-message>
