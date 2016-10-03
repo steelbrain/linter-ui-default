@@ -18,7 +18,7 @@
   "dependencies": {
     "atom-package-deps": "^4.3.1",
     "disposable-event": "^1.0.3",
-    "preact": "^5.3.1",
+    "preact": "^6.2.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "sb-debounce": "^1.0.1",
