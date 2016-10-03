@@ -1,7 +1,7 @@
 /* @flow */
-/** @jsx React.h */
 
-import * as React from 'preact'
+import React from 'react'
+import { openMessage } from './helpers'
 import type { MessageLegacy } from '../types'
 
 const NEWLINE = /\r\n|\n/
@@ -44,38 +44,28 @@ export default class Message extends React.Component {
         children.push(<linter-message-line>{ chunk }</linter-message-line>)
       }
     })
+    // TODO: Confirm support for multi-line messages
     return (<span>
       <linter-multiline-message onClick={function onClick(e) {
         const link = e.target.tagName === 'A' ? e.target : e.target.parentNode
 
-        if (!link.classList.contains('linter-message-link')) {
+        if (!link.classList.contains('linter-message-line')) {
           this.classList.toggle('expanded')
         }
       }}>{ children }</linter-multiline-message>
     </span>)
   }
 
-  openLink: (() => void) = () => {
-    // TODO: Remove this when new panel is implemented
-    const range = this.props.message.range
-    if (range) {
-      const textEditor = atom.workspace.getActiveTextEditor()
-      if (textEditor) {
-        textEditor.setCursorBufferPosition(range.start)
-      }
-    }
-  };
-
   render() {
     const { message, showProviderName } = this.props
-    return (<linter-message className={message.severity}>
+    return (<linter-message class={message.severity}>
       { showProviderName ? `${message.linterName}: ` : '' }
       { NEWLINE.test(message.text || '') ?
         Message.getMultiLineMessage(message) :
         Message.getSingleLineMessage(message)}
       {' '}
-      <a href="#" onClick={this.openLink}>
-        <span className="icon icon-code linter-icon"></span>
+      <a href="#" onClick={() => openMessage(message)}>
+        <span className="icon icon-link linter-icon"></span>
       </a>
     </linter-message>)
   }

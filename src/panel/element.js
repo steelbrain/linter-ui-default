@@ -2,8 +2,7 @@
 
 import React from 'react'
 import ReactTable from 'sb-react-table'
-import { severityNames, sortRows, getFileOfMessage, getLineOfMessage } from './helpers'
-import { visitMessage } from '../helpers'
+import { severityNames, sortMessages, visitMessage, getFileOfMessage, getLineOfMessage } from '../helpers'
 import type Delegate from './delegate'
 import type { LinterMessage } from '../types'
 
@@ -22,7 +21,7 @@ export default class PanelElement extends React.Component {
     this.props.delegate.onDidChangeVisibility((visibility) => {
       this.setState({ visibility })
     })
-    this.setState({ messages: this.props.delegate.messages, visibility: this.props.delegate.visibility })
+    this.setState({ messages: this.props.delegate.filteredMessages, visibility: this.props.delegate.visibility })
   }
   render() {
     const columns = [
@@ -35,13 +34,13 @@ export default class PanelElement extends React.Component {
     const showPanel = this.state.visibility && this.state.messages.length
 
     return (
-      <div id="linter-panel" style={{ display: showPanel ? 'block' : 'none' }}>
+      <div id="linter-panel" style={{ display: showPanel ? 'block' : 'none', maxHeight: 150 }}>
         <ReactTable
           rows={this.state.messages}
           columns={columns}
 
           initialSort={[{ column: 'severity', type: 'desc' }, { column: 'file', type: 'asc' }]}
-          sort={sortRows}
+          sort={sortMessages}
           rowKey={i => i.key}
 
           renderHeaderColumn={i => i.label}
