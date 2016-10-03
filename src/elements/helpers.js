@@ -7,7 +7,7 @@ import type { LinterMessage } from '../types'
 // NOTE: Code Point 160 === &nbsp;
 const replacementRegex = new RegExp(String.fromCodePoint(160), 'g')
 
-export function htmlToText(html: any = ''): string {
+export function htmlToText(html: any): string {
   const element = document.createElement('div')
   if (typeof html === 'string') {
     element.innerHTML = html
