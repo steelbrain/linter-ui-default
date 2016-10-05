@@ -15,6 +15,11 @@ export default function getElement(messages: Array<LinterMessage>, showProviderN
       children.push(<MessageElement showProviderName={showProviderName} message={message} />)
     } else {
       children.push(<MessageElementLegacy showProviderName={showProviderName} message={message} />)
+      if (message.trace) {
+        message.trace.forEach(function(trace) {
+          children.push(<MessageElementLegacy showProviderName={showProviderName} message={trace} />)
+        })
+      }
     }
   }
   ReactDOM.render(<linter-messages>{ children }</linter-messages>, tooltip)

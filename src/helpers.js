@@ -20,7 +20,7 @@ export const severityNames = {
   info: 'Info',
 }
 
-export function normalizeMessages(messages: Array<LinterMessage>) {
+export function normalizeMessages(messages: Array<Object>) {
   for (let i = 0, length = messages.length; i < length; ++i) {
     const message = messages[i]
     if (typeof message[$file] === 'undefined') {
@@ -28,6 +28,9 @@ export function normalizeMessages(messages: Array<LinterMessage>) {
     }
     if (typeof message[$range] === 'undefined') {
       message[$range] = message.version === 1 ? message.range : message.location.position
+    }
+    if (message.version === 1 && message.trace) {
+      normalizeMessages(message.trace)
     }
   }
 }
