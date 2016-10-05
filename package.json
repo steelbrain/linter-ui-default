@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "(apm test) && (flow check) && (eslint . )",
-    "clean": "rm -rf lib",
+    "clean": "rimraf lib",
     "compile": "npm run clean && babel src --out-dir lib",
     "watch": "npm run compile -- -w"
   },
@@ -32,7 +32,8 @@
     "eslint-config-steelbrain": "^2.0.0",
     "eslint-plugin-react": "^6.2.0",
     "flow-bin": "^0.32.0",
-    "jasmine-fix": "^1.0.1"
+    "jasmine-fix": "^1.0.1",
+    "rimraf": "^2.5.4"
   },
   "providedServices": {
     "linter-ui": {
