@@ -29,6 +29,9 @@ export function normalizeMessages(messages: Array<LinterMessage>) {
     if (typeof message[$range] === 'undefined') {
       message[$range] = message.version === 1 ? message.range : message.location.position
     }
+    if (message.version === 1 && message.trace) {
+      normalizeMessages(message.trace)
+    }
   }
 }
 

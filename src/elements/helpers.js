@@ -2,6 +2,7 @@
 
 // $FlowIgnore: It's an atom magic module
 import { shell } from 'electron'
+import { visitMessage } from '../helpers'
 import type { LinterMessage } from '../types'
 
 // NOTE: Code Point 160 === &nbsp;
@@ -19,6 +20,11 @@ export function htmlToText(html: any): string {
 }
 
 export function openMessage(message: LinterMessage): void {
+  if (message.version === 1 && message.type.toLowerCase() === 'trace') {
+    visitMessage(message)
+    return
+  }
+
   let link
   if (message.version === 2 && message.excerpt) {
     link = message.reference
