@@ -20,7 +20,7 @@ export const severityNames = {
   info: 'Info',
 }
 
-export function normalizeMessages(messages: Array<LinterMessage>) {
+export function normalizeMessages(messages: Array<Object>) {
   for (let i = 0, length = messages.length; i < length; ++i) {
     const message = messages[i]
     if (typeof message[$file] === 'undefined') {
