@@ -89,7 +89,7 @@ export function getFileOfMessage(message: LinterMessage): string {
 
 export function getLineOfMessage(message: LinterMessage): number {
   const range = message[$range]
-  return range ? range.start.row : 0
+  return range ? range.start.row : -1
 }
 
 export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'desc' }>, rows: Array<LinterMessage>): Array<LinterMessage> {

@@ -57,7 +57,7 @@ export default class PanelElement extends React.Component {
       case 'file':
         return getFileOfMessage(row)
       case 'line':
-        return getLineOfMessage(row).toString()
+        return (getLineOfMessage(row) + 1).toString()
       case 'excerpt':
         if (row.version === 1) {
           if (row.html) {
