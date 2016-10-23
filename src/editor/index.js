@@ -76,6 +76,7 @@ export default class Editor {
     this.updateGutter()
   }
   listenForMouseMovement() {
+    const editorBuffer = this.textEditor.getBuffer()
     const editorElement = atom.views.getView(this.textEditor)
     return disposableEvent(editorElement, 'mousemove', debounce((e) => {
       if (!editorElement.component || e.target.nodeName !== 'ATOM-TEXT-EDITOR') {
@@ -83,6 +84,11 @@ export default class Editor {
       }
       const tooltip = this.tooltip
       if (tooltip && mouseEventNearPosition(e, editorElement, tooltip.marker.getStartScreenPosition(), tooltip.element.offsetWidth, tooltip.element.offsetHeight)) {
+        return
+      }
+      // NOTE: Ignore if file is too big
+      if (editorBuffer.cachedText.length > (300 * 1024)) {
+        this.removeTooltip()
         return
       }
       const cursorPosition = getBufferPositionFromMouseEvent(e, this.textEditor, editorElement)
