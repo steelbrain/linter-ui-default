@@ -25,6 +25,8 @@ export default class Editor {
   showTooltip: boolean;
   subscriptions: CompositeDisposable;
   cursorPosition: ?Point;
+  gutterPosition: boolean;
+  showDecorations: boolean;
   showProviderName: boolean;
 
   constructor(textEditor: TextEditor) {
@@ -42,11 +44,19 @@ export default class Editor {
     this.subscriptions.add(atom.config.observe('linter-ui-default.showProviderName', (showProviderName) => {
       this.showProviderName = showProviderName
     }))
-    this.subscriptions.add(atom.config.onDidChange('linter-ui-default.showDecorations', () => {
-      this.updateGutter()
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showDecorations', (showDecorations) => {
+      const shouldUpdate = typeof this.showDecorations !== 'undefined'
+      this.showDecorations = showDecorations
+      if (shouldUpdate) {
+        this.updateGutter()
+      }
     }))
-    this.subscriptions.add(atom.config.onDidChange('linter-ui-default.gutterPosition', () => {
-      this.updateGutter()
+    this.subscriptions.add(atom.config.observe('linter-ui-default.gutterPosition', (gutterPosition) => {
+      const shouldUpdate = typeof this.gutterPosition !== 'undefined'
+      this.gutterPosition = gutterPosition
+      if (shouldUpdate) {
+        this.updateGutter()
+      }
     }))
     this.subscriptions.add(textEditor.onDidDestroy(() => {
       this.dispose()
@@ -66,6 +76,7 @@ export default class Editor {
     this.updateGutter()
   }
   listenForMouseMovement() {
+    const editorBuffer = this.textEditor.getBuffer()
     const editorElement = atom.views.getView(this.textEditor)
     return disposableEvent(editorElement, 'mousemove', debounce((e) => {
       if (!editorElement.component || e.target.nodeName !== 'ATOM-TEXT-EDITOR') {
@@ -73,6 +84,11 @@ export default class Editor {
       }
       const tooltip = this.tooltip
       if (tooltip && mouseEventNearPosition(e, editorElement, tooltip.marker.getStartScreenPosition(), tooltip.element.offsetWidth, tooltip.element.offsetHeight)) {
+        return
+      }
+      // NOTE: Ignore if file is too big
+      if (editorBuffer.getMaxCharacterIndex() > (300 * 1024)) {
+        this.removeTooltip()
         return
       }
       const cursorPosition = getBufferPositionFromMouseEvent(e, this.textEditor, editorElement)
@@ -92,28 +108,29 @@ export default class Editor {
   }
   updateGutter() {
     this.removeGutter()
-    const visibility = atom.config.get('linter-ui-default.showDecorations')
-    if (visibility) {
-      const position = atom.config.get('linter-ui-default.gutterPosition')
-      const gutter = this.gutter = this.textEditor.addGutter({
-        name: 'linter-ui-default',
-        priority: position === 'Left' ? -100 : 100,
-      })
-      for (const [message, marker] of this.markers) {
-        gutter.decorateMarker(marker, {
-          class: 'linter-row',
-          item: getGutterElement(`linter-${message.severity}`),
-        })
-      }
-    } else {
+    if (!this.showDecorations) {
       this.gutter = null
+      return
+    }
+    const priority = this.gutterPosition === 'Left' ? -100 : 100
+    const gutter = this.gutter = this.textEditor.addGutter({
+      name: 'linter-ui-default',
+      priority,
+    })
+    for (const [message, marker] of this.markers) {
+      gutter.decorateMarker(marker, {
+        class: 'linter-row',
+        item: getGutterElement(`linter-${message.severity}`),
+      })
     }
   }
   removeGutter() {
     if (this.gutter) {
       try {
         this.gutter.destroy()
-      } catch (_) { /* No Op */ }
+      } catch (_) {
+        /* This throws when the text editor is disposed */
+      }
     }
   }
   updateTooltip(position: ?Point) {
