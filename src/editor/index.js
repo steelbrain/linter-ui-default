@@ -87,7 +87,7 @@ export default class Editor {
         return
       }
       // NOTE: Ignore if file is too big
-      if (editorBuffer.cachedText.length > (300 * 1024)) {
+      if (editorBuffer.getMaxCharacterIndex() > (300 * 1024)) {
         this.removeTooltip()
         return
       }
