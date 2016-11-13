@@ -52,18 +52,18 @@ linter-message {
   font-size: 14px;
 }
 
-atom-text-editor::shadow .gutter[gutter-name="linter-ui-default"] {
+atom-text-editor.editor .gutter[gutter-name="linter-ui-default"] {
   background-color: transparent;
   .custom-decorations {
     background-color: transparent !important;
   }
 }
-atom-text-editor::shadow .linter-gutter {
+atom-text-editor.editor .linter-gutter {
   height: 0.5em !important;
   width: 0.5em;
   border-radius: 50%;
 }
-atom-text-editor::shadow .linter-row {
+atom-text-editor.editor .linter-row {
   /* Take up the full allowed width */
   left: 0;
   right: 0;
@@ -73,7 +73,7 @@ atom-text-editor::shadow .linter-row {
   justify-content: center;
 }
 
-atom-text-editor::shadow .linter-highlight, .linter-highlight {
+atom-text-editor.editor .linter-highlight, .linter-highlight {
   .error_type(@color) {
     .region {
       border-bottom: 1px dotted @color;
