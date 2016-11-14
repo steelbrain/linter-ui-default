@@ -41,3 +41,14 @@ export function pointInMessageRange(point: Point, message: LinterMessage): boole
   const range = message[$range]
   return !!(range && range.containsPoint(point))
 }
+
+export function hasParent(element: HTMLElement, selector: string): boolean {
+  do {
+    if (element.matches(selector)) {
+      return true
+    }
+    // $FlowIgnore: It's parent is an HTMLElement, not a NODE!
+    element = element.parentNode
+  } while (element && element.nodeName !== 'HTML')
+  return false
+}

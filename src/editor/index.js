@@ -8,7 +8,7 @@ import type { TextEditor, BufferMarker, TextEditorGutter, TextEditorMarker, Poin
 import getGutterElement from '../elements/gutter'
 import getTooltipElement from '../elements/tooltip'
 import { $range, getMessagesOnRangeOrPoint } from '../helpers'
-import { pointInMessageRange, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
+import { hasParent, pointInMessageRange, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
 import type { LinterMessage } from '../types'
 
 export default class Editor {
@@ -79,7 +79,7 @@ export default class Editor {
     const editorBuffer = this.textEditor.getBuffer()
     const editorElement = atom.views.getView(this.textEditor)
     return disposableEvent(editorElement, 'mousemove', debounce((e) => {
-      if (!editorElement.component || e.target.nodeName !== 'ATOM-TEXT-EDITOR') {
+      if (!editorElement.component || !hasParent(e.target, 'div.line')) {
         return
       }
       const tooltip = this.tooltip
