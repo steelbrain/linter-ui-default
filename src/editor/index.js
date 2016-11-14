@@ -76,7 +76,6 @@ export default class Editor {
     this.updateGutter()
   }
   listenForMouseMovement() {
-    const editorBuffer = this.textEditor.getBuffer()
     const editorElement = atom.views.getView(this.textEditor)
     return disposableEvent(editorElement, 'mousemove', debounce((e) => {
       if (!editorElement.component || !hasParent(e.target, 'div.line')) {
@@ -87,7 +86,7 @@ export default class Editor {
         return
       }
       // NOTE: Ignore if file is too big
-      if (editorBuffer.getMaxCharacterIndex() > (300 * 1024)) {
+      if (this.textEditor.largeFileMode) {
         this.removeTooltip()
         return
       }

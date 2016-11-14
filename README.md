@@ -30,10 +30,6 @@ cd linter
 npm install
 ```
 
-### Notes
-
-- Tooltips are disabled for files above 300kb in size if they are set to follow your mouse
-
 ### License
 
 This Project is licensed under the terms of MIT License, check the license
