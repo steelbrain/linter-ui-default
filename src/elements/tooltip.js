@@ -12,12 +12,12 @@ export default function getElement(messages: Array<LinterMessage>, showProviderN
   tooltip.id = 'linter-tooltip'
   for (const message of (messages: Array<LinterMessage>)) {
     if (message.version === 2) {
-      children.push(<MessageElement showProviderName={showProviderName} message={message} />)
+      children.push(<MessageElement key={message.key} showProviderName={showProviderName} message={message} />)
     } else {
-      children.push(<MessageElementLegacy showProviderName={showProviderName} message={message} />)
+      children.push(<MessageElementLegacy key={message.key} showProviderName={showProviderName} message={message} />)
       if (message.trace) {
-        message.trace.forEach(function(trace) {
-          children.push(<MessageElementLegacy showProviderName={showProviderName} message={trace} />)
+        message.trace.forEach(function(trace, index) {
+          children.push(<MessageElementLegacy key={`${message.key}:trace:${index}`} showProviderName={showProviderName} message={trace} />)
         })
       }
     }
