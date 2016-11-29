@@ -87,11 +87,6 @@ export function getFileOfMessage(message: LinterMessage): string {
   return atom.project.relativizePath(message[$file] || '')[1]
 }
 
-export function getLineOfMessage(message: LinterMessage): number {
-  const range = message[$range]
-  return range ? range.start.row : -1
-}
-
 export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'desc' }>, rows: Array<LinterMessage>): Array<LinterMessage> {
   const sortColumns : {
     severity?: 'asc' | 'desc',
@@ -135,10 +130,19 @@ export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'de
     }
     if (sortColumns.line) {
       const multiplyWith = sortColumns.line === 'asc' ? 1 : -1
-      const lineA = getLineOfMessage(a)
-      const lineB = getLineOfMessage(b)
-      if (lineA !== lineB) {
-        return multiplyWith * (lineA > lineB ? 1 : -1)
+      const rangeA = a[$range]
+      const rangeB = b[$range]
+      if (rangeA && !rangeB) {
+        return 1
+      } else if (rangeB && !rangeA) {
+        return -1
+      } else if (rangeA && rangeB) {
+        if (rangeA.start.line !== rangeB.start.line) {
+          return multiplyWith * (rangeA.start.line > rangeB.start.line ? 1 : -1)
+        }
+        if (rangeA.start.column !== rangeB.start.column) {
+          return multiplyWith * (rangeA.start.column > rangeB.start.column ? 1 : -1)
+        }
       }
     }
 

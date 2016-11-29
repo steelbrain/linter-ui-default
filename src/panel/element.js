@@ -2,7 +2,7 @@
 
 import React from 'react'
 import ReactTable from 'sb-react-table'
-import { severityNames, sortMessages, visitMessage, getFileOfMessage, getLineOfMessage } from '../helpers'
+import { $range, severityNames, sortMessages, visitMessage, getFileOfMessage } from '../helpers'
 import type Delegate from './delegate'
 import type { LinterMessage } from '../types'
 
@@ -29,7 +29,7 @@ export default class PanelElement extends React.Component {
       { key: 'linterName', label: 'Provider', sortable: true },
       { key: 'excerpt', label: 'Description' },
       { key: 'file', label: 'File', sortable: true, onClick: (e, row) => visitMessage(row) },
-      { key: 'line', label: 'Line', sortable: true },
+      { key: 'line', label: 'Line', sortable: true, onClick: (e, row) => visitMessage(row) },
     ]
     const showPanel = this.state.visibility && this.state.messages.length
 
@@ -39,7 +39,7 @@ export default class PanelElement extends React.Component {
           rows={this.state.messages}
           columns={columns}
 
-          initialSort={[{ column: 'severity', type: 'desc' }, { column: 'file', type: 'asc' }]}
+          initialSort={[{ column: 'severity', type: 'desc' }, { column: 'file', type: 'asc' }, { column: 'line', type: 'asc' }]}
           sort={sortMessages}
           rowKey={i => i.key}
 
@@ -53,11 +53,13 @@ export default class PanelElement extends React.Component {
     )
   }
   static renderRowColumn(row: LinterMessage, column: string): string | Object {
+    const range = row[$range]
+
     switch (column) {
       case 'file':
         return getFileOfMessage(row)
       case 'line':
-        return (getLineOfMessage(row) + 1).toString()
+        return range ? `${range.start.row}:${range.start.column}` : ''
       case 'excerpt':
         if (row.version === 1) {
           if (row.html) {
