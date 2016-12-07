@@ -59,7 +59,7 @@ export default class PanelElement extends React.Component {
       case 'file':
         return getFileOfMessage(row)
       case 'line':
-        return range ? `${range.start.row}:${range.start.column}` : ''
+        return range ? `${range.start.row + 1}:${range.start.column + 1}` : ''
       case 'excerpt':
         if (row.version === 1) {
           if (row.html) {
