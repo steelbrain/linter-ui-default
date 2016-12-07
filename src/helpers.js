@@ -137,8 +137,8 @@ export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'de
       } else if (rangeB && !rangeA) {
         return -1
       } else if (rangeA && rangeB) {
-        if (rangeA.start.line !== rangeB.start.line) {
-          return multiplyWith * (rangeA.start.line > rangeB.start.line ? 1 : -1)
+        if (rangeA.start.row !== rangeB.start.row) {
+          return multiplyWith * (rangeA.start.row > rangeB.start.row ? 1 : -1)
         }
         if (rangeA.start.column !== rangeB.start.column) {
           return multiplyWith * (rangeA.start.column > rangeB.start.column ? 1 : -1)
