@@ -7,7 +7,7 @@
     color: contrast(@color);
     background-color: @color;
     &::before {
-      border-color: transparent transparent @color @color;
+      border-color: transparent transparent #F44336 #F44336;
     }
 
     a {
@@ -17,10 +17,10 @@
 
   linter-message {
     &.error {
-      .message-with-severity(@text-color-error);
+      .message-with-severity(#F44336);
     }
     &.warning {
-      .message-with-severity(@text-color-warning);
+      .message-with-severity(#2196F3);
     }
     &.info {
       .message-with-severity(@text-color-info);
