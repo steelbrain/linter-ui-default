@@ -6,8 +6,8 @@
   .message-with-severity(@color) {
     color: contrast(@color);
     background-color: @color;
-    &::before {
-      border-color: transparent transparent #F44336 #F44336;
+    &:first-child::before {
+      border-color: transparent transparent @color @color;
     }
 
     a {
@@ -17,13 +17,16 @@
 
   linter-message {
     &.error {
-      .message-with-severity(#F44336);
+      .message-with-severity(@text-color-error);
     }
     &.warning {
-      .message-with-severity(#2196F3);
+      .message-with-severity(@text-color-warning);
     }
     &.info {
       .message-with-severity(@text-color-info);
+      &::before {
+        opacity: 0;
+      }
     }
 
     // Arrow pointer
