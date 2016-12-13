@@ -28,8 +28,8 @@ export default class PanelElement extends React.Component {
       { key: 'severity', label: 'Severity', sortable: true },
       { key: 'linterName', label: 'Provider', sortable: true },
       { key: 'excerpt', label: 'Description' },
-      { key: 'file', label: 'File', sortable: true, onClick: (e, row) => visitMessage(row) },
       { key: 'line', label: 'Line', sortable: true, onClick: (e, row) => visitMessage(row) },
+      { key: 'file', label: 'File', sortable: true, onClick: (e, row) => visitMessage(row) },
     ]
     const showPanel = this.state.visibility && this.state.messages.length
 
