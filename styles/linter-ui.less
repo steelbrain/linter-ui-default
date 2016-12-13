@@ -6,7 +6,7 @@
   .message-with-severity(@color) {
     color: contrast(@color);
     background-color: @color;
-    &::before {
+    &:first-child::before {
       border-color: transparent transparent @color @color;
     }
 
@@ -24,6 +24,9 @@
     }
     &.info {
       .message-with-severity(@text-color-info);
+      &::before {
+        opacity: 0;
+      }
     }
 
     // Arrow pointer
@@ -74,22 +77,23 @@ atom-text-editor.editor .linter-row {
 }
 
 atom-text-editor.editor .linter-highlight, .linter-highlight {
-  .error_type(@color) {
+  .error_type(@color, @priority) {
     .region {
       border-bottom: 1px dotted @color;
     }
     &.linter-gutter {
       background-color: @color;
+      z-index: @priority;
     }
   }
   &.linter-info {
-    .error_type(@background-color-info);
+    .error_type(@background-color-info, -1);
   }
   &.linter-warning {
-    .error_type(@background-color-warning);
+    .error_type(@background-color-warning, 0);
   }
   &.linter-error {
-    .error_type(@background-color-error);
+    .error_type(@background-color-error, 1);
   }
 }
 .tree-view {
