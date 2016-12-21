@@ -150,6 +150,12 @@ export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'de
   })
 }
 
+export function sortSolutions(solutions: Array<Object>): Array<Object> {
+  return solutions.slice().sort(function(a, b) {
+    return a.priority - b.priority
+  })
+}
+
 export function applySolution(textEditor: TextEditor, version: 1 | 2, solution: Object): boolean {
   if (solution.apply) {
     solution.apply()
