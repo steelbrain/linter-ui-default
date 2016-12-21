@@ -29,11 +29,13 @@ export type Message = {
   solutions?: Array<{
     title?: string,
     position: Range,
+    priority?: number,
     currentText?: string,
     replaceWith: string,
   } | {
     title?: string,
     position: Range,
+    priority?: number,
     apply: (() => any),
   }>,
   description?: Array<string>,

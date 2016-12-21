@@ -2,9 +2,9 @@
 
 import { CompositeDisposable, Emitter } from 'sb-event-kit'
 import type { Disposable } from 'sb-event-kit'
-import type { Point, TextBuffer, TextEditor } from 'atom'
+import type { Point, TextEditor } from 'atom'
 
-import { $range } from './helpers'
+import { $range, applySolution } from './helpers'
 import type Editor from './editor'
 
 export default class Intentions {
@@ -32,21 +32,21 @@ export default class Intentions {
       if (!isInRange) {
         continue
       }
-      let fixes = []
+      let solutions = []
       if (message.version === 1 && message.fix) {
-        fixes.push(message.fix)
+        solutions.push(message.fix)
       } else if (message.version === 2 && message.solutions && message.solutions.length) {
-        fixes = message.solutions
+        solutions = message.solutions
       }
       const linterName = message.linterName || 'Linter'
 
-      for (const fix of (fixes: Array<Object>)) {
+      for (const solution of (solutions: Array<Object>)) {
         toReturn.push({
-          priority: 200,
+          priority: solution.priority ? solution.priority + 200 : 200,
           icon: 'tools',
-          title: fix.title || `Fix ${linterName} issue`,
+          title: solution.title || `Fix ${linterName} issue`,
           selected() {
-            Intentions.applyFix(editor.textEditor.getBuffer(), message.version, fix)
+            applySolution(editor.textEditor, message.version, solution)
           },
         })
       }
@@ -63,24 +63,5 @@ export default class Intentions {
   }
   onShouldProvideEditor(callback: Function): Disposable {
     return this.emitter.on('should-provide-editor', callback)
-  }
-
-  static applyFix(textBuffer: TextBuffer, version: 1 | 2, fix: Object) {
-    if (fix.apply) {
-      fix.apply()
-      return
-    }
-
-    const range = version === 1 ? fix.range : fix.position
-    const currentText = version === 1 ? fix.oldText : fix.currentText
-    const replaceWith = version === 1 ? fix.newText : fix.replaceWith
-    if (currentText) {
-      const textInRange = textBuffer.getTextInRange(range)
-      if (currentText !== textInRange) {
-        console.warn('[linter-ui-default] Not applying fix because text did not match the expected one', 'expected', currentText, 'but got', textInRange)
-        return
-      }
-    }
-    textBuffer.setTextInRange(range, replaceWith)
   }
 }
