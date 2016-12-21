@@ -1,7 +1,7 @@
 /* @flow */
 
 import { Range } from 'atom'
-import type { Point } from 'atom'
+import type { Point, TextEditor } from 'atom'
 import type Editors from './editors'
 import type { LinterMessage } from './types'
 
@@ -148,4 +148,29 @@ export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'de
 
     return 0
   })
+}
+
+export function sortSolutions(solutions: Array<Object>): Array<Object> {
+  return solutions.slice().sort(function(a, b) {
+    return a.priority - b.priority
+  })
+}
+
+export function applySolution(textEditor: TextEditor, version: 1 | 2, solution: Object): boolean {
+  if (solution.apply) {
+    solution.apply()
+    return true
+  }
+  const range = version === 1 ? solution.range : solution.position
+  const currentText = version === 1 ? solution.oldText : solution.currentText
+  const replaceWith = version === 1 ? solution.newText : solution.replaceWith
+  if (currentText) {
+    const textInRange = textEditor.getTextInBufferRange(range)
+    if (currentText !== textInRange) {
+      console.warn('[linter-ui-default] Not applying fix because text did not match the expected one', 'expected', currentText, 'but got', textInRange)
+      return false
+    }
+  }
+  textEditor.setTextInBufferRange(range, replaceWith)
+  return true
 }
