@@ -9,7 +9,7 @@ export type Message = {
   __sb_linter_ui_default$file: ?string,
   __sb_linter_ui_default$range: ?Range,
 
-  // Automatically added by Linter
+  // Automatically added by linter
   key: string,
   version: 2,
   linterName: string,
@@ -19,13 +19,14 @@ export type Message = {
     file: string,
     position: Range,
   },
-  source: ?{
+  reference?: {
     file: string,
     position?: Point,
   },
+  url?: string,
+  icon?: string,
   excerpt: string,
   severity: 'error' | 'warning' | 'info',
-  reference: ?string,
   solutions?: Array<{
     title?: string,
     position: Range,
@@ -34,11 +35,11 @@ export type Message = {
     replaceWith: string,
   } | {
     title?: string,
-    position: Range,
     priority?: number,
+    position: Range,
     apply: (() => any),
   }>,
-  description?: Array<string>,
+  description?: string | (() => Promise<string> | string)
 }
 
 export type MessageLegacy = {

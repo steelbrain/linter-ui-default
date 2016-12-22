@@ -26,12 +26,17 @@ export function openMessage(message: LinterMessage): void {
   }
 
   let link
-  if (message.version === 2 && message.excerpt) {
-    link = message.reference
+  let searchTerm = ''
+  if (message.version === 2) {
+    if (message.url) {
+      link = message.url
+    } else {
+      searchTerm = message.excerpt
+    }
   } else {
-    const searchTerm = `${message.linterName} ${message.excerpt || message.text || htmlToText(message.html || '')}`
-    // $FlowIgnore: Flow has a bug where it thinks the above line produces a mixed result instead of string
-    link = `https://google.com/search?q=${encodeURIComponent(searchTerm)}`
+    searchTerm = `${message.linterName} ${message.excerpt || message.text || htmlToText(message.html || '')}`
   }
+  // $FlowIgnore: Flow has a bug where it thinks the above line produces a mixed result instead of string
+  link = link || `https://google.com/search?q=${encodeURIComponent(searchTerm)}`
   shell.openExternal(link)
 }
