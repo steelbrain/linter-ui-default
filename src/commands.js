@@ -30,13 +30,13 @@ export default class Commands {
   applyAllSolutions(): void {
     const textEditor = atom.workspace.getActiveTextEditor()
     const messages = sortMessages([{ column: 'line', type: 'desc' }], filterMessagesByPath(this.messages, textEditor.getPath()))
-    for (const message of (messages: Array<LinterMessage>)) {
+    messages.forEach(function(message) {
       if (message.version === 1 && message.fix) {
         applySolution(textEditor, 1, message.fix)
       } else if (message.version === 2 && message.solutions && message.solutions.length) {
         applySolution(textEditor, 2, sortSolutions(message.solutions)[0])
       }
-    }
+    })
   }
   move(forward: boolean = false): void {
     const textEditor = atom.workspace.getActiveTextEditor()
@@ -53,7 +53,8 @@ export default class Commands {
       messages.reverse()
     }
 
-    for (const message of (messages: Array<LinterMessage>)) {
+    for (let i = 0, length = messages.length; i < length; i++) {
+      const message = messages[i]
       const messageFile = $file(message)
       const messageRange = $range(message)
       if (messageFile && messageRange && messageFile === currentFile && currentPosition.compare(messageRange.start) === expectedValue) {

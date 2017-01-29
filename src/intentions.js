@@ -12,8 +12,8 @@ export default class Intentions {
     this.grammarScopes = ['*']
   }
   getIntentions({ textEditor, bufferPosition }: Object): Array<Object> {
+    let intentions = []
     const messages = filterMessagesByPath(this.messages, textEditor.getPath())
-    const toReturn = []
 
     for (const message of messages) {
       const hasFixes = message.version === 1 ? message.fix : message.solutions && message.solutions.length
@@ -26,7 +26,7 @@ export default class Intentions {
         continue
       }
 
-      let solutions = []
+      let solutions: Array<Object> = []
       if (message.version === 1 && message.fix) {
         solutions.push(message.fix)
       } else if (message.version === 2 && message.solutions && message.solutions.length) {
@@ -34,18 +34,16 @@ export default class Intentions {
       }
       const linterName = message.linterName || 'Linter'
 
-      for (const solution of (solutions: Array<Object>)) {
-        toReturn.push({
-          priority: solution.priority ? solution.priority + 200 : 200,
-          icon: 'tools',
-          title: solution.title || `Fix ${linterName} issue`,
-          selected() {
-            applySolution(textEditor, message.version, solution)
-          },
-        })
-      }
+      intentions = intentions.concat(solutions.map(solution => ({
+        priority: solution.priority ? solution.priority + 200 : 200,
+        icon: 'tools',
+        title: solution.title || `Fix ${linterName} issue`,
+        selected() {
+          applySolution(textEditor, message.version, solution)
+        },
+      })))
     }
-    return toReturn
+    return intentions
   }
   update(messages: Array<LinterMessage>) {
     this.messages = messages

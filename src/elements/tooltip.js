@@ -10,7 +10,8 @@ export default function getElement(messages: Array<LinterMessage>, showProviderN
   const tooltip = document.createElement('div')
   const children = []
   tooltip.id = 'linter-tooltip'
-  for (const message of (messages: Array<LinterMessage>)) {
+  for (let i = 0, length = messages.length; i < length; i++) {
+    const message = messages[i]
     if (message.version === 2) {
       children.push(<MessageElement key={message.key} showProviderName={showProviderName} message={message} />)
     } else {

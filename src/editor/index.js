@@ -168,7 +168,8 @@ export default class Editor {
   apply(added: Array<LinterMessage>, removed: Array<LinterMessage>) {
     const textBuffer = this.textEditor.getBuffer()
 
-    for (const message of (removed: Array<LinterMessage>)) {
+    for (let i = 0, length = removed.length; i < length; i++) {
+      const message = removed[i]
       const marker = this.markers.get(message)
       if (marker) {
         marker.destroy()
@@ -177,7 +178,8 @@ export default class Editor {
       this.markers.delete(message)
     }
 
-    for (const message of (added: Array<LinterMessage>)) {
+    for (let i = 0, length = added.length; i < length; i++) {
+      const message = added[i]
       const markerRange = $range(message)
       if (!markerRange) {
         // Only for backward compatibility

@@ -23,36 +23,30 @@ export default class Editors {
       this.getEditor(textEditor)
     }))
   }
-  update(difference: MessagesPatch) {
-    this.messages = difference.messages
+  update({ messages, added, removed }: MessagesPatch) {
+    this.messages = messages
 
     const { editorsMap, filePaths } = getEditorsMap(this)
-    for (const message of (difference.added: Array<LinterMessage>)) {
+    for (let i = 0, length = added.length; i < length; i++) {
+      const message = added[i]
       const filePath = $file(message)
       if (filePath && editorsMap[filePath]) {
         editorsMap[filePath].added.push(message)
       }
     }
-    for (const message of (difference.removed: Array<LinterMessage>)) {
+    for (let i = 0, length = removed.length; i < length; i++) {
+      const message = removed[i]
       const filePath = $file(message)
       if (filePath && editorsMap[filePath]) {
         editorsMap[filePath].removed.push(message)
       }
     }
 
-    for (const filePath of (filePaths: Array<string>)) {
+    for (let i = 0, length = filePaths.length; i < length; i++) {
+      const filePath = filePaths[i]
       const value = editorsMap[filePath]
       if (value.added.length || value.removed.length) {
-        if (value.editors.length === 1) {
-          value.editors[0].apply(value.added, value.removed)
-        } else if (value.editors.length === 2) {
-          value.editors[0].apply(value.added, value.removed)
-          value.editors[1].apply(value.added, value.removed)
-        } else {
-          for (const editor of (value.editors: Array<Editor>)) {
-            editor.apply(value.added, value.removed)
-          }
-        }
+        value.editors.forEach(editor => editor.apply(value.added, value.removed))
       }
     }
   }
@@ -60,7 +54,8 @@ export default class Editors {
     const messages = []
     const editorPath = editor.textEditor.getPath()
     if (editorPath) {
-      for (const message of (this.messages: Array<LinterMessage>)) {
+      for (let i = 0, length = this.messages.length; i < length; i++) {
+        const message = this.messages[i]
         if ($file(message) === editorPath) {
           messages.push(message)
         }
