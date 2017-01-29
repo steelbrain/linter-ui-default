@@ -20,7 +20,8 @@ export default class Intentions {
       if (!hasFixes) {
         continue
       }
-      const inRange = message[$range] && message[$range].containsPoint(bufferPosition)
+      const range = $range(message)
+      const inRange = range && range.containsPoint(bufferPosition)
       if (!inRange) {
         continue
       }

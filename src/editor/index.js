@@ -178,7 +178,7 @@ export default class Editor {
     }
 
     for (const message of (added: Array<LinterMessage>)) {
-      const markerRange = message[$range]
+      const markerRange = $range(message)
       if (!markerRange) {
         // Only for backward compatibility
         continue
@@ -197,7 +197,6 @@ export default class Editor {
         } else {
           message.location.position = marker.previousEventState.range
         }
-        message[$range] = marker.previousEventState.range
       })
       this.decorateMarker(message, marker)
     }

@@ -53,7 +53,7 @@ export default class PanelElement extends React.Component {
     )
   }
   static renderRowColumn(row: LinterMessage, column: string): string | Object {
-    const range = row[$range]
+    const range = $range(row)
 
     switch (column) {
       case 'file':

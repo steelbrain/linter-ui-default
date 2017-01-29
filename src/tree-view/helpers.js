@@ -54,7 +54,7 @@ export function calculateDecorations(decorateOnTreeView: 'Files and Directories'
   const toReturn = {}
   const projectPaths: Array<string> = atom.project.getPaths()
   for (const message of (messages: Array<LinterMessage>)) {
-    const filePath = message[$file]
+    const filePath = $file(message)
     if (!filePath) {
       // For compatibility purpose only
       continue

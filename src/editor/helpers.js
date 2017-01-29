@@ -38,7 +38,7 @@ export function mouseEventNearPosition(event: MouseEvent, editorElement: Object,
 }
 
 export function pointInMessageRange(point: Point, message: LinterMessage): boolean {
-  const range = message[$range]
+  const range = $range(message)
   return !!(range && range.containsPoint(point))
 }
 

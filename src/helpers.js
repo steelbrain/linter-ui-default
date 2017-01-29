@@ -5,9 +5,6 @@ import type { Point, TextEditor } from 'atom'
 import type Editors from './editors'
 import type { LinterMessage } from './types'
 
-export const $file = '__sb_linter_ui_default$file'
-export const $range = '__sb_linter_ui_default$range'
-
 export const severityScore = {
   error: 3,
   warning: 2,
@@ -20,19 +17,11 @@ export const severityNames = {
   info: 'Info',
 }
 
-export function normalizeMessages(messages: Array<Object>) {
-  for (let i = 0, length = messages.length; i < length; ++i) {
-    const message = messages[i]
-    if (typeof message[$file] === 'undefined') {
-      message[$file] = message.version === 1 ? message.filePath : message.location.file
-    }
-    if (typeof message[$range] === 'undefined') {
-      message[$range] = message.version === 1 ? message.range : message.location.position
-    }
-    if (message.version === 1 && message.trace) {
-      normalizeMessages(message.trace)
-    }
-  }
+export function $range(message: LinterMessage): ?Object {
+  return message.version === 1 ? message.range : message.location.position
+}
+export function $file(message: LinterMessage): ?string {
+  return message.version === 1 ? message.filePath : message.location.file
 }
 
 export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths: Array<string> } {
@@ -56,10 +45,9 @@ export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths
 
 export function filterMessagesByPath(messages: Array<LinterMessage>, filePath: string): Array<LinterMessage> {
   const filtered = []
-  for (let i = 0, length = messages.length, message; i < length; i++) {
-    message = messages[i]
-    if (message[$file] === filePath) {
-      filtered.push(message)
+  for (let i = 0, length = messages.length; i < length; i++) {
+    if ($file(messages[i]) === filePath) {
+      filtered.push(messages[i])
     }
   }
   return filtered
@@ -67,9 +55,11 @@ export function filterMessagesByPath(messages: Array<LinterMessage>, filePath: s
 
 export function getMessagesOnRangeOrPoint(messages: Set<LinterMessage> | Array<LinterMessage>, filePath: string, rangeOrPoint: Point | Range): Array<LinterMessage> {
   const filtered = []
-  const range = rangeOrPoint.constructor.name === 'Point' ? new Range(rangeOrPoint, rangeOrPoint) : rangeOrPoint
+  const expectedRange = rangeOrPoint.constructor.name === 'Point' ? new Range(rangeOrPoint, rangeOrPoint) : rangeOrPoint
   for (const message of messages) {
-    if (message[$file] && message[$range] && message[$file] === filePath && range.intersectsWith(message[$range])) {
+    const file = $file(message)
+    const range = $range(message)
+    if (file && range && file === filePath && range.intersectsWith(expectedRange)) {
       filtered.push(message)
     }
   }
@@ -77,8 +67,8 @@ export function getMessagesOnRangeOrPoint(messages: Set<LinterMessage> | Array<L
 }
 
 export function visitMessage(message: LinterMessage) {
-  const messageFile = message[$file]
-  const messageRange = message[$range]
+  const messageFile = $file(message)
+  const messageRange = $range(message)
   atom.workspace.open(messageFile, { searchAllPanes: true }).then(function() {
     const textEditor = atom.workspace.getActiveTextEditor()
     if (messageRange && textEditor && textEditor.getPath() === messageFile) {
@@ -95,7 +85,7 @@ export function copySelection() {
 }
 
 export function getFileOfMessage(message: LinterMessage): string {
-  return atom.project.relativizePath(message[$file] || '')[1]
+  return atom.project.relativizePath($file(message) || '')[1]
 }
 
 export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'desc' }>, rows: Array<LinterMessage>): Array<LinterMessage> {
@@ -141,8 +131,8 @@ export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'de
     }
     if (sortColumns.line) {
       const multiplyWith = sortColumns.line === 'asc' ? 1 : -1
-      const rangeA = a[$range]
-      const rangeB = b[$range]
+      const rangeA = $range(a)
+      const rangeB = $range(b)
       if (rangeA && !rangeB) {
         return 1
       } else if (rangeB && !rangeA) {

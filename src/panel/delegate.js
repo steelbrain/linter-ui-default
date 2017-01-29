@@ -45,7 +45,8 @@ export default class PanelDelegate {
       const activeEditor = atom.workspace.getActiveTextEditor()
       const editorPath = activeEditor ? activeEditor.getPath() : ''
       if (editorPath) {
-        filteredMessages = filter(this.messages, message => message[$file] === editorPath)
+        // TODO: Use filterMessagesByPath here
+        filteredMessages = filter(this.messages, message => $file(message) === editorPath)
       }
     }
     return filteredMessages

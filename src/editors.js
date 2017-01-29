@@ -28,13 +28,13 @@ export default class Editors {
 
     const { editorsMap, filePaths } = getEditorsMap(this)
     for (const message of (difference.added: Array<LinterMessage>)) {
-      const filePath = message[$file]
+      const filePath = $file(message)
       if (filePath && editorsMap[filePath]) {
         editorsMap[filePath].added.push(message)
       }
     }
     for (const message of (difference.removed: Array<LinterMessage>)) {
-      const filePath = message[$file]
+      const filePath = $file(message)
       if (filePath && editorsMap[filePath]) {
         editorsMap[filePath].removed.push(message)
       }
@@ -61,7 +61,7 @@ export default class Editors {
     const editorPath = editor.textEditor.getPath()
     if (editorPath) {
       for (const message of (this.messages: Array<LinterMessage>)) {
-        if (message[$file] === editorPath) {
+        if ($file(message) === editorPath) {
           messages.push(message)
         }
       }
