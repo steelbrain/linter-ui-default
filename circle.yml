@@ -9,7 +9,6 @@ dependencies:
     - atom --version
     - npm prune
     - npm install
-    - npm run compile
 
 test:
   override:

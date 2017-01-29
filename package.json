@@ -10,10 +10,7 @@
     "atom": ">=1.4.0 <2.0.0"
   },
   "scripts": {
-    "test": "(apm test) && (flow check) && (eslint . )",
-    "clean": "rimraf lib",
-    "compile": "npm run clean && babel src --out-dir lib",
-    "watch": "npm run compile -- -w"
+    "test": "(apm test) && (flow check) && (eslint . )"
   },
   "dependencies": {
     "atom-package-deps": "^4.3.1",
@@ -25,9 +22,6 @@
     "sb-react-table": "^1.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-plugin-for-of-efficient": "^1.0.0",
-    "babel-preset-steelbrain": "^4.0.1",
     "eslint-config-steelbrain": "^2.0.0",
     "eslint-plugin-react": "^6.2.0",
     "flow-bin": "^0.32.0",

@@ -21,7 +21,6 @@ cd ~/.atom/packages
 git clone git@github.com:steelbrain/linter-ui-default.git
 cd linter-ui-default
 npm install
-npm run compile
 
 # Install Linter v2
 cd ~/.atom/packages
