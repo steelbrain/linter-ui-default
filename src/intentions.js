@@ -1,37 +1,30 @@
 /* @flow */
 
-import { CompositeDisposable, Emitter } from 'sb-event-kit'
-import type { Disposable } from 'sb-event-kit'
-import type { Point, TextEditor } from 'atom'
-
-import { $range, applySolution } from './helpers'
-import type Editor from './editor'
+import { $range, applySolution, filterMessagesByPath } from './helpers'
+import type { LinterMessage } from './types'
 
 export default class Intentions {
-  emitter: Emitter;
-  subscriptions: CompositeDisposable;
+  messages: Array<LinterMessage>;
   grammarScopes: Array<string>;
 
   constructor() {
-    this.emitter = new Emitter()
-    this.subscriptions = new CompositeDisposable()
+    this.messages = []
     this.grammarScopes = ['*']
-
-    this.subscriptions.add(this.emitter)
   }
-  getIntentions({ textEditor, bufferPosition } : { textEditor: TextEditor, bufferPosition: Point }): Array<Object> {
-    const editor = this.requestEditor(textEditor)
+  getIntentions({ textEditor, bufferPosition }: Object): Array<Object> {
+    const messages = filterMessagesByPath(this.messages, textEditor.getPath())
     const toReturn = []
 
-    for (const message of editor.messages) {
+    for (const message of messages) {
       const hasFixes = message.version === 1 ? message.fix : message.solutions && message.solutions.length
       if (!hasFixes) {
         continue
       }
-      const isInRange = message[$range] && message[$range].containsPoint(bufferPosition)
-      if (!isInRange) {
+      const inRange = message[$range] && message[$range].containsPoint(bufferPosition)
+      if (!inRange) {
         continue
       }
+
       let solutions = []
       if (message.version === 1 && message.fix) {
         solutions.push(message.fix)
@@ -46,22 +39,14 @@ export default class Intentions {
           icon: 'tools',
           title: solution.title || `Fix ${linterName} issue`,
           selected() {
-            applySolution(editor.textEditor, message.version, solution)
+            applySolution(textEditor, message.version, solution)
           },
         })
       }
     }
     return toReturn
   }
-  requestEditor(textEditor: TextEditor): Editor {
-    const event = { textEditor, editor: null }
-    this.emitter.emit('should-provide-editor', event)
-    if (event.editor) {
-      return event.editor
-    }
-    throw new Error('Editor not found')
-  }
-  onShouldProvideEditor(callback: Function): Disposable {
-    return this.emitter.on('should-provide-editor', callback)
+  update(messages: Array<LinterMessage>) {
+    this.messages = messages
   }
 }

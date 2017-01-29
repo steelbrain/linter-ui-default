@@ -71,6 +71,7 @@ export default class LinterUI {
     }
     this.commands.update(difference.messages)
     this.treeview.update(difference.messages)
+    this.intentions.update(difference.messages)
   }
   didBeginLinting(linter: Linter, filePath: string) {
     this.signal.didBeginLinting(linter, filePath)
