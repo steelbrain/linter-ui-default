@@ -23,6 +23,15 @@ export function $range(message: LinterMessage): ?Object {
 export function $file(message: LinterMessage): ?string {
   return message.version === 1 ? message.filePath : message.location.file
 }
+export function copySelection() {
+  const selection = getSelection()
+  if (selection) {
+    atom.clipboard.write(selection.toString())
+  }
+}
+export function getPathOfMessage(message: LinterMessage): string {
+  return atom.project.relativizePath($file(message) || '')[1]
+}
 
 export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths: Array<string> } {
   const editorsMap = {}
@@ -53,16 +62,16 @@ export function filterMessagesByPath(messages: Array<LinterMessage>, filePath: s
   return filtered
 }
 
-export function getMessagesOnRangeOrPoint(messages: Set<LinterMessage> | Array<LinterMessage>, filePath: string, rangeOrPoint: Point | Range): Array<LinterMessage> {
+export function filterMessagesByRangeOrPoint(messages: Set<LinterMessage>, filePath: string, rangeOrPoint: Point | Range): Array<LinterMessage> {
   const filtered = []
   const expectedRange = rangeOrPoint.constructor.name === 'Point' ? new Range(rangeOrPoint, rangeOrPoint) : rangeOrPoint
-  for (const message of messages) {
+  messages.forEach(function(message) {
     const file = $file(message)
     const range = $range(message)
     if (file && range && file === filePath && range.intersectsWith(expectedRange)) {
       filtered.push(message)
     }
-  }
+  })
   return filtered
 }
 
@@ -75,17 +84,6 @@ export function visitMessage(message: LinterMessage) {
       textEditor.setCursorBufferPosition(messageRange.start)
     }
   })
-}
-
-export function copySelection() {
-  const selection = getSelection()
-  if (selection) {
-    atom.clipboard.write(selection.toString())
-  }
-}
-
-export function getFileOfMessage(message: LinterMessage): string {
-  return atom.project.relativizePath($file(message) || '')[1]
 }
 
 export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'desc' }>, rows: Array<LinterMessage>): Array<LinterMessage> {
@@ -119,9 +117,9 @@ export function sortMessages(sortInfo: Array<{ column: string, type: 'asc' | 'de
     }
     if (sortColumns.file) {
       const multiplyWith = sortColumns.file === 'asc' ? 1 : -1
-      const fileA = getFileOfMessage(a)
+      const fileA = getPathOfMessage(a)
       const fileALength = fileA.length
-      const fileB = getFileOfMessage(b)
+      const fileB = getPathOfMessage(b)
       const fileBLength = fileB.length
       if (fileALength !== fileBLength) {
         return multiplyWith * (fileALength > fileBLength ? 1 : -1)

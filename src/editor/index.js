@@ -7,7 +7,7 @@ import type { TextEditor, BufferMarker, TextEditorGutter, TextEditorMarker, Poin
 
 import getGutterElement from '../elements/gutter'
 import getTooltipElement from '../elements/tooltip'
-import { $range, getMessagesOnRangeOrPoint } from '../helpers'
+import { $range, filterMessagesByRangeOrPoint } from '../helpers'
 import { hasParent, pointInMessageRange, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
 import type { LinterMessage } from '../types'
 
@@ -141,7 +141,7 @@ export default class Editor {
     }
     this.removeTooltip()
 
-    const messages = getMessagesOnRangeOrPoint(this.messages, this.textEditor.getPath(), position)
+    const messages = filterMessagesByRangeOrPoint(this.messages, this.textEditor.getPath(), position)
     if (!messages.length) {
       return
     }

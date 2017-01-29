@@ -1,10 +1,9 @@
 /* @flow */
 
-import filter from 'lodash.filter'
 import { CompositeDisposable, Emitter } from 'sb-event-kit'
 import type { Disposable } from 'sb-event-kit'
 
-import { $file } from '../helpers'
+import { filterMessagesByPath } from '../helpers'
 import type { LinterMessage } from '../types'
 
 export default class PanelDelegate {
@@ -45,8 +44,7 @@ export default class PanelDelegate {
       const activeEditor = atom.workspace.getActiveTextEditor()
       const editorPath = activeEditor ? activeEditor.getPath() : ''
       if (editorPath) {
-        // TODO: Use filterMessagesByPath here
-        filteredMessages = filter(this.messages, message => $file(message) === editorPath)
+        filteredMessages = filterMessagesByPath(this.messages, editorPath)
       }
     }
     return filteredMessages

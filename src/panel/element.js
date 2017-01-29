@@ -2,7 +2,7 @@
 
 import React from 'react'
 import ReactTable from 'sb-react-table'
-import { $range, severityNames, sortMessages, visitMessage, getFileOfMessage } from '../helpers'
+import { $range, severityNames, sortMessages, visitMessage, getPathOfMessage } from '../helpers'
 import type Delegate from './delegate'
 import type { LinterMessage } from '../types'
 
@@ -57,7 +57,7 @@ export default class PanelElement extends React.Component {
 
     switch (column) {
       case 'file':
-        return getFileOfMessage(row)
+        return getPathOfMessage(row)
       case 'line':
         return range ? `${range.start.row + 1}:${range.start.column + 1}` : ''
       case 'excerpt':
