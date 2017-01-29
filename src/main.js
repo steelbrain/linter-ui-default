@@ -33,7 +33,6 @@ export default class LinterUI {
     this.subscriptions = new CompositeDisposable()
 
     this.subscriptions.add(this.signal)
-    this.subscriptions.add(this.editors)
     this.subscriptions.add(this.treeview)
     this.subscriptions.add(this.commands)
 
@@ -70,6 +69,7 @@ export default class LinterUI {
     if (this.panel) {
       this.panel.update(difference.messages)
     }
+    this.commands.update(difference.messages)
     this.treeview.update(difference.messages)
   }
   didBeginLinting(linter: Linter, filePath: string) {
@@ -82,6 +82,9 @@ export default class LinterUI {
     this.subscriptions.dispose()
     if (this.panel) {
       this.panel.dispose()
+    }
+    if (this.editors) {
+      this.editors.dispose()
     }
   }
 }

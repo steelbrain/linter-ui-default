@@ -1,17 +1,18 @@
 /* @flow */
 
 import { CompositeDisposable, Emitter } from 'sb-event-kit'
-import type { Disposable } from 'sb-event-kit'
 
-import { $file, $range, visitMessage, sortMessages, sortSolutions, applySolution } from './helpers'
+import { $file, $range, visitMessage, sortMessages, sortSolutions, filterMessagesByPath, applySolution } from './helpers'
 import type { LinterMessage } from './types'
 
 export default class Commands {
   emitter: Emitter;
+  messages: Array<LinterMessage>;
   subscriptions: CompositeDisposable;
 
   constructor() {
     this.emitter = new Emitter()
+    this.messages = []
     this.subscriptions = new CompositeDisposable()
 
     this.subscriptions.add(this.emitter)
@@ -27,8 +28,8 @@ export default class Commands {
   }
   // NOTE: Apply solutions from bottom to top, so they don't invalidate each other
   applyAllSolutions(): void {
-    const messages = sortMessages([{ column: 'line', type: 'desc' }], this.requestMessages())
     const textEditor = atom.workspace.getActiveTextEditor()
+    const messages = sortMessages([{ column: 'line', type: 'desc' }], filterMessagesByPath(this.messages, textEditor.getPath()))
     for (const message of (messages: Array<LinterMessage>)) {
       if (message.version === 1 && message.fix) {
         applySolution(textEditor, 1, message.fix)
@@ -38,8 +39,8 @@ export default class Commands {
     }
   }
   move(forward: boolean = false): void {
-    const messages = sortMessages([{ column: 'file', type: 'asc' }, { column: 'line', type: 'asc' }], this.requestMessages())
     const textEditor = atom.workspace.getActiveTextEditor()
+    const messages = sortMessages([{ column: 'file', type: 'asc' }, { column: 'line', type: 'asc' }], filterMessagesByPath(this.messages, textEditor.getPath()))
     const expectedValue = forward ? -1 : 1
 
     const currentFile = textEditor.getPath()
@@ -59,14 +60,8 @@ export default class Commands {
       }
     }
   }
-  requestMessages(): Array<LinterMessage> {
-    const filePath = atom.workspace.getActiveTextEditor().getPath()
-    const event = { messages: [], filePath }
-    this.emitter.emit('should-provide-messages', event)
-    return event.messages
-  }
-  onShouldProvideMessages(callback: Function): Disposable {
-    return this.emitter.on('should-provide-messages', callback)
+  update(messages: Array<LinterMessage>) {
+    this.messages = messages
   }
   dispose(): void {
     this.subscriptions.dispose()

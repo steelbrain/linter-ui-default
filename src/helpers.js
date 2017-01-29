@@ -54,6 +54,17 @@ export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths
   return { editorsMap, filePaths }
 }
 
+export function filterMessagesByPath(messages: Array<LinterMessage>, filePath: string): Array<LinterMessage> {
+  const filtered = []
+  for (let i = 0, length = messages.length, message; i < length; i++) {
+    message = messages[i]
+    if (message[$file] === filePath) {
+      filtered.push(message)
+    }
+  }
+  return filtered
+}
+
 export function getMessagesOnRangeOrPoint(messages: Set<LinterMessage> | Array<LinterMessage>, filePath: string, rangeOrPoint: Point | Range): Array<LinterMessage> {
   const filtered = []
   const range = rangeOrPoint.constructor.name === 'Point' ? new Range(rangeOrPoint, rangeOrPoint) : rangeOrPoint
