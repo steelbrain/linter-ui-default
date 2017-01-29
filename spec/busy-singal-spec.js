@@ -1,6 +1,6 @@
 /* @flow */
 
-import BusySignal from '../src/busy-signal'
+import BusySignal from '../lib/busy-signal'
 import { getLinter } from './helpers'
 
 class SignalRegistry {

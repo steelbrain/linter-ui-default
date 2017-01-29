@@ -2,7 +2,7 @@
 
 import { Range } from 'atom'
 import { it, wait, beforeEach } from 'jasmine-fix'
-import Commands from '../src/commands'
+import Commands from '../lib/commands'
 import { dispatchCommand, getMessage } from './helpers'
 
 describe('Commands', function() {

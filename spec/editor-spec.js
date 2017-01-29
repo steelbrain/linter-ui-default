@@ -2,7 +2,7 @@
 
 import { Range } from 'atom'
 import { beforeEach } from 'jasmine-fix'
-import Editor from '../src/editor'
+import Editor from '../lib/editor'
 import { getMessage } from './helpers'
 
 describe('Editor', function() {
