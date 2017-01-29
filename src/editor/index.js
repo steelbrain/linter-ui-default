@@ -197,6 +197,7 @@ export default class Editor {
         } else {
           message.location.position = marker.previousEventState.range
         }
+        message[$range] = marker.previousEventState.range
       })
       this.decorateMarker(message, marker)
     }
