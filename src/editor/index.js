@@ -188,7 +188,6 @@ export default class Editor {
       })
       this.markers.set(message, marker)
       this.messages.add(message)
-      this.applyMarker(message)
       marker.onDidChange(({ oldHeadPosition, newHeadPosition, isValid }) => {
         if (!isValid || (newHeadPosition.row === 0 && oldHeadPosition.row !== 0)) {
           return
@@ -199,12 +198,12 @@ export default class Editor {
           message.location.position = marker.previousEventState.range
         }
       })
+      this.decorateMarker(message, marker)
     }
 
     this.updateTooltip(this.cursorPosition)
   }
-  applyMarker(message: LinterMessage) {
-    const marker = this.markers.get(message)
+  decorateMarker(message: LinterMessage, marker: Object) {
     const gutter = this.gutter
     const messageClass = `linter-${message.severity}`
     this.textEditor.decorateMarker(marker, {
