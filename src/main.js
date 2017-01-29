@@ -14,7 +14,7 @@ export default class LinterUI {
   name: string;
   panel: ?Panel;
   signal: BusySignal;
-  editors: Editors;
+  editors: ?Editors;
   treeview: TreeView;
   commands: Commands;
   messages: Array<LinterMessage>;
@@ -25,7 +25,6 @@ export default class LinterUI {
   constructor() {
     this.name = 'Linter'
     this.signal = new BusySignal()
-    this.editors = new Editors()
     this.treeview = new TreeView()
     this.commands = new Commands()
     this.messages = []
@@ -37,15 +36,6 @@ export default class LinterUI {
     this.subscriptions.add(this.editors)
     this.subscriptions.add(this.treeview)
     this.subscriptions.add(this.commands)
-    this.commands.onShouldProvideMessages((event) => {
-      const editor = this.editors.getByFilePath(event.filePath)
-      if (editor.length) {
-        event.messages = Array.from(editor[0].messages)
-      }
-    })
-    this.intentions.onShouldProvideEditor((event) => {
-      event.editor = this.editors.getEditor(event.textEditor)
-    })
 
     this.subscriptions.add(atom.config.observe('linter-ui-default.showPanel', (showPanel) => {
       if (showPanel && !this.panel) {
@@ -54,6 +44,15 @@ export default class LinterUI {
       } else if (!showPanel && this.panel) {
         this.panel.dispose()
         this.panel = null
+      }
+    }))
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showDecorations', (showDecorations) => {
+      if (showDecorations && !this.editors) {
+        this.editors = new Editors()
+        this.editors.update({ added: this.messages, removed: [], messages: this.messages })
+      } else if (!showDecorations && this.editors) {
+        this.editors.dispose()
+        this.editors = null
       }
     }))
   }
@@ -65,7 +64,9 @@ export default class LinterUI {
     } else {
       normalizeMessages(difference.added)
     }
-    this.editors.update(difference)
+    if (this.editors) {
+      this.editors.update(difference)
+    }
     if (this.panel) {
       this.panel.update(difference.messages)
     }
