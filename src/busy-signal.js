@@ -5,14 +5,14 @@ import type { Linter } from './types'
 
 export default class BusySignal {
   provider: ?Object;
-  inProgress: Set<{
+  executing: Set<{
     linter: Linter,
     filePath: ?string,
   }>;
   subscriptions: CompositeDisposable;
 
   constructor() {
-    this.inProgress = new Set()
+    this.executing = new Set()
     this.subscriptions = new CompositeDisposable()
   }
   attach(registry: Object) {
@@ -26,21 +26,23 @@ export default class BusySignal {
     }
     provider.clear()
     const fileMap: Map<?string, Array<string>> = new Map()
-    for (const { filePath, linter } of this.inProgress) {
-      let fileMapEntry = fileMap.get(filePath)
-      if (!fileMapEntry) {
-        fileMap.set(filePath, fileMapEntry = [])
+
+    for (const { filePath, linter } of this.executing) {
+      let names = fileMap.get(filePath)
+      if (!names) {
+        fileMap.set(filePath, names = [])
       }
-      fileMapEntry.push(linter.name)
+      names.push(linter.name)
     }
+
     for (const [filePath, names] of fileMap) {
-      const ps = filePath ? ` on ${atom.project.relativizePath(filePath)[1]}` : ''
-      provider.add(`Linters (${names.join(', ')}) running${ps}`)
+      const path = filePath ? ` on ${atom.project.relativizePath(filePath)[1]}` : ''
+      provider.add(`${names.join(', ')}${path}`)
     }
     fileMap.clear()
   }
-  getInProgress(linter: Linter, filePath: ?string): ?Object {
-    for (const entry of this.inProgress) {
+  getExecuting(linter: Linter, filePath: ?string): ?Object {
+    for (const entry of this.executing) {
       if (entry.linter === linter && entry.filePath === filePath) {
         return entry
       }
@@ -48,16 +50,16 @@ export default class BusySignal {
     return null
   }
   didBeginLinting(linter: Linter, filePath: ?string) {
-    if (this.getInProgress(linter, filePath)) {
+    if (this.getExecuting(linter, filePath)) {
       return
     }
-    this.inProgress.add({ linter, filePath })
+    this.executing.add({ linter, filePath })
     this.update()
   }
   didFinishLinting(linter: Linter, filePath: ?string) {
-    const entry = this.getInProgress(linter, filePath)
+    const entry = this.getExecuting(linter, filePath)
     if (entry) {
-      this.inProgress.delete(entry)
+      this.executing.delete(entry)
       this.update()
     }
   }
@@ -65,7 +67,7 @@ export default class BusySignal {
     if (this.provider) {
       this.provider.clear()
     }
-    this.inProgress.clear()
+    this.executing.clear()
     this.subscriptions.dispose()
   }
 }
