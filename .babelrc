@@ -1,4 +1,0 @@
-{
-  "presets": "steelbrain",
-  "plugins": ["for-of-efficient"]
-}
