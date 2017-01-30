@@ -61,11 +61,6 @@ atom-text-editor.editor .gutter[gutter-name="linter-ui-default"] {
     background-color: transparent !important;
   }
 }
-atom-text-editor.editor .linter-gutter {
-  height: 0.5em !important;
-  width: 0.5em;
-  border-radius: 50%;
-}
 atom-text-editor.editor .linter-row {
   /* Take up the full allowed width */
   left: 0;
@@ -82,7 +77,7 @@ atom-text-editor.editor .linter-highlight, .linter-highlight {
       border-bottom: 1px dotted @color;
     }
     &.linter-gutter {
-      background-color: @color;
+      color: @color;
       z-index: @priority;
     }
   }
@@ -117,4 +112,8 @@ atom-text-editor.editor .linter-highlight, .linter-highlight {
   .linter-error {
     .error_type(@background-color-error);
   }
+}
+.linter-gutter.icon::before {
+  width: 100%;
+  font-size: 1em;
 }
