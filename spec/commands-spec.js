@@ -2,7 +2,7 @@
 
 import { Range } from 'atom'
 import { it, wait, beforeEach } from 'jasmine-fix'
-import Commands from '../src/commands'
+import Commands from '../lib/commands'
 import { dispatchCommand, getMessage } from './helpers'
 
 describe('Commands', function() {
@@ -32,9 +32,7 @@ describe('Commands', function() {
     const message = getMessage()
     message.range = Range.fromObject([[5, 0], [5, 1]])
     message.filePath = __filename
-    commands.onShouldProvideMessages(function(event) {
-      event.messages = [message]
-    })
+    commands.update([message])
     commands.move(true)
     await wait(1)
     expect(activeEditor.getCursorBufferPosition()).toEqual([5, 0])
@@ -46,9 +44,7 @@ describe('Commands', function() {
       message.range = Range.fromObject([[line, 0], [line, 1]])
       line++
     }
-    commands.onShouldProvideMessages(function(event) {
-      event.messages = Array.from(messages)
-    })
+    commands.update(messages)
     commands.move(true)
     await wait(1)
     expect(activeEditor.getCursorBufferPosition().serialize()).toEqual([2, 0])

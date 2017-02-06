@@ -1,7 +1,5 @@
 /* @flow */
 
-import { $range, $file } from '../src/helpers'
-
 export function getMessage(type: ?string = 'Error', filePath: ?string, range: ?Object): Object {
   const message = {
     type,
@@ -10,13 +8,6 @@ export function getMessage(type: ?string = 'Error', filePath: ?string, range: ?O
     range,
     version: 1,
   }
-  Object.defineProperty(message, $file, {
-    get: () => message.filePath,
-  })
-  Object.defineProperty(message, $range, {
-    get: () => message.range,
-  })
-
   return message
 }
 
