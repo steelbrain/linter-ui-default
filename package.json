@@ -85,6 +85,13 @@
       "default": false,
       "order": 1
     },
+    "panelTakesMinimumHeight": {
+      "title": "Panel Takes Minimum Height",
+      "description": "Reduce panel height when it exceeds the height of the error list",
+      "type": "boolean",
+      "default": true,
+      "order": 1
+    },
     "decorateOnTreeView": {
       "type": "string",
       "description": "Underline the selected type in TreeView to indicate issues",
@@ -152,13 +159,6 @@
       "description": "in px",
       "type": "number",
       "default": 150,
-      "order": 3
-    },
-    "panelTakeMinimumHeight": {
-      "title": "Panel Take Minimum Height",
-      "description": "This makes panel only take the space required for available messages, while staying below max height",
-      "type": "boolean",
-      "default": true,
       "order": 3
     }
   }
