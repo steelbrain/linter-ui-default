@@ -119,7 +119,7 @@
       "type": "string",
       "enum": [
         "Toggle Panel",
-        "Jump to next error of the type"
+        "Jump to next error"
       ],
       "default": "Toggle Panel",
       "order": 2
