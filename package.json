@@ -15,6 +15,7 @@
   "dependencies": {
     "atom-package-deps": "^4.3.1",
     "disposable-event": "^1.0.3",
+    "disposify": "^1.0.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.2",
     "sb-debounce": "^1.0.1",
@@ -44,6 +45,11 @@
     "busy-signal": {
       "versions": {
         "1.0.0": "consumeSignal"
+      }
+    },
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
       }
     }
   },
@@ -98,6 +104,26 @@
       "default": "Current File",
       "order": 2
     },
+    "statusBarRepresents": {
+      "title": "Statusbar Represents",
+      "type": "string",
+      "enum": [
+        "Entire Project",
+        "Current File"
+      ],
+      "default": "Entire Project",
+      "order": 2
+    },
+    "statusBarClickBehavior": {
+      "title": "Statusbar Click Behavior",
+      "type": "string",
+      "enum": [
+        "Toggle Panel",
+        "Jump to next error"
+      ],
+      "default": "Toggle Panel",
+      "order": 2
+    },
     "tooltipFollows": {
       "type": "string",
       "description": "Choose whether tooltips show on mouseover, or follow the keyboard cursor",
@@ -110,7 +136,7 @@
     },
     "gutterPosition": {
       "title": "Position of Gutter Highlights",
-      "description": "Show the line highlights to the left or right of the line numbers",
+      "description": "Relative to the line numbers",
       "type": "string",
       "enum": [
         "Left",
