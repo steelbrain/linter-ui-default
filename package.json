@@ -146,6 +146,20 @@
       ],
       "default": "Right",
       "order": 2
+    },
+    "panelHeight": {
+      "title": "Panel Height",
+      "description": "in px",
+      "type": "number",
+      "default": 150,
+      "order": 3
+    },
+    "panelTakeMinimumHeight": {
+      "title": "Panel Take Minimum Height",
+      "description": "This makes panel only take the space required for available messages, while staying below max height",
+      "type": "boolean",
+      "default": true,
+      "order": 3
     }
   }
 }
