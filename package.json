@@ -98,6 +98,16 @@
       "default": "Current File",
       "order": 2
     },
+    "statusBarClickBehavior": {
+      "title": "Statusbar Click Behavior",
+      "type": "string",
+      "enum": [
+        "Toggle Panel",
+        "Jump to next error of the type"
+      ],
+      "default": "Toggle Panel",
+      "order": 2
+    },
     "tooltipFollows": {
       "type": "string",
       "description": "Choose whether tooltips show on mouseover, or follow the keyboard cursor",
