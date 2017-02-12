@@ -16,6 +16,7 @@
     "atom-package-deps": "^4.3.1",
     "disposable-event": "^1.0.3",
     "disposify": "^1.0.0",
+    "marked": "^0.3.6",
     "react": "^15.3.1",
     "react-dom": "^15.3.2",
     "sb-debounce": "^1.0.1",
