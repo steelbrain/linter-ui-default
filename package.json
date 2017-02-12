@@ -15,6 +15,7 @@
   "dependencies": {
     "atom-package-deps": "^4.3.1",
     "disposable-event": "^1.0.3",
+    "disposify": "^1.0.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.2",
     "sb-debounce": "^1.0.1",
@@ -44,6 +45,11 @@
     "busy-signal": {
       "versions": {
         "1.0.0": "consumeSignal"
+      }
+    },
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
       }
     }
   },
