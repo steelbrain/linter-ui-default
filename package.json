@@ -128,7 +128,7 @@
       "type": "string",
       "enum": [
         "Toggle Panel",
-        "Jump to next error"
+        "Jump to next issue"
       ],
       "default": "Toggle Panel",
       "order": 2
