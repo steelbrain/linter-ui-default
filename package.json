@@ -103,11 +103,10 @@
       ],
       "order": 2
     },
-    "showIssuesFrom": {
-      "title": "Show issues in Bottom Panel from",
+    "panelRepresents": {
       "type": "string",
       "enum": [
-        "All Files",
+        "Entire Project",
         "Current File"
       ],
       "default": "Current File",
@@ -120,7 +119,7 @@
         "Entire Project",
         "Current File"
       ],
-      "default": "Entire Project",
+      "default": "Current File",
       "order": 2
     },
     "statusBarClickBehavior": {
