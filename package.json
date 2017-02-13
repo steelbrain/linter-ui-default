@@ -16,8 +16,10 @@
     "atom-package-deps": "^4.3.1",
     "disposable-event": "^1.0.3",
     "disposify": "^1.0.0",
+    "marked": "^0.3.6",
     "react": "^15.3.1",
     "react-dom": "^15.3.2",
+    "react-resizable-box": "^1.8.1",
     "sb-debounce": "^1.0.1",
     "sb-event-kit": "^3.0.0",
     "sb-react-table": "^1.0.0"
@@ -83,6 +85,13 @@
       "default": false,
       "order": 1
     },
+    "panelTakesMinimumHeight": {
+      "title": "Panel Takes Minimum Height",
+      "description": "Reduce panel height when it exceeds the height of the error list",
+      "type": "boolean",
+      "default": true,
+      "order": 1
+    },
     "decorateOnTreeView": {
       "type": "string",
       "description": "Underline the selected type in TreeView to indicate issues",
@@ -119,7 +128,7 @@
       "type": "string",
       "enum": [
         "Toggle Panel",
-        "Jump to next error"
+        "Jump to next issue"
       ],
       "default": "Toggle Panel",
       "order": 2
@@ -144,6 +153,13 @@
       ],
       "default": "Right",
       "order": 2
+    },
+    "panelHeight": {
+      "title": "Panel Height",
+      "description": "in px",
+      "type": "number",
+      "default": 150,
+      "order": 3
     }
   }
 }
