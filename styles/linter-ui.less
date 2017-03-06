@@ -6,7 +6,7 @@
   .message-with-severity(@color) {
     color: contrast(@color);
     background-color: @color;
-    &:first-child::before {
+    &:last-child::before {
       border-color: transparent transparent @color @color;
     }
 
@@ -30,7 +30,7 @@
     }
 
     // Arrow pointer
-    &::before {
+    &:last-child::before {
       content: "";
       position: absolute;
       top: -4px;
