@@ -1,3 +1,5 @@
+** Note: ** This README is not maintained, and will not be maintained before v1.0
+
 ### Upcoming
 
 - Add `tooltipFollows` config
