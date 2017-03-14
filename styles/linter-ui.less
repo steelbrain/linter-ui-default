@@ -124,6 +124,11 @@ atom-text-editor.editor .linter-highlight, .linter-highlight {
   font-size: 1em;
 }
 
-.linter-status-count span {
-  padding: 4px 6px;
+.linter-status-count {
+  span {
+    padding: 4px 6px;
+  }
+  &.hide-config, &.hide-pane {
+    display: none;
+  }
 }
