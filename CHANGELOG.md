@@ -1,3 +1,7 @@
+## Upcoming
+
+* Move the stauts bar to the left of line:col view
+
 ## 1.1.0
 
 * Add option to configure status bar position
