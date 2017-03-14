@@ -1,4 +1,4 @@
-## Upcoming
+## 1.1.0
 
 * Add option to configure status bar position
 * Add support for `Current Line` in `panelRepresents` config
