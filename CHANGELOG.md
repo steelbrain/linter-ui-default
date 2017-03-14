@@ -1,5 +1,6 @@
 ## Upcoming
 
+* Add option to configure status bar position
 * Fix the Bottom Panel taking 1px height when hidden ([#177](https://github.com/steelbrain/linter-ui-default/pull/177))
 
 ## 1.0.0
