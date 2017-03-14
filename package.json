@@ -2,9 +2,10 @@
   "name": "linter-ui-default",
   "main": "./lib/index.js",
   "version": "0.0.4",
-  "description": "-- Work in Progress -- Default UI for `linter` package",
+  "description": "Default UI for the Linter package",
   "keywords": [
-    "linter-ui"
+    "linter-ui",
+    "linter-ui-default"
   ],
   "repository": "https://github.com/steelbrain/linter-ui-default",
   "license": "MIT",
