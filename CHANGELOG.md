@@ -1,6 +1,7 @@
 ## Upcoming
 
 * Move the stauts bar to the left of line:col view
+* Fix `Current Line` selector for Panel to support Array-like objects
 
 ## 1.1.0
 
