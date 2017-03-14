@@ -9,27 +9,18 @@ Linter-UI-Default
 
 The default UI for linter.
 
+![Preview](https://cloud.githubusercontent.com/assets/4278113/23879933/1ab17e2a-0872-11e7-803d-3fe0ccfc6790.gif)
+
 ### Installation
 
-Linter v2 isn't released yet, here's how you can try this until then.
+You can install it from the CLI
 
 ```
-apm uninstall linter linter-ui-default
-
-# Clone linter-ui-default package
-cd ~/.atom/packages
-git clone git@github.com:steelbrain/linter-ui-default.git
-cd linter-ui-default
-npm install
-
-# Install Linter v2
-cd ~/.atom/packages
-git clone git@github.com:steelbrain/linter.git
-cd linter
-npm install
+apm install linter-ui-default
 ```
+
+Or you can install from Settings view by searching for `linter-ui-default`.
 
 ### License
 
-This Project is licensed under the terms of MIT License, check the license
-file for more info.
+This Project is licensed under the terms of MIT License, check the license file for more info.
