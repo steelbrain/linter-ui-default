@@ -75,6 +75,12 @@
       "default": true,
       "order": 1
     },
+    "showStatusBar": {
+      "description": "Show status bar with error / warning / info count at the bottom",
+      "type": "boolean",
+      "default": true,
+      "order": 1
+    },
     "showDecorations": {
       "description": "Underline editor text and highlight gutter of issues",
       "type": "boolean",
