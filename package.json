@@ -162,7 +162,7 @@
       "order": 2
     },
     "gutterPosition": {
-      "title": "Position of Gutter Highlights",
+      "title": "Gutter Highlights Position",
       "description": "Relative to the line numbers",
       "type": "string",
       "enum": [
