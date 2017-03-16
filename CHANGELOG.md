@@ -1,6 +1,6 @@
 ## 1.2.1
 
-- Fix a deprecation warning caused by out-of-date Atom `TextEditor#markBufferRange.properties`
+* Fix a deprecation warning caused by out-of-date Atom `TextEditor#markBufferRange.properties`
 
 ## 1.2.0
 
