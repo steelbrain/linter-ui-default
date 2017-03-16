@@ -61,12 +61,6 @@ linter-message {
   font-size: 14px;
 }
 
-atom-text-editor.editor .gutter[gutter-name="linter-ui-default"] {
-  background-color: transparent;
-  .custom-decorations {
-    background-color: transparent !important;
-  }
-}
 atom-text-editor.editor .linter-row {
   /* Take up the full allowed width */
   left: 0;
@@ -131,4 +125,8 @@ atom-text-editor.editor .linter-highlight, .linter-highlight {
   &.hide-config, &.hide-pane {
     display: none;
   }
+}
+.linter-cursor-line {
+  width: 100%;
+  padding-left: 0;
 }

@@ -2,6 +2,7 @@
 
 * Add `showStatusBar` config
 * Fix a typo in Panel Component
+* Show line number styles in gutter container
 * Move the stauts bar to the left of line:col view
 * Fix a typo that would not let `showProviderName` work
 * Fix `Current Line` selector for Panel to support Array-like objects
