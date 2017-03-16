@@ -6,6 +6,7 @@
 * Validate ranges for NaN to workaround Atom bug
 * Move the stauts bar to the left of line:col view
 * Fix a typo that would not let `showProviderName` work
+* Bump `sb-react-table` to include fix for [steelbrain/react-table#7](https://github.com/steelbrain/react-table/issues/7)
 * Fix `Current Line` selector for Panel to support Array-like objects
 * Hide Panel's `File` column when Panel is only representing current file
 
