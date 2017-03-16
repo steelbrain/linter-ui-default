@@ -1,4 +1,4 @@
-## Upcoming
+## 1.2.0
 
 * Add `showStatusBar` config
 * Fix a typo in Panel Component
