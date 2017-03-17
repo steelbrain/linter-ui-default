@@ -1,5 +1,6 @@
 ## Upcoming
 
+* Fix mouse tooltips for some users
 * Fix a crash in TreeView handling a file outside Project Path
 
 ## 1.2.1
