@@ -58,7 +58,6 @@
     }
   },
   "package-deps": [
-    "busy-signal",
     "intentions",
     "linter"
   ],
@@ -96,6 +95,12 @@
     "panelTakesMinimumHeight": {
       "title": "Panel Takes Minimum Height",
       "description": "Reduce panel height when it exceeds the height of the error list",
+      "type": "boolean",
+      "default": true,
+      "order": 1
+    },
+    "useBusySignal": {
+      "description": "Whether to integrate with the `busy-signal` package",
       "type": "boolean",
       "default": true,
       "order": 1
