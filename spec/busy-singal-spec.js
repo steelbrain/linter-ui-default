@@ -1,5 +1,6 @@
 /* @flow */
 
+import { beforeEach } from 'jasmine-fix'
 import BusySignal from '../lib/busy-signal'
 import { getLinter } from './helpers'
 
@@ -25,7 +26,8 @@ class SignalRegistry {
 describe('BusySignal', function() {
   let busySignal
 
-  beforeEach(function() {
+  beforeEach(async function() {
+    await atom.packages.loadPackage('linter-ui-default')
     busySignal = new BusySignal()
     busySignal.attach(SignalRegistry)
   })
