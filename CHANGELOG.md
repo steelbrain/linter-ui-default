@@ -2,6 +2,7 @@
 
 * Fix mouse tooltips for some users
 * Fix a crash in TreeView handling a file outside Project Path
+* Make busy signal installation and integration optional with `useBusySignal` config
 
 ## 1.2.1
 
