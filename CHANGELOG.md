@@ -1,3 +1,7 @@
+## Upcoming
+
+* Fix a crash in TreeView handling a file outside Project Path
+
 ## 1.2.1
 
 * Fix a deprecation warning caused by out-of-date Atom `TextEditor#markBufferRange.properties`
