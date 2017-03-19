@@ -29,7 +29,7 @@
   "devDependencies": {
     "eslint-config-steelbrain": "^2.0.0",
     "eslint-plugin-react": "^6.2.0",
-    "flow-bin": "^0.32.0",
+    "flow-bin": "^0.42.0",
     "jasmine-fix": "^1.0.1",
     "rimraf": "^2.5.4"
   },
