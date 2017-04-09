@@ -1,5 +1,6 @@
 ## Upcoming
 
+* Improve tooltip hiding logic
 * Fix two borders on the Bottom Table
 * Make description in Bottom Panel clickable
 * Use wavy underlines in tree view and editor
