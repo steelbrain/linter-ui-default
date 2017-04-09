@@ -4,7 +4,8 @@
 .sb-table.linter {
   color: @text-color;
   font-size: 12px;
-  border-color: @base-border-color;
+  border: 0;
+  // sb-table adds a border and Atom UI adds a border to wrapper element, so we end up with two
 }
 
 .sb-table.linter thead {
