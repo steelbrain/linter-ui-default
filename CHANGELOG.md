@@ -1,5 +1,6 @@
 ## Upcoming
 
+* Fix two borders on the Bottom Table
 * Fix inconsistent border radius of Linter Status
 
 ## 1.2.2
