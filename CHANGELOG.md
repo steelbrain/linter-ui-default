@@ -1,5 +1,7 @@
 ## Upcoming
 
+* Fix two borders on the Bottom Table
+* Make description in Bottom Panel clickable
 * Use wavy underlines in tree view and editor
 * Fix inconsistent border radius of Linter Status
 
