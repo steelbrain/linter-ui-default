@@ -1,5 +1,6 @@
 ## Upcoming
 
+* Make description in Bottom Panel clickable
 * Fix inconsistent border radius of Linter Status
 
 ## 1.2.2
