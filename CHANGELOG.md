@@ -5,6 +5,7 @@
 * Make description in Bottom Panel clickable
 * Use wavy underlines in tree view and editor
 * Fix inconsistent border radius of Linter Status
+* Fix current line marker in gutter for soft wraps
 * Only show url icon on tooltip if specified by linter provider
 
 ## 1.2.2
