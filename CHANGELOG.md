@@ -1,5 +1,6 @@
 ## Upcoming
 
+* Improve tooltip hiding logic
 * Fix inconsistent border radius of Linter Status
 
 ## 1.2.2
