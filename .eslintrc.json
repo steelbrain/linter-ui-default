@@ -5,6 +5,7 @@
     "no-duplicate-imports": "off",
     "no-underscore-dangle": "off",
     "react/no-danger": "off",
-    "react/no-danger-with-children": "off"
+    "react/no-danger-with-children": "off",
+    "global-require": "off"
   }
 }
