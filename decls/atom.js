@@ -15,6 +15,9 @@ declare module 'atom' {
   declare var BufferMarker: any;
   declare var TextEditorGutter: any;
   declare var TextEditorMarker: any;
+  declare var Disposable: any;
+  declare var CompositeDisposable: any;
+  declare var Emitter: any;
 }
 
 declare module 'electron' {

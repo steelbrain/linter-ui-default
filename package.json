@@ -23,7 +23,6 @@
     "react-dom": "^15.3.2",
     "react-resizable-box": "^1.8.1",
     "sb-debounce": "^1.0.1",
-    "sb-event-kit": "^3.0.0",
     "sb-react-table": "^1.0.1"
   },
   "devDependencies": {
