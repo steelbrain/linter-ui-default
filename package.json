@@ -90,13 +90,6 @@
       "default": false,
       "order": 1
     },
-    "panelTakesMinimumHeight": {
-      "title": "Panel Takes Minimum Height",
-      "description": "Reduce panel height when it exceeds the height of the error list",
-      "type": "boolean",
-      "default": true,
-      "order": 1
-    },
     "useBusySignal": {
       "description": "Whether to integrate with the `busy-signal` package",
       "type": "boolean",
@@ -174,13 +167,6 @@
       ],
       "default": "Right",
       "order": 2
-    },
-    "panelHeight": {
-      "title": "Panel Height",
-      "description": "in px",
-      "type": "number",
-      "default": 150,
-      "order": 3
     }
   }
 }
