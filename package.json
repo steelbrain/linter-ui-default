@@ -10,7 +10,7 @@
   "repository": "https://github.com/steelbrain/linter-ui-default",
   "license": "MIT",
   "engines": {
-    "atom": ">=1.4.0 <2.0.0"
+    "atom": ">=1.17.0 <2.0.0"
   },
   "scripts": {
     "test": "(apm test) && (flow check) && (eslint . )"
