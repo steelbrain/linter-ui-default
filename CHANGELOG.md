@@ -1,4 +1,4 @@
-## Upcoming
+## 1.2.3
 
 * Improve tooltip hiding logic
 * Fix two borders on the Bottom Table
