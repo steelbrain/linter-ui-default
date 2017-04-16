@@ -21,7 +21,7 @@
     "marked": "^0.3.6",
     "react": "^15.3.1",
     "react-dom": "^15.3.2",
-    "react-resizable-box": "^1.8.1",
+    "react-resizable-box": "^2.0.0",
     "sb-debounce": "^1.0.1",
     "sb-react-table": "^1.0.1"
   },
