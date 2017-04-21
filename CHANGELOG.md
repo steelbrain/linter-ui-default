@@ -1,3 +1,7 @@
+## Upcoming
+
+* Remove tooltip if it exists on config change
+
 ## 1.2.3
 
 * Improve tooltip hiding logic
