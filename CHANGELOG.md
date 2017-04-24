@@ -1,6 +1,7 @@
 ## Upcoming
 
 * Remove tooltip if it exists on config change
+* Use `@app-background-color` instead of `@base-background-color` to fix Linter panel compatibility with some themes (eg Material Theme)
 
 ## 1.2.3
 
