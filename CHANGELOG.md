@@ -1,5 +1,6 @@
 ## Upcoming
 
+* Remove tooltip when cursor changes
 * Remove tooltip if it exists on config change
 
 ## 1.2.3
