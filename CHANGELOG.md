@@ -1,5 +1,6 @@
-## Upcoming
+## 1.3.0
 
+* Add docks API support
 * Remove tooltip if it exists on config change
 * Remove tooltip when cursor changes (only when `tooltipFollows` is set to `Mouse`)
 
