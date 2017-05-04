@@ -1,4 +1,4 @@
-## Upcoming
+## 1.2.4
 
 * Fix for Nuclide's Tree View
 * Remove tooltip if it exists on config change
