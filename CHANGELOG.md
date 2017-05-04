@@ -1,5 +1,6 @@
 ## Upcoming
 
+* Fix for Nuclide's Tree View
 * Remove tooltip if it exists on config change
 * Remove tooltip when cursor changes (only when `tooltipFollows` is set to `Mouse`)
 
