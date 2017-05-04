@@ -1,3 +1,7 @@
+## Upcoming
+
+* Fix for Nuclide's Tree View
+
 ## 1.3.0
 
 * Add docks API support
