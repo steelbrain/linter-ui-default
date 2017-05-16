@@ -1,4 +1,4 @@
-## Upcoming
+## 1.4.0
 
 * Fix for Nuclide's file tree
 - Add `hidePanelWhenEmpty` config
