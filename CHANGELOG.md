@@ -1,12 +1,12 @@
 ## Upcoming
 
+* Fix for Nuclide's file tree
 - Add `hidePanelWhenEmpty` config
 - Add `hidePanelUnlessTextEditor` config
 
 ## 1.3.0
 
 * Add docks API support
-* Fix for Nuclide's file tree
 * Remove tooltip if it exists on config change
 * Remove tooltip when cursor changes (only when `tooltipFollows` is set to `Mouse`)
 
