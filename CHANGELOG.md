@@ -1,6 +1,8 @@
 ## Upcoming
 
-* Fix for Nuclide's Tree View
+* Fix for Nuclide's file tree
+- Add `hidePanelWhenEmpty` config
+- Add `hidePanelUnlessTextEditor` config
 
 ## 1.3.0
 
