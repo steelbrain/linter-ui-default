@@ -1,3 +1,7 @@
+## Upcoming
+
+- Remove linter tooltip when Text Editor is unfocused
+
 ## 1.4.0
 
 * Fix for Nuclide's file tree
