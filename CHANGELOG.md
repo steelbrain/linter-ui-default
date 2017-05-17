@@ -1,5 +1,6 @@
 ## Upcoming
 
+- Remove `hidePanelUnlessTextEditor` config
 - Remove linter tooltip when Text Editor is unfocused
 - Readd `panelHeight` config and make it work on Docks
 - Change status bar to represent Entire Projecy by default
