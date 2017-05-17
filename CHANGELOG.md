@@ -1,3 +1,7 @@
+## 1.5.4
+
+* Fix the last of known Linter Panel bugs
+
 ## 1.5.3
 
 * Hide panel if appropriate after active pane item change
