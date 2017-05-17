@@ -145,7 +145,7 @@
         "Entire Project",
         "Current File"
       ],
-      "default": "Current File",
+      "default": "Entire Project",
       "order": 2
     },
     "statusBarClickBehavior": {
