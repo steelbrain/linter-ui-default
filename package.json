@@ -156,10 +156,11 @@
       "type": "string",
       "description": "Choose whether tooltips show on mouseover, or follow the keyboard cursor",
       "enum": [
+        "Both",
         "Mouse",
         "Keyboard"
       ],
-      "default": "Mouse",
+      "default": "Both",
       "order": 2
     },
     "gutterPosition": {

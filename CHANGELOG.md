@@ -7,6 +7,7 @@
 - Readd `panelHeight` config and make it work on Docks
 - Replace Linter Status bar with icons instead of boxes
 - Change status bar to represent Entire Projecy by default
+- Add `Both` support to `tooltipFollows` config and make it default
 - Fix unnecessary jump to message when clicking links in description
 
 ## 1.4.0
