@@ -3,6 +3,7 @@
 - Remove `hidePanelUnlessTextEditor` config
 - Remove linter tooltip when Text Editor is unfocused
 - Readd `panelHeight` config and make it work on Docks
+- Replace Linter Status bar with icons instead of boxes
 - Change status bar to represent Entire Projecy by default
 - Fix unnecessary jump to message when clicking links in description
 
