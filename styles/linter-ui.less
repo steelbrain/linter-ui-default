@@ -130,17 +130,12 @@ atom-text-editor.editor .linter-highlight, .linter-highlight {
 }
 
 .linter-status-count {
-  span {
-    border-radius: 0px;
-    padding: 4px 6px;
+  a {
+    padding: 2px;
   }
-  span:first-child {
-    border-top-left-radius: @component-border-radius;
-    border-bottom-left-radius: @component-border-radius;
-  }
-  span:last-child {
-    border-top-right-radius: @component-border-radius;
-    border-bottom-right-radius: @component-border-radius;
+  span.icon::before {
+    font-size: 12px;
+    vertical-align: middle;
   }
   &.hide-config, &.hide-pane {
     display: none;
