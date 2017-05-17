@@ -101,12 +101,6 @@
       "default": true,
       "order": 1
     },
-    "hidePanelUnlessTextEditor": {
-      "description": "Hide panel for settings view and other pane items",
-      "type": "boolean",
-      "default": true,
-      "order": 1
-    },
     "decorateOnTreeView": {
       "type": "string",
       "description": "Underline the selected type in TreeView to indicate issues",
