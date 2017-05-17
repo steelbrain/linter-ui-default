@@ -15,14 +15,15 @@
   margin-top: 3px;
 
   .message-with-severity(@color) {
-    color: contrast(@color);
-    background-color: @color;
+    color: @text-color;
+    border-left: 8px solid @color;
+    background-color: @background-color-highlight;
     &:last-child::before {
       border-color: transparent transparent @color @color;
     }
 
     a {
-      color: contrast(@color);
+      color: @text-color;
     }
   }
 
