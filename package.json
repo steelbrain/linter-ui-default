@@ -178,6 +178,13 @@
       ],
       "default": "Right",
       "order": 2
+    },
+    "panelHeight": {
+      "title": "Panel Height",
+      "description": "in px",
+      "type": "number",
+      "default": 100,
+      "order": 3
     }
   }
 }
