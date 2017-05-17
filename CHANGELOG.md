@@ -1,4 +1,4 @@
-## Upcoming
+## 1.5.0
 
 * Remove `hidePanelUnlessTextEditor` config
 * Tweak Tooltip visuals (See #301 for Screenshots)
