@@ -1,6 +1,7 @@
 ## Upcoming
 
 - Remove `hidePanelUnlessTextEditor` config
+- Tweak Tooltip visuals (See #301 for Screenshots)
 - Remove linter tooltip when Text Editor is unfocused
 - Readd `panelHeight` config and make it work on Docks
 - Replace Linter Status bar with icons instead of boxes
