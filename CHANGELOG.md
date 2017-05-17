@@ -14,9 +14,15 @@
 - Add `hidePanelWhenEmpty` config
 - Add `hidePanelUnlessTextEditor` config
 
-## 1.3.0
+## 1.3.0 (for Atom Beta)
 
 * Add docks API support
+* Remove tooltip if it exists on config change
+* Remove tooltip when cursor changes (only when `tooltipFollows` is set to `Mouse`)
+
+## 1.2.4
+
+* Fix for Nuclide's Tree View
 * Remove tooltip if it exists on config change
 * Remove tooltip when cursor changes (only when `tooltipFollows` is set to `Mouse`)
 
