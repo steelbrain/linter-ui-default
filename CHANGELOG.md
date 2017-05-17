@@ -1,3 +1,7 @@
+## 1.5.3
+
+* Hide panel if appropriate after active pane item change
+
 ## 1.5.2
 
 * F my life.
