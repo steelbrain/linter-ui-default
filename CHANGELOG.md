@@ -1,6 +1,7 @@
 ## Upcoming
 
 - Remove linter tooltip when Text Editor is unfocused
+- Change status bar to represent Entire Projecy by default
 
 ## 1.4.0
 
