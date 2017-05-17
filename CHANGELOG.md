@@ -1,3 +1,7 @@
+## 1.5.2
+
+* F my life.
+
 ## 1.5.1
 
 * Flip a check that was making Panel behave weirdly
