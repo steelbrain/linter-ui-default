@@ -1,3 +1,7 @@
+## 1.5.1
+
+* Flip a check that was making Panel behave weirdly
+
 ## 1.5.0
 
 * Remove `hidePanelUnlessTextEditor` config
