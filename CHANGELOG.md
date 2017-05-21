@@ -1,4 +1,4 @@
-## Upcoming
+## 1.6.0
 
 * Apply panelHeight changes live
 * Fix performance regression of v1.5.x
