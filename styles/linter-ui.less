@@ -16,8 +16,9 @@
 
   .message-with-severity(@color) {
     color: @text-color;
+    border: 1px solid fade(contrast(@inset-panel-background-color), 5%);
     border-left: 8px solid @color;
-    background-color: @background-color-highlight;
+    background-color: @inset-panel-background-color;
     &:last-child::before {
       border-color: transparent transparent @color @color;
     }

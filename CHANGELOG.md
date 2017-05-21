@@ -1,3 +1,7 @@
+## Upcoming
+
+* Use another color variable tooltip background
+
 ## 1.5.4
 
 * Fix the last of known Linter Panel bugs
