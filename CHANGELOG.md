@@ -4,6 +4,7 @@
 * Fix performance regression of v1.5.x
 * Use another color variable tooltip background
 * Only hide/show dock when Linter is the active item
+* Add `Jump to next issue` to `statusBarClickBehavior` config
 
 ## 1.5.4
 

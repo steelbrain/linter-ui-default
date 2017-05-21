@@ -147,6 +147,7 @@
       "type": "string",
       "enum": [
         "Toggle Panel",
+        "Toggle Status Bar Scope",
         "Jump to next issue"
       ],
       "default": "Toggle Panel",
