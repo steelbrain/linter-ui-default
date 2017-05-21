@@ -1,5 +1,6 @@
 ## Upcoming
 
+* Fix performance regression of v1.5.x
 * Use another color variable tooltip background
 
 ## 1.5.4
