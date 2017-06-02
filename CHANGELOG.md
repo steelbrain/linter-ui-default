@@ -1,3 +1,7 @@
+## Upcoming
+
+* Allow opening editors from markdown links from Message v2 description
+
 ## 1.6.0
 
 * Apply panelHeight changes live
