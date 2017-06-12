@@ -1,5 +1,6 @@
 ## Upcoming
 
+* Flip default `hidePanelWhenEmpty` to false
 * Allow opening editors from markdown links from Message v2 description
 
 ## 1.6.0

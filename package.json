@@ -98,7 +98,7 @@
     "hidePanelWhenEmpty": {
       "description": "Hide panel when there are no issues to display",
       "type": "boolean",
-      "default": true,
+      "default": false,
       "order": 1
     },
     "decorateOnTreeView": {
