@@ -1,3 +1,8 @@
+## 1.6.2
+
+* Flip default `hidePanelWhenEmpty` back to true
+* Fix a bug where clicking on other pane items (not even center) would hide status bar and panel
+
 ## 1.6.1
 
 * Flip default `hidePanelWhenEmpty` to false
