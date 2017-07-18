@@ -1,3 +1,7 @@
+## 1.6.3
+
+* Hide tooltip when cursor is changed and `tooltipFollows` is set to `Both`
+
 ## 1.6.2
 
 * Flip default `hidePanelWhenEmpty` back to true
