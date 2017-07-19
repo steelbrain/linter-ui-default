@@ -1,7 +1,7 @@
 {
   "name": "linter-ui-default",
   "main": "./lib/index.js",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Default UI for the Linter package",
   "keywords": [
     "linter-ui",
