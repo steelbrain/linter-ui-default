@@ -1,3 +1,7 @@
+## Upcoming
+
+* Fix behavior of file scope when Linter Panel is used inside a pane container
+
 ## 1.6.3
 
 * Hide tooltip when cursor is changed and `tooltipFollows` is set to `Both`
