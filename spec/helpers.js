@@ -11,9 +11,9 @@ export function getMessage(type: ?string = 'Error', filePath: ?string, range: ?O
   return message
 }
 
-export function getLinter(): Object {
+export function getLinter(name: ?string = 'some'): Object {
   return {
-    name: 'some',
+    name,
     grammarScopes: [],
     lint() {},
   }
