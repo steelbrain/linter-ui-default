@@ -1,4 +1,4 @@
-## Upcoming
+## 1.6.4
 
 * Fix a style issue on Atom v1.19.0
 * Fix incorrect times reported to Busy Signal
