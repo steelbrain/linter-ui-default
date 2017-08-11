@@ -1,3 +1,7 @@
+## Upcoming
+
+* Fix inconsistency between panel height set by resizing and from settings
+
 ## 1.6.4
 
 * Fix a style issue on Atom v1.19.0
