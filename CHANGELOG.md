@@ -1,4 +1,4 @@
-## Upcoming
+## 1.6.5
 
 * Fix inconsistency between panel height set by resizing and from settings
 
