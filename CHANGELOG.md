@@ -1,3 +1,7 @@
+## 1.6.7
+
+* Was missing check in another place
+
 ## 1.6.6
 
 * Possible fix for steelbrain/linter-ui-default#355
