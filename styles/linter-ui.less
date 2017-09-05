@@ -92,26 +92,34 @@ atom-text-editor.editor .linter-row {
   justify-content: center;
 }
 
-atom-text-editor.editor .linter-highlight, .linter-highlight {
+.linter-gutter {
   .error_type(@color, @priority) {
-    .region {
-      .wavy_border(@color);
-    }
-    &.linter-gutter {
-      color: @color;
-      z-index: @priority;
-    }
+    color: @color;
+    z-index: @priority;
   }
-  &.linter-info {
+  &.linter-gutter-info {
     .error_type(@background-color-info, -1);
   }
-  &.linter-warning {
+  &.linter-gutter-warning {
     .error_type(@background-color-warning, 0);
   }
-  &.linter-error {
+  &.linter-gutter-error {
     .error_type(@background-color-error, 1);
   }
 }
+
+atom-text-editor.editor .linter-highlight, .linter-highlight {
+  &.linter-info {
+    .wavy_border(@background-color-info);
+  }
+  &.linter-warning {
+    .wavy_border(@background-color-warning);
+  }
+  &.linter-error {
+    .wavy_border(@background-color-error);
+  }
+}
+
 .tree-view {
   span.name {
     position: relative;
