@@ -1,3 +1,7 @@
+## Upcoming
+
+* Change inline highlighting style from `highlight` to `text`
+
 ## 1.6.7
 
 * Was missing check in another place
