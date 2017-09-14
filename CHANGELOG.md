@@ -1,4 +1,4 @@
-## Upcoming
+## 1.6.9
 
 * Change inline highlighting style from `highlight` to `text`
 
