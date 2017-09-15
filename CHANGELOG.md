@@ -1,3 +1,9 @@
+# Changelog
+
+## 1.6.10
+
+* Fix alignment of icons for Atom v1.20.0+
+
 ## 1.6.9
 
 * Change inline highlighting style from `highlight` to `text`
