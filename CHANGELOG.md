@@ -1,5 +1,9 @@
 # Changelog
 
+## Upcoming
+
+* Add `Fix` button to tooltips
+
 ## 1.6.10
 
 * Fix alignment of icons for Atom v1.20.0+
