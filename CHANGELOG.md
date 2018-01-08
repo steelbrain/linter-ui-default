@@ -1,7 +1,8 @@
 # Changelog
 
-## Upcoming
+## 1.6.11
 
+* Upgrade `marked` version
 * Add `Fix` button to tooltips
 
 ## 1.6.10
