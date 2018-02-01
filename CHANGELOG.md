@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.12
+
+* Add a max-width to linter toolip
+
 ## 1.6.11
 
 * Upgrade `marked` version
