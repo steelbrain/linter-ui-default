@@ -1,7 +1,8 @@
 /* @flow */
 
 import { Range } from 'atom'
-import { beforeEach } from 'jasmine-fix'
+// eslint-disable-next-line no-unused-vars
+import { it, fit, wait, beforeEach, afterEach } from 'jasmine-fix'
 import Editor from '../lib/editor'
 import { getMessage } from './helpers'
 
