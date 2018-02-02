@@ -1,5 +1,6 @@
 [ignore]
 <PROJECT_ROOT>/node_modules/fbjs
+<PROJECT_ROOT>/node_modules/eslint-plugin-jsx-a11y
 
 [include]
 
