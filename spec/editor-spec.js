@@ -37,11 +37,20 @@ describe('Editor', function() {
       expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
       editor.apply([message], [])
       expect(textEditor.getBuffer().getMarkerCount()).toBe(1)
-      expect(Range.fromObject(message.range)).toEqual({ start: { row: 2, column: 0 }, end: { row: 2, column: 1 } })
+      expect(Range.fromObject(message.range)).toEqual({
+        start: { row: 2, column: 0 },
+        end: { row: 2, column: 1 },
+      })
       textEditor.getBuffer().insert([2, 0], 'Hello')
-      expect(Range.fromObject(message.range)).toEqual({ start: { row: 2, column: 0 }, end: { row: 2, column: 6 } })
+      expect(Range.fromObject(message.range)).toEqual({
+        start: { row: 2, column: 0 },
+        end: { row: 2, column: 6 },
+      })
       editor.apply([], [message])
-      expect(Range.fromObject(message.range)).toEqual({ start: { row: 2, column: 0 }, end: { row: 2, column: 6 } })
+      expect(Range.fromObject(message.range)).toEqual({
+        start: { row: 2, column: 0 },
+        end: { row: 2, column: 6 },
+      })
       expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
     })
   })

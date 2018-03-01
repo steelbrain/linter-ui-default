@@ -5,7 +5,7 @@ import BusySignal from '../lib/busy-signal'
 import { getLinter } from './helpers'
 
 class SignalRegistry {
-  texts: Array<string>;
+  texts: Array<string>
   constructor() {
     this.texts = []
   }

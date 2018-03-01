@@ -1,5 +1,8 @@
 {
   "extends": "steelbrain",
+  "globals": {
+    "atom": true
+  },
   "rules": {
     "no-param-reassign": "off",
     "no-duplicate-imports": "off",
@@ -12,11 +15,10 @@
     "import/no-unresolved": [
       "error",
       {
-        "ignore": [
-          "atom",
-          "electron"
-        ]
+        "ignore": ["atom", "electron"]
       }
-    ]
+    ],
+    "prefer-destructuring": "off",
+    "jsx-a11y/anchor-is-valid": "off"
   }
 }
