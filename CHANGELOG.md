@@ -1,6 +1,6 @@
 # Changelog
 
-## Upcoming
+## 1.7.0
 
 * Add a max-width to linter toolip
 * Re-add `alwaysTakeMinimumSpace` config which works with Atom Docks!
