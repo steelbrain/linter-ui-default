@@ -1,9 +1,12 @@
 {
   "name": "linter-ui-default",
   "main": "./lib/index.js",
-  "version": "1.6.11",
+  "version": "1.7.0",
   "description": "Default UI for the Linter package",
-  "keywords": ["linter-ui", "linter-ui-default"],
+  "keywords": [
+    "linter-ui",
+    "linter-ui-default"
+  ],
   "repository": "https://github.com/steelbrain/linter-ui-default",
   "license": "MIT",
   "engines": {
@@ -51,7 +54,10 @@
       }
     }
   },
-  "package-deps": ["intentions", "linter"],
+  "package-deps": [
+    "intentions",
+    "linter"
+  ],
   "configSchema": {
     "showPanel": {
       "type": "boolean",
@@ -105,40 +111,62 @@
       "type": "string",
       "description": "Underline the selected type in TreeView to indicate issues",
       "default": "Files",
-      "enum": ["Files and Directories", "Files", "None"],
+      "enum": [
+        "Files and Directories",
+        "Files",
+        "None"
+      ],
       "order": 2
     },
     "panelRepresents": {
       "type": "string",
-      "enum": ["Entire Project", "Current File", "Current Line"],
+      "enum": [
+        "Entire Project",
+        "Current File",
+        "Current Line"
+      ],
       "default": "Current File",
       "order": 2
     },
     "statusBarPosition": {
       "title": "Statusbar Position",
       "type": "string",
-      "enum": ["Left", "Right"],
+      "enum": [
+        "Left",
+        "Right"
+      ],
       "default": "Left",
       "order": 2
     },
     "statusBarRepresents": {
       "title": "Statusbar Represents",
       "type": "string",
-      "enum": ["Entire Project", "Current File"],
+      "enum": [
+        "Entire Project",
+        "Current File"
+      ],
       "default": "Entire Project",
       "order": 2
     },
     "statusBarClickBehavior": {
       "title": "Statusbar Click Behavior",
       "type": "string",
-      "enum": ["Toggle Panel", "Toggle Status Bar Scope", "Jump to next issue"],
+      "enum": [
+        "Toggle Panel",
+        "Toggle Status Bar Scope",
+        "Jump to next issue"
+      ],
       "default": "Toggle Panel",
       "order": 2
     },
     "tooltipFollows": {
       "type": "string",
       "description": "Choose whether tooltips show on mouseover, or follow the keyboard cursor",
-      "enum": ["Both", "Mouse", "Keyboard"],
+      "enum": [
+        "Both",
+        "Mouse",
+        "Keyboard"
+      ],
       "default": "Both",
       "order": 2
     },
@@ -146,7 +174,10 @@
       "title": "Gutter Highlights Position",
       "description": "Relative to the line numbers",
       "type": "string",
-      "enum": ["Left", "Right"],
+      "enum": [
+        "Left",
+        "Right"
+      ],
       "default": "Right",
       "order": 2
     },
