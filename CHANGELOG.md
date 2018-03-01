@@ -4,6 +4,7 @@
 
 * Add a max-width to linter toolip
 * Re-add `alwaysTakeMinimumSpace` config which works with Atom Docks!
+* Attempt to fix `Cannot decorate a destroyed marker` errors (Fix by @sompylasar)
 
 ## 1.6.11
 
