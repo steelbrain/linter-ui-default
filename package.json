@@ -95,6 +95,12 @@
       "default": true,
       "order": 1
     },
+    "alwaysTakeMinimumSpace": {
+      "description": "Auto resizes Linter panel when there are less issues to show",
+      "type": "boolean",
+      "default": false,
+      "order": 1
+    },
     "decorateOnTreeView": {
       "type": "string",
       "description": "Underline the selected type in TreeView to indicate issues",
