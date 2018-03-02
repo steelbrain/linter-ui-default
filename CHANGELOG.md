@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.1
+
+* Restore old hiding behavior
+
 ## 1.7.0
 
 * Add a max-width to linter toolip
