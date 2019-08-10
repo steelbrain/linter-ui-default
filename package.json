@@ -16,19 +16,18 @@
     "test": "(apm test) && (flow check) && (eslint . ) && (prettier --list-different lib/*.js)"
   },
   "dependencies": {
-    "atom-package-deps": "^4.3.1",
+    "atom-package-deps": "^5.1.0",
     "disposable-event": "^1.0.3",
-    "marked": "^0.4.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "marked": "^0.7.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "sb-debounce": "^1.0.1",
     "sb-react-table": "^1.0.2"
   },
   "devDependencies": {
     "eslint-config-steelbrain": "^5.0.0",
     "flow-bin": "^0.67.1",
-    "jasmine-fix": "^1.0.1",
-    "rimraf": "^2.5.4"
+    "jasmine-fix": "^1.0.1"
   },
   "providedServices": {
     "linter-ui": {
