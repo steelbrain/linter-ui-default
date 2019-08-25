@@ -1,13 +1,13 @@
 /* @flow */
 
 export function getMessage(type: ?string = 'Error', filePath: ?string, range: ?Object): Object {
-  const message = {
-    type,
-    text: 'Some Message',
-    filePath,
-    range,
-    version: 1,
+  const message: Object = {
+    version: 2,
+    severity: type.toLowerCase(),
+    excerpt: String(Math.random()),
+    location: { file: filePath, position: range },
   }
+
   return message
 }
 

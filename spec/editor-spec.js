@@ -13,8 +13,8 @@ describe('Editor', function() {
 
   beforeEach(async function() {
     message = getMessage()
-    message.range = [[2, 0], [2, 1]]
-    message.filePath = __filename
+    message.location.position = [[2, 0], [2, 1]]
+    message.location.file = __filename
     await atom.workspace.open(__filename)
     textEditor = atom.workspace.getActiveTextEditor()
     editor = new Editor(textEditor)
@@ -37,17 +37,17 @@ describe('Editor', function() {
       expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
       editor.apply([message], [])
       expect(textEditor.getBuffer().getMarkerCount()).toBe(1)
-      expect(Range.fromObject(message.range)).toEqual({
+      expect(Range.fromObject(message.location.position)).toEqual({
         start: { row: 2, column: 0 },
         end: { row: 2, column: 1 },
       })
       textEditor.getBuffer().insert([2, 0], 'Hello')
-      expect(Range.fromObject(message.range)).toEqual({
+      expect(Range.fromObject(message.location.position)).toEqual({
         start: { row: 2, column: 0 },
         end: { row: 2, column: 6 },
       })
       editor.apply([], [message])
-      expect(Range.fromObject(message.range)).toEqual({
+      expect(Range.fromObject(message.location.position)).toEqual({
         start: { row: 2, column: 0 },
         end: { row: 2, column: 6 },
       })
