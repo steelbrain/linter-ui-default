@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.1
+
+* Fix `showPanel` being set to `true` on Editor restart (Thanks @Osmose)
+
 ## 1.8.0
 
 * Remove support for Legacy Linter messages
