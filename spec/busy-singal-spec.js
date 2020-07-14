@@ -38,9 +38,9 @@ describe('BusySignal', function() {
 
   beforeEach(async function() {
     // Activate activation hook
-    atom.packages.triggerDeferredActivationHooks();
-    atom.packages.triggerActivationHook('core:loaded-shell-environment');
-  
+    atom.packages.triggerDeferredActivationHooks()
+    atom.packages.triggerActivationHook('core:loaded-shell-environment')
+
     await atom.packages.loadPackage('linter-ui-default')
     busySignal = new BusySignal()
     busySignal.attach(SignalRegistry)

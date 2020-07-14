@@ -20,9 +20,9 @@ describe('Editor', function() {
     editor = new Editor(textEditor)
 
     // Activate activation hook
-    atom.packages.triggerDeferredActivationHooks();
-    atom.packages.triggerActivationHook('core:loaded-shell-environment');
-    
+    atom.packages.triggerDeferredActivationHooks()
+    atom.packages.triggerActivationHook('core:loaded-shell-environment')
+
     atom.packages.loadPackage('linter-ui-default')
   })
   afterEach(function() {
