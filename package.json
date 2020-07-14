@@ -54,6 +54,9 @@
       }
     }
   },
+  "activationHooks": [
+    "core:loaded-shell-environment"
+  ],
   "package-deps": [
     "intentions",
     "linter"
