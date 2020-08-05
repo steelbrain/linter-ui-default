@@ -18,6 +18,11 @@ describe('Editor', function() {
     await atom.workspace.open(__filename)
     textEditor = atom.workspace.getActiveTextEditor()
     editor = new Editor(textEditor)
+
+    // Activate activation hook
+    atom.packages.triggerDeferredActivationHooks()
+    atom.packages.triggerActivationHook('core:loaded-shell-environment')
+
     atom.packages.loadPackage('linter-ui-default')
   })
   afterEach(function() {
