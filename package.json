@@ -17,7 +17,7 @@
     "lint": "(flow check) && (eslint . ) && (prettier --list-different lib/*.js)"
   },
   "dependencies": {
-    "atom-package-deps": "^5.1.0",
+    "atom-package-deps": "^6.0.0",
     "disposable-event": "^1.0.3",
     "marked": "^0.7.0",
     "react": "^16.9.0",
@@ -59,7 +59,7 @@
   ],
   "package-deps": [
     "intentions",
-    "linter"
+    "linter:3.0.0"
   ],
   "configSchema": {
     "showPanel": {
