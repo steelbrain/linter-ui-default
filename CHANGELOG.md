@@ -1,4 +1,13 @@
 # Changelog
+### 2.1.0
+* Bump deps #589
+* Use lodash.debounce instead of the deprecated sb-debounce.debounce
+
+## 2.0.1
+* improve performance (#581)
+* rewrite rendering algorithm (#581)
+* fix memory leaks (#581)
+
 
 ## 1.8.1
 
