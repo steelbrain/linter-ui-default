@@ -1,4 +1,7 @@
 # Changelog
+## 2.1.1
+* null check guard for messages to prevent unforeseen errors
+
 ### 2.1.0
 * Bump deps #589
 * Use lodash.debounce instead of the deprecated sb-debounce.debounce
