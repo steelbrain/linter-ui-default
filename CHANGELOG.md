@@ -1,4 +1,15 @@
 # Changelog
+## 2.1.4
+* Update dependencies
+* Re-add package-lock.json
+
+## 2.1.3
+* Remove package-lock.json
+
+## 2.1.2
+* Add another null check for messages
+
+
 ## 2.1.1
 * null check guard for messages to prevent unforeseen errors
 
