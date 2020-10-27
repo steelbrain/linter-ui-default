@@ -75,7 +75,7 @@ jobs:
           command: npm --version
       - run:
           name: Install any remaining dependencies
-          command: npm ci
+          command: npm install
       - run:
           name: Lint code
           command: npm run lint
