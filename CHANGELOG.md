@@ -1,4 +1,27 @@
 # Changelog
+## 2.1.4
+* Update dependencies
+* Re-add package-lock.json
+
+## 2.1.3
+* Remove package-lock.json
+
+## 2.1.2
+* Add another null check for messages
+
+
+## 2.1.1
+* null check guard for messages to prevent unforeseen errors
+
+### 2.1.0
+* Bump deps #589
+* Use lodash.debounce instead of the deprecated sb-debounce.debounce
+
+## 2.0.1
+* improve performance (#581)
+* rewrite rendering algorithm (#581)
+* fix memory leaks (#581)
+
 
 ## 1.8.1
 
