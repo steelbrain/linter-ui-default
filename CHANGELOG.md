@@ -1,4 +1,7 @@
 # Changelog
+## 2.1.5
+- fix: check if `intersectsWith` is a function
+
 ## 2.1.4
 * Update dependencies
 * Re-add package-lock.json
