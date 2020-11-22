@@ -4,7 +4,7 @@ Linter-UI-Default
 [![Greenkeeper badge](https://badges.greenkeeper.io/steelbrain/linter-ui-default.svg)](https://greenkeeper.io/)
 
 [![Slack Badge](https://img.shields.io/badge/chat-atom.io%20slack-blue.svg?style=flat-square)](http://atom-slack.herokuapp.com/)
-[![Build Status](https://img.shields.io/circleci/project/steelbrain/linter-ui-default.svg?style=flat-square)](https://circleci.com/gh/steelbrain/linter-ui-default)
+![CI](https://github.com/steelbrain/linter-ui-default/workflows/CI/badge.svg)
 [![Plugin installs!](https://img.shields.io/apm/dm/linter-ui-default.svg?style=flat-square)](https://atom.io/packages/linter-ui-default)
 [![Package version!](https://img.shields.io/apm/v/linter-ui-default.svg?style=flat-square)](https://atom.io/packages/linter-ui-default)
 [![Dependencies!](https://img.shields.io/david/steelbrain/linter-ui-default.svg?style=flat-square)](https://david-dm.org/steelbrain/linter-ui-default)
