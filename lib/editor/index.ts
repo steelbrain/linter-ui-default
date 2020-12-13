@@ -26,7 +26,7 @@ export default class Editor {
   ignoreTooltipInvocation: boolean
   currentLineMarker: DisplayMarker | null | undefined
   lastRange: Range | null | undefined
-  lastEmpty: Range | null | undefined
+  lastIsEmpty: boolean | null | undefined
   lastCursorPositions: WeakMap<Cursor, Point>
 
   constructor(textEditor: TextEditor) {
@@ -39,7 +39,7 @@ export default class Editor {
     this.ignoreTooltipInvocation = false
     this.currentLineMarker = null
     this.lastRange = null
-    this.lastEmpty = null
+    this.lastIsEmpty = null
     this.lastCursorPositions = new WeakMap()
 
     this.subscriptions.add(this.emitter)
@@ -144,25 +144,25 @@ export default class Editor {
             [start.row, 0],
             [end.row, Infinity],
           ])
-          const currentEmpty = currentRange.isEmpty()
+          const currentIsEmpty = currentRange.isEmpty()
 
           // NOTE: Atom does not paint gutter if multi-line and last line has zero index
           if (start.row !== end.row && currentRange.end.column === 0) {
             linesRange.end.row--
           }
-          if (this.lastRange && this.lastRange.isEqual(linesRange) && currentEmpty === this.lastEmpty) return
+          if (this.lastRange && this.lastRange.isEqual(linesRange) && currentIsEmpty === this.lastIsEmpty) return
           if (this.currentLineMarker) {
             this.currentLineMarker.destroy()
             this.currentLineMarker = null
           }
           this.lastRange = linesRange
-          this.lastEmpty = currentEmpty
+          this.lastIsEmpty = currentIsEmpty
 
           this.currentLineMarker = this.textEditor.markScreenRange(linesRange, {
             invalidate: 'never',
           })
           const item = document.createElement('span')
-          item.className = `line-number cursor-line linter-cursor-line ${currentEmpty ? 'cursor-line-no-selection' : ''}`
+          item.className = `line-number cursor-line linter-cursor-line ${currentIsEmpty ? 'cursor-line-no-selection' : ''}`
           gutter.decorateMarker(this.currentLineMarker, {
             item,
             class: 'linter-row',
