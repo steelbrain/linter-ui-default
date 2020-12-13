@@ -1,5 +1,6 @@
 import type { Range } from 'atom'
-import type { shell } from 'electron'
+/// <reference types="./types.d.ts" />
+import { shell } from 'electron'
 import type { Point, TextEditor } from 'atom'
 import type Editors from './editors'
 import type { LinterMessage } from './types'
