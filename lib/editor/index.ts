@@ -2,7 +2,7 @@ import { debounce } from 'lodash'
 import disposableEvent from 'disposable-event'
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
 // $FlowIgnore: Cursor is a type
-import type { TextEditor, DisplayMarker, Gutter, Point, Cursor } from 'atom'
+import type { TextEditor, DisplayMarker, Marker, Gutter, Point, Cursor } from 'atom'
 
 import Tooltip from '../tooltip'
 import { $range, filterMessagesByRangeOrPoint } from '../helpers'
@@ -13,7 +13,7 @@ export default class Editor {
   gutter: Gutter | null | undefined
   tooltip: Tooltip | null | undefined
   emitter: Emitter
-  markers: Map<string, Array<DisplayMarker>>
+  markers: Map<string, Array<DisplayMarker | Marker>>
   messages: Map<string, LinterMessage>
   textEditor: TextEditor
   showTooltip: boolean
@@ -327,7 +327,8 @@ export default class Editor {
         // Only for backward compatibility
         continue
       }
-      const marker = textBuffer.markRange(markerRange, {
+      // TODO this marker is Marker no DisplayMarker!!
+      const marker: Marker = textBuffer.markRange(markerRange, {
         invalidate: 'never',
       })
       this.decorateMarker(message, marker)
@@ -343,7 +344,7 @@ export default class Editor {
 
     this.updateTooltip(this.cursorPosition)
   }
-  decorateMarker(message: LinterMessage, marker: DisplayMarker, paint: 'gutter' | 'editor' | 'both' = 'both') {
+  decorateMarker(message: LinterMessage, marker: DisplayMarker | Marker, paint: 'gutter' | 'editor' | 'both' = 'both') {
     this.saveMarker(message.key, marker)
     this.messages.set(message.key, message)
 
@@ -366,7 +367,7 @@ export default class Editor {
   }
 
   // add marker to the message => marker map
-  saveMarker(key: string, marker: DisplayMarker) {
+  saveMarker(key: string, marker: DisplayMarker | Marker) {
     const allMarkers = this.markers.get(key) || []
     allMarkers.push(marker)
     this.markers.set(key, allMarkers)
