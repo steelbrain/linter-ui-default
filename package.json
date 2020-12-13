@@ -27,6 +27,7 @@
     "sb-react-table": "^1.0.2"
   },
   "devDependencies": {
+    "@types/atom": "^1.40.5",
     "eslint-config-steelbrain": "^5.0.0",
     "flow-bin": "^0.67.1",
     "jasmine-fix": "^1.3.1"
