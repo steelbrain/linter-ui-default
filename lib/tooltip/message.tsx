@@ -3,8 +3,8 @@ import React from 'react'
 import marked from 'marked'
 
 import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
-import TooltipDelegate from './delegate'
-import { Message, LinterMessage } from '../types'
+import type TooltipDelegate from './delegate'
+import type { Message, LinterMessage } from '../types'
 import FixButton from './fix-button'
 
 function findHref(el: Element | null | undefined): string | null | undefined {

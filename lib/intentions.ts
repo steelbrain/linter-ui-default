@@ -1,5 +1,5 @@
 import { $range, applySolution, filterMessages } from './helpers'
-import { LinterMessage } from './types'
+import type { LinterMessage } from './types'
 
 class Intentions {
   messages: Array<LinterMessage>

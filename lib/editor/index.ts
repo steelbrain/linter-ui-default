@@ -2,12 +2,12 @@ import { debounce } from 'lodash'
 import disposableEvent from 'disposable-event'
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
 // $FlowIgnore: Cursor is a type
-import { TextEditor, DisplayMarker, Gutter, Point, Cursor } from 'atom'
+import type { TextEditor, DisplayMarker, Gutter, Point, Cursor } from 'atom'
 
 import Tooltip from '../tooltip'
 import { $range, filterMessagesByRangeOrPoint } from '../helpers'
 import { hasParent, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
-import { LinterMessage } from '../types'
+import type { LinterMessage } from '../types'
 
 class Editor {
   gutter: Gutter | null | undefined

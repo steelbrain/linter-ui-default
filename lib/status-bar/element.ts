@@ -1,5 +1,5 @@
 import { CompositeDisposable, Emitter } from 'atom'
-import { Disposable } from 'atom'
+import type { Disposable } from 'atom'
 
 import * as Helpers from './helpers'
 

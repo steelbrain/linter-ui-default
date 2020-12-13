@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactTable from 'sb-react-table'
 import { $range, severityNames, sortMessages, visitMessage, openExternally, getPathOfMessage } from '../helpers'
-import Delegate from './delegate'
-import { LinterMessage } from '../types'
+import type Delegate from './delegate'
+import type { LinterMessage } from '../types'
 
 type Props = {
   delegate: Delegate

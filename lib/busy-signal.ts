@@ -1,5 +1,5 @@
 import { CompositeDisposable } from 'atom'
-import { Linter } from './types'
+import type { Linter } from './types'
 
 class BusySignal {
   provider: Object | null | undefined

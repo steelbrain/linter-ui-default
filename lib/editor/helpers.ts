@@ -1,4 +1,4 @@
-import { Point, TextEditor } from 'atom'
+import type { Point, TextEditor } from 'atom'
 
 const TOOLTIP_WIDTH_HIDE_OFFSET = 30
 

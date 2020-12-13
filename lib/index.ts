@@ -1,5 +1,5 @@
 import LinterUI from './main'
-import Intentions from './intentions'
+import type Intentions from './intentions'
 
 const idleCallbacks: Set<any> = new Set()
 

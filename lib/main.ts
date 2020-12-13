@@ -4,7 +4,7 @@ import Commands from './commands'
 import StatusBar from './status-bar'
 import BusySignal from './busy-signal'
 import Intentions from './intentions'
-import { Linter, LinterMessage, MessagesPatch } from './types'
+import type { Linter, LinterMessage, MessagesPatch } from './types'
 
 let Editors
 let TreeView

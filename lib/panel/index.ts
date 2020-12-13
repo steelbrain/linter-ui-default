@@ -1,7 +1,7 @@
 import { CompositeDisposable } from 'atom'
 import Delegate from './delegate'
 import PanelDock from './dock'
-import { LinterMessage } from '../types'
+import type { LinterMessage } from '../types'
 
 class Panel {
   panel: PanelDock | null

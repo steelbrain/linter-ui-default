@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CompositeDisposable, Emitter } from 'atom'
-import { Disposable, Point, TextEditor } from 'atom'
+import type { Disposable, Point, TextEditor } from 'atom'
 
 import Delegate from './delegate'
 import MessageElement from './message'
 import { $range } from '../helpers'
-import { LinterMessage } from '../types'
+import type { LinterMessage } from '../types'
 
 class TooltipElement {
   marker: Object

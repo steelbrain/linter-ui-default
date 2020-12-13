@@ -1,8 +1,8 @@
-import { Range } from 'atom'
-import { shell } from 'electron'
-import { Point, TextEditor } from 'atom'
-import Editors from './editors'
-import { LinterMessage } from './types'
+import type { Range } from 'atom'
+import type { shell } from 'electron'
+import type { Point, TextEditor } from 'atom'
+import type Editors from './editors'
+import type { LinterMessage } from './types'
 
 let lastPaneItem = null
 export const severityScore = {

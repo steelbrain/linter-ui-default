@@ -1,6 +1,6 @@
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
 import { getActiveTextEditor, filterMessages, filterMessagesByRangeOrPoint } from '../helpers'
-import { LinterMessage } from '../types'
+import type { LinterMessage } from '../types'
 
 class PanelDelegate {
   emitter: Emitter

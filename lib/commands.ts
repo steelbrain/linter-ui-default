@@ -11,7 +11,7 @@ import {
   filterMessages,
   applySolution,
 } from './helpers'
-import { LinterMessage } from './types'
+import type { LinterMessage } from './types'
 
 class Commands {
   messages: Array<LinterMessage>

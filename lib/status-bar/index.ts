@@ -1,7 +1,7 @@
 import { CompositeDisposable, Disposable } from 'atom'
 import Element from './element'
 import { $file, getActiveTextEditor } from '../helpers'
-import { LinterMessage } from '../types'
+import type { LinterMessage } from '../types'
 
 class StatusBar {
   element: Element

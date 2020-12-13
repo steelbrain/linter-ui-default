@@ -2,7 +2,7 @@ import { CompositeDisposable, Emitter } from 'atom'
 import { debounce } from 'lodash'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
-import { LinterMessage, TreeViewHighlight } from '../types'
+import type { LinterMessage, TreeViewHighlight } from '../types'
 
 class TreeView {
   emitter: Emitter
