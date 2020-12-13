@@ -3,7 +3,7 @@ import type { Disposable } from 'atom'
 
 import * as Helpers from './helpers'
 
-class Element {
+export default class Element {
   item: HTMLElement
   itemErrors: HTMLElement
   itemWarnings: HTMLElement
@@ -75,5 +75,3 @@ class Element {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = Element

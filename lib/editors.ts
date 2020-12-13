@@ -4,7 +4,7 @@ import Editor from './editor'
 import { $file, getEditorsMap, filterMessages } from './helpers'
 import type { LinterMessage, MessagesPatch } from './types'
 
-class Editors {
+export default class Editors {
   editors: Set<Editor>
   messages: Array<LinterMessage>
   firstRender: boolean
@@ -98,5 +98,3 @@ class Editors {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = Editors

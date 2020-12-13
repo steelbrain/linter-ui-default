@@ -4,7 +4,7 @@ import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
 import type { LinterMessage, TreeViewHighlight } from '../types'
 
-class TreeView {
+export default class TreeView {
   emitter: Emitter
   messages: Array<LinterMessage>
   decorations: Object
@@ -137,5 +137,3 @@ class TreeView {
     return parent.querySelector(`[data-path=${CSS.escape(filePath)}]`)
   }
 }
-
-module.exports = TreeView

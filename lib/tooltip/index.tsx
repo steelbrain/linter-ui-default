@@ -8,7 +8,7 @@ import MessageElement from './message'
 import { $range } from '../helpers'
 import type { LinterMessage } from '../types'
 
-class TooltipElement {
+export default class TooltipElement {
   marker: Object
   element: HTMLElement
   emitter: Emitter
@@ -56,5 +56,3 @@ class TooltipElement {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = TooltipElement

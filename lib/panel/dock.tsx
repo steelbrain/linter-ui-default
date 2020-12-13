@@ -21,7 +21,7 @@ function getPaneContainer(item: PanelDock) {
   return null
 }
 
-class PanelDock {
+export default class PanelDock {
   element: HTMLElement
   subscriptions: CompositeDisposable
   panelHeight: number
@@ -120,5 +120,3 @@ class PanelDock {
     }
   }
 }
-
-module.exports = PanelDock

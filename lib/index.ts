@@ -9,7 +9,7 @@ type LinterUIDefault = {
   statusBarRegistry: Object | null
 }
 
-const linterUiDefault: LinterUIDefault = {
+const linterUiDefault = {
   instances: new Set(),
   signalRegistry: null,
   statusBarRegistry: null,
@@ -60,5 +60,4 @@ const linterUiDefault: LinterUIDefault = {
     })
   },
 }
-
-module.exports = linterUiDefault
+export default linterUiDefault

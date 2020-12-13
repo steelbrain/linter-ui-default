@@ -2,7 +2,7 @@ import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
 import { getActiveTextEditor, filterMessages, filterMessagesByRangeOrPoint } from '../helpers'
 import type { LinterMessage } from '../types'
 
-class PanelDelegate {
+export default class PanelDelegate {
   emitter: Emitter
   messages: Array<LinterMessage>
   filteredMessages: Array<LinterMessage>
@@ -95,5 +95,3 @@ class PanelDelegate {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = PanelDelegate

@@ -1,7 +1,7 @@
 import { $range, applySolution, filterMessages } from './helpers'
 import type { LinterMessage } from './types'
 
-class Intentions {
+export default class Intentions {
   messages: Array<LinterMessage>
   grammarScopes: Array<string>
 
@@ -47,5 +47,3 @@ class Intentions {
     this.messages = messages
   }
 }
-
-module.exports = Intentions

@@ -1,7 +1,7 @@
 import { CompositeDisposable, Emitter } from 'atom'
 import type { Disposable } from 'atom'
 
-class TooltipDelegate {
+export default class TooltipDelegate {
   emitter: Emitter
   expanded: boolean
   subscriptions: CompositeDisposable
@@ -61,5 +61,3 @@ class TooltipDelegate {
     this.emitter.dispose()
   }
 }
-
-module.exports = TooltipDelegate

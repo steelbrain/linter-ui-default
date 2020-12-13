@@ -9,7 +9,7 @@ import { $range, filterMessagesByRangeOrPoint } from '../helpers'
 import { hasParent, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
 import type { LinterMessage } from '../types'
 
-class Editor {
+export default class Editor {
   gutter: Gutter | null | undefined
   tooltip: Tooltip | null | undefined
   emitter: Emitter
@@ -396,5 +396,3 @@ class Editor {
     this.removeTooltip()
   }
 }
-
-module.exports = Editor

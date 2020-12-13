@@ -1,7 +1,7 @@
 import { CompositeDisposable } from 'atom'
 import type { Linter } from './types'
 
-class BusySignal {
+export default class BusySignal {
   provider: Object | null | undefined
   executing: Set<{
     linter: Linter
@@ -95,5 +95,3 @@ class BusySignal {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = BusySignal

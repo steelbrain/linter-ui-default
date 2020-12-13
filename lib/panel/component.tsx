@@ -12,7 +12,7 @@ type State = {
   messages: Array<LinterMessage>
 }
 
-class PanelComponent extends React.Component<Props, State> {
+export default class PanelComponent extends React.Component<Props, State> {
   static renderRowColumn(row: LinterMessage, column: string): string | Object {
     const range = $range(row)
 
@@ -101,5 +101,3 @@ class PanelComponent extends React.Component<Props, State> {
     )
   }
 }
-
-module.exports = PanelComponent

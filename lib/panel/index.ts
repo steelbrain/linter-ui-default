@@ -3,7 +3,7 @@ import Delegate from './delegate'
 import PanelDock from './dock'
 import type { LinterMessage } from '../types'
 
-class Panel {
+export default class Panel {
   panel: PanelDock | null
   element: HTMLElement
   delegate: Delegate
@@ -166,5 +166,3 @@ class Panel {
     window.cancelIdleCallback(this.activationTimer)
   }
 }
-
-module.exports = Panel

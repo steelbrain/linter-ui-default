@@ -27,7 +27,7 @@ type State = {
   descriptionShow?: boolean
 }
 
-class MessageElement extends React.Component<Props, State> {
+export default class MessageElement extends React.Component<Props, State> {
   state: State = {
     description: '',
     descriptionShow: false,
@@ -161,5 +161,3 @@ class MessageElement extends React.Component<Props, State> {
     )
   }
 }
-
-module.exports = MessageElement

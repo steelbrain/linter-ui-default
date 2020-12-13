@@ -9,7 +9,7 @@ import type { Linter, LinterMessage, MessagesPatch } from './types'
 let Editors
 let TreeView
 
-class LinterUI {
+export default class LinterUI {
   name: string
   panel: Panel
   signal: BusySignal
@@ -120,5 +120,3 @@ class LinterUI {
     }
   }
 }
-
-module.exports = LinterUI

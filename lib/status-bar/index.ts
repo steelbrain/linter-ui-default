@@ -3,7 +3,7 @@ import Element from './element'
 import { $file, getActiveTextEditor } from '../helpers'
 import type { LinterMessage } from '../types'
 
-class StatusBar {
+export default class StatusBar {
   element: Element
   messages: Array<LinterMessage>
   subscriptions: CompositeDisposable
@@ -115,5 +115,3 @@ class StatusBar {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = StatusBar

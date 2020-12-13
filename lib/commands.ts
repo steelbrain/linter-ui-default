@@ -13,7 +13,7 @@ import {
 } from './helpers'
 import type { LinterMessage } from './types'
 
-class Commands {
+export default class Commands {
   messages: Array<LinterMessage>
   subscriptions: CompositeDisposable
 
@@ -145,5 +145,3 @@ class Commands {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = Commands
