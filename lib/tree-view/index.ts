@@ -130,7 +130,7 @@ export default class TreeView {
   dispose() {
     this.subscriptions.dispose()
   }
-  static getElement() {
+  static getElement(): HTMLElement {
     return document.querySelector('.tree-view')
   }
   static getElementByPath(parent: HTMLElement, filePath: string): HTMLElement | null | undefined {
