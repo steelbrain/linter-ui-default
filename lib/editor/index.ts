@@ -225,7 +225,9 @@ export default class Editor {
 
           this.cursorPosition = getBufferPositionFromMouseEvent(event, this.textEditor, editorElement)
           this.ignoreTooltipInvocation = false
-          if (this.textEditor.largeFileMode) {
+          //@ts-ignore internal API
+          if (this.textEditor.largeFileMode || this.textEditor.getLineCount() > 20000) {
+            // TODO: make line count a config
             // NOTE: Ignore if file is too large
             this.cursorPosition = null
           }
