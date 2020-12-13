@@ -2,6 +2,7 @@ import { CompositeDisposable } from 'atom'
 import Delegate from './delegate'
 import PanelDock from './dock'
 import type { LinterMessage } from '../types'
+import type { PaneContainer } from './dock'
 
 export default class Panel {
   panel: PanelDock | null
@@ -108,7 +109,8 @@ export default class Panel {
     if (!this.panel) {
       return null
     }
-    const paneContainer = atom.workspace.paneContainerForItem(this.panel)
+    // @ts-ignore internal API
+    const paneContainer: PaneContainer = atom.workspace.paneContainerForItem(this.panel)
     return (paneContainer && paneContainer.location) || null
   }
   async activate() {
@@ -140,7 +142,8 @@ export default class Panel {
       }
       return
     }
-    const paneContainer = atom.workspace.paneContainerForItem(panel)
+    // @ts-ignore internal API
+    const paneContainer: PaneContainer = atom.workspace.paneContainerForItem(panel)
     if (!paneContainer || paneContainer.location !== 'bottom') {
       return
     }

@@ -1,22 +1,34 @@
-import { CompositeDisposable } from 'atom'
+import { CompositeDisposable, Dock, WorkspaceCenter } from 'atom'
 import { WORKSPACE_URI, DOCK_ALLOWED_LOCATIONS, DOCK_DEFAULT_LOCATION } from '../helpers'
 
 let React
 let ReactDOM
 let Component
 
+// TODO Make these API public
+export type PaneContainer = Dock & {
+  state: { size: number }
+  render: Function
+  paneForItem: WorkspaceCenter['paneForItem']
+  location: string
+}
+
 // eslint-disable-next-line no-use-before-define
-function getPaneContainer(item: PanelDock) {
+function getPaneContainer(item: PanelDock): PaneContainer {
   const paneContainer = atom.workspace.paneContainerForItem(item)
   // NOTE: This is an internal API access
   // It's necessary because there's no Public API for it yet
   if (
     paneContainer &&
+    // @ts-ignore internal API
     typeof paneContainer.state === 'object' &&
+    // @ts-ignore internal API
     typeof paneContainer.state.size === 'number' &&
+    // @ts-ignore internal API
     typeof paneContainer.render === 'function'
   ) {
-    return paneContainer
+    // @ts-ignore internal API
+    return paneContainer as PaneContainer
   }
   return null
 }
