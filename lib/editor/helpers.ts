@@ -1,14 +1,14 @@
-import type { Point, TextEditor } from 'atom'
+import type { Point, TextEditor, TextEditorElement } from 'atom'
 
 const TOOLTIP_WIDTH_HIDE_OFFSET = 30
 
 export function getBufferPositionFromMouseEvent(
   event: MouseEvent,
   editor: TextEditor,
-  editorElement: Object,
+  editorElement: TextEditorElement,
 ): Point | null | undefined {
-  const pixelPosition = editorElement.component.pixelPositionForMouseEvent(event)
-  const screenPosition = editorElement.component.screenPositionForPixelPosition(pixelPosition)
+  const pixelPosition = editorElement.getComponent().pixelPositionForMouseEvent(event)
+  const screenPosition = editorElement.getComponent().screenPositionForPixelPosition(pixelPosition)
   if (Number.isNaN(screenPosition.row) || Number.isNaN(screenPosition.column)) return null
   // ^ Workaround for NaN bug steelbrain/linter-ui-default#191
   const expectedPixelPosition = editorElement.pixelPositionForScreenPosition(screenPosition)
