@@ -1,8 +1,9 @@
 import { CompositeDisposable } from 'atom'
 import type { Linter } from './types'
+import { BusySignalProvider, BusySignalRegistry } from 'atom-ide-base'
 
 export default class BusySignal {
-  provider: Object | null | undefined
+  provider: BusySignalProvider | null | undefined
   executing: Set<{
     linter: Linter
     filePath: string | null | undefined
@@ -22,7 +23,7 @@ export default class BusySignal {
       }),
     )
   }
-  attach(registry: Object) {
+  attach(registry: BusySignalRegistry) {
     this.provider = registry.create()
     this.update()
   }
@@ -64,7 +65,7 @@ export default class BusySignal {
 
     fileMap.clear()
   }
-  getExecuting(linter: Linter, filePath: string | null | undefined): Object | null | undefined {
+  getExecuting(linter: Linter, filePath: string | null | undefined) {
     for (const entry of this.executing) {
       if (entry.linter === linter && entry.filePath === filePath) {
         return entry
