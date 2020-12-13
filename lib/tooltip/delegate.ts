@@ -32,7 +32,7 @@ export default class TooltipDelegate {
           this.emitter.emit('should-expand')
 
           // If bound to a key, collapse when that key is released, just like old times
-          if (event.originalEvent && event.originalEvent.isTrusted) {
+          if (event?.originalEvent?.isTrusted) {
             // $FlowIgnore: document.body is never null
             document.body.addEventListener('keyup', function eventListener() {
               // $FlowIgnore: document.body is never null
