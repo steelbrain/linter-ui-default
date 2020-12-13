@@ -21,7 +21,7 @@ export const WORKSPACE_URI = 'atom://linter-ui-default'
 export const DOCK_ALLOWED_LOCATIONS = ['center', 'bottom']
 export const DOCK_DEFAULT_LOCATION = 'bottom'
 
-export function $range(message: LinterMessage): Object | null | undefined {
+export function $range(message: LinterMessage): Range | null | undefined {
   return message.location.position
 }
 export function $file(message: LinterMessage): string | null | undefined {
