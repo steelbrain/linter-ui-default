@@ -1,5 +1,6 @@
 import { CompositeDisposable, Dock, WorkspaceCenter } from 'atom'
 import { WORKSPACE_URI, DOCK_ALLOWED_LOCATIONS, DOCK_DEFAULT_LOCATION } from '../helpers'
+import type Delegate from './delegate'
 
 // NOTE: these were lazy
 import React from 'react'
@@ -41,7 +42,7 @@ export default class PanelDock {
   alwaysTakeMinimumSpace: boolean
   lastSetPaneHeight: number | null
 
-  constructor(delegate: Object) {
+  constructor(delegate: Delegate) {
     this.element = document.createElement('div')
     this.subscriptions = new CompositeDisposable()
 
