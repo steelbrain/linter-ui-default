@@ -1,5 +1,20 @@
 import { TextEditor, Point, Range } from 'atom'
 
+export type MessageSolution =
+  | {
+      title?: string
+      position: Range
+      priority?: number
+      currentText?: string
+      replaceWith: string
+    }
+  | {
+      title?: string
+      priority?: number
+      position: Range
+      apply: () => any
+    }
+
 export type Message = {
   // Automatically added by linter
   key: string
@@ -19,21 +34,7 @@ export type Message = {
   icon?: string
   excerpt: string
   severity: 'error' | 'warning' | 'info'
-  solutions?: Array<
-    | {
-        title?: string
-        position: Range
-        priority?: number
-        currentText?: string
-        replaceWith: string
-      }
-    | {
-        title?: string
-        priority?: number
-        position: Range
-        apply: () => any
-      }
-  >
+  solutions?: Array<MessageSolution>
   description?: string | (() => Promise<string> | string)
 }
 
