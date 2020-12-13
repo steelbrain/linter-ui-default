@@ -1,5 +1,5 @@
 import { Range } from 'atom'
-import type { Point, PointLike, TextEditor, WorkspaceOpenOptions } from 'atom'
+import type { Point, PointLike, PointCompatible, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
 /// <reference types="./types.d.ts" />
 import { shell } from 'electron'
 import type Editors from './editors'
@@ -93,12 +93,14 @@ export function filterMessages(
 export function filterMessagesByRangeOrPoint(
   messages: Set<LinterMessage> | Array<LinterMessage> | Map<string, LinterMessage>,
   filePath: string,
-  rangeOrPoint: Point | Range,
+  rangeOrPoint: Point | RangeCompatible,
 ): Array<LinterMessage> {
   const filtered = []
   const expectedRange =
-    rangeOrPoint.constructor.name === 'Point' ? new Range(rangeOrPoint, rangeOrPoint) : Range.fromObject(rangeOrPoint)
-  messages.forEach(function (message) {
+    rangeOrPoint.constructor.name === 'Point'
+      ? new Range(rangeOrPoint as Point, rangeOrPoint as Point)
+      : Range.fromObject(rangeOrPoint as RangeCompatible)
+  messages.forEach(function (message: LinterMessage) {
     const file = $file(message)
     const range = $range(message)
     if (
