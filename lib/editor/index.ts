@@ -386,7 +386,7 @@ export default class Editor {
     this.messages.delete(key)
   }
 
-  onDidDestroy(callback: Function): Disposable {
+  onDidDestroy(callback: (value?: any) => void) {
     return this.emitter.on('did-destroy', callback)
   }
   dispose() {
