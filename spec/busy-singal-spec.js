@@ -1,7 +1,7 @@
 /* @flow */
 
 import { beforeEach } from 'jasmine-fix'
-import BusySignal from '../lib/busy-signal'
+import BusySignal from '../dist/busy-signal'
 import { getLinter } from './helpers'
 
 class SignalRegistry {
