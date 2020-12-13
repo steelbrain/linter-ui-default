@@ -1,4 +1,5 @@
 import { CompositeDisposable, Disposable } from 'atom'
+import type { StatusBar as StatusBarRegistry } from 'atom/status-bar'
 import Element from './element'
 import { $file, getActiveTextEditor } from '../helpers'
 import type { LinterMessage } from '../types'
@@ -89,7 +90,7 @@ export default class StatusBar {
     })
     this.element.update(count.error, count.warning, count.info)
   }
-  attach(statusBarRegistry: Object) {
+  attach(statusBarRegistry: StatusBarRegistry) {
     let statusBar = null
 
     this.subscriptions.add(

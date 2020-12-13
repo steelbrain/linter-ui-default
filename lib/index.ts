@@ -1,11 +1,13 @@
 import LinterUI from './main'
 import type Intentions from './intentions'
+import type { StatusBar as StatusBarRegistry } from 'atom/status-bar'
+import type { BusySignalRegistry } from 'atom-ide-base'
 
 const idleCallbacks: Set<any> = new Set()
 
 let instances: Set<LinterUI> = new Set()
-let signalRegistry: Object | null = null
-let statusBarRegistry: Object | null = null
+let signalRegistry: BusySignalRegistry
+let statusBarRegistry: StatusBarRegistry
 
 export function activate() {
   if (atom.config.get('linter-ui-default.useBusySignal')) {
@@ -45,15 +47,15 @@ export function provideIntentions(): Array<Intentions> {
   return Array.from(instances).map(entry => entry.intentions)
 }
 
-export function consumeSignal(signalRegistry: Object) {
-  signalRegistry = signalRegistry
+export function consumeSignal(signalService: BusySignalRegistry) {
+  signalRegistry = signalService
   instances.forEach(function (instance) {
     instance.signal.attach(signalRegistry)
   })
 }
 
-export function consumeStatusBar(statusBarRegistry: Object) {
-  statusBarRegistry = statusBarRegistry
+export function consumeStatusBar(statusBarService: StatusBarRegistry) {
+  statusBarRegistry = statusBarService
   instances.forEach(function (instance) {
     instance.statusBar.attach(statusBarRegistry)
   })
