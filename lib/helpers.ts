@@ -1,9 +1,9 @@
-import type { Range } from 'atom'
+import type { Range, WorkspaceOpenOptions } from 'atom'
 /// <reference types="./types.d.ts" />
 import { shell } from 'electron'
 import type { Point, TextEditor } from 'atom'
 import type Editors from './editors'
-import type { LinterMessage } from './types'
+import type { LinterMessage, Message, MessageSolution } from './types'
 
 let lastPaneItem = null
 export const severityScore = {
@@ -115,8 +115,7 @@ export function filterMessagesByRangeOrPoint(
 }
 
 export function openFile(file: string, position: Point | null | undefined) {
-  const options = {}
-  options.searchAllPanes = true
+  const options: WorkspaceOpenOptions = { searchAllPanes: true }
   if (position) {
     options.initialLine = position.row
     options.initialColumn = position.column
@@ -125,8 +124,8 @@ export function openFile(file: string, position: Point | null | undefined) {
 }
 
 export function visitMessage(message: LinterMessage, reference: boolean = false) {
-  let messageFile
-  let messagePosition
+  let messageFile: string
+  let messagePosition: Point
   if (reference) {
     if (!message.reference || !message.reference.file) {
       console.warn('[Linter-UI-Default] Message does not have a valid reference. Ignoring')
@@ -146,7 +145,7 @@ export function visitMessage(message: LinterMessage, reference: boolean = false)
   }
 }
 
-export function openExternally(message: LinterMessage): void {
+export function openExternally(message: LinterMessage) {
   if (message.version === 2 && message.url) {
     shell.openExternal(message.url)
   }
@@ -217,21 +216,21 @@ export function sortMessages(
   })
 }
 
-export function sortSolutions(solutions: Array<Object>): Array<Object> {
+export function sortSolutions(solutions: Message['solutions']) {
   return solutions.slice().sort(function (a, b) {
     return b.priority - a.priority
   })
 }
 
-export function applySolution(textEditor: TextEditor, solution: Object): boolean {
-  if (solution.apply) {
+export function applySolution(textEditor: TextEditor, solution: MessageSolution): boolean {
+  if ('apply' in solution) {
     solution.apply()
     return true
   }
   const range = solution.position
-  const currentText = solution.currentText
   const replaceWith = solution.replaceWith
-  if (currentText) {
+  if ('currentText' in solution) {
+    const currentText = solution.currentText
     const textInRange = textEditor.getTextInBufferRange(range)
     if (currentText !== textInRange) {
       console.warn(
