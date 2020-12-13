@@ -1,9 +1,7 @@
+import React from 'react'
 
-
-import React from "react";
-
-export default (({
-  onClick
-}: {onClick: () => void;}) => <button className="linter-ui-default-fix-btn" onClick={onClick}>
+export default ({ onClick }: { onClick: () => void }) => (
+  <button className="linter-ui-default-fix-btn" onClick={onClick}>
     Fix
-  </button>);
+  </button>
+)

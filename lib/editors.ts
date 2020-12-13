@@ -1,104 +1,102 @@
-
-
-import { CompositeDisposable } from "atom";
-import { TextEditor } from "atom";
-import Editor from "./editor";
-import { $file, getEditorsMap, filterMessages } from "./helpers";
-import { LinterMessage, MessagesPatch } from "./types";
+import { CompositeDisposable } from 'atom'
+import { TextEditor } from 'atom'
+import Editor from './editor'
+import { $file, getEditorsMap, filterMessages } from './helpers'
+import { LinterMessage, MessagesPatch } from './types'
 
 class Editors {
-
-  editors: Set<Editor>;
-  messages: Array<LinterMessage>;
-  firstRender: boolean;
-  subscriptions: CompositeDisposable;
+  editors: Set<Editor>
+  messages: Array<LinterMessage>
+  firstRender: boolean
+  subscriptions: CompositeDisposable
 
   constructor() {
-    this.editors = new Set();
-    this.messages = [];
-    this.firstRender = true;
-    this.subscriptions = new CompositeDisposable();
+    this.editors = new Set()
+    this.messages = []
+    this.firstRender = true
+    this.subscriptions = new CompositeDisposable()
 
-    this.subscriptions.add(atom.workspace.observeTextEditors(textEditor => {
-      this.getEditor(textEditor);
-    }));
-    this.subscriptions.add(atom.workspace.getCenter().observeActivePaneItem(paneItem => {
-      this.editors.forEach(editor => {
-        if (editor.textEditor !== paneItem) {
-          editor.removeTooltip();
-        }
-      });
-    }));
+    this.subscriptions.add(
+      atom.workspace.observeTextEditors(textEditor => {
+        this.getEditor(textEditor)
+      }),
+    )
+    this.subscriptions.add(
+      atom.workspace.getCenter().observeActivePaneItem(paneItem => {
+        this.editors.forEach(editor => {
+          if (editor.textEditor !== paneItem) {
+            editor.removeTooltip()
+          }
+        })
+      }),
+    )
   }
   isFirstRender(): boolean {
-    return this.firstRender;
+    return this.firstRender
   }
-  update({
-    messages,
-    added,
-    removed
-  }: MessagesPatch) {
-    this.messages = messages;
-    this.firstRender = false;
+  update({ messages, added, removed }: MessagesPatch) {
+    this.messages = messages
+    this.firstRender = false
 
-    const {
-      editorsMap,
-      filePaths
-    } = getEditorsMap(this);
+    const { editorsMap, filePaths } = getEditorsMap(this)
     added.forEach(function (message) {
       if (!message || !message.location) {
-        return;
+        return
       }
-      const filePath = $file(message);
+      const filePath = $file(message)
       if (filePath && editorsMap[filePath]) {
-        editorsMap[filePath].added.push(message);
+        editorsMap[filePath].added.push(message)
       }
-    });
+    })
     removed.forEach(function (message) {
       if (!message || !message.location) {
-        return;
+        return
       }
-      const filePath = $file(message);
+      const filePath = $file(message)
       if (filePath && editorsMap[filePath]) {
-        editorsMap[filePath].removed.push(message);
+        editorsMap[filePath].removed.push(message)
       }
-    });
+    })
 
     filePaths.forEach(function (filePath) {
-      const value = editorsMap[filePath];
+      const value = editorsMap[filePath]
       if (value.added.length || value.removed.length) {
-        value.editors.forEach(editor => editor.apply(value.added, value.removed));
+        value.editors.forEach(editor => editor.apply(value.added, value.removed))
       }
-    });
+    })
   }
   getEditor(textEditor: TextEditor): Editor {
     for (const entry of this.editors) {
       if (entry.textEditor === textEditor) {
-        return entry;
+        return entry
       }
     }
-    const editor = new Editor(textEditor);
-    this.editors.add(editor);
+    const editor = new Editor(textEditor)
+    this.editors.add(editor)
     editor.onDidDestroy(() => {
-      this.editors.delete(editor);
-    });
-    editor.subscriptions.add(textEditor.onDidChangePath(() => {
-      editor.dispose();
-      this.getEditor(textEditor);
-    }));
-    editor.subscriptions.add(textEditor.onDidChangeGrammar(() => {
-      editor.dispose();
-      this.getEditor(textEditor);
-    }));
-    editor.apply(filterMessages(this.messages, textEditor.getPath()), []);
-    return editor;
+      this.editors.delete(editor)
+    })
+    editor.subscriptions.add(
+      textEditor.onDidChangePath(() => {
+        editor.dispose()
+        this.getEditor(textEditor)
+      }),
+    )
+    editor.subscriptions.add(
+      textEditor.onDidChangeGrammar(() => {
+        editor.dispose()
+        this.getEditor(textEditor)
+      }),
+    )
+    editor.apply(filterMessages(this.messages, textEditor.getPath()), [])
+    return editor
   }
   dispose() {
     for (const entry of this.editors) {
-      entry.dispose();
+      entry.dispose()
     }
-    this.subscriptions.dispose();
+    this.subscriptions.dispose()
   }
 }
 
-module.exports = Editors;
+module.exports = Editors
