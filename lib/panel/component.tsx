@@ -13,7 +13,7 @@ type State = {
 }
 
 export default class PanelComponent extends React.Component<Props, State> {
-  static renderRowColumn(row: LinterMessage, column: string): string | Object {
+  static renderRowColumn(row: LinterMessage, column: string) {
     const range = $range(row)
 
     switch (column) {
@@ -30,7 +30,7 @@ export default class PanelComponent extends React.Component<Props, State> {
     }
   }
 
-  constructor(props: Object, context: Object | null | undefined) {
+  constructor(props: Props, context: Object | null | undefined) {
     super(props, context)
     this.state = {
       messages: this.props.delegate.filteredMessages,
@@ -44,7 +44,7 @@ export default class PanelComponent extends React.Component<Props, State> {
     })
   }
 
-  onClick = (e: MouseEvent, row: LinterMessage) => {
+  onClick = (e: React.MouseEvent, row: LinterMessage) => {
     if (e.target.tagName === 'A') {
       return
     }
@@ -58,8 +58,6 @@ export default class PanelComponent extends React.Component<Props, State> {
       visitMessage(row)
     }
   }
-
-  props: Props
 
   render() {
     const { delegate } = this.props
@@ -78,10 +76,10 @@ export default class PanelComponent extends React.Component<Props, State> {
       })
     }
 
-    const customStyle: Object = { overflowY: 'scroll', height: '100%' }
+    const customStyle: React.CSSProperties = { overflowY: 'scroll', height: '100%' }
 
     return (
-      <div id="linter-panel" tabIndex="-1" style={customStyle}>
+      <div id="linter-panel" tabIndex={-1} style={customStyle}>
         <ReactTable
           rows={this.state.messages}
           columns={columns}
