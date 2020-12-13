@@ -102,7 +102,7 @@ export default class MessageElement extends React.Component<Props, State> {
       return
     }
     if (typeof description === 'string' || result) {
-      const descriptionToUse = marked(result || description)
+      const descriptionToUse = marked(result || (description as string))
       this.setState({ descriptionShow: true, description: descriptionToUse })
     } else if (typeof description === 'function') {
       this.setState({ descriptionShow: true })
