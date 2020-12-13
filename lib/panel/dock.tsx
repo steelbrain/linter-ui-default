@@ -1,9 +1,10 @@
 import { CompositeDisposable, Dock, WorkspaceCenter } from 'atom'
 import { WORKSPACE_URI, DOCK_ALLOWED_LOCATIONS, DOCK_DEFAULT_LOCATION } from '../helpers'
 
-let React
-let ReactDOM
-let Component
+// NOTE: these were lazy
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Component from './component'
 
 // TODO Make these API public
 export type PaneContainer = Dock & {
@@ -60,17 +61,6 @@ export default class PanelDock {
       }),
     )
     this.doPanelResize()
-
-    if (!React) {
-      React = require('react')
-    }
-    if (!ReactDOM) {
-      ReactDOM = require('react-dom')
-    }
-    if (!Component) {
-      Component = require('./component')
-    }
-
     ReactDOM.render(<Component delegate={delegate} />, this.element)
   }
   // NOTE: Chose a name that won't conflict with Dock APIs
