@@ -206,7 +206,7 @@ export default class Editor {
       'mousemove',
       debounce(
         event => {
-          if (!editorElement.component || this.subscriptions.disposed || !hasParent(event.target, 'div.scroll-view')) {
+          if (!editorElement.getComponent() || this.subscriptions.disposed || !hasParent(event.target, 'div.scroll-view')) {
             return
           }
           const tooltip = this.tooltip
