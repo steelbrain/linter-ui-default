@@ -1,5 +1,6 @@
 import LinterUI from './main'
 import type Intentions from './intentions'
+import type { IntentionsListProvider } from './types'
 import type { StatusBar as StatusBarRegistry } from 'atom/status-bar'
 import type { BusySignalRegistry } from 'atom-ide-base'
 
@@ -43,6 +44,7 @@ export function provideUI(): LinterUI {
   return instance
 }
 
+// TODO: use IntentionsListProvider as the return type
 export function provideIntentions(): Array<Intentions> {
   return Array.from(instances).map(entry => entry.intentions)
 }

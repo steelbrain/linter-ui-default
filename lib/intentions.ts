@@ -1,5 +1,6 @@
 import { $range, applySolution, filterMessages } from './helpers'
-import type { LinterMessage } from './types'
+import type { LinterMessage, MessageSolution, ListItem } from './types'
+import type { TextEditor, Point } from 'atom'
 
 export default class Intentions {
   messages: Array<LinterMessage>
@@ -9,8 +10,8 @@ export default class Intentions {
     this.messages = []
     this.grammarScopes = ['*']
   }
-  getIntentions({ textEditor, bufferPosition }: Object): Array<Object> {
-    let intentions = []
+  getIntentions({ textEditor, bufferPosition }: { textEditor: TextEditor; bufferPosition: Point }) {
+    let intentions: ListItem[] = []
     const messages = filterMessages(this.messages, textEditor.getPath())
 
     for (const message of messages) {
@@ -24,7 +25,7 @@ export default class Intentions {
         continue
       }
 
-      let solutions: Array<Object> = []
+      let solutions: Array<MessageSolution> = []
       if (message.version === 2 && message.solutions && message.solutions.length) {
         solutions = message.solutions
       }
