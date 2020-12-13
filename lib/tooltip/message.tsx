@@ -7,7 +7,7 @@ import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
 import FixButton from './fix-button'
 
-function findHref(el: Element | null | undefined): string | null | undefined {
+function findHref(el: Element | null | undefined): string | null {
   while (el && !el.classList.contains('linter-line')) {
     if (el instanceof HTMLAnchorElement) {
       return el.href
@@ -57,7 +57,7 @@ export default class MessageElement extends React.Component<Props, State> {
     }
   }
 
-  openFile = (ev: Event) => {
+  openFile(ev: Event) {
     if (!(ev.target instanceof HTMLElement)) {
       return
     }
@@ -67,13 +67,23 @@ export default class MessageElement extends React.Component<Props, State> {
     }
     // parse the link. e.g. atom://linter?file=<path>&row=<number>&column=<number>
     const { protocol, hostname, query } = url.parse(href, true)
-    const file = query && query.file
-    if (protocol !== 'atom:' || hostname !== 'linter' || !file) {
+    if (protocol !== 'atom:' || hostname !== 'linter') {
       return
     }
-    const row = query && query.row ? parseInt(query.row, 10) : 0
-    const column = query && query.column ? parseInt(query.column, 10) : 0
-    openFile(file, { row, column })
+    // TODO: based on the types query is never null
+    if (!query || !query.file) {
+      return
+    } else {
+      const { file, row, column } = query
+      // TODO: will these be an array?
+      openFile(
+        /* file */ Array.isArray(file) ? file[0] : file,
+        /* position */ {
+          row: parseInt(Array.isArray(row) ? row[0] : row, 10) || 0,
+          column: parseInt(Array.isArray(column) ? column[0] : column, 10) || 0,
+        },
+      )
+    }
   }
 
   canBeFixed(message: LinterMessage): boolean {
@@ -121,7 +131,6 @@ export default class MessageElement extends React.Component<Props, State> {
     }
   }
 
-  props: Props
   descriptionLoading: boolean = false
 
   render() {

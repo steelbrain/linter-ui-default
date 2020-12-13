@@ -1,7 +1,7 @@
 import type { Range, WorkspaceOpenOptions } from 'atom'
 /// <reference types="./types.d.ts" />
 import { shell } from 'electron'
-import type { Point, TextEditor } from 'atom'
+import type { Point, PointLike, TextEditor } from 'atom'
 import type Editors from './editors'
 import type { LinterMessage, Message, MessageSolution } from './types'
 
@@ -114,7 +114,7 @@ export function filterMessagesByRangeOrPoint(
   return filtered
 }
 
-export function openFile(file: string, position: Point | null | undefined) {
+export function openFile(file: string, position: PointLike | null | undefined) {
   const options: WorkspaceOpenOptions = { searchAllPanes: true }
   if (position) {
     options.initialLine = position.row
