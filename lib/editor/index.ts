@@ -80,7 +80,7 @@ export default class Editor {
       }),
     )
 
-    let tooltipSubscription
+    let tooltipSubscription: CompositeDisposable | null = null
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.tooltipFollows', tooltipFollows => {
         this.tooltipFollows = tooltipFollows
