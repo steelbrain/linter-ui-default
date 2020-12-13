@@ -14,8 +14,9 @@
   },
   "scripts": {
     "format": "prettier --write .",
-    "dev": "tsc --watch -p lib/tsconfig.json || echo done",
-    "build": "tsc -p lib/tsconfig.json || echo done",
+    "clean": "shx rm -rf dist",
+    "dev": "npm run clean && tsc --watch -p lib/tsconfig.json || echo done",
+    "build": "npm run clean && tsc -p lib/tsconfig.json || echo done",
     "test": "apm test",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix && npm run format",
@@ -39,6 +40,7 @@
     "eslint-config-steelbrain": "^5.0.0",
     "jasmine-fix": "^1.3.1",
     "prettier": "^2",
+    "shx": "^0.3.3",
     "typescript": "^4"
   },
   "providedServices": {
