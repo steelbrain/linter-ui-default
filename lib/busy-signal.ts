@@ -1,13 +1,12 @@
-/* @flow */
-
 import { CompositeDisposable } from 'atom'
 import type { Linter } from './types'
+import { BusySignalProvider, BusySignalRegistry } from 'atom-ide-base'
 
-class BusySignal {
-  provider: ?Object
+export default class BusySignal {
+  provider: BusySignalProvider | null | undefined
   executing: Set<{
-    linter: Linter,
-    filePath: ?string,
+    linter: Linter
+    filePath: string | null | undefined
   }>
   providerTitles: Set<string>
   useBusySignal: boolean
@@ -24,7 +23,7 @@ class BusySignal {
       }),
     )
   }
-  attach(registry: Object) {
+  attach(registry: BusySignalRegistry) {
     this.provider = registry.create()
     this.update()
   }
@@ -32,7 +31,7 @@ class BusySignal {
     const provider = this.provider
     if (!provider) return
     if (!this.useBusySignal) return
-    const fileMap: Map<?string, Array<string>> = new Map()
+    const fileMap: Map<string | null | undefined, Array<string>> = new Map()
     const currentTitles = new Set()
 
     for (const { filePath, linter } of this.executing) {
@@ -66,7 +65,7 @@ class BusySignal {
 
     fileMap.clear()
   }
-  getExecuting(linter: Linter, filePath: ?string): ?Object {
+  getExecuting(linter: Linter, filePath: string | null | undefined) {
     for (const entry of this.executing) {
       if (entry.linter === linter && entry.filePath === filePath) {
         return entry
@@ -74,14 +73,14 @@ class BusySignal {
     }
     return null
   }
-  didBeginLinting(linter: Linter, filePath: ?string) {
+  didBeginLinting(linter: Linter, filePath: string | null | undefined) {
     if (this.getExecuting(linter, filePath)) {
       return
     }
     this.executing.add({ linter, filePath })
     this.update()
   }
-  didFinishLinting(linter: Linter, filePath: ?string) {
+  didFinishLinting(linter: Linter, filePath: string | null | undefined) {
     const entry = this.getExecuting(linter, filePath)
     if (entry) {
       this.executing.delete(entry)
@@ -97,5 +96,3 @@ class BusySignal {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = BusySignal

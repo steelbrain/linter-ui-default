@@ -1,12 +1,10 @@
-/* @flow */
-
 import { CompositeDisposable } from 'atom'
 import type { TextEditor } from 'atom'
 import Editor from './editor'
 import { $file, getEditorsMap, filterMessages } from './helpers'
 import type { LinterMessage, MessagesPatch } from './types'
 
-class Editors {
+export default class Editors {
   editors: Set<Editor>
   messages: Array<LinterMessage>
   firstRender: boolean
@@ -41,27 +39,27 @@ class Editors {
     this.firstRender = false
 
     const { editorsMap, filePaths } = getEditorsMap(this)
-    added.forEach(function(message) {
+    added.forEach(function (message) {
       if (!message || !message.location) {
         return
       }
       const filePath = $file(message)
-      if (filePath && editorsMap[filePath]) {
-        editorsMap[filePath].added.push(message)
+      if (filePath && editorsMap.has(filePath)) {
+        editorsMap.get(filePath).added.push(message)
       }
     })
-    removed.forEach(function(message) {
+    removed.forEach(function (message) {
       if (!message || !message.location) {
         return
       }
       const filePath = $file(message)
-      if (filePath && editorsMap[filePath]) {
-        editorsMap[filePath].removed.push(message)
+      if (filePath && editorsMap.has(filePath)) {
+        editorsMap.get(filePath).removed.push(message)
       }
     })
 
-    filePaths.forEach(function(filePath) {
-      const value = editorsMap[filePath]
+    filePaths.forEach(function (filePath) {
+      const value = editorsMap.get(filePath)
       if (value.added.length || value.removed.length) {
         value.editors.forEach(editor => editor.apply(value.added, value.removed))
       }
@@ -100,5 +98,3 @@ class Editors {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = Editors

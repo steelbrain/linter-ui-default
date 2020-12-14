@@ -1,10 +1,8 @@
-/* @flow */
-
 import { Range } from 'atom'
+import type { Point, PointLike, PointCompatible, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
 import { shell } from 'electron'
-import type { Point, TextEditor } from 'atom'
 import type Editors from './editors'
-import type { LinterMessage } from './types'
+import type { LinterMessage, Message, MessageSolution, EditorsMap } from './types'
 
 let lastPaneItem = null
 export const severityScore = {
@@ -22,10 +20,10 @@ export const WORKSPACE_URI = 'atom://linter-ui-default'
 export const DOCK_ALLOWED_LOCATIONS = ['center', 'bottom']
 export const DOCK_DEFAULT_LOCATION = 'bottom'
 
-export function $range(message: LinterMessage): ?Object {
+export function $range(message: LinterMessage): Range | null | undefined {
   return message.location.position
 }
-export function $file(message: LinterMessage): ?string {
+export function $file(message: LinterMessage): string | null | undefined {
   return message.location.file
 }
 export function copySelection() {
@@ -37,7 +35,7 @@ export function copySelection() {
 export function getPathOfMessage(message: LinterMessage): string {
   return atom.project.relativizePath($file(message) || '')[1]
 }
-export function getActiveTextEditor(): ?TextEditor {
+export function getActiveTextEditor(): TextEditor | null | undefined {
   let paneItem = atom.workspace.getCenter().getActivePaneItem()
   const paneIsTextEditor = atom.workspace.isTextEditor(paneItem)
   if (
@@ -55,19 +53,20 @@ export function getActiveTextEditor(): ?TextEditor {
   return atom.workspace.isTextEditor(paneItem) ? paneItem : null
 }
 
-export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths: Array<string> } {
-  const editorsMap = {}
-  const filePaths = []
+export function getEditorsMap(editors: Editors): { editorsMap: EditorsMap; filePaths: Array<string> } {
+  // TODO types
+  const editorsMap: EditorsMap = new Map()
+  const filePaths: string[] = []
   for (const entry of editors.editors) {
     const filePath = entry.textEditor.getPath()
-    if (editorsMap[filePath]) {
-      editorsMap[filePath].editors.push(entry)
+    if (editorsMap.has(filePath)) {
+      editorsMap.get(filePath).editors.push(entry)
     } else {
-      editorsMap[filePath] = {
+      editorsMap.set(filePath, {
         added: [],
         removed: [],
         editors: [entry],
-      }
+      })
       filePaths.push(filePath)
     }
   }
@@ -76,11 +75,11 @@ export function getEditorsMap(editors: Editors): { editorsMap: Object, filePaths
 
 export function filterMessages(
   messages: Array<LinterMessage>,
-  filePath: ?string,
-  severity: ?string = null,
+  filePath: string | null | undefined,
+  severity: string | null | undefined = null,
 ): Array<LinterMessage> {
   const filtered = []
-  messages.forEach(function(message) {
+  messages.forEach(function (message) {
     if (!message || !message.location) {
       return
     }
@@ -94,12 +93,14 @@ export function filterMessages(
 export function filterMessagesByRangeOrPoint(
   messages: Set<LinterMessage> | Array<LinterMessage> | Map<string, LinterMessage>,
   filePath: string,
-  rangeOrPoint: Point | Range,
+  rangeOrPoint: Point | RangeCompatible,
 ): Array<LinterMessage> {
   const filtered = []
   const expectedRange =
-    rangeOrPoint.constructor.name === 'Point' ? new Range(rangeOrPoint, rangeOrPoint) : Range.fromObject(rangeOrPoint)
-  messages.forEach(function(message) {
+    rangeOrPoint.constructor.name === 'Point'
+      ? new Range(rangeOrPoint as Point, rangeOrPoint as Point)
+      : Range.fromObject(rangeOrPoint as RangeCompatible)
+  messages.forEach(function (message: LinterMessage) {
     const file = $file(message)
     const range = $range(message)
     if (
@@ -115,9 +116,8 @@ export function filterMessagesByRangeOrPoint(
   return filtered
 }
 
-export function openFile(file: string, position: ?Point) {
-  const options = {}
-  options.searchAllPanes = true
+export function openFile(file: string, position: PointLike | null | undefined) {
+  const options: WorkspaceOpenOptions = { searchAllPanes: true }
   if (position) {
     options.initialLine = position.row
     options.initialColumn = position.column
@@ -125,9 +125,9 @@ export function openFile(file: string, position: ?Point) {
   atom.workspace.open(file, options)
 }
 
-export function visitMessage(message: LinterMessage, reference: boolean = false) {
-  let messageFile
-  let messagePosition
+export function visitMessage(message: LinterMessage, reference = false) {
+  let messageFile: string
+  let messagePosition: Point
   if (reference) {
     if (!message.reference || !message.reference.file) {
       console.warn('[Linter-UI-Default] Message does not have a valid reference. Ignoring')
@@ -147,28 +147,28 @@ export function visitMessage(message: LinterMessage, reference: boolean = false)
   }
 }
 
-export function openExternally(message: LinterMessage): void {
+export function openExternally(message: LinterMessage) {
   if (message.version === 2 && message.url) {
     shell.openExternal(message.url)
   }
 }
 
 export function sortMessages(
-  sortInfo: Array<{ column: string, type: 'asc' | 'desc' }>,
+  sortInfo: Array<{ column: string; type: 'asc' | 'desc' }>,
   rows: Array<LinterMessage>,
 ): Array<LinterMessage> {
   const sortColumns: {
-    severity?: 'asc' | 'desc',
-    linterName?: 'asc' | 'desc',
-    file?: 'asc' | 'desc',
-    line?: 'asc' | 'desc',
+    severity?: 'asc' | 'desc'
+    linterName?: 'asc' | 'desc'
+    file?: 'asc' | 'desc'
+    line?: 'asc' | 'desc'
   } = {}
 
-  sortInfo.forEach(function(entry) {
+  sortInfo.forEach(function (entry) {
     sortColumns[entry.column] = entry.type
   })
 
-  return rows.slice().sort(function(a, b) {
+  return rows.slice().sort(function (a, b) {
     if (sortColumns.severity) {
       const multiplyWith = sortColumns.severity === 'asc' ? 1 : -1
       const severityA = severityScore[a.severity]
@@ -218,21 +218,21 @@ export function sortMessages(
   })
 }
 
-export function sortSolutions(solutions: Array<Object>): Array<Object> {
-  return solutions.slice().sort(function(a, b) {
+export function sortSolutions(solutions: Message['solutions']) {
+  return solutions.slice().sort(function (a, b) {
     return b.priority - a.priority
   })
 }
 
-export function applySolution(textEditor: TextEditor, solution: Object): boolean {
-  if (solution.apply) {
+export function applySolution(textEditor: TextEditor, solution: MessageSolution): boolean {
+  if ('apply' in solution) {
     solution.apply()
     return true
   }
   const range = solution.position
-  const currentText = solution.currentText
   const replaceWith = solution.replaceWith
-  if (currentText) {
+  if ('currentText' in solution) {
+    const currentText = solution.currentText
     const textInRange = textEditor.getTextInBufferRange(range)
     if (currentText !== textInRange) {
       console.warn(

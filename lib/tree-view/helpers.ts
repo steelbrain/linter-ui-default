@@ -1,5 +1,3 @@
-/* @flow */
-
 import Path from 'path'
 import { $file } from '../helpers'
 import type { LinterMessage } from '../types'
@@ -47,7 +45,7 @@ export function calculateDecorations(
 ): Object {
   const toReturn = {}
   const projectPaths: Array<string> = atom.project.getPaths()
-  messages.forEach(function(message) {
+  messages.forEach(function (message) {
     const filePath = $file(message)
     if (filePath) {
       const chunks = decorateOnTreeView === 'Files' ? [filePath] : getChunksByProjects(filePath, projectPaths)

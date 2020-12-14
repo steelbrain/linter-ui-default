@@ -1,36 +1,48 @@
-/* @flow */
-
-import { CompositeDisposable } from 'atom'
+import { CompositeDisposable, Dock, WorkspaceCenter } from 'atom'
 import { WORKSPACE_URI, DOCK_ALLOWED_LOCATIONS, DOCK_DEFAULT_LOCATION } from '../helpers'
+import type Delegate from './delegate'
 
-let React
-let ReactDOM
-let Component
+// NOTE: these were lazy
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Component from './component'
+
+// TODO Make these API public
+export type PaneContainer = Dock & {
+  state: { size: number }
+  render: Function
+  paneForItem: WorkspaceCenter['paneForItem']
+  location: string
+}
 
 // eslint-disable-next-line no-use-before-define
-function getPaneContainer(item: PanelDock) {
+function getPaneContainer(item: PanelDock): PaneContainer {
   const paneContainer = atom.workspace.paneContainerForItem(item)
   // NOTE: This is an internal API access
   // It's necessary because there's no Public API for it yet
   if (
     paneContainer &&
+    // @ts-ignore internal API
     typeof paneContainer.state === 'object' &&
+    // @ts-ignore internal API
     typeof paneContainer.state.size === 'number' &&
+    // @ts-ignore internal API
     typeof paneContainer.render === 'function'
   ) {
-    return paneContainer
+    // @ts-ignore internal API
+    return paneContainer as PaneContainer
   }
   return null
 }
 
-class PanelDock {
+export default class PanelDock {
   element: HTMLElement
   subscriptions: CompositeDisposable
   panelHeight: number
   alwaysTakeMinimumSpace: boolean
   lastSetPaneHeight: number | null
 
-  constructor(delegate: Object) {
+  constructor(delegate: Delegate) {
     this.element = document.createElement('div')
     this.subscriptions = new CompositeDisposable()
 
@@ -50,21 +62,10 @@ class PanelDock {
       }),
     )
     this.doPanelResize()
-
-    if (!React) {
-      React = require('react')
-    }
-    if (!ReactDOM) {
-      ReactDOM = require('react-dom')
-    }
-    if (!Component) {
-      Component = require('./component')
-    }
-
     ReactDOM.render(<Component delegate={delegate} />, this.element)
   }
   // NOTE: Chose a name that won't conflict with Dock APIs
-  doPanelResize(forConfigHeight: boolean = false) {
+  doPanelResize(forConfigHeight = false) {
     const paneContainer = getPaneContainer(this)
     let minimumHeight: number | null = null
     const paneContainerView = atom.views.getView(paneContainer)
@@ -122,5 +123,3 @@ class PanelDock {
     }
   }
 }
-
-module.exports = PanelDock

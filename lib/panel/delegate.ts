@@ -1,10 +1,8 @@
-/* @flow */
-
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
 import { getActiveTextEditor, filterMessages, filterMessagesByRangeOrPoint } from '../helpers'
 import type { LinterMessage } from '../types'
 
-class PanelDelegate {
+export default class PanelDelegate {
   emitter: Emitter
   messages: Array<LinterMessage>
   filteredMessages: Array<LinterMessage>
@@ -26,7 +24,7 @@ class PanelDelegate {
         }
       }),
     )
-    let changeSubscription
+    let changeSubscription: Disposable | null
     this.subscriptions.add(
       atom.workspace.getCenter().observeActivePaneItem(() => {
         if (changeSubscription) {
@@ -53,7 +51,7 @@ class PanelDelegate {
       }),
     )
     this.subscriptions.add(
-      new Disposable(function() {
+      new Disposable(function () {
         if (changeSubscription) {
           changeSubscription.dispose()
         }
@@ -75,12 +73,15 @@ class PanelDelegate {
       filteredMessages = filterMessagesByRangeOrPoint(
         this.messages,
         activeEditor.getPath(),
-        Range.fromObject([[activeLine, 0], [activeLine, Infinity]]),
+        Range.fromObject([
+          [activeLine, 0],
+          [activeLine, Infinity],
+        ]),
       )
     }
     return filteredMessages
   }
-  update(messages: ?Array<LinterMessage> = null): void {
+  update(messages: Array<LinterMessage> | null | undefined = null): void {
     if (Array.isArray(messages)) {
       this.messages = messages
     }
@@ -94,5 +95,3 @@ class PanelDelegate {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = PanelDelegate

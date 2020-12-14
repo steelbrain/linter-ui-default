@@ -1,9 +1,7 @@
-/* @flow */
-
 import { CompositeDisposable, Emitter } from 'atom'
 import type { Disposable } from 'atom'
 
-class TooltipDelegate {
+export default class TooltipDelegate {
   emitter: Emitter
   expanded: boolean
   subscriptions: CompositeDisposable
@@ -34,7 +32,7 @@ class TooltipDelegate {
           this.emitter.emit('should-expand')
 
           // If bound to a key, collapse when that key is released, just like old times
-          if (event.originalEvent && event.originalEvent.isTrusted) {
+          if (event?.originalEvent?.isTrusted) {
             // $FlowIgnore: document.body is never null
             document.body.addEventListener('keyup', function eventListener() {
               // $FlowIgnore: document.body is never null
@@ -63,5 +61,3 @@ class TooltipDelegate {
     this.emitter.dispose()
   }
 }
-
-module.exports = TooltipDelegate

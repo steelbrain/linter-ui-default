@@ -1,12 +1,15 @@
-/* @flow */
-
-import type { Point, TextEditor } from 'atom'
+import type { Point, TextEditor, TextEditorElement, PointLike } from 'atom'
+import type TooltipElement from '../tooltip/index'
 
 const TOOLTIP_WIDTH_HIDE_OFFSET = 30
 
-export function getBufferPositionFromMouseEvent(event: MouseEvent, editor: TextEditor, editorElement: Object): ?Point {
-  const pixelPosition = editorElement.component.pixelPositionForMouseEvent(event)
-  const screenPosition = editorElement.component.screenPositionForPixelPosition(pixelPosition)
+export function getBufferPositionFromMouseEvent(
+  event: MouseEvent,
+  editor: TextEditor,
+  editorElement: TextEditorElement,
+): Point | null | undefined {
+  const pixelPosition = editorElement.getComponent().pixelPositionForMouseEvent(event)
+  const screenPosition = editorElement.getComponent().screenPositionForPixelPosition(pixelPosition)
   if (Number.isNaN(screenPosition.row) || Number.isNaN(screenPosition.column)) return null
   // ^ Workaround for NaN bug steelbrain/linter-ui-default#191
   const expectedPixelPosition = editorElement.pixelPositionForScreenPosition(screenPosition)
@@ -22,13 +25,25 @@ export function getBufferPositionFromMouseEvent(event: MouseEvent, editor: TextE
   return null
 }
 
-export function mouseEventNearPosition({ event, editor, editorElement, tooltipElement, screenPosition }: Object): boolean {
-  const pixelPosition = editorElement.component.pixelPositionForMouseEvent(event)
+export function mouseEventNearPosition({
+  event,
+  editor,
+  editorElement,
+  tooltipElement,
+  screenPosition,
+}: {
+  event: { clientX: number; clientY: number }
+  editor: TextEditor
+  editorElement: TextEditorElement
+  tooltipElement: TooltipElement['element']
+  screenPosition: PointLike
+}): boolean {
+  const pixelPosition = editorElement.getComponent().pixelPositionForMouseEvent(event)
   const expectedPixelPosition = editorElement.pixelPositionForScreenPosition(screenPosition)
   const differenceTop = pixelPosition.top - expectedPixelPosition.top
   const differenceLeft = pixelPosition.left - expectedPixelPosition.left
 
-  const editorLineHeight = editor.lineHeightInPixels
+  const editorLineHeight = editor.getLineHeightInPixels()
   const elementHeight = tooltipElement.offsetHeight + editorLineHeight
   const elementWidth = tooltipElement.offsetWidth
 

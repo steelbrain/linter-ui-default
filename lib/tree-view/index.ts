@@ -1,12 +1,10 @@
-/* @flow */
-
 import { CompositeDisposable, Emitter } from 'atom'
 import { debounce } from 'lodash'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
 import type { LinterMessage, TreeViewHighlight } from '../types'
 
-class TreeView {
+export default class TreeView {
   emitter: Emitter
   messages: Array<LinterMessage>
   decorations: Object
@@ -52,7 +50,7 @@ class TreeView {
       )
     }, 100)
   }
-  update(givenMessages: ?Array<LinterMessage> = null) {
+  update(givenMessages: Array<LinterMessage> | null | undefined = null) {
     if (Array.isArray(givenMessages)) {
       this.messages = givenMessages
     }
@@ -104,7 +102,7 @@ class TreeView {
     this.decorations = appliedDecorations
   }
 
-  handleDecoration(element: HTMLElement, update: boolean = false, highlights: TreeViewHighlight) {
+  handleDecoration(element: HTMLElement, update = false, highlights: TreeViewHighlight) {
     let decoration
     if (update) {
       decoration = element.querySelector('linter-decoration')
@@ -132,12 +130,10 @@ class TreeView {
   dispose() {
     this.subscriptions.dispose()
   }
-  static getElement() {
+  static getElement(): HTMLElement {
     return document.querySelector('.tree-view')
   }
-  static getElementByPath(parent: HTMLElement, filePath: string): ?HTMLElement {
+  static getElementByPath(parent: HTMLElement, filePath: string): HTMLElement | null | undefined {
     return parent.querySelector(`[data-path=${CSS.escape(filePath)}]`)
   }
 }
-
-module.exports = TreeView

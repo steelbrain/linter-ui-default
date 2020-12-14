@@ -1,5 +1,3 @@
-/* @flow */
-
 import * as url from 'url'
 import React from 'react'
 import marked from 'marked'
@@ -9,7 +7,7 @@ import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
 import FixButton from './fix-button'
 
-function findHref(el: ?Element): ?string {
+function findHref(el: Element | null | undefined): string | null {
   while (el && !el.classList.contains('linter-line')) {
     if (el instanceof HTMLAnchorElement) {
       return el.href
@@ -20,16 +18,16 @@ function findHref(el: ?Element): ?string {
 }
 
 type Props = {
-  message: Message,
-  delegate: TooltipDelegate,
+  message: Message
+  delegate: TooltipDelegate
 }
 
 type State = {
-  description?: string,
-  descriptionShow?: boolean,
+  description?: string
+  descriptionShow?: boolean
 }
 
-class MessageElement extends React.Component<Props, State> {
+export default class MessageElement extends React.Component<Props, State> {
   state: State = {
     description: '',
     descriptionShow: false,
@@ -59,7 +57,7 @@ class MessageElement extends React.Component<Props, State> {
     }
   }
 
-  openFile = (ev: Event) => {
+  openFile(ev: Event) {
     if (!(ev.target instanceof HTMLElement)) {
       return
     }
@@ -69,13 +67,23 @@ class MessageElement extends React.Component<Props, State> {
     }
     // parse the link. e.g. atom://linter?file=<path>&row=<number>&column=<number>
     const { protocol, hostname, query } = url.parse(href, true)
-    const file = query && query.file
-    if (protocol !== 'atom:' || hostname !== 'linter' || !file) {
+    if (protocol !== 'atom:' || hostname !== 'linter') {
       return
     }
-    const row = query && query.row ? parseInt(query.row, 10) : 0
-    const column = query && query.column ? parseInt(query.column, 10) : 0
-    openFile(file, { row, column })
+    // TODO: based on the types query is never null
+    if (!query || !query.file) {
+      return
+    } else {
+      const { file, row, column } = query
+      // TODO: will these be an array?
+      openFile(
+        /* file */ Array.isArray(file) ? file[0] : file,
+        /* position */ {
+          row: parseInt(Array.isArray(row) ? row[0] : row, 10) || 0,
+          column: parseInt(Array.isArray(column) ? column[0] : column, 10) || 0,
+        },
+      )
+    }
   }
 
   canBeFixed(message: LinterMessage): boolean {
@@ -85,7 +93,7 @@ class MessageElement extends React.Component<Props, State> {
     return false
   }
 
-  toggleDescription(result: ?string = null) {
+  toggleDescription(result: string | null | undefined = null) {
     const newStatus = !this.state.descriptionShow
     const description = this.state.description || this.props.message.description
 
@@ -94,7 +102,7 @@ class MessageElement extends React.Component<Props, State> {
       return
     }
     if (typeof description === 'string' || result) {
-      const descriptionToUse = marked(result || description)
+      const descriptionToUse = marked(result || (description as string))
       this.setState({ descriptionShow: true, description: descriptionToUse })
     } else if (typeof description === 'function') {
       this.setState({ descriptionShow: true })
@@ -102,7 +110,7 @@ class MessageElement extends React.Component<Props, State> {
         return
       }
       this.descriptionLoading = true
-      new Promise(function(resolve) {
+      new Promise(function (resolve) {
         resolve(description())
       })
         .then(response => {
@@ -123,8 +131,7 @@ class MessageElement extends React.Component<Props, State> {
     }
   }
 
-  props: Props
-  descriptionLoading: boolean = false
+  descriptionLoading = false
 
   render() {
     const { message, delegate } = this.props
@@ -141,12 +148,11 @@ class MessageElement extends React.Component<Props, State> {
           {delegate.showProviderName ? `${message.linterName}: ` : ''}
           {message.excerpt}
         </linter-excerpt>{' '}
-        {message.reference &&
-          message.reference.file && (
-            <a href="#" onClick={() => visitMessage(message, true)}>
-              <span className="icon linter-icon icon-alignment-aligned-to" />
-            </a>
-          )}
+        {message.reference && message.reference.file && (
+          <a href="#" onClick={() => visitMessage(message, true)}>
+            <span className="icon linter-icon icon-alignment-aligned-to" />
+          </a>
+        )}
         {message.url && (
           <a href="#" onClick={() => openExternally(message)}>
             <span className="icon linter-icon icon-link" />
@@ -164,5 +170,3 @@ class MessageElement extends React.Component<Props, State> {
     )
   }
 }
-
-module.exports = MessageElement

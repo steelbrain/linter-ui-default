@@ -1,11 +1,10 @@
-/* @flow */
-
 import { CompositeDisposable, Disposable } from 'atom'
+import type { StatusBar as StatusBarRegistry } from 'atom/status-bar'
 import Element from './element'
 import { $file, getActiveTextEditor } from '../helpers'
 import type { LinterMessage } from '../types'
 
-class StatusBar {
+export default class StatusBar {
   element: Element
   messages: Array<LinterMessage>
   subscriptions: CompositeDisposable
@@ -66,7 +65,7 @@ class StatusBar {
       }
     })
   }
-  update(messages: ?Array<LinterMessage> = null): void {
+  update(messages: Array<LinterMessage> | null | undefined = null): void {
     if (messages) {
       this.messages = messages
     } else {
@@ -91,7 +90,7 @@ class StatusBar {
     })
     this.element.update(count.error, count.warning, count.info)
   }
-  attach(statusBarRegistry: Object) {
+  attach(statusBarRegistry: StatusBarRegistry) {
     let statusBar = null
 
     this.subscriptions.add(
@@ -106,7 +105,7 @@ class StatusBar {
       }),
     )
     this.subscriptions.add(
-      new Disposable(function() {
+      new Disposable(function () {
         if (statusBar) {
           statusBar.destroy()
         }
@@ -117,5 +116,3 @@ class StatusBar {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = StatusBar

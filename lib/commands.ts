@@ -1,5 +1,3 @@
-/* @flow */
-
 import invariant from 'assert'
 import { CompositeDisposable } from 'atom'
 
@@ -13,9 +11,9 @@ import {
   filterMessages,
   applySolution,
 } from './helpers'
-import type { LinterMessage } from './types'
+import type { LinterMessage, Message } from './types'
 
-class Commands {
+export default class Commands {
   messages: Array<LinterMessage>
   subscriptions: CompositeDisposable
 
@@ -47,8 +45,8 @@ class Commands {
 
         // NOTE: Add no-ops here so they are recognized by commands registry
         // Real commands are registered when tooltip is shown inside tooltip's delegate
-        'linter-ui-default:expand-tooltip': function() {},
-        'linter-ui-default:collapse-tooltip': function() {},
+        'linter-ui-default:expand-tooltip': function () {},
+        'linter-ui-default:collapse-tooltip': function () {},
       }),
     )
     this.subscriptions.add(
@@ -75,18 +73,21 @@ class Commands {
     const textEditor = getActiveTextEditor()
     invariant(textEditor, 'textEditor was null on a command supposed to run on text-editors only')
     const messages = sortMessages([{ column: 'line', type: 'desc' }], filterMessages(this.messages, textEditor.getPath()))
-    messages.forEach(function(message) {
+    messages.forEach(function (message) {
       if (message.version === 2 && message.solutions && message.solutions.length) {
         applySolution(textEditor, sortSolutions(message.solutions)[0])
       }
     })
   }
-  move(forward: boolean, globally: boolean, severity: ?string = null): void {
+  move(forward: boolean, globally: boolean, severity: string | null | undefined = null): void {
     const currentEditor = getActiveTextEditor()
     const currentFile: any = (currentEditor && currentEditor.getPath()) || NaN
     // NOTE: ^ Setting default to NaN so it won't match empty file paths in messages
     const messages = sortMessages(
-      [{ column: 'file', type: 'asc' }, { column: 'line', type: 'asc' }],
+      [
+        { column: 'file', type: 'asc' },
+        { column: 'line', type: 'asc' },
+      ],
       filterMessages(this.messages, globally ? null : currentFile, severity),
     )
     const expectedValue = forward ? -1 : 1
@@ -107,7 +108,7 @@ class Commands {
       messages.reverse()
     }
 
-    let found
+    let found: Message | null
     let currentFileEncountered = false
     for (let i = 0, length = messages.length; i < length; i++) {
       const message = messages[i]
@@ -144,5 +145,3 @@ class Commands {
     this.subscriptions.dispose()
   }
 }
-
-module.exports = Commands

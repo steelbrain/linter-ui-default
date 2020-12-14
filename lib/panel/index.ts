@@ -1,11 +1,10 @@
-/* @flow */
-
 import { CompositeDisposable } from 'atom'
 import Delegate from './delegate'
 import PanelDock from './dock'
 import type { LinterMessage } from '../types'
+import type { PaneContainer } from './dock'
 
-class Panel {
+export default class Panel {
   panel: PanelDock | null
   element: HTMLElement
   delegate: Delegate
@@ -110,7 +109,8 @@ class Panel {
     if (!this.panel) {
       return null
     }
-    const paneContainer = atom.workspace.paneContainerForItem(this.panel)
+    // @ts-ignore internal API
+    const paneContainer: PaneContainer = atom.workspace.paneContainerForItem(this.panel)
     return (paneContainer && paneContainer.location) || null
   }
   async activate() {
@@ -126,7 +126,7 @@ class Panel {
     this.update()
     this.refresh()
   }
-  update(newMessages: ?Array<LinterMessage> = null): void {
+  update(newMessages: Array<LinterMessage> | null | undefined = null): void {
     if (newMessages) {
       this.messages = newMessages
     }
@@ -142,7 +142,8 @@ class Panel {
       }
       return
     }
-    const paneContainer = atom.workspace.paneContainerForItem(panel)
+    // @ts-ignore internal API
+    const paneContainer: PaneContainer = atom.workspace.paneContainerForItem(panel)
     if (!paneContainer || paneContainer.location !== 'bottom') {
       return
     }
@@ -168,5 +169,3 @@ class Panel {
     window.cancelIdleCallback(this.activationTimer)
   }
 }
-
-module.exports = Panel

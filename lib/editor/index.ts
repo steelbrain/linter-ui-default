@@ -1,34 +1,34 @@
-/* @flow */
-
 import { debounce } from 'lodash'
 import disposableEvent from 'disposable-event'
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
+type CompositeDisposableType = CompositeDisposable & { disposed: boolean }
+
 // $FlowIgnore: Cursor is a type
-import type { TextEditor, BufferMarker, TextEditorGutter, Point, Cursor } from 'atom'
+import type { TextEditor, DisplayMarker, Marker, Gutter, Point, Cursor } from 'atom'
 
 import Tooltip from '../tooltip'
 import { $range, filterMessagesByRangeOrPoint } from '../helpers'
 import { hasParent, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
 import type { LinterMessage } from '../types'
 
-class Editor {
-  gutter: ?TextEditorGutter
-  tooltip: ?Tooltip
+export default class Editor {
+  gutter: Gutter | null | undefined
+  tooltip: Tooltip | null | undefined
   emitter: Emitter
-  markers: Map<string, Array<BufferMarker>>
+  markers: Map<string, Array<DisplayMarker | Marker>>
   messages: Map<string, LinterMessage>
   textEditor: TextEditor
   showTooltip: boolean
-  subscriptions: CompositeDisposable
-  cursorPosition: ?Point
-  gutterPosition: boolean
+  subscriptions: CompositeDisposableType
+  cursorPosition: Point | null | undefined
+  gutterPosition: string
   tooltipFollows: string
   showDecorations: boolean
   showProviderName: boolean
   ignoreTooltipInvocation: boolean
-  currentLineMarker: ?BufferMarker
-  lastRange: ?Range
-  lastEmpty: ?Range
+  currentLineMarker: DisplayMarker | null | undefined
+  lastRange: Range | null | undefined
+  lastIsEmpty: boolean | null | undefined
   lastCursorPositions: WeakMap<Cursor, Point>
 
   constructor(textEditor: TextEditor) {
@@ -37,11 +37,11 @@ class Editor {
     this.markers = new Map()
     this.messages = new Map()
     this.textEditor = textEditor
-    this.subscriptions = new CompositeDisposable()
+    this.subscriptions = new CompositeDisposable() as CompositeDisposableType
     this.ignoreTooltipInvocation = false
     this.currentLineMarker = null
     this.lastRange = null
-    this.lastEmpty = null
+    this.lastIsEmpty = null
     this.lastCursorPositions = new WeakMap()
 
     this.subscriptions.add(this.emitter)
@@ -82,7 +82,7 @@ class Editor {
       }),
     )
 
-    let tooltipSubscription
+    let tooltipSubscription: CompositeDisposable | null = null
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.tooltipFollows', tooltipFollows => {
         this.tooltipFollows = tooltipFollows
@@ -100,7 +100,7 @@ class Editor {
       }),
     )
     this.subscriptions.add(
-      new Disposable(function() {
+      new Disposable(function () {
         tooltipSubscription.dispose()
       }),
     )
@@ -142,26 +142,29 @@ class Editor {
           // end.column is the column of the last line but making a range out of two and then accesing
           // the end seems to fix it (black magic?)
           const currentRange = Range.fromObject([start, end])
-          const linesRange = Range.fromObject([[start.row, 0], [end.row, Infinity]])
-          const currentEmpty = currentRange.isEmpty()
+          const linesRange = Range.fromObject([
+            [start.row, 0],
+            [end.row, Infinity],
+          ])
+          const currentIsEmpty = currentRange.isEmpty()
 
           // NOTE: Atom does not paint gutter if multi-line and last line has zero index
           if (start.row !== end.row && currentRange.end.column === 0) {
             linesRange.end.row--
           }
-          if (this.lastRange && this.lastRange.isEqual(linesRange) && currentEmpty === this.lastEmpty) return
+          if (this.lastRange && this.lastRange.isEqual(linesRange) && currentIsEmpty === this.lastIsEmpty) return
           if (this.currentLineMarker) {
             this.currentLineMarker.destroy()
             this.currentLineMarker = null
           }
           this.lastRange = linesRange
-          this.lastEmpty = currentEmpty
+          this.lastIsEmpty = currentIsEmpty
 
           this.currentLineMarker = this.textEditor.markScreenRange(linesRange, {
             invalidate: 'never',
           })
           const item = document.createElement('span')
-          item.className = `line-number cursor-line linter-cursor-line ${currentEmpty ? 'cursor-line-no-selection' : ''}`
+          item.className = `line-number cursor-line linter-cursor-line ${currentIsEmpty ? 'cursor-line-no-selection' : ''}`
           gutter.decorateMarker(this.currentLineMarker, {
             item,
             class: 'linter-row',
@@ -185,7 +188,7 @@ class Editor {
           }),
         )
         subscriptions.add(
-          new Disposable(function() {
+          new Disposable(function () {
             if (this.currentLineMarker) {
               this.currentLineMarker.destroy()
               this.currentLineMarker = null
@@ -205,7 +208,7 @@ class Editor {
       'mousemove',
       debounce(
         event => {
-          if (!editorElement.component || this.subscriptions.disposed || !hasParent(event.target, 'div.scroll-view')) {
+          if (!editorElement.getComponent() || this.subscriptions.disposed || !hasParent(event.target, 'div.scroll-view')) {
             return
           }
           const tooltip = this.tooltip
@@ -224,7 +227,9 @@ class Editor {
 
           this.cursorPosition = getBufferPositionFromMouseEvent(event, this.textEditor, editorElement)
           this.ignoreTooltipInvocation = false
-          if (this.textEditor.largeFileMode) {
+          //@ts-ignore internal API
+          if (this.textEditor.largeFileMode || this.textEditor.getLineCount() > 20000) {
+            // TODO: make line count a config
             // NOTE: Ignore if file is too large
             this.cursorPosition = null
           }
@@ -258,7 +263,7 @@ class Editor {
       name: 'linter-ui-default',
       priority,
     })
-    this.markers.forEach((markers: Array<BufferMarker>, key: string) => {
+    this.markers.forEach((markers: Array<DisplayMarker>, key: string) => {
       const message = this.messages.get(key)
       if (message) {
         for (const marker of markers) {
@@ -276,7 +281,7 @@ class Editor {
       }
     }
   }
-  updateTooltip(position: ?Point) {
+  updateTooltip(position: Point | null | undefined) {
     if (!position || (this.tooltip && this.tooltip.isValid(position, this.messages))) {
       return
     }
@@ -326,7 +331,8 @@ class Editor {
         // Only for backward compatibility
         continue
       }
-      const marker = textBuffer.markRange(markerRange, {
+      // TODO this marker is Marker no DisplayMarker!!
+      const marker: Marker = textBuffer.markRange(markerRange, {
         invalidate: 'never',
       })
       this.decorateMarker(message, marker)
@@ -342,7 +348,7 @@ class Editor {
 
     this.updateTooltip(this.cursorPosition)
   }
-  decorateMarker(message: LinterMessage, marker: BufferMarker, paint: 'gutter' | 'editor' | 'both' = 'both') {
+  decorateMarker(message: LinterMessage, marker: DisplayMarker | Marker, paint: 'gutter' | 'editor' | 'both' = 'both') {
     this.saveMarker(message.key, marker)
     this.messages.set(message.key, message)
 
@@ -365,7 +371,7 @@ class Editor {
   }
 
   // add marker to the message => marker map
-  saveMarker(key: string, marker: BufferMarker) {
+  saveMarker(key: string, marker: DisplayMarker | Marker) {
     const allMarkers = this.markers.get(key) || []
     allMarkers.push(marker)
     this.markers.set(key, allMarkers)
@@ -385,7 +391,7 @@ class Editor {
     this.messages.delete(key)
   }
 
-  onDidDestroy(callback: Function): Disposable {
+  onDidDestroy(callback: (value?: any) => void) {
     return this.emitter.on('did-destroy', callback)
   }
   dispose() {
@@ -395,5 +401,3 @@ class Editor {
     this.removeTooltip()
   }
 }
-
-module.exports = Editor

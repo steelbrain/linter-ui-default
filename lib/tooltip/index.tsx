@@ -1,17 +1,15 @@
-/* @flow */
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CompositeDisposable, Emitter } from 'atom'
-import type { Disposable, Point, TextEditor } from 'atom'
+import type { Disposable, Point, TextEditor, DisplayMarker } from 'atom'
 
 import Delegate from './delegate'
 import MessageElement from './message'
 import { $range } from '../helpers'
 import type { LinterMessage } from '../types'
 
-class TooltipElement {
-  marker: Object
+export default class TooltipElement {
+  marker: DisplayMarker
   element: HTMLElement
   emitter: Emitter
   messages: Array<LinterMessage>
@@ -51,12 +49,10 @@ class TooltipElement {
     return Boolean(range && range.containsPoint(position))
   }
   onDidDestroy(callback: () => any): Disposable {
-    this.emitter.on('did-destroy', callback)
+    return this.emitter.on('did-destroy', callback)
   }
   dispose() {
     this.emitter.emit('did-destroy')
     this.subscriptions.dispose()
   }
 }
-
-module.exports = TooltipElement

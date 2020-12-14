@@ -1,5 +1,3 @@
-/* @flow */
-
 import { CompositeDisposable } from 'atom'
 import Panel from './panel'
 import Commands from './commands'
@@ -8,14 +6,14 @@ import BusySignal from './busy-signal'
 import Intentions from './intentions'
 import type { Linter, LinterMessage, MessagesPatch } from './types'
 
-let Editors
-let TreeView
+import Editors from './editors'
+import TreeView from './tree-view'
 
-class LinterUI {
+export default class LinterUI {
   name: string
   panel: Panel
   signal: BusySignal
-  editors: ?Editors
+  editors: Editors | null | undefined
   treeview: TreeView
   commands: Commands
   messages: Array<LinterMessage>
@@ -50,9 +48,6 @@ class LinterUI {
     const obsShowDecorationsCB = window.requestIdleCallback(
       function observeShowDecorations() {
         this.idleCallbacks.delete(obsShowDecorationsCB)
-        if (!Editors) {
-          Editors = require('./editors')
-        }
         this.subscriptions.add(
           atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
             if (showDecorations && !this.editors) {
@@ -89,9 +84,6 @@ class LinterUI {
     }
     // Initialize the TreeView subscription if necessary
     if (!this.treeview) {
-      if (!TreeView) {
-        TreeView = require('./tree-view')
-      }
       this.treeview = new TreeView()
       this.subscriptions.add(this.treeview)
     }
@@ -122,5 +114,3 @@ class LinterUI {
     }
   }
 }
-
-module.exports = LinterUI

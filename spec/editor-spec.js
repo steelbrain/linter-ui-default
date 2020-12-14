@@ -3,17 +3,20 @@
 import { Range } from 'atom'
 // eslint-disable-next-line no-unused-vars
 import { it, fit, wait, beforeEach, afterEach } from 'jasmine-fix'
-import Editor from '../lib/editor'
+import Editor from '../dist/editor'
 import { getMessage } from './helpers'
 
-describe('Editor', function() {
+describe('Editor', function () {
   let editor
   let message
   let textEditor
 
-  beforeEach(async function() {
+  beforeEach(async function () {
     message = getMessage()
-    message.location.position = [[2, 0], [2, 1]]
+    message.location.position = [
+      [2, 0],
+      [2, 1],
+    ]
     message.location.file = __filename
     await atom.workspace.open(__filename)
     textEditor = atom.workspace.getActiveTextEditor()
@@ -25,20 +28,20 @@ describe('Editor', function() {
 
     atom.packages.loadPackage('linter-ui-default')
   })
-  afterEach(function() {
+  afterEach(function () {
     editor.dispose()
     atom.workspace.destroyActivePaneItem()
   })
 
-  describe('apply', function() {
-    it('applies the messages to the editor', function() {
+  describe('apply', function () {
+    it('applies the messages to the editor', function () {
       expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
       editor.apply([message], [])
       expect(textEditor.getBuffer().getMarkerCount()).toBe(1)
       editor.apply([], [message])
       expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
     })
-    it('makes sure that the message is updated if text is manipulated', function() {
+    it('makes sure that the message is updated if text is manipulated', function () {
       expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
       editor.apply([message], [])
       expect(textEditor.getBuffer().getMarkerCount()).toBe(1)
@@ -59,14 +62,14 @@ describe('Editor', function() {
       expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
     })
   })
-  describe('Response to config', function() {
-    it('responds to `gutterPosition`', function() {
+  describe('Response to config', function () {
+    it('responds to `gutterPosition`', function () {
       atom.config.set('linter-ui-default.gutterPosition', 'Left')
       expect(editor.gutter && editor.gutter.priority).toBe(-100)
       atom.config.set('linter-ui-default.gutterPosition', 'Right')
       expect(editor.gutter && editor.gutter.priority).toBe(100)
     })
-    it('responds to `showDecorations`', function() {
+    it('responds to `showDecorations`', function () {
       atom.config.set('linter-ui-default.showDecorations', false)
       expect(editor.gutter).toBe(null)
       atom.config.set('linter-ui-default.showDecorations', true)
