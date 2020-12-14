@@ -1,4 +1,5 @@
 import { TextEditor, Point, Range } from 'atom'
+import type Editor from './editor/index'
 
 export type MessageSolution =
   | {
@@ -60,6 +61,14 @@ export type MessagesPatch = {
   removed: Array<Message>
   messages: Array<Message>
 }
+
+export type EditorsPatch = {
+  added: Array<Message>
+  removed: Array<Message>
+  editors: Array<Editor>
+}
+
+export type EditorsMap = Map<string, EditorsPatch>
 
 export type TreeViewHighlight = {
   info: boolean
