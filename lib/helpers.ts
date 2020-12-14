@@ -2,7 +2,7 @@ import { Range } from 'atom'
 import type { Point, PointLike, PointCompatible, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
 import { shell } from 'electron'
 import type Editors from './editors'
-import type { LinterMessage, Message, MessageSolution } from './types'
+import type { LinterMessage, Message, MessageSolution, EditorsMap } from './types'
 
 let lastPaneItem = null
 export const severityScore = {
@@ -53,19 +53,20 @@ export function getActiveTextEditor(): TextEditor | null | undefined {
   return atom.workspace.isTextEditor(paneItem) ? paneItem : null
 }
 
-export function getEditorsMap(editors: Editors): { editorsMap: Object; filePaths: Array<string> } {
-  const editorsMap = {}
-  const filePaths = []
+export function getEditorsMap(editors: Editors): { editorsMap: EditorsMap; filePaths: Array<string> } {
+  // TODO types
+  const editorsMap: EditorsMap = new Map()
+  const filePaths: string[] = []
   for (const entry of editors.editors) {
     const filePath = entry.textEditor.getPath()
-    if (editorsMap[filePath]) {
-      editorsMap[filePath].editors.push(entry)
+    if (editorsMap.has(filePath)) {
+      editorsMap.get(filePath).editors.push(entry)
     } else {
-      editorsMap[filePath] = {
+      editorsMap.set(filePath, {
         added: [],
         removed: [],
         editors: [entry],
-      }
+      })
       filePaths.push(filePath)
     }
   }

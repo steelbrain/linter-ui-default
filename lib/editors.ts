@@ -44,8 +44,8 @@ export default class Editors {
         return
       }
       const filePath = $file(message)
-      if (filePath && editorsMap[filePath]) {
-        editorsMap[filePath].added.push(message)
+      if (filePath && editorsMap.has(filePath)) {
+        editorsMap.get(filePath).added.push(message)
       }
     })
     removed.forEach(function (message) {
@@ -53,13 +53,13 @@ export default class Editors {
         return
       }
       const filePath = $file(message)
-      if (filePath && editorsMap[filePath]) {
-        editorsMap[filePath].removed.push(message)
+      if (filePath && editorsMap.has(filePath)) {
+        editorsMap.get(filePath).removed.push(message)
       }
     })
 
     filePaths.forEach(function (filePath) {
-      const value = editorsMap[filePath]
+      const value = editorsMap.get(filePath)
       if (value.added.length || value.removed.length) {
         value.editors.forEach(editor => editor.apply(value.added, value.removed))
       }
