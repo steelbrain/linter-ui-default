@@ -19,7 +19,7 @@ export default class Editor {
   showTooltip: boolean
   subscriptions: CompositeDisposable
   cursorPosition: Point | null | undefined
-  gutterPosition: boolean
+  gutterPosition: string
   tooltipFollows: string
   showDecorations: boolean
   showProviderName: boolean
