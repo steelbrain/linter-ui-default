@@ -24,7 +24,7 @@ export default class PanelDelegate {
         }
       }),
     )
-    let changeSubscription
+    let changeSubscription: Disposable | null
     this.subscriptions.add(
       atom.workspace.getCenter().observeActivePaneItem(() => {
         if (changeSubscription) {
