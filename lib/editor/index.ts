@@ -1,6 +1,8 @@
 import { debounce } from 'lodash'
 import disposableEvent from 'disposable-event'
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
+type CompositeDisposableType = CompositeDisposable & { disposed: boolean }
+
 // $FlowIgnore: Cursor is a type
 import type { TextEditor, DisplayMarker, Marker, Gutter, Point, Cursor } from 'atom'
 
@@ -17,7 +19,7 @@ export default class Editor {
   messages: Map<string, LinterMessage>
   textEditor: TextEditor
   showTooltip: boolean
-  subscriptions: CompositeDisposable
+  subscriptions: CompositeDisposableType
   cursorPosition: Point | null | undefined
   gutterPosition: string
   tooltipFollows: string
@@ -35,7 +37,7 @@ export default class Editor {
     this.markers = new Map()
     this.messages = new Map()
     this.textEditor = textEditor
-    this.subscriptions = new CompositeDisposable()
+    this.subscriptions = new CompositeDisposable() as CompositeDisposableType
     this.ignoreTooltipInvocation = false
     this.currentLineMarker = null
     this.lastRange = null
