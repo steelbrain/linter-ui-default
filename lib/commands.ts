@@ -11,7 +11,7 @@ import {
   filterMessages,
   applySolution,
 } from './helpers'
-import type { LinterMessage } from './types'
+import type { LinterMessage, Message } from './types'
 
 export default class Commands {
   messages: Array<LinterMessage>
@@ -108,7 +108,7 @@ export default class Commands {
       messages.reverse()
     }
 
-    let found
+    let found: Message | null
     let currentFileEncountered = false
     for (let i = 0, length = messages.length; i < length; i++) {
       const message = messages[i]
