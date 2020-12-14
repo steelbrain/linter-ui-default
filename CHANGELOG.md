@@ -1,4 +1,7 @@
 # Changelog
+### 2.2.0
+- feat: convert codebase to typescript. [This involved many bug fixes](https://github.com/steelbrain/linter-ui-default/pull/602)
+
 ## 2.1.5
 - fix: check if `intersectsWith` is a function
 
