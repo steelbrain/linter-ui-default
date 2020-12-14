@@ -67,13 +67,6 @@ export type TreeViewHighlight = {
   warning: boolean
 }
 
-// Electron types
-declare module 'electron' {
-  export const shell: {
-    openExternal(url: string): void
-  }
-}
-
 // windows requestIdleCallback types
 type RequestIdleCallbackHandle = any
 type RequestIdleCallbackOptions = {

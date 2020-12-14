@@ -1,6 +1,5 @@
 import { Range } from 'atom'
 import type { Point, PointLike, PointCompatible, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
-/// <reference types="./types.d.ts" />
 import { shell } from 'electron'
 import type Editors from './editors'
 import type { LinterMessage, Message, MessageSolution } from './types'
