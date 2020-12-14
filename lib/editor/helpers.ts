@@ -43,7 +43,7 @@ export function mouseEventNearPosition({
   const differenceTop = pixelPosition.top - expectedPixelPosition.top
   const differenceLeft = pixelPosition.left - expectedPixelPosition.left
 
-  const editorLineHeight = editor.lineHeightInPixels
+  const editorLineHeight = editor.getLineHeightInPixels()
   const elementHeight = tooltipElement.offsetHeight + editorLineHeight
   const elementWidth = tooltipElement.offsetWidth
 
