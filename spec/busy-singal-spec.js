@@ -33,10 +33,10 @@ class SignalRegistry {
   }
 }
 
-describe('BusySignal', function() {
+describe('BusySignal', function () {
   let busySignal
 
-  beforeEach(async function() {
+  beforeEach(async function () {
     // Activate activation hook
     atom.packages.triggerDeferredActivationHooks()
     atom.packages.triggerActivationHook('core:loaded-shell-environment')
@@ -45,11 +45,11 @@ describe('BusySignal', function() {
     busySignal = new BusySignal()
     busySignal.attach(SignalRegistry)
   })
-  afterEach(function() {
+  afterEach(function () {
     busySignal.dispose()
   })
 
-  it('tells the registry when linting is in progress without adding duplicates', function() {
+  it('tells the registry when linting is in progress without adding duplicates', function () {
     const linterA = getLinter()
     const texts = busySignal.provider && busySignal.provider.texts
     expect(texts).toEqual([])
@@ -64,7 +64,7 @@ describe('BusySignal', function() {
     busySignal.didFinishLinting(linterA, '/')
     expect(texts).toEqual([])
   })
-  it('shows one line per file and one for all project scoped ones', function() {
+  it('shows one line per file and one for all project scoped ones', function () {
     const linterA = getLinter('A')
     const linterB = getLinter('B')
     const linterC = getLinter('C')
@@ -104,7 +104,7 @@ describe('BusySignal', function() {
     busySignal.didFinishLinting(linterE)
     expect(texts).toEqual([])
   })
-  it('clears everything on dispose', function() {
+  it('clears everything on dispose', function () {
     const linterA = getLinter()
     busySignal.didBeginLinting(linterA, '/a')
     const texts = busySignal.provider && busySignal.provider.texts

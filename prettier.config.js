@@ -5,22 +5,22 @@ module.exports = {
   tabWidth: 2,
   printWidth: 125,
   semi: false,
-  singleQuote: true,      // this just to minimize the changes for linter-ui-default
-  arrowParens: "avoid",   // ditto
-  trailingComma: "all",   // ditto
+  singleQuote: true, // this just to minimize the changes for linter-ui-default
+  arrowParens: 'avoid', // ditto
+  trailingComma: 'all', // ditto
   overrides: [
     {
-      files: "{*.json}",
+      files: '{*.json}',
       options: {
-        parser: "json",
-        trailingComma: "es5",
+        parser: 'json',
+        trailingComma: 'es5',
       },
     },
     {
-      files: "{*.md}",
+      files: '{*.md}',
       options: {
-        parser: "markdown",
-        proseWrap: "preserve",
+        parser: 'markdown',
+        proseWrap: 'preserve',
       },
     },
   ],

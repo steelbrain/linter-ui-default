@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export function getElement(icon: string): HTMLElement {
   const element = document.createElement('a')
 

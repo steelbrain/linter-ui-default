@@ -19,7 +19,6 @@ export function activate() {
   const callbackID = window.requestIdleCallback(function installLinterUIDefaultDeps() {
     idleCallbacks.delete(callbackID)
     if (!atom.inSpecMode()) {
-      // eslint-disable-next-line global-require
       require('atom-package-deps').install('linter-ui-default')
     }
   })

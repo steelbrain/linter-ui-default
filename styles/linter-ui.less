@@ -1,8 +1,7 @@
-@import "ui-variables";
+@import 'ui-variables';
 
 .wavy_border(@color) {
-  background-image:
-    linear-gradient(45deg, transparent 65%, @color 80%, transparent 90%),
+  background-image: linear-gradient(45deg, transparent 65%, @color 80%, transparent 90%),
     linear-gradient(135deg, transparent 5%, @color 15%, transparent 25%),
     linear-gradient(135deg, transparent 45%, @color 55%, transparent 65%),
     linear-gradient(45deg, transparent 25%, @color 35%, transparent 50%);
@@ -53,7 +52,7 @@
 
     // Arrow pointer
     &:last-child::before {
-      content: "";
+      content: '';
       position: absolute;
       top: -4px;
       left: 0;
@@ -120,7 +119,8 @@ atom-text-editor.editor .linter-row {
   }
 }
 
-atom-text-editor.editor .linter-highlight, .linter-highlight {
+atom-text-editor.editor .linter-highlight,
+.linter-highlight {
   &.linter-info {
     .wavy_border(@background-color-info);
   }
@@ -139,7 +139,7 @@ atom-text-editor.editor .linter-highlight, .linter-highlight {
   .error_type(@color) {
     top: 0;
     left: 1.8rem;
-    width: calc(~"100% - 1.8rem");
+    width: calc(~'100% - 1.8rem');
     height: 100%;
     position: absolute;
     .wavy_border(@color);
@@ -167,7 +167,8 @@ atom-text-editor.editor .linter-highlight, .linter-highlight {
   a::before {
     font-size: 12px;
   }
-  &.hide-config, &.hide-pane {
+  &.hide-config,
+  &.hide-pane {
     display: none;
   }
 }

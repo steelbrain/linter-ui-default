@@ -1,5 +1,4 @@
-Linter-UI-Default
-================
+# Linter-UI-Default
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/steelbrain/linter-ui-default.svg)](https://greenkeeper.io/)
 
