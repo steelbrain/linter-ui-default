@@ -20,7 +20,7 @@
     "tsc.build": "npm run clean && cross-env NODE_ENV=production tsc -p lib/tsconfig.json || echo done",
     "dev": "npm run clean && cross-env NODE_ENV=development parcel watch --target main ./lib/index.ts",
     "build": "npm run clean && cross-env NODE_ENV=production parcel build --target main ./lib/index.ts",
-    "test": "apm test",
+    "test": "npm run tsc.build && apm test",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix && npm run format",
     "prepare": "npm run build",
