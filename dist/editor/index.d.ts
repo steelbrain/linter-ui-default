@@ -1,0 +1,42 @@
+import { CompositeDisposable, Disposable, Emitter, Range } from 'atom';
+declare type CompositeDisposableType = CompositeDisposable & {
+    disposed: boolean;
+};
+import type { TextEditor, DisplayMarker, Marker, Gutter, Point, Cursor } from 'atom';
+import Tooltip from '../tooltip';
+import type { LinterMessage } from '../types';
+export default class Editor {
+    gutter: Gutter | null | undefined;
+    tooltip: Tooltip | null | undefined;
+    emitter: Emitter;
+    markers: Map<string, Array<DisplayMarker | Marker>>;
+    messages: Map<string, LinterMessage>;
+    textEditor: TextEditor;
+    showTooltip: boolean;
+    subscriptions: CompositeDisposableType;
+    cursorPosition: Point | null | undefined;
+    gutterPosition: string;
+    tooltipFollows: string;
+    showDecorations: boolean;
+    showProviderName: boolean;
+    ignoreTooltipInvocation: boolean;
+    currentLineMarker: DisplayMarker | null | undefined;
+    lastRange: Range | null | undefined;
+    lastIsEmpty: boolean | null | undefined;
+    lastCursorPositions: WeakMap<Cursor, Point>;
+    constructor(textEditor: TextEditor);
+    listenForCurrentLine(): void;
+    listenForMouseMovement(): any;
+    listenForKeyboardMovement(): Disposable;
+    updateGutter(): void;
+    removeGutter(): void;
+    updateTooltip(position: Point | null | undefined): void;
+    removeTooltip(): void;
+    apply(added: Array<LinterMessage>, removed: Array<LinterMessage>): void;
+    decorateMarker(message: LinterMessage, marker: DisplayMarker | Marker, paint?: 'gutter' | 'editor' | 'both'): void;
+    saveMarker(key: string, marker: DisplayMarker | Marker): void;
+    destroyMarker(key: string): void;
+    onDidDestroy(callback: (value?: any) => void): Disposable;
+    dispose(): void;
+}
+export {};
