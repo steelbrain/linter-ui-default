@@ -20,7 +20,9 @@
     "test": "apm test",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix && npm run format",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "build-commit": "build-commit -o dist",
+    "prepublishOnly": "npm run build-commit"
   },
   "dependencies": {
     "atom-package-deps": "^6.0.0",
@@ -46,7 +48,8 @@
     "jasmine-fix": "^1.3.1",
     "prettier": "^2",
     "shx": "^0.3.3",
-    "typescript": "^4"
+    "typescript": "^4",
+    "build-commit": "0.1.1"
   },
   "providedServices": {
     "linter-ui": {
