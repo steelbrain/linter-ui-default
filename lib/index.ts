@@ -6,7 +6,7 @@ import type { BusySignalRegistry } from 'atom-ide-base'
 
 const idleCallbacks: Set<any> = new Set()
 
-let instances: Set<LinterUI> = new Set()
+const instances: Set<LinterUI> = new Set()
 let signalRegistry: BusySignalRegistry
 let statusBarRegistry: StatusBarRegistry
 

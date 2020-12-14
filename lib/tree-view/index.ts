@@ -102,7 +102,7 @@ export default class TreeView {
     this.decorations = appliedDecorations
   }
 
-  handleDecoration(element: HTMLElement, update: boolean = false, highlights: TreeViewHighlight) {
+  handleDecoration(element: HTMLElement, update = false, highlights: TreeViewHighlight) {
     let decoration
     if (update) {
       decoration = element.querySelector('linter-decoration')

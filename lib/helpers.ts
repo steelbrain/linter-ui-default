@@ -125,7 +125,7 @@ export function openFile(file: string, position: PointLike | null | undefined) {
   atom.workspace.open(file, options)
 }
 
-export function visitMessage(message: LinterMessage, reference: boolean = false) {
+export function visitMessage(message: LinterMessage, reference = false) {
   let messageFile: string
   let messagePosition: Point
   if (reference) {

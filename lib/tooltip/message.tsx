@@ -131,7 +131,7 @@ export default class MessageElement extends React.Component<Props, State> {
     }
   }
 
-  descriptionLoading: boolean = false
+  descriptionLoading = false
 
   render() {
     const { message, delegate } = this.props

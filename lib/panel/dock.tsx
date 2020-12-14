@@ -65,7 +65,7 @@ export default class PanelDock {
     ReactDOM.render(<Component delegate={delegate} />, this.element)
   }
   // NOTE: Chose a name that won't conflict with Dock APIs
-  doPanelResize(forConfigHeight: boolean = false) {
+  doPanelResize(forConfigHeight = false) {
     const paneContainer = getPaneContainer(this)
     let minimumHeight: number | null = null
     const paneContainerView = atom.views.getView(paneContainer)
