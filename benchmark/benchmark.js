@@ -1,5 +1,4 @@
 /* @flow */
-import Benchmark from 'benchmark'
 import { Chance } from 'chance'
 const chance = new Chance()
 import type { Message } from '../lib/types.d'
