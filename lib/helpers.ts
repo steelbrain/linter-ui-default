@@ -78,7 +78,7 @@ export function filterMessages(
   filePath: string | null | undefined,
   severity: string | null | undefined = null,
 ): Array<LinterMessage> {
-  const filtered = []
+  const filtered: Array<LinterMessage> = []
   messages.forEach(function (message) {
     if (!message || !message.location) {
       return
@@ -95,7 +95,7 @@ export function filterMessagesByRangeOrPoint(
   filePath: string,
   rangeOrPoint: Point | RangeCompatible,
 ): Array<LinterMessage> {
-  const filtered = []
+  const filtered: Array<LinterMessage> = []
   const expectedRange =
     rangeOrPoint.constructor.name === 'Point'
       ? new Range(rangeOrPoint as Point, rangeOrPoint as Point)

@@ -31,7 +31,7 @@ export default class TooltipElement {
     })
     this.subscriptions.add(delegate)
 
-    const children = []
+    const children: Array<JSX.Element> = []
     messages.forEach(message => {
       if (message.version === 2) {
         children.push(<MessageElement key={message.key} delegate={delegate} message={message} />)

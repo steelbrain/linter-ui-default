@@ -3,7 +3,7 @@ import { $file } from '../helpers'
 import type { LinterMessage } from '../types'
 
 export function getChunks(filePath: string, projectPath: string): Array<string> {
-  const toReturn = []
+  const toReturn: Array<string> = []
   const chunks = filePath.split(Path.sep)
   while (chunks.length) {
     const currentPath = chunks.join(Path.sep)
