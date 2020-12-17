@@ -42,8 +42,12 @@ jobs:
       - name: Install APM dependencies
         run: |
           apm install
+
       - name: Run tests 👩🏾‍💻
         run: npm run test
+
+      - name: Run benchmarks
+        run: npm run benchmark
 
   Lint:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
