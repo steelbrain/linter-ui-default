@@ -39,7 +39,7 @@ export default class TooltipElement {
         children.push(<MessageElement key={message.key} delegate={delegate} message={message} />)
       }
     })
-    ReactDOM.render(<linter-messages>{children}</linter-messages>, this.element)
+    ReactDOM.render(<div className="linter-messages">{children}</div>, this.element)
   }
   isValid(position: Point, messages: Map<string, LinterMessage>): boolean {
     if (this.messages.length !== 1 || !messages.has(this.messages[0].key)) {

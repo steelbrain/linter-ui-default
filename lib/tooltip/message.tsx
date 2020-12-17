@@ -57,7 +57,7 @@ export default class MessageElement extends React.Component<Props, State> {
     }
   }
 
-  openFile(ev: Event) {
+  openFile(ev: React.MouseEvent) {
     if (!(ev.target instanceof HTMLElement)) {
       return
     }
@@ -137,17 +137,17 @@ export default class MessageElement extends React.Component<Props, State> {
     const { message, delegate } = this.props
 
     return (
-      <linter-message class={message.severity} onClick={this.openFile}>
+      <div className={`linter-message ${message.severity}`} onClick={this.openFile}>
         {message.description && (
           <a href="#" onClick={() => this.toggleDescription()}>
             <span className={`icon linter-icon icon-${this.state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
           </a>
         )}
-        <linter-excerpt>
+        <div className="linter-excerpt">
           {this.canBeFixed(message) && <FixButton onClick={() => this.onFixClick()} />}
           {delegate.showProviderName ? `${message.linterName}: ` : ''}
           {message.excerpt}
-        </linter-excerpt>{' '}
+        </div>{' '}
         {message.reference && message.reference.file && (
           <a href="#" onClick={() => visitMessage(message, true)}>
             <span className="icon linter-icon icon-alignment-aligned-to" />
@@ -166,7 +166,7 @@ export default class MessageElement extends React.Component<Props, State> {
             className="linter-line"
           />
         )}
-      </linter-message>
+      </div>
     )
   }
 }
