@@ -18,8 +18,11 @@ function getRanomPoint(parLengths: number[]): [number, number] {
   return [randomRow, randomColumn]
 }
 
-function getRandomRange(maxNum: number) {
-  return new Range(getRanomPoint(maxNum), getRanomPoint(maxNum))
+function getRandomRange(parLengths: number[]) {
+  const pointsSorted = [getRanomPoint(parLengths), getRanomPoint(parLengths)].sort((p1, p2) => {
+    return p1[0] - p2[0]
+  })
+  return Range.fromObject(pointsSorted)
 }
 
 function generateRandomMessage(
