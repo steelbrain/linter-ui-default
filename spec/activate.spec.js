@@ -1,8 +1,5 @@
-describe("activation and installation", () => {
-  const deps = [
-    "intentions",
-    "linter"
-  ]
+describe('activation and installation', () => {
+  const deps = ['intentions', 'linter']
 
   beforeEach(async () => {
     jasmine.attachToDOM(atom.views.getView(atom.workspace))
@@ -11,23 +8,23 @@ describe("activation and installation", () => {
     // Trigger deferred activation
     atom.packages.triggerDeferredActivationHooks()
     // Activate activation hook
-    atom.packages.triggerActivationHook("core:loaded-shell-environment")
+    atom.packages.triggerActivationHook('core:loaded-shell-environment')
 
     // Activate the package
-    await atom.packages.activatePackage("linter-ui-default")
+    await atom.packages.activatePackage('linter-ui-default')
   })
 
-  it("Installation", async function () {
-    expect(atom.packages.isPackageLoaded("linter-ui-default")).toBeTruthy()
+  it('Installation', async function () {
+    expect(atom.packages.isPackageLoaded('linter-ui-default')).toBeTruthy()
     const allDeps = atom.packages.getAvailablePackageNames()
-    deps.forEach((dep) => {
+    deps.forEach(dep => {
       expect(allDeps.includes(dep)).toBeTruthy()
     })
   })
 
-  it("Activation", async function () {
-    expect(atom.packages.isPackageLoaded("linter-ui-default")).toBeTruthy()
-    deps.forEach(async (dep) => {
+  it('Activation', async function () {
+    expect(atom.packages.isPackageLoaded('linter-ui-default')).toBeTruthy()
+    deps.forEach(async dep => {
       await atom.packages.activatePackage(dep)
       expect(atom.packages.isPackageLoaded(dep)).toBeTruthy()
     })
