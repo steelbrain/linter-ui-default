@@ -105,7 +105,7 @@ export default class Commands {
       messages.reverse()
     }
 
-    let found: Message | null
+    let found: Message | null = null
     let currentFileEncountered = false
     for (let i = 0, length = messages.length; i < length; i++) {
       const message = messages[i]
