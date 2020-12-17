@@ -12,36 +12,32 @@ import { hasParent, mouseEventNearPosition, getBufferPositionFromMouseEvent } fr
 import type { LinterMessage } from '../types'
 
 export default class Editor {
-  gutter: Gutter | null | undefined
-  tooltip: Tooltip | null | undefined
+  gutter: Gutter | null = null
+  tooltip: Tooltip | null = null
   emitter: Emitter
   markers: Map<string, Array<DisplayMarker | Marker>>
   messages: Map<string, LinterMessage>
   textEditor: TextEditor
-  showTooltip: boolean
+  showTooltip: boolean = true
   subscriptions: CompositeDisposableType
-  cursorPosition: Point | null | undefined
-  gutterPosition: string
-  tooltipFollows: string
-  showDecorations: boolean
-  showProviderName: boolean
+  cursorPosition: Point | null = null
+  gutterPosition?: string
+  tooltipFollows: string = 'Both'
+  showDecorations?: boolean
+  showProviderName: boolean = true
   ignoreTooltipInvocation: boolean
-  currentLineMarker: DisplayMarker | null | undefined
-  lastRange: Range | null | undefined
-  lastIsEmpty: boolean | null | undefined
+  currentLineMarker: DisplayMarker | null = null
+  lastRange?: Range
+  lastIsEmpty?: boolean
   lastCursorPositions: WeakMap<Cursor, Point>
 
   constructor(textEditor: TextEditor) {
-    this.tooltip = null
     this.emitter = new Emitter()
     this.markers = new Map()
     this.messages = new Map()
     this.textEditor = textEditor
     this.subscriptions = new CompositeDisposable() as CompositeDisposableType
     this.ignoreTooltipInvocation = false
-    this.currentLineMarker = null
-    this.lastRange = null
-    this.lastIsEmpty = null
     this.lastCursorPositions = new WeakMap()
 
     this.subscriptions.add(this.emitter)
@@ -101,7 +97,7 @@ export default class Editor {
     )
     this.subscriptions.add(
       new Disposable(function () {
-        tooltipSubscription.dispose()
+        tooltipSubscription?.dispose()
       }),
     )
 
@@ -135,7 +131,7 @@ export default class Editor {
   listenForCurrentLine() {
     this.subscriptions.add(
       this.textEditor.observeCursors(cursor => {
-        const handlePositionChange = ({ start, end }) => {
+        const handlePositionChange = ({ start, end }: { start: Point; end: Point }) => {
           const gutter = this.gutter
           if (!gutter || this.subscriptions.disposed) return
           // We need that Range.fromObject hack below because when we focus index 0 on multi-line selection
@@ -188,7 +184,7 @@ export default class Editor {
           }),
         )
         subscriptions.add(
-          new Disposable(function () {
+          new Disposable(() => {
             if (this.currentLineMarker) {
               this.currentLineMarker.destroy()
               this.currentLineMarker = null
@@ -259,7 +255,7 @@ export default class Editor {
       name: 'linter-ui-default',
       priority,
     })
-    this.markers.forEach((markers: Array<DisplayMarker>, key: string) => {
+    this.markers.forEach((markers, key) => {
       const message = this.messages.get(key)
       if (message) {
         for (const marker of markers) {
@@ -295,11 +291,10 @@ export default class Editor {
     }
 
     this.tooltip = new Tooltip(messages, position, this.textEditor)
-
+    const tooltipMarker = this.tooltip.marker
     // save markers of the tooltip (for destorying them in this.apply)
     messages.forEach(message => {
-      // $FlowIgnore: this.tooltip is not null
-      this.saveMarker(message.key, this.tooltip.marker)
+      this.saveMarker(message.key, tooltipMarker)
     })
 
     // $FlowIgnore: this.tooltip is not null

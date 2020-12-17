@@ -10,43 +10,34 @@ import Editors from './editors'
 import TreeView from './tree-view'
 
 export default class LinterUI {
-  name: string
-  panel: Panel
-  signal: BusySignal
+  name: string = 'Linter'
+  panel?: Panel
+  signal: BusySignal = new BusySignal()
   editors: Editors | null | undefined
-  treeview: TreeView
-  commands: Commands
-  messages: Array<LinterMessage>
-  statusBar: StatusBar
-  intentions: Intentions
-  subscriptions: CompositeDisposable
-  idleCallbacks: Set<number>
+  treeview?: TreeView
+  commands: Commands = new Commands()
+  messages: Array<LinterMessage> = []
+  statusBar: StatusBar = new StatusBar()
+  intentions: Intentions = new Intentions()
+  subscriptions: CompositeDisposable = new CompositeDisposable()
+  idleCallbacks: Set<number> = new Set()
 
   constructor() {
-    this.name = 'Linter'
-    this.idleCallbacks = new Set()
-    this.signal = new BusySignal()
-    this.commands = new Commands()
-    this.messages = []
-    this.statusBar = new StatusBar()
-    this.intentions = new Intentions()
-    this.subscriptions = new CompositeDisposable()
-
     this.subscriptions.add(this.signal)
     this.subscriptions.add(this.commands)
     this.subscriptions.add(this.statusBar)
 
     const obsShowPanelCB = window.requestIdleCallback(
-      function observeShowPanel() {
+      /* observeShowPanel */ () => {
         this.idleCallbacks.delete(obsShowPanelCB)
         this.panel = new Panel()
         this.panel.update(this.messages)
-      }.bind(this),
+      },
     )
     this.idleCallbacks.add(obsShowPanelCB)
 
     const obsShowDecorationsCB = window.requestIdleCallback(
-      function observeShowDecorations() {
+      /* observeShowDecorations */ () => {
         this.idleCallbacks.delete(obsShowDecorationsCB)
         this.subscriptions.add(
           atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
@@ -63,7 +54,7 @@ export default class LinterUI {
             }
           }),
         )
-      }.bind(this),
+      },
     )
     this.idleCallbacks.add(obsShowDecorationsCB)
   }

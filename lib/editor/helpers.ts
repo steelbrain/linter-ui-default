@@ -7,7 +7,7 @@ export function getBufferPositionFromMouseEvent(
   event: MouseEvent,
   editor: TextEditor,
   editorElement: TextEditorElement,
-): Point | null | undefined {
+): Point | null {
   const pixelPosition = editorElement.getComponent().pixelPositionForMouseEvent(event)
   const screenPosition = editorElement.getComponent().screenPositionForPixelPosition(pixelPosition)
   if (Number.isNaN(screenPosition.row) || Number.isNaN(screenPosition.column)) return null
@@ -73,7 +73,7 @@ export function mouseEventNearPosition({
 }
 
 export function hasParent(givenElement: HTMLElement, selector: string): boolean {
-  let element = givenElement
+  let element: HTMLElement | null = givenElement
   do {
     if (element.matches(selector)) {
       return true

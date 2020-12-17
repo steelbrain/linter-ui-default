@@ -16,7 +16,7 @@ export type PaneContainer = Dock & {
 }
 
 // eslint-disable-next-line no-use-before-define
-function getPaneContainer(item: PanelDock): PaneContainer {
+function getPaneContainer(item: PanelDock): PaneContainer | null {
   const paneContainer = atom.workspace.paneContainerForItem(item)
   // NOTE: This is an internal API access
   // It's necessary because there's no Public API for it yet
@@ -36,17 +36,13 @@ function getPaneContainer(item: PanelDock): PaneContainer {
 }
 
 export default class PanelDock {
-  element: HTMLElement
-  subscriptions: CompositeDisposable
-  panelHeight: number
-  alwaysTakeMinimumSpace: boolean
-  lastSetPaneHeight: number | null
+  element: HTMLElement = document.createElement('div')
+  subscriptions: CompositeDisposable = new CompositeDisposable()
+  panelHeight?: number
+  alwaysTakeMinimumSpace: boolean = true
+  lastSetPaneHeight?: number
 
   constructor(delegate: Delegate) {
-    this.element = document.createElement('div')
-    this.subscriptions = new CompositeDisposable()
-
-    this.lastSetPaneHeight = null
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.panelHeight', panelHeight => {
         const changed = typeof this.panelHeight === 'number'

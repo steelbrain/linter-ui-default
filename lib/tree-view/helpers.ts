@@ -3,7 +3,7 @@ import { $file } from '../helpers'
 import type { LinterMessage } from '../types'
 
 export function getChunks(filePath: string, projectPath: string): Array<string> {
-  const toReturn = []
+  const toReturn: Array<string> = []
   const chunks = filePath.split(Path.sep)
   while (chunks.length) {
     const currentPath = chunks.join(Path.sep)
@@ -40,7 +40,7 @@ export function mergeChange(change: Object, filePath: string, severity: string):
 }
 
 export function calculateDecorations(
-  decorateOnTreeView: 'Files and Directories' | 'Files',
+  decorateOnTreeView: 'Files and Directories' | 'Files' | undefined,
   messages: Array<LinterMessage>,
 ): Object {
   const toReturn = {}

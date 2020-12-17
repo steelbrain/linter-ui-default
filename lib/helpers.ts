@@ -1,10 +1,10 @@
 import { Range } from 'atom'
-import type { Point, PointLike, PointCompatible, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
+import type { Point, PointLike, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
 import { shell } from 'electron'
 import type Editors from './editors'
-import type { LinterMessage, Message, MessageSolution, EditorsMap } from './types'
+import type { LinterMessage, MessageSolution, EditorsMap, TextEditorExtra } from './types'
 
-let lastPaneItem = null
+let lastPaneItem: TextEditorExtra | null = null
 export const severityScore = {
   error: 3,
   warning: 2,
@@ -35,9 +35,9 @@ export function copySelection() {
 export function getPathOfMessage(message: LinterMessage): string {
   return atom.project.relativizePath($file(message) || '')[1]
 }
-export function getActiveTextEditor(): TextEditor | null | undefined {
-  let paneItem = atom.workspace.getCenter().getActivePaneItem()
-  const paneIsTextEditor = atom.workspace.isTextEditor(paneItem)
+export function getActiveTextEditor(): TextEditor | null {
+  let paneItem = atom.workspace.getCenter().getActivePaneItem() as TextEditorExtra | null
+  const paneIsTextEditor = paneItem !== null ? atom.workspace.isTextEditor(paneItem) : false
   if (
     !paneIsTextEditor &&
     paneItem &&
@@ -50,7 +50,7 @@ export function getActiveTextEditor(): TextEditor | null | undefined {
   } else {
     lastPaneItem = paneItem
   }
-  return atom.workspace.isTextEditor(paneItem) ? paneItem : null
+  return paneIsTextEditor ? paneItem : null
 }
 
 export function getEditorsMap(editors: Editors): { editorsMap: EditorsMap; filePaths: Array<string> } {
@@ -59,8 +59,9 @@ export function getEditorsMap(editors: Editors): { editorsMap: EditorsMap; fileP
   const filePaths: string[] = []
   for (const entry of editors.editors) {
     const filePath = entry.textEditor.getPath()
+    // TODO what if filePath is undefined?
     if (editorsMap.has(filePath)) {
-      editorsMap.get(filePath).editors.push(entry)
+      editorsMap.get(filePath)!.editors.push(entry)
     } else {
       editorsMap.set(filePath, {
         added: [],
@@ -78,7 +79,7 @@ export function filterMessages(
   filePath: string | null | undefined,
   severity: string | null | undefined = null,
 ): Array<LinterMessage> {
-  const filtered = []
+  const filtered: Array<LinterMessage> = []
   messages.forEach(function (message) {
     if (!message || !message.location) {
       return
@@ -92,10 +93,10 @@ export function filterMessages(
 
 export function filterMessagesByRangeOrPoint(
   messages: Set<LinterMessage> | Array<LinterMessage> | Map<string, LinterMessage>,
-  filePath: string,
+  filePath: string | undefined,
   rangeOrPoint: Point | RangeCompatible,
 ): Array<LinterMessage> {
-  const filtered = []
+  const filtered: Array<LinterMessage> = []
   const expectedRange =
     rangeOrPoint.constructor.name === 'Point'
       ? new Range(rangeOrPoint as Point, rangeOrPoint as Point)
@@ -126,8 +127,8 @@ export function openFile(file: string, position: PointLike | null | undefined) {
 }
 
 export function visitMessage(message: LinterMessage, reference = false) {
-  let messageFile: string
-  let messagePosition: Point
+  let messageFile: string | undefined | null
+  let messagePosition: Point | undefined
   if (reference) {
     if (!message.reference || !message.reference.file) {
       console.warn('[Linter-UI-Default] Message does not have a valid reference. Ignoring')
@@ -218,8 +219,11 @@ export function sortMessages(
   })
 }
 
-export function sortSolutions(solutions: Message['solutions']) {
-  return solutions.slice().sort(function (a, b) {
+export function sortSolutions(solutions: MessageSolution[]) {
+  return solutions.sort(function (a, b) {
+    if (a.priority === undefined || b.priority === undefined) {
+      return 0
+    }
     return b.priority - a.priority
   })
 }

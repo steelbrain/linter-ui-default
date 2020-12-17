@@ -1,21 +1,17 @@
 import { CompositeDisposable, Disposable } from 'atom'
-import type { StatusBar as StatusBarRegistry } from 'atom/status-bar'
+import type { StatusBar as StatusBarRegistry, Tile as StatusBarTile } from 'atom/status-bar'
 import Element from './element'
 import { $file, getActiveTextEditor } from '../helpers'
 import type { LinterMessage } from '../types'
 
 export default class StatusBar {
-  element: Element
-  messages: Array<LinterMessage>
-  subscriptions: CompositeDisposable
-  statusBarRepresents: 'Entire Project' | 'Current File'
-  statusBarClickBehavior: 'Toggle Panel' | 'Jump to next issue' | 'Toggle Status Bar Scope'
+  element: Element = new Element()
+  messages: Array<LinterMessage> = []
+  subscriptions: CompositeDisposable = new CompositeDisposable()
+  statusBarRepresents?: 'Entire Project' | 'Current File'
+  statusBarClickBehavior?: 'Toggle Panel' | 'Jump to next issue' | 'Toggle Status Bar Scope'
 
   constructor() {
-    this.element = new Element()
-    this.messages = []
-    this.subscriptions = new CompositeDisposable()
-
     this.subscriptions.add(this.element)
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.statusBarRepresents', statusBarRepresents => {
@@ -91,7 +87,7 @@ export default class StatusBar {
     this.element.update(count.error, count.warning, count.info)
   }
   attach(statusBarRegistry: StatusBarRegistry) {
-    let statusBar = null
+    let statusBar: StatusBarTile | null = null
 
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.statusBarPosition', statusBarPosition => {

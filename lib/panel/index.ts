@@ -5,25 +5,17 @@ import type { LinterMessage } from '../types'
 import type { PaneContainer } from './dock'
 
 export default class Panel {
-  panel: PanelDock | null
-  element: HTMLElement
-  delegate: Delegate
-  messages: Array<LinterMessage>
-  deactivating: boolean
-  subscriptions: CompositeDisposable
-  showPanelConfig: boolean
-  hidePanelWhenEmpty: boolean
-  showPanelStateMessages: boolean
+  panel: PanelDock | null = null
+  element: HTMLElement = document.createElement('div')
+  delegate: Delegate = new Delegate()
+  messages: Array<LinterMessage> = []
+  deactivating: boolean = false
+  subscriptions: CompositeDisposable = new CompositeDisposable()
+  showPanelConfig: boolean = true
+  hidePanelWhenEmpty: boolean = true
+  showPanelStateMessages: boolean = false
   activationTimer: number
   constructor() {
-    this.panel = null
-    this.element = document.createElement('div')
-    this.delegate = new Delegate()
-    this.messages = []
-    this.deactivating = false
-    this.subscriptions = new CompositeDisposable()
-    this.showPanelStateMessages = false
-
     this.subscriptions.add(this.delegate)
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.hidePanelWhenEmpty', hidePanelWhenEmpty => {

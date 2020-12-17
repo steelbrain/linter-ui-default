@@ -1,10 +1,10 @@
 import LinterUI from './main'
 import type Intentions from './intentions'
-import type { IntentionsListProvider } from './types'
+import type { /* IntentionsListProvider, */ RequestIdleCallbackHandle, PackageExtra } from './types'
 import type { StatusBar as StatusBarRegistry } from 'atom/status-bar'
 import type { BusySignalRegistry } from 'atom-ide-base'
 
-const idleCallbacks: Set<any> = new Set()
+const idleCallbacks: Set<RequestIdleCallbackHandle> = new Set()
 
 const instances: Set<LinterUI> = new Set()
 let signalRegistry: BusySignalRegistry
@@ -13,7 +13,7 @@ let statusBarRegistry: StatusBarRegistry
 export function activate() {
   if (atom.config.get('linter-ui-default.useBusySignal')) {
     // This is a necessary evil, see steelbrain/linter#1355
-    atom.packages.getLoadedPackage('linter-ui-default').metadata['package-deps'].push('busy-signal')
+    ;(atom.packages.getLoadedPackage('linter-ui-default') as PackageExtra).metadata['package-deps'].push('busy-signal')
   }
 
   const callbackID = window.requestIdleCallback(function installLinterUIDefaultDeps() {

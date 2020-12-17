@@ -14,13 +14,10 @@ import {
 import type { LinterMessage, Message } from './types'
 
 export default class Commands {
-  messages: Array<LinterMessage>
-  subscriptions: CompositeDisposable
+  messages: Array<LinterMessage> = []
+  subscriptions: CompositeDisposable = new CompositeDisposable()
 
   constructor() {
-    this.messages = []
-    this.subscriptions = new CompositeDisposable()
-
     this.subscriptions.add(
       atom.commands.add('atom-workspace', {
         'linter-ui-default:next': () => this.move(true, true),
@@ -108,7 +105,7 @@ export default class Commands {
       messages.reverse()
     }
 
-    let found: Message | null
+    let found: Message | null = null
     let currentFileEncountered = false
     for (let i = 0, length = messages.length; i < length; i++) {
       const message = messages[i]

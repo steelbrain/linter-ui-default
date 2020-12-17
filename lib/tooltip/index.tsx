@@ -10,16 +10,14 @@ import type { LinterMessage } from '../types'
 
 export default class TooltipElement {
   marker: DisplayMarker
-  element: HTMLElement
-  emitter: Emitter
+  element: HTMLElement = document.createElement('div')
+  emitter: Emitter = new Emitter()
   messages: Array<LinterMessage>
-  subscriptions: CompositeDisposable
+  subscriptions: CompositeDisposable = new CompositeDisposable()
 
   constructor(messages: Array<LinterMessage>, position: Point, textEditor: TextEditor) {
-    this.emitter = new Emitter()
-    this.element = document.createElement('div')
     this.messages = messages
-    this.subscriptions = new CompositeDisposable()
+    this.subscriptions
 
     this.subscriptions.add(this.emitter)
     this.marker = textEditor.markBufferRange([position, position])
@@ -33,13 +31,13 @@ export default class TooltipElement {
     })
     this.subscriptions.add(delegate)
 
-    const children = []
+    const children: Array<JSX.Element> = []
     messages.forEach(message => {
       if (message.version === 2) {
         children.push(<MessageElement key={message.key} delegate={delegate} message={message} />)
       }
     })
-    ReactDOM.render(<linter-messages>{children}</linter-messages>, this.element)
+    ReactDOM.render(<div className="linter-messages">{children}</div>, this.element)
   }
   isValid(position: Point, messages: Map<string, LinterMessage>): boolean {
     if (this.messages.length !== 1 || !messages.has(this.messages[0].key)) {

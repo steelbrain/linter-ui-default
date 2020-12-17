@@ -3,13 +3,9 @@ import type { LinterMessage, MessageSolution, ListItem } from './types'
 import type { TextEditor, Point } from 'atom'
 
 export default class Intentions {
-  messages: Array<LinterMessage>
-  grammarScopes: Array<string>
+  messages: Array<LinterMessage> = []
+  grammarScopes: Array<string> = ['*']
 
-  constructor() {
-    this.messages = []
-    this.grammarScopes = ['*']
-  }
   getIntentions({ textEditor, bufferPosition }: { textEditor: TextEditor; bufferPosition: Point }) {
     let intentions: ListItem[] = []
     const messages = filterMessages(this.messages, textEditor.getPath())

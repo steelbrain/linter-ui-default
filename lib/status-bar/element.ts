@@ -4,23 +4,15 @@ import type { Disposable } from 'atom'
 import * as Helpers from './helpers'
 
 export default class Element {
-  item: HTMLElement
-  itemErrors: HTMLElement
-  itemWarnings: HTMLElement
-  itemInfos: HTMLElement
+  item: HTMLElement = document.createElement('div')
+  itemErrors: HTMLElement = Helpers.getElement('stop')
+  itemWarnings: HTMLElement = Helpers.getElement('alert')
+  itemInfos: HTMLElement = Helpers.getElement('info')
 
-  emitter: Emitter
-  subscriptions: CompositeDisposable
+  emitter: Emitter = new Emitter()
+  subscriptions: CompositeDisposable = new CompositeDisposable()
 
   constructor() {
-    this.item = document.createElement('div')
-    this.itemErrors = Helpers.getElement('stop')
-    this.itemWarnings = Helpers.getElement('alert')
-    this.itemInfos = Helpers.getElement('info')
-
-    this.emitter = new Emitter()
-    this.subscriptions = new CompositeDisposable()
-
     this.item.appendChild(this.itemErrors)
     this.item.appendChild(this.itemWarnings)
     this.item.appendChild(this.itemInfos)
