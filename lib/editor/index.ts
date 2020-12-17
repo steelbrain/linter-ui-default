@@ -135,7 +135,7 @@ export default class Editor {
   listenForCurrentLine() {
     this.subscriptions.add(
       this.textEditor.observeCursors(cursor => {
-        const handlePositionChange = ({ start, end }) => {
+        const handlePositionChange = ({ start, end }: { start: Point; end: Point }) => {
           const gutter = this.gutter
           if (!gutter || this.subscriptions.disposed) return
           // We need that Range.fromObject hack below because when we focus index 0 on multi-line selection
