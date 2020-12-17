@@ -188,7 +188,7 @@ export default class Editor {
           }),
         )
         subscriptions.add(
-          new Disposable(function () {
+          new Disposable(() => {
             if (this.currentLineMarker) {
               this.currentLineMarker.destroy()
               this.currentLineMarker = null
