@@ -28,16 +28,16 @@ export default class LinterUI {
     this.subscriptions.add(this.statusBar)
 
     const obsShowPanelCB = window.requestIdleCallback(
-      function observeShowPanel() {
+      /* observeShowPanel */ () => {
         this.idleCallbacks.delete(obsShowPanelCB)
         this.panel = new Panel()
         this.panel.update(this.messages)
-      }.bind(this),
+      },
     )
     this.idleCallbacks.add(obsShowPanelCB)
 
     const obsShowDecorationsCB = window.requestIdleCallback(
-      function observeShowDecorations() {
+      /* observeShowDecorations */ () => {
         this.idleCallbacks.delete(obsShowDecorationsCB)
         this.subscriptions.add(
           atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
@@ -54,7 +54,7 @@ export default class LinterUI {
             }
           }),
         )
-      }.bind(this),
+      },
     )
     this.idleCallbacks.add(obsShowDecorationsCB)
   }
