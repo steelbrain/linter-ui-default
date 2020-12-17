@@ -80,6 +80,10 @@ describe('Editor benchmark', function () {
 
     // make a linter editor instance
     textEditor = atom.workspace.getActiveTextEditor()
+    // Attache text editor
+    jasmine.attachToDOM(textEditor.getElement())
+
+    // create linter Editor instance
     editor = new Editor(textEditor)
 
     // Activate linter-ui-default
@@ -98,7 +102,7 @@ describe('Editor benchmark', function () {
 
       const tf = window.performance.now()
 
-      console.log(`Applying ${messages.length} took ${(tf - ti).toFixed(3)} ms`)
+      console.log(`Applying ${messages.length} linter messages took ${(tf - ti).toFixed(3)} ms`)
 
       expect(textEditor.getBuffer().getMarkerCount()).toBe(messages.length)
     })
