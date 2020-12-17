@@ -291,11 +291,10 @@ export default class Editor {
     }
 
     this.tooltip = new Tooltip(messages, position, this.textEditor)
-
+    const tooltipMarker = this.tooltip.marker
     // save markers of the tooltip (for destorying them in this.apply)
     messages.forEach(message => {
-      // $FlowIgnore: this.tooltip is not null
-      this.saveMarker(message.key, this.tooltip.marker)
+      this.saveMarker(message.key, tooltipMarker)
     })
 
     // $FlowIgnore: this.tooltip is not null
