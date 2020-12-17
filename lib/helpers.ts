@@ -35,7 +35,7 @@ export function copySelection() {
 export function getPathOfMessage(message: LinterMessage): string {
   return atom.project.relativizePath($file(message) || '')[1]
 }
-export function getActiveTextEditor(): TextEditor | null | undefined {
+export function getActiveTextEditor(): TextEditor | null {
   let paneItem = atom.workspace.getCenter().getActivePaneItem() as TextEditorExtra | null
   const paneIsTextEditor = atom.workspace.isTextEditor(paneItem)
   if (
