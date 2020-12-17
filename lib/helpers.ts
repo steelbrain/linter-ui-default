@@ -1,8 +1,8 @@
 import { Range } from 'atom'
-import type { Point, PointLike, PointCompatible, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
+import type { Point, PointLike, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
 import { shell } from 'electron'
 import type Editors from './editors'
-import type { LinterMessage, Message, MessageSolution, EditorsMap, TextEditorExtra } from './types'
+import type { LinterMessage, MessageSolution, EditorsMap, TextEditorExtra } from './types'
 
 let lastPaneItem: TextEditorExtra | null = null
 export const severityScore = {

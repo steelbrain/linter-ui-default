@@ -1,6 +1,6 @@
 import LinterUI from './main'
 import type Intentions from './intentions'
-import type { IntentionsListProvider, RequestIdleCallbackHandle, PackageExtra } from './types'
+import type { /* IntentionsListProvider, */ RequestIdleCallbackHandle, PackageExtra } from './types'
 import type { StatusBar as StatusBarRegistry } from 'atom/status-bar'
 import type { BusySignalRegistry } from 'atom-ide-base'
 
