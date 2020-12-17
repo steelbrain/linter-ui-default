@@ -93,19 +93,31 @@ describe('Editor benchmark', function () {
     atom.packages.loadPackage('linter-ui-default')
   })
 
-  describe('apply benchmark', function () {
-    it('applies the messages to the editor', function () {
-      expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
+  it('apply benchmark', function () {
+    // Add
+    console.log('it adds the messages to the editor')
+    expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
 
-      const ti = window.performance.now()
-      editor.apply(messages, [])
+    const ti_add = window.performance.now()
 
-      const tf = window.performance.now()
+    editor.apply(messages, [])
 
-      console.log(`Applying ${messages.length} linter messages took ${(tf - ti).toFixed(3)} ms`)
+    const tf_add = window.performance.now()
 
-      expect(textEditor.getBuffer().getMarkerCount()).toBe(messages.length)
-    })
+    expect(textEditor.getBuffer().getMarkerCount()).toBe(messages.length)
+    console.log(`Adding ${messages.length} linter messages took ${(tf_add - ti_add).toFixed(3)} ms`)
+
+    // Remove
+    console.log('it removes the messages from the editor')
+
+    const ti_remove = window.performance.now()
+
+    editor.apply([], messages)
+
+    const tf_remove = window.performance.now()
+
+    expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
+    console.log(`Removing ${messages.length} linter messages took ${(tf_remove - ti_remove).toFixed(3)} ms`)
   })
 
   afterEach(function () {
