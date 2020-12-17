@@ -23,6 +23,7 @@
     "build.clean": "npm run clean && npm run build",
     "test.only": "atom --test spec",
     "test": "npm run tsc.build && apm install && npm run test.only",
+    "benchmark": "atom --test ./benchmark/benchmark.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix && npm run format",
     "prepare": "npm run build",
