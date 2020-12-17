@@ -37,7 +37,7 @@ export function getPathOfMessage(message: LinterMessage): string {
 }
 export function getActiveTextEditor(): TextEditor | null {
   let paneItem = atom.workspace.getCenter().getActivePaneItem() as TextEditorExtra | null
-  const paneIsTextEditor = atom.workspace.isTextEditor(paneItem)
+  const paneIsTextEditor = paneItem !== null ? atom.workspace.isTextEditor(paneItem) : false
   if (
     !paneIsTextEditor &&
     paneItem &&
@@ -50,7 +50,7 @@ export function getActiveTextEditor(): TextEditor | null {
   } else {
     lastPaneItem = paneItem
   }
-  return atom.workspace.isTextEditor(paneItem) ? paneItem : null
+  return paneIsTextEditor ? paneItem : null
 }
 
 export function getEditorsMap(editors: Editors): { editorsMap: EditorsMap; filePaths: Array<string> } {
