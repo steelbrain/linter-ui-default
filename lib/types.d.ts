@@ -77,7 +77,7 @@ export type TreeViewHighlight = {
 }
 
 // windows requestIdleCallback types
-type RequestIdleCallbackHandle = any
+export type RequestIdleCallbackHandle = any
 type RequestIdleCallbackOptions = {
   timeout: number
 }
