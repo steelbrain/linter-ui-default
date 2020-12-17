@@ -43,6 +43,11 @@ jobs:
         run: |
           apm install
 
+      # Remove once https://github.com/atom/apm/pull/892 is merged
+      - name: Native modules rebuild on Windows
+        if: ${{ contains(matrix.os, 'windows') && steps.node_modules.outputs.cache-hit != 'true' }}
+        run: apm rebuild
+
       - name: Run tests 👩🏾‍💻
         run: npm run test
 
