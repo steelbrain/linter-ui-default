@@ -89,6 +89,20 @@ describe('Editor benchmark', function () {
     atom.packages.loadPackage('linter-ui-default')
   })
 
+  describe('apply benchmark', function () {
+    it('applies the messages to the editor', function () {
+      expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
+
+      const ti = window.performance.now()
+      editor.apply(messages, [])
+
+      const tf = window.performance.now()
+
+      console.log(`Applying ${messages.length} took ${(tf - ti).toFixed(3)} ms`)
+
+      expect(textEditor.getBuffer().getMarkerCount()).toBe(messages.length)
+    })
+  })
 
   afterEach(function () {
     editor.dispose()
