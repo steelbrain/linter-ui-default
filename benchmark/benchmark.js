@@ -52,3 +52,46 @@ async function getTestFile(filePath: string, numParagraphs: number = 30, numSent
   return { fileLegth: str.length, parLengths }
 }
 
+/* ************************************************************************* */
+
+describe('Editor benchmark', function () {
+  let editor: Editor
+  let messages: Message[]
+  let textEditor: TextEditor
+
+  beforeEach(async function () {
+    // parameter
+    const messageNum = 1000
+    const numParagraphs = 300
+    const numSentences = 10
+    const filePath = './benchmark/benchmarkTestFile.txt'
+
+    // make a test file
+    const { fileLegth, parLengths } = await getTestFile(filePath, numParagraphs, numSentences)
+
+    // get linter messages
+    messages = new Array(messageNum)
+    for (let i = 0; i < messageNum; i++) {
+      messages[i] = generateRandomMessage(filePath, getRandomRange(parLengths))
+    }
+
+    // open the test file
+    await atom.workspace.open(filePath)
+
+    // make a linter editor instance
+    textEditor = atom.workspace.getActiveTextEditor()
+    editor = new Editor(textEditor)
+
+    // Activate linter-ui-default
+    atom.packages.triggerDeferredActivationHooks()
+    atom.packages.triggerActivationHook('core:loaded-shell-environment')
+
+    atom.packages.loadPackage('linter-ui-default')
+  })
+
+
+  afterEach(function () {
+    editor.dispose()
+    atom.workspace.destroyActivePaneItem()
+  })
+})
