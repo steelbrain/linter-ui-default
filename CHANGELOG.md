@@ -1,5 +1,8 @@
 # Changelog
 
+### 2.2.3
+- if file path of the editor is undefined save the message in ""
+
 ### 2.2.2
 - Huge number of bug fixes (#604)
 - Maximize TypeScript strictness (#604)
