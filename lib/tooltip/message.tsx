@@ -79,8 +79,8 @@ export default class MessageElement extends React.Component<Props, State> {
       openFile(
         /* file */ Array.isArray(file) ? file[0] : file,
         /* position */ {
-          row: parseInt(Array.isArray(row) ? row[0] : row, 10) || 0,
-          column: parseInt(Array.isArray(column) ? column[0] : column, 10) || 0,
+          row: row ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,
+          column: column ? parseInt(Array.isArray(column) ? column[0] : column, 10) : 0,
         },
       )
     }
