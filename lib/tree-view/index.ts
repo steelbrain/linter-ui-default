@@ -5,18 +5,13 @@ import { calculateDecorations } from './helpers'
 import type { LinterMessage, TreeViewHighlight } from '../types'
 
 export default class TreeView {
-  emitter: Emitter
-  messages: Array<LinterMessage>
-  decorations: Object
-  subscriptions: CompositeDisposable
-  decorateOnTreeView: 'Files and Directories' | 'Files' | 'None'
+  emitter: Emitter = new Emitter()
+  messages: Array<LinterMessage> = []
+  decorations: Object = {}
+  subscriptions: CompositeDisposable = new CompositeDisposable()
+  decorateOnTreeView?: 'Files and Directories' | 'Files' | 'None'
 
   constructor() {
-    this.emitter = new Emitter()
-    this.messages = []
-    this.decorations = {}
-    this.subscriptions = new CompositeDisposable()
-
     this.subscriptions.add(this.emitter)
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.decorateOnTreeView', decorateOnTreeView => {

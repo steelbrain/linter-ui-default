@@ -3,18 +3,13 @@ import { getActiveTextEditor, filterMessages, filterMessagesByRangeOrPoint } fro
 import type { LinterMessage } from '../types'
 
 export default class PanelDelegate {
-  emitter: Emitter
-  messages: Array<LinterMessage>
-  filteredMessages: Array<LinterMessage>
-  subscriptions: CompositeDisposable
-  panelRepresents: 'Entire Project' | 'Current File' | 'Current Line'
+  emitter: Emitter = new Emitter()
+  messages: Array<LinterMessage> = []
+  filteredMessages: Array<LinterMessage> = []
+  subscriptions: CompositeDisposable = new CompositeDisposable()
+  panelRepresents?: 'Entire Project' | 'Current File' | 'Current Line'
 
   constructor() {
-    this.emitter = new Emitter()
-    this.messages = []
-    this.filteredMessages = []
-    this.subscriptions = new CompositeDisposable()
-
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.panelRepresents', panelRepresents => {
         const notInitial = typeof this.panelRepresents !== 'undefined'
@@ -59,7 +54,7 @@ export default class PanelDelegate {
     )
   }
   getFilteredMessages(): Array<LinterMessage> {
-    let filteredMessages = []
+    let filteredMessages: Array<LinterMessage> = []
     if (this.panelRepresents === 'Entire Project') {
       filteredMessages = this.messages
     } else if (this.panelRepresents === 'Current File') {

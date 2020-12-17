@@ -5,17 +5,12 @@ import { $file, getEditorsMap, filterMessages } from './helpers'
 import type { LinterMessage, MessagesPatch } from './types'
 
 export default class Editors {
-  editors: Set<Editor>
-  messages: Array<LinterMessage>
-  firstRender: boolean
-  subscriptions: CompositeDisposable
+  editors: Set<Editor> = new Set()
+  messages: Array<LinterMessage> = []
+  firstRender: boolean = true
+  subscriptions: CompositeDisposable = new CompositeDisposable()
 
   constructor() {
-    this.editors = new Set()
-    this.messages = []
-    this.firstRender = true
-    this.subscriptions = new CompositeDisposable()
-
     this.subscriptions.add(
       atom.workspace.observeTextEditors(textEditor => {
         this.getEditor(textEditor)

@@ -10,16 +10,14 @@ import type { LinterMessage } from '../types'
 
 export default class TooltipElement {
   marker: DisplayMarker
-  element: HTMLElement
-  emitter: Emitter
+  element: HTMLElement = document.createElement('div')
+  emitter: Emitter = new Emitter()
   messages: Array<LinterMessage>
-  subscriptions: CompositeDisposable
+  subscriptions: CompositeDisposable = new CompositeDisposable()
 
   constructor(messages: Array<LinterMessage>, position: Point, textEditor: TextEditor) {
-    this.emitter = new Emitter()
-    this.element = document.createElement('div')
     this.messages = messages
-    this.subscriptions = new CompositeDisposable()
+    this.subscriptions
 
     this.subscriptions.add(this.emitter)
     this.marker = textEditor.markBufferRange([position, position])

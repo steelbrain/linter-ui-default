@@ -2,16 +2,12 @@ import { CompositeDisposable, Emitter } from 'atom'
 import type { Disposable } from 'atom'
 
 export default class TooltipDelegate {
-  emitter: Emitter
-  expanded: boolean
-  subscriptions: CompositeDisposable
-  showProviderName: boolean
+  emitter: Emitter = new Emitter()
+  expanded: boolean = false
+  subscriptions: CompositeDisposable = new CompositeDisposable()
+  showProviderName?: boolean
 
   constructor() {
-    this.emitter = new Emitter()
-    this.expanded = false
-    this.subscriptions = new CompositeDisposable()
-
     this.subscriptions.add(this.emitter)
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.showProviderName', showProviderName => {

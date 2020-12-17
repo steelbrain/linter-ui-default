@@ -12,36 +12,32 @@ import { hasParent, mouseEventNearPosition, getBufferPositionFromMouseEvent } fr
 import type { LinterMessage } from '../types'
 
 export default class Editor {
-  gutter: Gutter | null | undefined
-  tooltip: Tooltip | null | undefined
+  gutter: Gutter | null = null
+  tooltip: Tooltip | null = null
   emitter: Emitter
   markers: Map<string, Array<DisplayMarker | Marker>>
   messages: Map<string, LinterMessage>
   textEditor: TextEditor
-  showTooltip: boolean
+  showTooltip: boolean = true
   subscriptions: CompositeDisposableType
-  cursorPosition: Point | null | undefined
-  gutterPosition: string
-  tooltipFollows: string
-  showDecorations: boolean
-  showProviderName: boolean
+  cursorPosition: Point | null = null
+  gutterPosition?: string
+  tooltipFollows: string = 'Both'
+  showDecorations?: boolean
+  showProviderName: boolean = true
   ignoreTooltipInvocation: boolean
-  currentLineMarker: DisplayMarker | null | undefined
-  lastRange: Range | null | undefined
-  lastIsEmpty: boolean | null | undefined
+  currentLineMarker: DisplayMarker | null = null
+  lastRange?: Range
+  lastIsEmpty?: boolean
   lastCursorPositions: WeakMap<Cursor, Point>
 
   constructor(textEditor: TextEditor) {
-    this.tooltip = null
     this.emitter = new Emitter()
     this.markers = new Map()
     this.messages = new Map()
     this.textEditor = textEditor
     this.subscriptions = new CompositeDisposable() as CompositeDisposableType
     this.ignoreTooltipInvocation = false
-    this.currentLineMarker = null
-    this.lastRange = null
-    this.lastIsEmpty = null
     this.lastCursorPositions = new WeakMap()
 
     this.subscriptions.add(this.emitter)

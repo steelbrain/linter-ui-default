@@ -36,17 +36,13 @@ function getPaneContainer(item: PanelDock): PaneContainer {
 }
 
 export default class PanelDock {
-  element: HTMLElement
-  subscriptions: CompositeDisposable
-  panelHeight: number
-  alwaysTakeMinimumSpace: boolean
-  lastSetPaneHeight: number | null
+  element: HTMLElement = document.createElement('div')
+  subscriptions: CompositeDisposable = new CompositeDisposable()
+  panelHeight?: number
+  alwaysTakeMinimumSpace: boolean = true
+  lastSetPaneHeight: number | null = null
 
   constructor(delegate: Delegate) {
-    this.element = document.createElement('div')
-    this.subscriptions = new CompositeDisposable()
-
-    this.lastSetPaneHeight = null
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.panelHeight', panelHeight => {
         const changed = typeof this.panelHeight === 'number'

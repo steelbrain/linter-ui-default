@@ -7,16 +7,12 @@ export default class BusySignal {
   executing: Set<{
     linter: Linter
     filePath: string | null | undefined
-  }>
-  providerTitles: Set<string>
-  useBusySignal: boolean
-  subscriptions: CompositeDisposable
+  }> = new Set()
+  providerTitles: Set<string> = new Set()
+  useBusySignal: boolean = true
+  subscriptions: CompositeDisposable = new CompositeDisposable()
 
   constructor() {
-    this.executing = new Set()
-    this.providerTitles = new Set()
-    this.subscriptions = new CompositeDisposable()
-
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.useBusySignal', useBusySignal => {
         this.useBusySignal = useBusySignal
