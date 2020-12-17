@@ -255,7 +255,7 @@ export default class Editor {
       name: 'linter-ui-default',
       priority,
     })
-    this.markers.forEach((markers: Array<DisplayMarker>, key: string) => {
+    this.markers.forEach((markers, key) => {
       const message = this.messages.get(key)
       if (message) {
         for (const marker of markers) {
