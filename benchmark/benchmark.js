@@ -27,16 +27,28 @@ function getRandomRange(parLengths: number[]) {
 
 function generateRandomMessage(
   filePath: ?string,
-  severity: ?string = chance.pickone(['error', 'warning', 'info']),
   range: ?Range = getRandomRange(),
+  severity: ?string = chance.pickone(['error', 'warning', 'info']),
 ): Message {
   return {
-    key: chance.unique(chance.string),
+    key: chance.unique(chance.string, 1)[0],
     version: 2,
     severity,
     excerpt: String(chance.integer()),
     location: { file: filePath, position: range },
-    description: chance.string({ length: 100 }),
+    description: chance.sentence({ words: 20 }),
   }
+}
+
+async function getTestFile(filePath: string, numParagraphs: number = 30, numSentences: number = 10) {
+  let str: string = ''
+  let parLengths: number[] = new Array(numParagraphs)
+  for (let i = 0; i < numParagraphs; i++) {
+    const par = chance.paragraph({ sentences: numSentences })
+    str = str.concat(par, '\n')
+    parLengths[i] = par.length
+  }
+  await writeFile(filePath, str)
+  return { fileLegth: str.length, parLengths }
 }
 
