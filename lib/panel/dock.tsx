@@ -16,7 +16,7 @@ export type PaneContainer = Dock & {
 }
 
 // eslint-disable-next-line no-use-before-define
-function getPaneContainer(item: PanelDock): PaneContainer {
+function getPaneContainer(item: PanelDock): PaneContainer | null {
   const paneContainer = atom.workspace.paneContainerForItem(item)
   // NOTE: This is an internal API access
   // It's necessary because there's no Public API for it yet
