@@ -40,7 +40,7 @@ export function mergeChange(change: Object, filePath: string, severity: string):
 }
 
 export function calculateDecorations(
-  decorateOnTreeView: 'Files and Directories' | 'Files',
+  decorateOnTreeView: 'Files and Directories' | 'Files' | undefined,
   messages: Array<LinterMessage>,
 ): Object {
   const toReturn = {}
