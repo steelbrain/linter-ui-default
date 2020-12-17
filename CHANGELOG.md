@@ -1,4 +1,9 @@
 # Changelog
+
+### 2.2.2
+- Huge number of bug fixes (#604)
+- Maximize TypeScript strictness (#604)
+
 ### 2.2.1
 - Use parcel to build and optimize linter-ui-default (#603)
 -
