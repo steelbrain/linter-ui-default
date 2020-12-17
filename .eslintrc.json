@@ -1,4 +1,7 @@
 {
   "extends": "eslint-config-atomic/react",
-  "ignorePatterns": ["dist/", "node_modules/"]
+  "ignorePatterns": ["dist/", "node_modules/"],
+  "rules": {
+    "@typescript-eslint/no-inferrable-types": "off"
+  }
 }
