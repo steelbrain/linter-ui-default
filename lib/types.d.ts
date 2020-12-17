@@ -1,4 +1,4 @@
-import { TextEditor, Point, Range } from 'atom'
+import { TextEditor, Point, Range, Package } from 'atom'
 import type Editor from './editor/index'
 
 export type MessageSolution =
@@ -80,6 +80,15 @@ export type TreeViewHighlight = {
 export type TextEditorExtra = TextEditor & {
   getURI?: () => string
   isAlive?: () => boolean
+}
+
+// TODO: uses internal API
+interface PackageDepsList {
+  [key: string]: string[]
+}
+
+export type PackageExtra = Package & {
+  metadata: PackageDepsList
 }
 
 // windows requestIdleCallback types
