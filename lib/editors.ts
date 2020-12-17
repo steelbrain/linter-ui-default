@@ -2,7 +2,7 @@ import { CompositeDisposable } from 'atom'
 import type { TextEditor } from 'atom'
 import Editor from './editor'
 import { $file, getEditorsMap, filterMessages } from './helpers'
-import type { LinterMessage, MessagesPatch } from './types'
+import type { LinterMessage, MessagesPatch, EditorsPatch } from './types'
 
 export default class Editors {
   editors: Set<Editor> = new Set()
@@ -40,7 +40,7 @@ export default class Editors {
       }
       const filePath = $file(message)
       if (filePath && editorsMap.has(filePath)) {
-        editorsMap.get(filePath).added.push(message)
+        editorsMap.get(filePath)!.added.push(message)
       }
     })
     removed.forEach(function (message) {
@@ -49,14 +49,16 @@ export default class Editors {
       }
       const filePath = $file(message)
       if (filePath && editorsMap.has(filePath)) {
-        editorsMap.get(filePath).removed.push(message)
+        editorsMap.get(filePath)!.removed.push(message)
       }
     })
 
     filePaths.forEach(function (filePath) {
-      const value = editorsMap.get(filePath)
-      if (value.added.length || value.removed.length) {
-        value.editors.forEach(editor => editor.apply(value.added, value.removed))
+      if (editorsMap.has(filePath)) {
+        const { added, removed, editors } = editorsMap.get(filePath) as EditorsPatch
+        if (added.length || removed.length) {
+          editors.forEach(editor => editor.apply(added, removed))
+        }
       }
     })
   }
