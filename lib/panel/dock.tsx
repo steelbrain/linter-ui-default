@@ -40,7 +40,7 @@ export default class PanelDock {
   subscriptions: CompositeDisposable = new CompositeDisposable()
   panelHeight?: number
   alwaysTakeMinimumSpace: boolean = true
-  lastSetPaneHeight: number | null = null
+  lastSetPaneHeight?: number
 
   constructor(delegate: Delegate) {
     this.subscriptions.add(
