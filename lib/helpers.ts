@@ -2,9 +2,9 @@ import { Range } from 'atom'
 import type { Point, PointLike, PointCompatible, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
 import { shell } from 'electron'
 import type Editors from './editors'
-import type { LinterMessage, Message, MessageSolution, EditorsMap } from './types'
+import type { LinterMessage, Message, MessageSolution, EditorsMap, TextEditorExtra } from './types'
 
-let lastPaneItem = null
+let lastPaneItem: TextEditorExtra | null = null
 export const severityScore = {
   error: 3,
   warning: 2,
@@ -36,7 +36,7 @@ export function getPathOfMessage(message: LinterMessage): string {
   return atom.project.relativizePath($file(message) || '')[1]
 }
 export function getActiveTextEditor(): TextEditor | null | undefined {
-  let paneItem = atom.workspace.getCenter().getActivePaneItem()
+  let paneItem = atom.workspace.getCenter().getActivePaneItem() as TextEditorExtra | null
   const paneIsTextEditor = atom.workspace.isTextEditor(paneItem)
   if (
     !paneIsTextEditor &&

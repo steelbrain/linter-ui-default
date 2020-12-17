@@ -76,6 +76,12 @@ export type TreeViewHighlight = {
   warning: boolean
 }
 
+// TODO: uses internal API
+export type TextEditorExtra = TextEditor & {
+  getURI?: () => string
+  isAlive?: () => boolean
+}
+
 // windows requestIdleCallback types
 export type RequestIdleCallbackHandle = any
 type RequestIdleCallbackOptions = {
