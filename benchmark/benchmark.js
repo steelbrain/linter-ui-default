@@ -55,25 +55,20 @@ async function getTestFile(filePath: string, numParagraphs: number = 30, numSent
 /* ************************************************************************* */
 
 describe('Editor benchmark', function () {
+  // parameters
+  const numParagraphs = 300
+  const numSentences = 10
+  const filePath = './benchmark/benchmarkTestFile.txt'
+  const messageNumlist = [5, 10, 20, 50, 70, 100, 200, 500, 800, 1000] // test for different number of messages
+
   let editor: Editor
-  let messages: Message[]
   let textEditor: TextEditor
-
+  let parLengths, fileLength: number
   beforeEach(async function () {
-    // parameter
-    const messageNum = 1000
-    const numParagraphs = 300
-    const numSentences = 10
-    const filePath = './benchmark/benchmarkTestFile.txt'
-
     // make a test file
-    const { fileLegth, parLengths } = await getTestFile(filePath, numParagraphs, numSentences)
-
-    // get linter messages
-    messages = new Array(messageNum)
-    for (let i = 0; i < messageNum; i++) {
-      messages[i] = generateRandomMessage(filePath, getRandomRange(parLengths))
-    }
+    const testFileProps = await getTestFile(filePath, numParagraphs, numSentences)
+    parLengths = testFileProps.parLengths
+    fileLength = testFileProps.fileLength
 
     // open the test file
     await atom.workspace.open(filePath)
@@ -94,30 +89,48 @@ describe('Editor benchmark', function () {
   })
 
   it('apply benchmark', function () {
-    // Add
-    console.log('it adds the messages to the editor')
-    expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
+    console.log('it adds the messages to the editor and then removes them')
 
-    const ti_add = window.performance.now()
+    // test for different number of messages
+    for (const messageNum of messageNumlist) {
+      // get linter messages
+      const messages = new Array(messageNum)
+      for (let i = 0; i < messageNum; i++) {
+        messages[i] = generateRandomMessage(filePath, getRandomRange(parLengths))
+      }
 
-    editor.apply(messages, [])
+      console.log(`\n number of messages are ${messageNum} \n`)
 
-    const tf_add = window.performance.now()
+      // Add
+      expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
 
-    expect(textEditor.getBuffer().getMarkerCount()).toBe(messages.length)
-    console.log(`Adding ${messages.length} linter messages took ${(tf_add - ti_add).toFixed(3)} ms`)
+      const ti_add = window.performance.now()
 
-    // Remove
-    console.log('it removes the messages from the editor')
+      editor.apply(messages, [])
 
-    const ti_remove = window.performance.now()
+      const tf_add = window.performance.now()
 
-    editor.apply([], messages)
+      expect(textEditor.getBuffer().getMarkerCount()).toBe(messageNum)
+      console.log(
+        `Adding ${messageNum} linter messages took ${' '.repeat(50 - messageNum.toString().length)} ${(
+          tf_add - ti_add
+        ).toFixed(3)} ms`,
+      )
 
-    const tf_remove = window.performance.now()
+      // Remove
+      const ti_remove = window.performance.now()
 
-    expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
-    console.log(`Removing ${messages.length} linter messages took ${(tf_remove - ti_remove).toFixed(3)} ms`)
+      editor.apply([], messages)
+
+      const tf_remove = window.performance.now()
+
+      expect(textEditor.getBuffer().getMarkerCount()).toBe(0)
+      console.log(
+        `Removing ${messageNum} linter messages took ${' '.repeat(48 - messageNum.toString().length)} ${(
+          tf_remove - ti_remove
+        ).toFixed(3)} ms`,
+      )
+    }
   })
 
   afterEach(function () {
