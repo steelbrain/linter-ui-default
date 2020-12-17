@@ -206,42 +206,38 @@ export default class Editor {
     return disposableEvent(
       editorElement,
       'mousemove',
-      debounce(
-        event => {
-          if (!editorElement.getComponent() || this.subscriptions.disposed || !hasParent(event.target, 'div.scroll-view')) {
-            return
-          }
-          const tooltip = this.tooltip
-          if (
-            tooltip &&
-            mouseEventNearPosition({
-              event,
-              editor: this.textEditor,
-              editorElement,
-              tooltipElement: tooltip.element,
-              screenPosition: tooltip.marker.getStartScreenPosition(),
-            })
-          ) {
-            return
-          }
+      debounce(event => {
+        if (!editorElement.getComponent() || this.subscriptions.disposed || !hasParent(event.target, 'div.scroll-view')) {
+          return
+        }
+        const tooltip = this.tooltip
+        if (
+          tooltip &&
+          mouseEventNearPosition({
+            event,
+            editor: this.textEditor,
+            editorElement,
+            tooltipElement: tooltip.element,
+            screenPosition: tooltip.marker.getStartScreenPosition(),
+          })
+        ) {
+          return
+        }
 
-          this.cursorPosition = getBufferPositionFromMouseEvent(event, this.textEditor, editorElement)
-          this.ignoreTooltipInvocation = false
-          //@ts-ignore internal API
-          if (this.textEditor.largeFileMode || this.textEditor.getLineCount() > 20000) {
-            // TODO: make line count a config
-            // NOTE: Ignore if file is too large
-            this.cursorPosition = null
-          }
-          if (this.cursorPosition) {
-            this.updateTooltip(this.cursorPosition)
-          } else {
-            this.removeTooltip()
-          }
-        },
-        300,
-        true,
-      ),
+        this.cursorPosition = getBufferPositionFromMouseEvent(event, this.textEditor, editorElement)
+        this.ignoreTooltipInvocation = false
+        //@ts-ignore internal API
+        if (this.textEditor.largeFileMode || this.textEditor.getLineCount() > 20000) {
+          // TODO: make line count a config
+          // NOTE: Ignore if file is too large
+          this.cursorPosition = null
+        }
+        if (this.cursorPosition) {
+          this.updateTooltip(this.cursorPosition)
+        } else {
+          this.removeTooltip()
+        }
+      }, 300),
     )
   }
   listenForKeyboardMovement() {
