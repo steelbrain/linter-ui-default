@@ -2,7 +2,7 @@
 
 import { Range } from 'atom'
 // eslint-disable-next-line no-unused-vars
-import { it, fit, wait, beforeEach, afterEach } from 'jasmine-fix'
+import { it, beforeEach, afterEach } from 'jasmine-fix'
 import Editor from '../dist/editor'
 import { getMessage } from './helpers'
 
