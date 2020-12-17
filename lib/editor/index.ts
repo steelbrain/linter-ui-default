@@ -97,7 +97,7 @@ export default class Editor {
     )
     this.subscriptions.add(
       new Disposable(function () {
-        tooltipSubscription.dispose()
+        tooltipSubscription?.dispose()
       }),
     )
 
