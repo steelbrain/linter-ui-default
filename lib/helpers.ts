@@ -92,7 +92,7 @@ export function filterMessages(
 
 export function filterMessagesByRangeOrPoint(
   messages: Set<LinterMessage> | Array<LinterMessage> | Map<string, LinterMessage>,
-  filePath: string,
+  filePath: string | undefined,
   rangeOrPoint: Point | RangeCompatible,
 ): Array<LinterMessage> {
   const filtered: Array<LinterMessage> = []
