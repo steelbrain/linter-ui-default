@@ -59,8 +59,9 @@ export function getEditorsMap(editors: Editors): { editorsMap: EditorsMap; fileP
   const filePaths: string[] = []
   for (const entry of editors.editors) {
     const filePath = entry.textEditor.getPath()
+    // TODO what if filePath is undefined?
     if (editorsMap.has(filePath)) {
-      editorsMap.get(filePath).editors.push(entry)
+      editorsMap.get(filePath)!.editors.push(entry)
     } else {
       editorsMap.set(filePath, {
         added: [],
