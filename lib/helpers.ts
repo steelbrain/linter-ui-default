@@ -127,8 +127,8 @@ export function openFile(file: string, position: PointLike | null | undefined) {
 }
 
 export function visitMessage(message: LinterMessage, reference = false) {
-  let messageFile: string
-  let messagePosition: Point
+  let messageFile: string | undefined | null
+  let messagePosition: Point | undefined
   if (reference) {
     if (!message.reference || !message.reference.file) {
       console.warn('[Linter-UI-Default] Message does not have a valid reference. Ignoring')
