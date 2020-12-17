@@ -1,12 +1,21 @@
 /* @flow */
+import Benchmark from 'benchmark'
 import { Chance } from 'chance'
 const chance = new Chance()
 import type { Message } from '../lib/types.d'
-import type { Range } from 'atom'
+import { Range } from 'atom'
+import type { TextEditor } from 'atom'
+import Editor from '../dist/editor'
+import { writeFile as writeFileRaw } from 'fs'
+import { promisify } from 'util'
+const writeFile = promisify(writeFileRaw)
 
+/* ************************************************************************* */
 
-function getRanomPoint(maxNum: number) {
-  return [chance.integer({ min: 0, max: maxNum }), chance.integer({ min: 0, max: maxNum })].sort()
+function getRanomPoint(parLengths: number[]): [number, number] {
+  const randomRow = chance.integer({ min: 0, max: parLengths.length })
+  const randomColumn = chance.integer({ min: 0, max: parLengths[randomRow] })
+  return [randomRow, randomColumn]
 }
 
 function getRandomRange(maxNum: number) {
