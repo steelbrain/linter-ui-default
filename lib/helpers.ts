@@ -219,8 +219,11 @@ export function sortMessages(
   })
 }
 
-export function sortSolutions(solutions: Message['solutions']) {
-  return solutions.slice().sort(function (a, b) {
+export function sortSolutions(solutions: MessageSolution[]) {
+  return solutions.sort(function (a, b) {
+    if (a.priority === undefined || b.priority === undefined) {
+      return 0
+    }
     return b.priority - a.priority
   })
 }
