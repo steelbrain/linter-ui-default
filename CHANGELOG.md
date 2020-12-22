@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.2.4
+- Bump dependencies
+- Add benchmarks (#605)
+
 ### 2.2.3
 - if file path of the editor is undefined save the message in ""
 
