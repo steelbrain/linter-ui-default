@@ -1,5 +1,21 @@
 # Changelog
 
+### 2.3.0
+- Fixes overlaps with datatips (linter messages now are positioned above the point, unless there is not enough space) (#607)
+- Changes the style of the tooltips so they match datatips (atom-ide-community style) (#607)
+
+  info messages:
+
+  ![image](https://user-images.githubusercontent.com/16418197/102887312-532a8280-441c-11eb-99ca-3e82306f3dfb.png)
+
+  error messages:
+
+  ![image](https://user-images.githubusercontent.com/16418197/102887315-54f44600-441c-11eb-8b3f-d89a463b5865.png)
+
+  when the message is at the top of the page, it does not translate:
+
+  ![image](https://user-images.githubusercontent.com/16418197/102887388-7bb27c80-441c-11eb-8961-6a13890ba86a.png)
+
 ### 2.2.4
 - Bump dependencies
 - Add benchmarks (#605)
