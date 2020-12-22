@@ -38,6 +38,26 @@ export default class TooltipElement {
       }
     })
     ReactDOM.render(<div className="linter-messages">{children}</div>, this.element)
+
+    // move box above the current editing line
+    // HACK: patch the decoration's style so it is shown above the current line
+    setTimeout(() => {
+      const hight = this.element.getBoundingClientRect().height
+      const lineHight = textEditor.getLineHeightInPixels()
+      // @ts-ignore: internal API
+      const availableHight = (position.row - textEditor.getFirstVisibleScreenRow()) * lineHight
+      if (hight < availableHight + 80) {
+        this.element.style.transform = `translateY(-${2 + lineHight + hight}px)`
+        // TODO:
+        // } else {
+        // // // move right so it does not overlap with datatip-overlay"
+        // const dataTip = textEditor.getElement().querySelector(".datatip-overlay")
+        // if (dataTip) {
+        //   this.element.style.left = dataTip.clientWidth + "px"
+        // }
+      }
+      this.element.style.visibility = 'visible'
+    }, 10)
   }
   isValid(position: Point, messages: Map<string, LinterMessage>): boolean {
     if (this.messages.length !== 1 || !messages.has(this.messages[0].key)) {
