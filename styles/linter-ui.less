@@ -41,25 +41,36 @@
   .linter-message {
     &.error {
       .message-with-severity(@text-color-error);
+      &::after {
+        color: @text-color-error;
+      }
     }
     &.warning {
       .message-with-severity(@text-color-warning);
+      &::after {
+        color: @text-color-warning;
+      }
     }
     &.info {
       .message-with-severity(@text-color-info);
-      &::before {
+      &::after {
         opacity: 0;
       }
     }
 
     // Arrow pointer
-    &:last-child::before {
+    &:last-child::after {
       content: '';
-      position: absolute;
-      top: -4px;
-      left: 0;
-      border: 4px solid;
+      position: relative;
+      left: -20px;
+      top: -2px;
+      border-top: 0 solid transparent;
+      border-right: 0 solid transparent;
+      border-bottom: 8px solid;
+      border-left: 8px solid transparent;
     }
+    // TODO arrow pointer for before
+
     a {
       font-weight: bold;
     }
