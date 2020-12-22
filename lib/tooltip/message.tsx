@@ -1,5 +1,5 @@
 import * as url from 'url'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import marked from 'marked'
 
 import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
@@ -22,42 +22,23 @@ type Props = {
   delegate: TooltipDelegate
 }
 
-type State = {
-  description?: string
-  descriptionShow?: boolean
-}
+export default function MessageElement(props: Props) {
+  let descriptionLoading = false
 
-export default class MessageElement extends React.Component<Props, State> {
-  state: State = {
+  const [state, setState] = useState({
     description: '',
     descriptionShow: false,
-  }
+  })
 
-  componentDidMount() {
-    this.props.delegate.onShouldUpdate(() => {
-      this.setState({})
-    })
-    this.props.delegate.onShouldExpand(() => {
-      if (!this.state.descriptionShow) {
-        this.toggleDescription()
-      }
-    })
-    this.props.delegate.onShouldCollapse(() => {
-      if (this.state.descriptionShow) {
-        this.toggleDescription()
-      }
-    })
-  }
-
-  onFixClick(): void {
-    const message = this.props.message
+  function onFixClick(): void {
+    const message = props.message
     const textEditor = getActiveTextEditor()
     if (textEditor !== null && message.version === 2 && message.solutions && message.solutions.length) {
       applySolution(textEditor, sortSolutions(message.solutions)[0])
     }
   }
 
-  openFile(ev: React.MouseEvent) {
+  function thisOpenFile(ev: React.MouseEvent) {
     if (!(ev.target instanceof HTMLElement)) {
       return
     }
@@ -86,30 +67,30 @@ export default class MessageElement extends React.Component<Props, State> {
     }
   }
 
-  canBeFixed(message: LinterMessage): boolean {
+  function canBeFixed(message: LinterMessage): boolean {
     if (message.version === 2 && message.solutions && message.solutions.length) {
       return true
     }
     return false
   }
 
-  toggleDescription(result: string | null | undefined = null) {
-    const newStatus = !this.state.descriptionShow
-    const description = this.state.description || this.props.message.description
+  function toggleDescription(result: string | null | undefined = null) {
+    const newStatus = !state.descriptionShow
+    const description = state.description || props.message.description
 
     if (!newStatus && !result) {
-      this.setState({ descriptionShow: false })
+      setState({ ...state, descriptionShow: false })
       return
     }
     if (typeof description === 'string' || result) {
       const descriptionToUse = marked(result || (description as string))
-      this.setState({ descriptionShow: true, description: descriptionToUse })
+      setState({ description: descriptionToUse, descriptionShow: true })
     } else if (typeof description === 'function') {
-      this.setState({ descriptionShow: true })
-      if (this.descriptionLoading) {
+      setState({ ...state, descriptionShow: true })
+      if (descriptionLoading) {
         return
       }
-      this.descriptionLoading = true
+      descriptionLoading = true
       new Promise(function (resolve) {
         resolve(description())
       })
@@ -117,13 +98,13 @@ export default class MessageElement extends React.Component<Props, State> {
           if (typeof response !== 'string') {
             throw new Error(`Expected result to be string, got: ${typeof response}`)
           }
-          this.toggleDescription(response)
+          toggleDescription(response)
         })
         .catch(error => {
           console.log('[Linter] Error getting descriptions', error)
-          this.descriptionLoading = false
-          if (this.state.descriptionShow) {
-            this.toggleDescription()
+          descriptionLoading = false
+          if (state.descriptionShow) {
+            toggleDescription()
           }
         })
     } else {
@@ -131,42 +112,55 @@ export default class MessageElement extends React.Component<Props, State> {
     }
   }
 
-  descriptionLoading = false
+  // componentDidMount
+  useEffect(() => {
+    props.delegate.onShouldUpdate(() => {
+      setState({ description: '', descriptionShow: false })
+    })
+    props.delegate.onShouldExpand(() => {
+      if (!state.descriptionShow) {
+        toggleDescription()
+      }
+    })
+    props.delegate.onShouldCollapse(() => {
+      if (state.descriptionShow) {
+        toggleDescription()
+      }
+    })
+  }, [])
 
-  render() {
-    const { message, delegate } = this.props
+  const { message, delegate } = props
 
-    return (
-      <div className={`linter-message ${message.severity}`} onClick={this.openFile}>
-        {message.description && (
-          <a href="#" onClick={() => this.toggleDescription()}>
-            <span className={`icon linter-icon icon-${this.state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
-          </a>
-        )}
-        <div className="linter-excerpt">
-          {this.canBeFixed(message) && <FixButton onClick={() => this.onFixClick()} />}
-          {delegate.showProviderName ? `${message.linterName}: ` : ''}
-          {message.excerpt}
-        </div>{' '}
-        {message.reference && message.reference.file && (
-          <a href="#" onClick={() => visitMessage(message, true)}>
-            <span className="icon linter-icon icon-alignment-aligned-to" />
-          </a>
-        )}
-        {message.url && (
-          <a href="#" onClick={() => openExternally(message)}>
-            <span className="icon linter-icon icon-link" />
-          </a>
-        )}
-        {this.state.descriptionShow && (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: this.state.description || 'Loading...',
-            }}
-            className="linter-line"
-          />
-        )}
-      </div>
-    )
-  }
+  return (
+    <div className={`linter-message ${message.severity}`} onClick={thisOpenFile}>
+      {message.description && (
+        <a href="#" onClick={() => toggleDescription()}>
+          <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
+        </a>
+      )}
+      <div className="linter-excerpt">
+        {canBeFixed(message) && <FixButton onClick={() => onFixClick()} />}
+        {delegate.showProviderName ? `${message.linterName}: ` : ''}
+        {message.excerpt}
+      </div>{' '}
+      {message.reference && message.reference.file && (
+        <a href="#" onClick={() => visitMessage(message, true)}>
+          <span className="icon linter-icon icon-alignment-aligned-to" />
+        </a>
+      )}
+      {message.url && (
+        <a href="#" onClick={() => openExternally(message)}>
+          <span className="icon linter-icon icon-link" />
+        </a>
+      )}
+      {state.descriptionShow && (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: state.description || 'Loading...',
+          }}
+          className="linter-line"
+        />
+      )}
+    </div>
+  )
 }
