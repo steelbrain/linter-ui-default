@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactTable from 'sb-react-table'
 import { $range, severityNames, sortMessages, visitMessage, openExternally, getPathOfMessage } from '../helpers'
 import type Delegate from './delegate'
@@ -8,12 +8,12 @@ type Props = {
   delegate: Delegate
 }
 
-type State = {
-  messages: Array<LinterMessage>
-}
+export default function PanelComponent(props: Props) {
+  const [state, setState] = useState({
+    messages: props.delegate.filteredMessages,
+  })
 
-export default class PanelComponent extends React.Component<Props, State> {
-  static renderRowColumn(row: LinterMessage, column: string) {
+  function renderRowColumn(row: LinterMessage, column: string) {
     const range = $range(row)
 
     switch (column) {
@@ -30,21 +30,14 @@ export default class PanelComponent extends React.Component<Props, State> {
     }
   }
 
-  constructor(props: Props, context: Object | null | undefined) {
-    super(props, context)
-    this.state = {
-      messages: this.props.delegate.filteredMessages,
-    }
-  }
-  state: State
-
-  componentDidMount() {
-    this.props.delegate.onDidChangeMessages(messages => {
-      this.setState({ messages })
+  // componentDidMount
+  useEffect(() => {
+    props.delegate.onDidChangeMessages(messages => {
+      setState({ messages })
     })
-  }
+  }, [])
 
-  onClick = (e: React.MouseEvent, row: LinterMessage) => {
+  function onClick(e: React.MouseEvent, row: LinterMessage) {
     if (e.target.tagName === 'A') {
       return
     }
@@ -59,43 +52,41 @@ export default class PanelComponent extends React.Component<Props, State> {
     }
   }
 
-  render() {
-    const { delegate } = this.props
-    const columns = [
-      { key: 'severity', label: 'Severity', sortable: true },
-      { key: 'linterName', label: 'Provider', sortable: true },
-      { key: 'excerpt', label: 'Description', onClick: this.onClick },
-      { key: 'line', label: 'Line', sortable: true, onClick: this.onClick },
-    ]
-    if (delegate.panelRepresents === 'Entire Project') {
-      columns.push({
-        key: 'file',
-        label: 'File',
-        sortable: true,
-        onClick: this.onClick,
-      })
-    }
-
-    const customStyle: React.CSSProperties = { overflowY: 'scroll', height: '100%' }
-
-    return (
-      <div id="linter-panel" tabIndex={-1} style={customStyle}>
-        <ReactTable
-          rows={this.state.messages}
-          columns={columns}
-          initialSort={[
-            { column: 'severity', type: 'desc' },
-            { column: 'file', type: 'asc' },
-            { column: 'line', type: 'asc' },
-          ]}
-          sort={sortMessages}
-          rowKey={i => i.key}
-          renderHeaderColumn={i => i.label}
-          renderBodyColumn={PanelComponent.renderRowColumn}
-          style={{ width: '100%' }}
-          className="linter"
-        />
-      </div>
-    )
+  const { delegate } = props
+  const columns = [
+    { key: 'severity', label: 'Severity', sortable: true },
+    { key: 'linterName', label: 'Provider', sortable: true },
+    { key: 'excerpt', label: 'Description', onClick: onClick },
+    { key: 'line', label: 'Line', sortable: true, onClick: onClick },
+  ]
+  if (delegate.panelRepresents === 'Entire Project') {
+    columns.push({
+      key: 'file',
+      label: 'File',
+      sortable: true,
+      onClick: onClick,
+    })
   }
+
+  const customStyle: React.CSSProperties = { overflowY: 'scroll', height: '100%' }
+
+  return (
+    <div id="linter-panel" tabIndex={-1} style={customStyle}>
+      <ReactTable
+        rows={state.messages}
+        columns={columns}
+        initialSort={[
+          { column: 'severity', type: 'desc' },
+          { column: 'file', type: 'asc' },
+          { column: 'line', type: 'asc' },
+        ]}
+        sort={sortMessages}
+        rowKey={i => i.key}
+        renderHeaderColumn={i => i.label}
+        renderBodyColumn={renderRowColumn}
+        style={{ width: '100%' }}
+        className="linter"
+      />
+    </div>
+  )
 }
