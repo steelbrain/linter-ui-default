@@ -1,4 +1,7 @@
 # Changelog
+### 2.3.1
+- fix: remove extra space from the tooltip due to arrow pointer
+- fix: decrease the time required for showing the linter tooltip (faster response)
 
 ### 2.3.0
 - Fixes overlaps with datatips (linter messages now are positioned above the point, unless there is not enough space) (#607)
