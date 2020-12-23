@@ -233,7 +233,7 @@ export default class Editor {
         } else {
           this.removeTooltip()
         }
-      }, 300),
+      }, 100),
     )
   }
   listenForKeyboardMovement() {

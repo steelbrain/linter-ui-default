@@ -57,7 +57,7 @@ export default class TooltipElement {
         // }
       }
       this.element.style.visibility = 'visible'
-    }, 10)
+    }, 50)
   }
   isValid(position: Point, messages: Map<string, LinterMessage>): boolean {
     if (this.messages.length !== 1 || !messages.has(this.messages[0].key)) {
