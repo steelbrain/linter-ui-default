@@ -52,41 +52,41 @@ export default function PanelComponent(props: Props) {
     }
   }
 
-    const { delegate } = props
-    const columns = [
-      { key: 'severity', label: 'Severity', sortable: true },
-      { key: 'linterName', label: 'Provider', sortable: true },
-      { key: 'excerpt', label: 'Description', onClick: onClick },
-      { key: 'line', label: 'Line', sortable: true, onClick: onClick },
-    ]
-    if (delegate.panelRepresents === 'Entire Project') {
-      columns.push({
-        key: 'file',
-        label: 'File',
-        sortable: true,
-        onClick: onClick,
-      })
-    }
+  const { delegate } = props
+  const columns = [
+    { key: 'severity', label: 'Severity', sortable: true },
+    { key: 'linterName', label: 'Provider', sortable: true },
+    { key: 'excerpt', label: 'Description', onClick: onClick },
+    { key: 'line', label: 'Line', sortable: true, onClick: onClick },
+  ]
+  if (delegate.panelRepresents === 'Entire Project') {
+    columns.push({
+      key: 'file',
+      label: 'File',
+      sortable: true,
+      onClick: onClick,
+    })
+  }
 
-    const customStyle: React.CSSProperties = { overflowY: 'scroll', height: '100%' }
+  const customStyle: React.CSSProperties = { overflowY: 'scroll', height: '100%' }
 
-    return (
-      <div id="linter-panel" tabIndex={-1} style={customStyle}>
-        <ReactTable
-          rows={state.messages}
-          columns={columns}
-          initialSort={[
-            { column: 'severity', type: 'desc' },
-            { column: 'file', type: 'asc' },
-            { column: 'line', type: 'asc' },
-          ]}
-          sort={sortMessages}
-          rowKey={i => i.key}
-          renderHeaderColumn={i => i.label}
-          renderBodyColumn={renderRowColumn}
-          style={{ width: '100%' }}
-          className="linter"
-        />
-      </div>
-    )
+  return (
+    <div id="linter-panel" tabIndex={-1} style={customStyle}>
+      <ReactTable
+        rows={state.messages}
+        columns={columns}
+        initialSort={[
+          { column: 'severity', type: 'desc' },
+          { column: 'file', type: 'asc' },
+          { column: 'line', type: 'asc' },
+        ]}
+        sort={sortMessages}
+        rowKey={i => i.key}
+        renderHeaderColumn={i => i.label}
+        renderBodyColumn={renderRowColumn}
+        style={{ width: '100%' }}
+        className="linter"
+      />
+    </div>
+  )
 }
