@@ -1,4 +1,7 @@
 # Changelog
+### 2.3.2
+- fix: linter tooltip messages not being visible in some themes
+
 ### 2.3.1
 - fix: remove extra space from the tooltip due to arrow pointer
 - fix: decrease the time required for showing the linter tooltip (faster response)
