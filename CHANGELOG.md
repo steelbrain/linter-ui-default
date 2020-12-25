@@ -1,4 +1,7 @@
 # Changelog
+### 2.3.4
+- fix: transform the whole overlay to make underneath of the tooltip clickable
+
 ### 2.3.3
 - fix: make event listeners passive
 

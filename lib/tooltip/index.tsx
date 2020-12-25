@@ -47,7 +47,10 @@ export default class TooltipElement {
       // @ts-ignore: internal API
       const availableHight = (position.row - textEditor.getFirstVisibleScreenRow()) * lineHight
       if (hight < availableHight + 80) {
-        this.element.style.transform = `translateY(-${2 + lineHight + hight}px)`
+        const overlay = this.element.parentElement
+        if (overlay) {
+          overlay.style.transform = `translateY(-${2 + lineHight + hight}px)`
+        }
         // TODO:
         // } else {
         // // // move right so it does not overlap with datatip-overlay"
