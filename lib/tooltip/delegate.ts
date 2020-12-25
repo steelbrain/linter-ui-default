@@ -34,7 +34,7 @@ export default class TooltipDelegate {
               // $FlowIgnore: document.body is never null
               document.body.removeEventListener('keyup', eventListener)
               atom.commands.dispatch(atom.views.getView(atom.workspace), 'linter-ui-default:collapse-tooltip')
-            })
+            }, { passive: true })
           }
         },
         'linter-ui-default:collapse-tooltip': () => {
