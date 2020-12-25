@@ -1,4 +1,7 @@
 # Changelog
+### 2.3.3
+- fix: make event listeners passive
+
 ### 2.3.2
 - fix: linter tooltip messages not being visible in some themes
 

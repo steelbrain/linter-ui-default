@@ -41,6 +41,7 @@ export default class TreeView {
           debounce(() => {
             this.update()
           }),
+          { passive: true },
         ),
       )
     }, 100)

@@ -30,11 +30,15 @@ export default class TooltipDelegate {
           // If bound to a key, collapse when that key is released, just like old times
           if (event?.originalEvent?.isTrusted) {
             // $FlowIgnore: document.body is never null
-            document.body.addEventListener('keyup', function eventListener() {
-              // $FlowIgnore: document.body is never null
-              document.body.removeEventListener('keyup', eventListener)
-              atom.commands.dispatch(atom.views.getView(atom.workspace), 'linter-ui-default:collapse-tooltip')
-            })
+            document.body.addEventListener(
+              'keyup',
+              function eventListener() {
+                // $FlowIgnore: document.body is never null
+                document.body.removeEventListener('keyup', eventListener)
+                atom.commands.dispatch(atom.views.getView(atom.workspace), 'linter-ui-default:collapse-tooltip')
+              },
+              { passive: true },
+            )
           }
         },
         'linter-ui-default:collapse-tooltip': () => {
