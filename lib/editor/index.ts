@@ -234,6 +234,7 @@ export default class Editor {
           this.removeTooltip()
         }
       }, 100),
+      { passive: true }
     )
   }
   listenForKeyboardMovement() {
