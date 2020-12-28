@@ -1,4 +1,7 @@
 # Changelog
+### 2.3.5
+- fix: do not move the linter tooltip out of the editor
+
 ### 2.3.4
 - fix: transform the whole overlay to make underneath of the tooltip clickable
 

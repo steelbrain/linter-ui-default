@@ -46,7 +46,7 @@ export default class TooltipElement {
       const lineHight = textEditor.getLineHeightInPixels()
       // @ts-ignore: internal API
       const availableHight = (position.row - textEditor.getFirstVisibleScreenRow()) * lineHight
-      if (hight < availableHight + 80) {
+      if (hight < availableHight) {
         const overlay = this.element.parentElement
         if (overlay) {
           overlay.style.transform = `translateY(-${2 + lineHight + hight}px)`
