@@ -52,6 +52,7 @@ export type Linter = {
   name: string
   scope: 'file' | 'project'
   lintOnFly: boolean
+  lintsOnChange?: boolean
   grammarScopes: Array<string>
   lint: (textEditor: TextEditor) => (Array<Message> | null | undefined) | Promise<Array<Message> | null | undefined>
 }
