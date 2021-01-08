@@ -38,7 +38,7 @@ export default function PanelComponent(props: Props) {
   }, [])
 
   function onClick(e: React.MouseEvent, row: LinterMessage) {
-    if (e.target.tagName === 'A') {
+    if ((e.target as HTMLElement).tagName === 'A') {
       return
     }
     if (process.platform === 'darwin' ? e.metaKey : e.ctrlKey) {
