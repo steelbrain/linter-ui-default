@@ -1,7 +1,7 @@
 import { CompositeDisposable } from 'atom'
 import type { TextEditor } from 'atom'
 import Editor from './editor'
-import { $file, getEditorsMap, filterMessages } from './helpers'
+import { $file, getEditorsMap, filterMessages, isLargeFile } from './helpers'
 import type { LinterMessage, MessagesPatch, EditorsPatch } from './types'
 
 export default class Editors {
@@ -62,11 +62,19 @@ export default class Editors {
       }
     })
   }
-  getEditor(textEditor: TextEditor): Editor {
+  getEditor(textEditor: TextEditor): Editor | void {
     for (const entry of this.editors) {
       if (entry.textEditor === textEditor) {
         return entry
       }
+    }
+    // TODO we do this check only at the begining. Probably we should do this later too?
+    if (isLargeFile(textEditor)) {
+      atom.notifications.addWarning('Large/Minified file detected', {
+        detail:
+          'Adding inline linter markers are skipped for this file for performance reasons.\nYou can change the detection threshold in the linter-ui-default settings.',
+      })
+      return
     }
     const editor = new Editor(textEditor)
     this.editors.add(editor)
