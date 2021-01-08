@@ -17,10 +17,10 @@ export default class Editors {
         if (isLargeFile(textEditor)) {
           atom.notifications.addWarning('Large/Minified file detected', {
             detail:
-              'Adding inline linter markers are skipped for this file for performance reasons.\nYou can change the detection threshold in the linter-ui-default settings.',
+              'Adding inline linter markers are skipped for this file for performance reasons (linter pane is still active)',
             buttons: [
               {
-                text: 'Force enable inline linter markers',
+                text: 'Force enable',
                 onDidClick: () => {
                   this.getEditor(textEditor)
                 },
