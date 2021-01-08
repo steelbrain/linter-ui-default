@@ -1,7 +1,7 @@
 import { CompositeDisposable } from 'atom'
 import type { TextEditor } from 'atom'
 import Editor from './editor'
-import { $file, getEditorsMap, filterMessages } from './helpers'
+import { $file, getEditorsMap, filterMessages, isLargeFile } from './helpers'
 import type { LinterMessage, MessagesPatch, EditorsPatch } from './types'
 
 export default class Editors {
@@ -13,6 +13,36 @@ export default class Editors {
   constructor() {
     this.subscriptions.add(
       atom.workspace.observeTextEditors(textEditor => {
+        // TODO we do this check only at the begining. Probably we should do this later too?
+        if (isLargeFile(textEditor)) {
+          const notif = atom.notifications.addWarning('Linter: Large/Minified file detected', {
+            detail:
+              'Adding inline linter markers are skipped for this file for performance reasons (linter pane is still active)',
+            dismissable: true,
+            buttons: [
+              {
+                text: 'Force enable',
+                onDidClick: () => {
+                  this.getEditor(textEditor)
+                  notif.dismiss()
+                },
+              },
+              {
+                text: 'Change threshold',
+                onDidClick: async () => {
+                  await atom.workspace.open("atom://config/packages/linter-ui-default")
+                  // it is the 16th setting :D
+                  document.querySelectorAll(".control-group")[16]?.scrollIntoView()
+                  notif.dismiss()
+                }
+              }
+            ]
+          })
+          setTimeout(() => {
+            notif.dismiss()
+          }, 5000)
+          return
+        }
         this.getEditor(textEditor)
       }),
     )
@@ -62,7 +92,7 @@ export default class Editors {
       }
     })
   }
-  getEditor(textEditor: TextEditor): Editor {
+  getEditor(textEditor: TextEditor): Editor | void {
     for (const entry of this.editors) {
       if (entry.textEditor === textEditor) {
         return entry
