@@ -235,6 +235,20 @@
       "type": "number",
       "default": 100,
       "order": 3
+    },
+    "longLineLength": {
+      "title": "Long Line Length",
+      "description": "If an editor has a line with a length more than this number, linter will skip adding inline linter markers.",
+      "type": "number",
+      "default": 4000,
+      "order": 10
+    },
+    "largeFileLineCount": {
+      "title": "Large File Line Count",
+      "description": "If an editor more line numbers than this number, linter will skip adding inline linter markers.",
+      "type": "number",
+      "default": 20000,
+      "order": 11
     }
   }
 }
