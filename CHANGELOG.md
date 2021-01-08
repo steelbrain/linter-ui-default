@@ -1,4 +1,7 @@
 # Changelog
+### 2.4.0
+- feat: large/minified file optimizations (#612)
+
 ### 2.3.5
 - fix: do not move the linter tooltip out of the editor
 
