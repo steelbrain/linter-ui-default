@@ -251,3 +251,21 @@ export function applySolution(textEditor: TextEditor, solution: MessageSolution)
   textEditor.setTextInBufferRange(range, replaceWith)
   return true
 }
+
+const largeFileLineCount = atom.config.get('linter-ui-default.largeFileLineCount')
+const longLineLength = atom.config.get('linter-ui-default.longLineLength')
+
+export function isLargeFile(editor: TextEditor) {
+  const lineCount = editor.getLineCount()
+  // @ts-ignore
+  if (editor.largeFileMode || lineCount >= largeFileLineCount) {
+    return true
+  }
+  const buffer = editor.getBuffer()
+  for (let i = 0, len = lineCount; i < len; i++) {
+    if (buffer.lineLengthForRow(i) > longLineLength) {
+      return true
+    }
+  }
+  return false
+}
