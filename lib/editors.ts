@@ -13,6 +13,14 @@ export default class Editors {
   constructor() {
     this.subscriptions.add(
       atom.workspace.observeTextEditors(textEditor => {
+        // TODO we do this check only at the begining. Probably we should do this later too?
+        if (isLargeFile(textEditor)) {
+          atom.notifications.addWarning('Large/Minified file detected', {
+            detail:
+              'Adding inline linter markers are skipped for this file for performance reasons.\nYou can change the detection threshold in the linter-ui-default settings.',
+          })
+          return
+        }
         this.getEditor(textEditor)
       }),
     )
@@ -67,14 +75,6 @@ export default class Editors {
       if (entry.textEditor === textEditor) {
         return entry
       }
-    }
-    // TODO we do this check only at the begining. Probably we should do this later too?
-    if (isLargeFile(textEditor)) {
-      atom.notifications.addWarning('Large/Minified file detected', {
-        detail:
-          'Adding inline linter markers are skipped for this file for performance reasons.\nYou can change the detection threshold in the linter-ui-default settings.',
-      })
-      return
     }
     const editor = new Editor(textEditor)
     this.editors.add(editor)
