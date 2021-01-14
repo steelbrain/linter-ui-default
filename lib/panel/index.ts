@@ -144,7 +144,7 @@ export default class Panel {
     const visibilityAllowed2 = this.hidePanelWhenEmpty ? this.showPanelStateMessages : true
     if (visibilityAllowed1 && visibilityAllowed2) {
       if (!isActivePanel) {
-        paneContainer.paneForItem(panel).activateItem(panel)
+        paneContainer.paneForItem(panel)?.activateItem(panel)
       }
       paneContainer.show()
       panel.doPanelResize()
