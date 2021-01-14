@@ -71,7 +71,6 @@ export default function PanelComponent({ delegate }: Props) {
   )
 }
 
-
 function renderRowColumn(row: LinterMessage, column: string) {
   const range = $range(row)
 
