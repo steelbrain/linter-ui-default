@@ -13,23 +13,6 @@ export default function PanelComponent(props: Props) {
     messages: props.delegate.filteredMessages,
   })
 
-  function renderRowColumn(row: LinterMessage, column: string) {
-    const range = $range(row)
-
-    switch (column) {
-      case 'file':
-        return getPathOfMessage(row)
-      case 'line':
-        return range ? `${range.start.row + 1}:${range.start.column + 1}` : ''
-      case 'excerpt':
-        return row.excerpt
-      case 'severity':
-        return severityNames[row.severity]
-      default:
-        return row[column]
-    }
-  }
-
   // componentDidMount
   useEffect(() => {
     props.delegate.onDidChangeMessages(messages => {
@@ -89,4 +72,22 @@ export default function PanelComponent(props: Props) {
       />
     </div>
   )
+}
+
+
+function renderRowColumn(row: LinterMessage, column: string) {
+  const range = $range(row)
+
+  switch (column) {
+    case 'file':
+      return getPathOfMessage(row)
+    case 'line':
+      return range ? `${range.start.row + 1}:${range.start.column + 1}` : ''
+    case 'excerpt':
+      return row.excerpt
+    case 'severity':
+      return severityNames[row.severity]
+    default:
+      return row[column]
+  }
 }
