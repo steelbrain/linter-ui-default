@@ -115,9 +115,9 @@ export default class PanelDock {
   dispose() {
     this.subscriptions.dispose()
     const paneContainer = getPaneContainer(this)
-    if (paneContainer && !this.alwaysTakeMinimumSpace && paneContainer.state.size !== this.panelHeight) {
+    if (paneContainer !== null && !this.alwaysTakeMinimumSpace && paneContainer.state.size !== this.panelHeight) {
       atom.config.set('linter-ui-default.panelHeight', paneContainer.state.size)
-      paneContainer.paneForItem(this).destroyItem(this, true)
+      paneContainer.paneForItem(this)?.destroyItem(this, true)
     }
   }
 }
