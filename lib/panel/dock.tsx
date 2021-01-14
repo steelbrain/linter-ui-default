@@ -63,7 +63,11 @@ export default class PanelDock {
   // NOTE: Chose a name that won't conflict with Dock APIs
   doPanelResize(forConfigHeight = false) {
     const paneContainer = getPaneContainer(this)
+    if (paneContainer === null) {
+      return
+    }
     let minimumHeight: number | null = null
+
     const paneContainerView = atom.views.getView(paneContainer)
     if (paneContainerView && this.alwaysTakeMinimumSpace) {
       // NOTE: Super horrible hack but the only possible way I could find :((
@@ -76,23 +80,21 @@ export default class PanelDock {
       }
     }
 
-    if (paneContainer) {
-      let updateConfigHeight: number | null = null
-      const heightSet =
-        minimumHeight !== null && !forConfigHeight ? Math.min(minimumHeight, this.panelHeight) : this.panelHeight
+    let updateConfigHeight: number | null = null
+    const heightSet =
+      minimumHeight !== null && !forConfigHeight ? Math.min(minimumHeight, this.panelHeight) : this.panelHeight
 
-      // Person resized the panel, save new resized value to config
-      if (this.lastSetPaneHeight !== null && paneContainer.state.size !== this.lastSetPaneHeight && !forConfigHeight) {
-        updateConfigHeight = paneContainer.state.size
-      }
+    // Person resized the panel, save new resized value to config
+    if (this.lastSetPaneHeight !== null && paneContainer.state.size !== this.lastSetPaneHeight && !forConfigHeight) {
+      updateConfigHeight = paneContainer.state.size
+    }
 
-      this.lastSetPaneHeight = heightSet
-      paneContainer.state.size = heightSet
-      paneContainer.render(paneContainer.state)
+    this.lastSetPaneHeight = heightSet
+    paneContainer.state.size = heightSet
+    paneContainer.render(paneContainer.state)
 
-      if (updateConfigHeight !== null) {
-        atom.config.set('linter-ui-default.panelHeight', updateConfigHeight)
-      }
+    if (updateConfigHeight !== null) {
+      atom.config.set('linter-ui-default.panelHeight', updateConfigHeight)
     }
   }
   getURI() {
