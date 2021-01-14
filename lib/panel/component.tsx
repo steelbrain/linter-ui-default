@@ -50,10 +50,8 @@ export default function PanelComponent({ delegate }: Props) {
     })
   }
 
-  const customStyle: React.CSSProperties = { overflowY: 'scroll', height: '100%' }
-
   return (
-    <div id="linter-panel" tabIndex={-1} style={customStyle}>
+    <div id="linter-panel" tabIndex={-1} style={{ overflowY: 'scroll', height: '100%' }}>
       <ReactTable
         rows={state.messages}
         columns={columns}
