@@ -35,14 +35,13 @@ export default function PanelComponent(props: Props) {
     }
   }
 
-  const { delegate } = props
   const columns = [
     { key: 'severity', label: 'Severity', sortable: true },
     { key: 'linterName', label: 'Provider', sortable: true },
     { key: 'excerpt', label: 'Description', onClick: onClick },
     { key: 'line', label: 'Line', sortable: true, onClick: onClick },
   ]
-  if (delegate.panelRepresents === 'Entire Project') {
+  if (props.delegate.panelRepresents === 'Entire Project') {
     columns.push({
       key: 'file',
       label: 'File',
