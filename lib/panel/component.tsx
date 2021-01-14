@@ -8,14 +8,14 @@ type Props = {
   delegate: Delegate
 }
 
-export default function PanelComponent({ delegate }: Props) {
+export default function PanelComponent(props: Props) {
   const [state, setState] = useState({
-    messages: delegate.filteredMessages,
+    messages: props.delegate.filteredMessages,
   })
 
   // componentDidMount
   useEffect(() => {
-    delegate.onDidChangeMessages(messages => {
+    props.delegate.onDidChangeMessages(messages => {
       setState({ messages })
     })
   }, [])
@@ -35,6 +35,7 @@ export default function PanelComponent({ delegate }: Props) {
     }
   }
 
+  const { delegate } = props
   const columns = [
     { key: 'severity', label: 'Severity', sortable: true },
     { key: 'linterName', label: 'Provider', sortable: true },
