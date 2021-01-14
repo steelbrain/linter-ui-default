@@ -38,7 +38,7 @@ function getPaneContainer(item: PanelDock): PaneContainer | null {
 export default class PanelDock {
   element: HTMLElement = document.createElement('div')
   subscriptions: CompositeDisposable = new CompositeDisposable()
-  panelHeight?: number
+  panelHeight: number = 100
   alwaysTakeMinimumSpace: boolean = true
   lastSetPaneHeight?: number
 
