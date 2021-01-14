@@ -1,4 +1,4 @@
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
 type CompositeDisposableType = CompositeDisposable & { disposed: boolean }

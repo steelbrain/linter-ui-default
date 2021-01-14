@@ -1,5 +1,5 @@
 import { CompositeDisposable, Emitter } from 'atom'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
 import type { LinterMessage, TreeViewHighlight } from '../types'
