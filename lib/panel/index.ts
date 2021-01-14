@@ -25,7 +25,7 @@ export default class Panel {
     )
     this.subscriptions.add(
       atom.workspace.onDidDestroyPane(({ pane: destroyedPane }) => {
-        const isPaneItemDestroyed = destroyedPane.getItems().includes(this.panel)
+        const isPaneItemDestroyed = (this.panel !== null) ? destroyedPane.getItems().includes(this.panel) : true
         if (isPaneItemDestroyed && !this.deactivating) {
           this.panel = null
           atom.config.set('linter-ui-default.showPanel', false)
