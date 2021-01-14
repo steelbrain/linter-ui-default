@@ -1,6 +1,7 @@
 # Changelog
 ### 2.4.1
 - fix: minor null bug fixes
+- fix: faster load time
 
 ### 2.4.0
 - feat: large/minified file optimizations (#612)
