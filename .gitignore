@@ -1,7 +1,17 @@
+# OS metadata
 .DS_Store
 npm-debug.log
+Thumbs.db
+
+# Node
 node_modules
 .idea
+package-lock.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Build directories
 dist
 .parcel-cache
 benchmarkTestFile.*
