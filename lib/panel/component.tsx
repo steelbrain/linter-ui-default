@@ -8,7 +8,7 @@ type Props = {
   delegate: Delegate
 }
 
-export default function PanelComponent(props: Props) {
+export function PanelComponent(props: Props) {
   const [getMessages, setMessages] = createSignal(props.delegate.filteredMessages)
 
   onMount(() => {
