@@ -1,36 +1,36 @@
-@import (inline) '../node_modules/sb-react-table/styles/base.css';
+@import '../node_modules/solid-simple-table/dist/SimpleTable.css';
 @import 'ui-variables';
 
-.sb-table.linter {
+.solid-simple-table.linter {
   color: @text-color;
   font-size: @font-size;
   border: 0;
-  // sb-table adds a border and Atom UI adds a border to wrapper element, so we end up with two
+  // solid-simple-table adds a border and Atom UI adds a border to wrapper element, so we end up with two
 }
 
-.sb-table.linter thead {
+.solid-simple-table.linter thead {
   background-color: @base-background-color;
 }
 
-.sb-table.linter tbody {
+.solid-simple-table.linter tbody {
   background-color: @inset-panel-background-color;
 }
 
-.sb-table.linter td,
-.sb-table.linter th {
+.solid-simple-table.linter td,
+.solid-simple-table.linter th {
   padding: 3px 10px;
 }
 
-.sb-table.linter td {
+.solid-simple-table.linter td {
   min-width: 100px;
 }
 
-.sb-table.linter th {
+.solid-simple-table.linter th {
   border-right-color: @base-border-color;
   border-bottom-color: @base-border-color;
 }
 
-.sb-table.linter td:nth-child(4),
-.sb-table.linter td:nth-child(5) {
+.solid-simple-table.linter td:nth-child(4),
+.solid-simple-table.linter td:nth-child(5) {
   cursor: pointer;
 }
