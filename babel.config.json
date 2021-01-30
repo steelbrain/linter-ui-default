@@ -1,0 +1,4 @@
+{
+  "presets": ["@babel/preset-typescript", "babel-preset-solid", "babel-preset-atomic"],
+  "exclude": "node_modules/**"
+}

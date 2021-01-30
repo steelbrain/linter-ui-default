@@ -40,7 +40,7 @@
     "sb-react-table": "^1.0.2"
   },
   "devDependencies": {
-    "@parcel/transformer-typescript-tsc": "^2.0.0-nightly.560",
+    "@babel/preset-typescript": "^7.12.7",
     "@types/atom": "^1.40.7",
     "@types/chance": "^1.1.1",
     "@types/jasmine": "^3.6.3",
@@ -50,6 +50,8 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "atom-ide-base": "^2.1.6",
+    "babel-preset-atomic": "^3.0.2",
+    "babel-preset-solid": "^0.23.8",
     "build-commit": "0.1.4",
     "chance": "^1.1.7",
     "cross-env": "^7.0.3",
