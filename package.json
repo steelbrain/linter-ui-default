@@ -75,6 +75,9 @@
       "isLibrary": true
     }
   },
+  "alias": {
+    "solid-simple-table": "solid-simple-table/dist/SimpleTable.module"
+  },
   "providedServices": {
     "linter-ui": {
       "versions": {
