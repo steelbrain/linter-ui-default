@@ -38,36 +38,7 @@ export default function MessageElement(props: Props) {
       applySolution(textEditor, sortSolutions(message.solutions)[0])
     }
   }
-
-  function thisOpenFile(ev: MouseEvent) {
-    if (!(ev.target instanceof HTMLElement)) {
-      return
-    }
-    const href = findHref(ev.target)
-    if (!href) {
-      return
-    }
-    // parse the link. e.g. atom://linter?file=<path>&row=<number>&column=<number>
-    const { protocol, hostname, query } = url.parse(href, true)
-    if (protocol !== 'atom:' || hostname !== 'linter') {
-      return
-    }
-    // TODO: based on the types query is never null
-    if (!query || !query.file) {
-      return
-    } else {
-      const { file, row, column } = query
-      // TODO: will these be an array?
-      openFile(
-        /* file */ Array.isArray(file) ? file[0] : file,
-        /* position */ {
-          row: row ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,
-          column: column ? parseInt(Array.isArray(column) ? column[0] : column, 10) : 0,
-        },
-      )
-    }
-  }
-
+  
   function canBeFixed(message: LinterMessage): boolean {
     if (message.version === 2 && message.solutions && message.solutions.length) {
       return true
@@ -156,4 +127,34 @@ export default function MessageElement(props: Props) {
       {state.descriptionShow && <div className="linter-line">{state.description || 'Loading...'}</div>}
     </div>
   )
+}
+
+
+function thisOpenFile(ev: MouseEvent) {
+  if (!(ev.target instanceof HTMLElement)) {
+    return
+  }
+  const href = findHref(ev.target)
+  if (!href) {
+    return
+  }
+  // parse the link. e.g. atom://linter?file=<path>&row=<number>&column=<number>
+  const { protocol, hostname, query } = url.parse(href, true)
+  if (protocol !== 'atom:' || hostname !== 'linter') {
+    return
+  }
+  // TODO: based on the types query is never null
+  if (!query || !query.file) {
+    return
+  } else {
+    const { file, row, column } = query
+    // TODO: will these be an array?
+    openFile(
+      /* file */ Array.isArray(file) ? file[0] : file,
+      /* position */ {
+        row: row ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,
+        column: column ? parseInt(Array.isArray(column) ? column[0] : column, 10) : 0,
+      },
+    )
+  }
 }
