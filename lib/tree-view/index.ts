@@ -99,11 +99,11 @@ export default class TreeView {
   }
 
   handleDecoration(element: HTMLElement, update = false, highlights: TreeViewHighlight) {
-    let decoration
+    let decoration: HTMLElement | null = null
     if (update) {
       decoration = element.querySelector('linter-decoration')
     }
-    if (decoration) {
+    if (decoration !== null) {
       decoration.className = ''
     } else {
       decoration = document.createElement('linter-decoration')
