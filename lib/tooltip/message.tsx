@@ -38,13 +38,6 @@ export default function MessageElement(props: Props) {
       applySolution(textEditor, sortSolutions(message.solutions)[0])
     }
   }
-  
-  function canBeFixed(message: LinterMessage): boolean {
-    if (message.version === 2 && message.solutions && message.solutions.length) {
-      return true
-    }
-    return false
-  }
 
   function toggleDescription(result: string | null | undefined = null) {
     const newStatus = !state.descriptionShow
@@ -129,6 +122,12 @@ export default function MessageElement(props: Props) {
   )
 }
 
+function canBeFixed(message: LinterMessage): boolean {
+  if (message.version === 2 && message.solutions && message.solutions.length) {
+    return true
+  }
+  return false
+}
 
 function thisOpenFile(ev: MouseEvent) {
   if (!(ev.target instanceof HTMLElement)) {
