@@ -1,8 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'solid-js/web'
+import type * as Solid from 'solid-js'
 import { CompositeDisposable, Emitter } from 'atom'
 import type { Disposable, Point, TextEditor, DisplayMarker } from 'atom'
-
 import Delegate from './delegate'
 import MessageElement from './message'
 import { $range } from '../helpers'
@@ -31,13 +30,13 @@ export default class TooltipElement {
     })
     this.subscriptions.add(delegate)
 
-    const children: Array<JSX.Element> = []
+    const children: Array<Solid.JSX.Element> = []
     messages.forEach(message => {
       if (message.version === 2) {
         children.push(<MessageElement key={message.key} delegate={delegate} message={message} />)
       }
     })
-    ReactDOM.render(<div className="linter-messages">{children}</div>, this.element)
+    render(() => <div className="linter-messages">{children}</div>, this.element)
 
     // move box above the current editing line
     // HACK: patch the decoration's style so it is shown above the current line

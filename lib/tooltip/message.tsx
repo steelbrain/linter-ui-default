@@ -18,6 +18,7 @@ function findHref(el: Element | null | undefined): string | null {
 }
 
 type Props = {
+  key: string
   message: Message
   delegate: TooltipDelegate
 }
