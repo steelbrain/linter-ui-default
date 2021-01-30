@@ -7,7 +7,7 @@ import type { LinterMessage, TreeViewHighlight } from '../types'
 export default class TreeView {
   emitter: Emitter = new Emitter()
   messages: Array<LinterMessage> = []
-  decorations: Object = {}
+  decorations: Record<string, any> = {}
   subscriptions: CompositeDisposable = new CompositeDisposable()
   decorateOnTreeView?: 'Files and Directories' | 'Files' | 'None'
 
@@ -60,7 +60,7 @@ export default class TreeView {
 
     this.applyDecorations(calculateDecorations(decorateOnTreeView, messages))
   }
-  applyDecorations(decorations: Object) {
+  applyDecorations(decorations: Record<string, any>) {
     const treeViewElement = TreeView.getElement()
     if (!treeViewElement) {
       return

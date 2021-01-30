@@ -28,7 +28,7 @@ export function getChunksByProjects(filePath: string, projectPaths: Array<string
   return getChunks(filePath, matchingProjectPath)
 }
 
-export function mergeChange(change: Object, filePath: string, severity: string): void {
+export function mergeChange(change: Record<string, any>, filePath: string, severity: string): void {
   if (!change[filePath]) {
     change[filePath] = {
       info: false,
@@ -42,7 +42,7 @@ export function mergeChange(change: Object, filePath: string, severity: string):
 export function calculateDecorations(
   decorateOnTreeView: 'Files and Directories' | 'Files' | undefined,
   messages: Array<LinterMessage>,
-): Object {
+): Record<string, any> {
   const toReturn = {}
   const projectPaths: Array<string> = atom.project.getPaths()
   messages.forEach(function (message) {
