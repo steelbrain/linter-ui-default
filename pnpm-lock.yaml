@@ -3,9 +3,8 @@ dependencies:
   disposable-event: 1.1.0
   lodash: 4.17.20
   marked: 1.2.8
-  react: 17.0.1
-  react-dom: 17.0.1_react@17.0.1
-  sb-react-table: 1.0.2_react-dom@17.0.1+react@17.0.1
+  solid-js: 0.23.11
+  solid-simple-table: 0.1.2
 devDependencies:
   '@babel/preset-typescript': 7.12.7
   '@types/atom': 1.40.7
@@ -6358,6 +6357,7 @@ packages:
     resolution:
       integrity: sha1-mGbfOVECEw449/mWvOtlRDIJwls=
   /js-tokens/4.0.0:
+    dev: true
     resolution:
       integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
   /js-yaml/3.14.1:
@@ -6673,6 +6673,7 @@ packages:
   /loose-envify/1.4.0:
     dependencies:
       js-tokens: 4.0.0
+    dev: true
     hasBin: true
     resolution:
       integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -6970,6 +6971,7 @@ packages:
     resolution:
       integrity: sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==
   /object-assign/4.1.1:
+    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -7934,17 +7936,6 @@ packages:
       react: ^16.14.0
     resolution:
       integrity: sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
-  /react-dom/17.0.1_react@17.0.1:
-    dependencies:
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
-      react: 17.0.1
-      scheduler: 0.20.1
-    dev: false
-    peerDependencies:
-      react: 17.0.1
-    resolution:
-      integrity: sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
   /react-is/16.13.1:
     dev: true
     resolution:
@@ -7965,15 +7956,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
-  /react/17.0.1:
-    dependencies:
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
-    dev: false
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w==
   /read-pkg-up/2.0.0:
     dependencies:
       find-up: 2.1.0
@@ -8301,16 +8283,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Deq26KLZ3a1zN157g9qAv8kQXSQ=
-  /sb-react-table/1.0.2_react-dom@17.0.1+react@17.0.1:
-    dependencies:
-      react: 17.0.1
-      react-dom: 17.0.1_react@17.0.1
-    dev: false
-    peerDependencies:
-      react: ^15.0.0 || ^16.0.0
-      react-dom: ^15.0.0 || ^16.0.0
-    resolution:
-      integrity: sha512-u90ZvtCdsqIOWs8gJoNLYUY7mhnCBV5Li+Z4uyWWJKZ6glP3BuKyfy8YbIaW33gdp3ZhCzmWiLGRvogTmeL0qQ==
   /scheduler/0.19.1:
     dependencies:
       loose-envify: 1.4.0
@@ -8318,13 +8290,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
-  /scheduler/0.20.1:
-    dependencies:
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
-    dev: false
-    resolution:
-      integrity: sha512-LKTe+2xNJBNxu/QhHvDR14wUXHRQbVY5ZOYpOGWRzhydZUqrLb2JBvLPY7cAqFmqrWuDED0Mjk7013SZiOz6Bw==
   /semver-compare/1.0.0:
     dev: true
     resolution:
@@ -8517,6 +8482,14 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-FtyOnWN/wCHTVXOMwvSv26d+ko5vWlIDD6zoUJ7LW8vh+ZBC8QdljveRP+crNrtBwioEUWy/4dMtbBjA4ioNlg==
+  /solid-js/0.23.11:
+    dev: false
+    resolution:
+      integrity: sha512-AuDF3QWf99MMHkLjHN03OzvH7eyhCVOeMGmvKMb3ScFo5vkSgACN+GJs4K+DcUxx9TMbxMPHqodn4b1meD3sIw==
+  /solid-simple-table/0.1.2:
+    dev: false
+    resolution:
+      integrity: sha512-xFwSahLo9KnrMXf7QEUfn7sO7B2ZLdiMnKi6Mi+OcsLi/DMbXpIOnk8NH7HtaSVh+eVC7bpu5JVqR3PHslFuaA==
   /source-map-resolve/0.5.3:
     dependencies:
       atob: 2.1.2
@@ -9403,8 +9376,7 @@ specifiers:
   marked: ^1.2.8
   parcel: 2.0.0-nightly.558
   prettier: ^2
-  react: ^17.0.1
-  react-dom: ^17.0.1
-  sb-react-table: ^1.0.2
   shx: ^0.3.3
+  solid-js: ^0.23.11
+  solid-simple-table: ^0.1.2
   typescript: ^4
