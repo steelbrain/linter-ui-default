@@ -1,5 +1,5 @@
 dependencies:
-  atom-package-deps: 6.0.0
+  atom-package-deps: 7.1.0
   disposable-event: 1.1.0
   lodash: 4.17.20
   marked: 1.2.8
@@ -2543,15 +2543,7 @@ packages:
       atom: '>=1.0.0 <2.0.0'
     resolution:
       integrity: sha512-cqMEyMeiiAqH4cQhPEyh6HQ9IvtOTHMwZoVxTHK2zKNWyugWVlCzqjZEjQ2WJqxQDd9v4KBeARDpwLLiKaVR/w==
-  /atom-package-deps/6.0.0:
-    dependencies:
-      sb-fs: 4.0.0
-      semver: 7.3.4
-    dev: false
-    resolution:
-      integrity: sha512-9UQx2sTvBiaIHcZ3le/B0djM+jsZXBQRPXatrmtNfjkbAOV5bGrcXzcV4U0EBfGdzB7QmWeOnwMIJwa3HvW7Kg==
   /atom-package-deps/7.1.0:
-    dev: true
     hasBin: true
     resolution:
       integrity: sha512-qSCRGyL8CE7Pwm/D5e0BeD1MJQF+a05Ky3RdQ4m9buIKdkHOq3cSlU+G9j+2S2GD+clp9Z3Hl4dkrFemv0UxVg==
@@ -5349,10 +5341,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==
-  /is-utf8/0.2.1:
-    dev: false
-    resolution:
-      integrity: sha1-Sw2hRCEE0bM2NA6AeX6GXPOffXI=
   /is-windows/1.0.2:
     dev: true
     engines:
@@ -5740,6 +5728,7 @@ packages:
   /lru-cache/6.0.0:
     dependencies:
       yallist: 4.0.0
+    dev: true
     engines:
       node: '>=10'
     resolution:
@@ -7354,14 +7343,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Deq26KLZ3a1zN157g9qAv8kQXSQ=
-  /sb-fs/4.0.0:
-    dependencies:
-      strip-bom-buf: 1.0.0
-    dev: false
-    engines:
-      node: '>= 8'
-    resolution:
-      integrity: sha512-UjjIHC4uahPWvKYqgknvFCCJ11S0oDahz+nsmyTCAmARKto31aoE+Lu7GGGK0nogengJEKGzFdh46ho5+IL88Q==
   /sb-react-table/1.0.2_react-dom@17.0.1+react@17.0.1:
     dependencies:
       react: 17.0.1
@@ -7403,6 +7384,7 @@ packages:
   /semver/7.3.4:
     dependencies:
       lru-cache: 6.0.0
+    dev: true
     engines:
       node: '>=10'
     hasBin: true
@@ -7797,14 +7779,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-AuvKTrTfQNYNIctbR1K/YGTR1756GycPsg7b9bdV9Duqur4gv6aKqHXah67Z8ImS7WEz5QVcOtlfW2rZEugt6w==
-  /strip-bom-buf/1.0.0:
-    dependencies:
-      is-utf8: 0.2.1
-    dev: false
-    engines:
-      node: '>=4'
-    resolution:
-      integrity: sha1-HLRar1dTD0yvhsf3UXnSyaUd1XI=
   /strip-bom/3.0.0:
     dev: true
     engines:
@@ -8437,6 +8411,7 @@ packages:
     resolution:
       integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
   /yallist/4.0.0:
+    dev: true
     resolution:
       integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
   /yaml/1.10.0:
@@ -8456,7 +8431,7 @@ specifiers:
   '@types/react': ^17.0.0
   '@types/react-dom': ^17.0.0
   atom-ide-base: ^2.1.6
-  atom-package-deps: ^6.0.0
+  atom-package-deps: ^7.1.0
   build-commit: 0.1.4
   chance: ^1.1.7
   cross-env: ^7.0.3
