@@ -1,5 +1,5 @@
+import { createState, onMount } from 'solid-js'
 import * as url from 'url'
-import React, { useState, useEffect } from 'react'
 import marked from 'marked'
 
 import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
@@ -25,7 +25,7 @@ type Props = {
 export default function MessageElement(props: Props) {
   let descriptionLoading = false
 
-  const [state, setState] = useState({
+  const [state, setState] = createState({
     description: '',
     descriptionShow: false,
   })
@@ -38,7 +38,7 @@ export default function MessageElement(props: Props) {
     }
   }
 
-  function thisOpenFile(ev: React.MouseEvent) {
+  function thisOpenFile(ev: MouseEvent) {
     if (!(ev.target instanceof HTMLElement)) {
       return
     }
@@ -112,8 +112,7 @@ export default function MessageElement(props: Props) {
     }
   }
 
-  // componentDidMount
-  useEffect(() => {
+  onMount(() => {
     props.delegate.onShouldUpdate(() => {
       setState({ description: '', descriptionShow: false })
     })
@@ -127,7 +126,7 @@ export default function MessageElement(props: Props) {
         toggleDescription()
       }
     })
-  }, [])
+  })
 
   const { message, delegate } = props
 
@@ -153,14 +152,7 @@ export default function MessageElement(props: Props) {
           <span className="icon linter-icon icon-link" />
         </a>
       )}
-      {state.descriptionShow && (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: state.description || 'Loading...',
-          }}
-          className="linter-line"
-        />
-      )}
+      {state.descriptionShow && <div className="linter-line">{state.description || 'Loading...'}</div>}
     </div>
   )
 }
