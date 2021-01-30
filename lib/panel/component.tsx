@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import ReactTable from 'sb-react-table'
+import { createSignal, onMount } from 'solid-js'
+import { SimpleTable } from 'solid-simple-table'
 import { $range, severityNames, sortMessages, visitMessage, openExternally, getPathOfMessage } from '../helpers'
 import type Delegate from './delegate'
 import type { LinterMessage } from '../types'
@@ -9,18 +9,15 @@ type Props = {
 }
 
 export default function PanelComponent(props: Props) {
-  const [state, setState] = useState({
-    messages: props.delegate.filteredMessages,
+  const [getMessages, setMessages] = createSignal(props.delegate.filteredMessages)
+
+  onMount(() => {
+    props.delegate.onDidChangeMessages(messages => {
+      setMessages(messages)
+    })
   })
 
-  // componentDidMount
-  useEffect(() => {
-    props.delegate.onDidChangeMessages(messages => {
-      setState({ messages })
-    })
-  }, [])
-
-  function onClick(e: React.MouseEvent, row: LinterMessage) {
+  function onClick(e: MouseEvent, row: LinterMessage) {
     if ((e.target as HTMLElement).tagName === 'A') {
       return
     }
@@ -36,34 +33,29 @@ export default function PanelComponent(props: Props) {
   }
 
   const columns = [
-    { key: 'severity', label: 'Severity', sortable: true },
-    { key: 'linterName', label: 'Provider', sortable: true },
-    { key: 'excerpt', label: 'Description', onClick: onClick },
-    { key: 'line', label: 'Line', sortable: true, onClick: onClick },
+    { id: 'severity', label: 'Severity' },
+    { id: 'linterName', label: 'Provider' },
+    { id: 'excerpt', label: 'Description', onClick: onClick, sortable: false },
+    { id: 'line', label: 'Line', onClick: onClick },
   ]
   if (props.delegate.panelRepresents === 'Entire Project') {
     columns.push({
-      key: 'file',
+      id: 'file',
       label: 'File',
-      sortable: true,
       onClick: onClick,
     })
   }
 
   return (
     <div id="linter-panel" tabIndex={-1} style={{ overflowY: 'scroll', height: '100%' }}>
-      <ReactTable
-        rows={state.messages}
+      <SimpleTable
+        rows={getMessages()}
         columns={columns}
-        initialSort={[
-          { column: 'severity', type: 'desc' },
-          { column: 'file', type: 'asc' },
-          { column: 'line', type: 'asc' },
-        ]}
-        sort={sortMessages}
-        rowKey={i => i.key}
-        renderHeaderColumn={i => i.label}
-        renderBodyColumn={renderRowColumn}
+        defaultSortDirection={['line', 'asc']}
+        rowSorter={sortMessages}
+        accessors={true}
+        getRowID={(i: LinterMessage) => i.key}
+        bodyRenderer={renderRowColumn}
         style={{ width: '100%' }}
         className="linter"
       />
@@ -71,7 +63,7 @@ export default function PanelComponent(props: Props) {
   )
 }
 
-function renderRowColumn(row: LinterMessage, column: string) {
+function renderRowColumn(row: LinterMessage, column: string): string {
   const range = $range(row)
 
   switch (column) {
