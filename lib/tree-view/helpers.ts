@@ -1,6 +1,6 @@
 import Path from 'path'
 import { $file } from '../helpers'
-import type { LinterMessage } from '../types'
+import type { LinterMessage, TreeViewHighlight } from '../types'
 
 export function getChunks(filePath: string, projectPath: string): Array<string> {
   const toReturn: Array<string> = []
@@ -28,7 +28,7 @@ export function getChunksByProjects(filePath: string, projectPaths: Array<string
   return getChunks(filePath, matchingProjectPath)
 }
 
-export function mergeChange(change: Record<string, any>, filePath: string, severity: string): void {
+export function mergeChange(change: Record<string, TreeViewHighlight>, filePath: string, severity: string): void {
   if (!change[filePath]) {
     change[filePath] = {
       info: false,
@@ -42,7 +42,7 @@ export function mergeChange(change: Record<string, any>, filePath: string, sever
 export function calculateDecorations(
   decorateOnTreeView: 'Files and Directories' | 'Files' | undefined,
   messages: Array<LinterMessage>,
-): Record<string, any> {
+): Record<string, TreeViewHighlight> {
   const toReturn = {}
   const projectPaths: Array<string> = atom.project.getPaths()
   messages.forEach(function (message) {
