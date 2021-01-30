@@ -1,4 +1,4 @@
-import { createState, onMount } from 'solid-js'
+import { createState, createSignal, onMount } from 'solid-js'
 import * as url from 'url'
 import marked from 'marked'
 
@@ -24,12 +24,12 @@ type Props = {
 }
 
 export default function MessageElement(props: Props) {
-  let descriptionLoading = false
-
   const [state, setState] = createState({
     description: '',
     descriptionShow: false,
   })
+
+  const [descriptionLoading, setDescriptionLoading] = createSignal(false)
 
   function onFixClick(): void {
     const message = props.message
@@ -52,10 +52,10 @@ export default function MessageElement(props: Props) {
       setState({ description: descriptionToUse, descriptionShow: true })
     } else if (typeof description === 'function') {
       setState({ ...state, descriptionShow: true })
-      if (descriptionLoading) {
+      if (descriptionLoading()) {
         return
       }
-      descriptionLoading = true
+      setDescriptionLoading(true)
       new Promise(function (resolve) {
         resolve(description())
       })
@@ -67,7 +67,7 @@ export default function MessageElement(props: Props) {
         })
         .catch(error => {
           console.log('[Linter] Error getting descriptions', error)
-          descriptionLoading = false
+          setDescriptionLoading(false)
           if (state.descriptionShow) {
             toggleDescription()
           }
