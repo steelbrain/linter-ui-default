@@ -40,7 +40,7 @@
     "sb-react-table": "^1.0.2"
   },
   "devDependencies": {
-    "@parcel/transformer-typescript-tsc": "^2.0.0-nightly.488",
+    "@parcel/transformer-typescript-tsc": "^2.0.0-nightly.560",
     "@types/atom": "^1.40.7",
     "@types/chance": "^1.1.1",
     "@types/jasmine": "^3.6.3",
