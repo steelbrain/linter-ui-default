@@ -19,7 +19,8 @@ export function activate() {
   const callbackID = window.requestIdleCallback(function installLinterUIDefaultDeps() {
     idleCallbacks.delete(callbackID)
     if (!atom.inSpecMode()) {
-      require('atom-package-deps').install('linter-ui-default')
+      const { install } = require('atom-package-deps')
+      install('linter-ui-default')
     }
   })
   idleCallbacks.add(callbackID)
