@@ -17,21 +17,6 @@ export default function PanelComponent(props: Props) {
     })
   })
 
-  function onClick(e: MouseEvent, row: LinterMessage) {
-    if ((e.target as HTMLElement).tagName === 'A') {
-      return
-    }
-    if (process.platform === 'darwin' ? e.metaKey : e.ctrlKey) {
-      if (e.shiftKey) {
-        openExternally(row)
-      } else {
-        visitMessage(row, true)
-      }
-    } else {
-      visitMessage(row)
-    }
-  }
-
   const columns = [
     { id: 'severity', label: 'Severity' },
     { id: 'linterName', label: 'Provider' },
@@ -77,5 +62,20 @@ function renderRowColumn(row: LinterMessage, column: string): string {
       return severityNames[row.severity]
     default:
       return row[column]
+  }
+}
+
+function onClick(e: MouseEvent, row: LinterMessage) {
+  if ((e.target as HTMLElement).tagName === 'A') {
+    return
+  }
+  if (process.platform === 'darwin' ? e.metaKey : e.ctrlKey) {
+    if (e.shiftKey) {
+      openExternally(row)
+    } else {
+      visitMessage(row, true)
+    }
+  } else {
+    visitMessage(row)
   }
 }
