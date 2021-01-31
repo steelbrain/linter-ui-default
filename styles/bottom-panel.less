@@ -7,12 +7,12 @@
 }
 
 .solid-simple-table.linter thead {
-  background-color: @base-background-color;
+  background-color: darken(@base-background-color, 3%);
   user-select: none;
 }
 
 .solid-simple-table.linter tbody {
-  background-color: @inset-panel-background-color;
+  background-color: @base-background-color
 }
 
 .solid-simple-table.linter td,
@@ -22,7 +22,7 @@
 
 .solid-simple-table.linter td {
   min-width: 100px;
-  border: (@font-size / 7) solid @base-background-color;
+  border: (@font-size / 7) solid darken(@base-background-color, 3%);
 }
 
 .solid-simple-table.linter td:nth-child(4),
