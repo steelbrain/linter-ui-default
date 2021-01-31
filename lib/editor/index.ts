@@ -12,34 +12,27 @@ import { hasParent, mouseEventNearPosition, getBufferPositionFromMouseEvent } fr
 import type { LinterMessage } from '../types'
 
 export default class Editor {
+  textEditor: TextEditor
   gutter: Gutter | null = null
   tooltip: Tooltip | null = null
-  emitter: Emitter
-  markers: Map<string, Array<DisplayMarker | Marker>>
-  messages: Map<string, LinterMessage>
-  textEditor: TextEditor
+  emitter = new Emitter<{ 'did-destroy': never }>()
+  markers = new Map<string, Array<DisplayMarker | Marker>>()
+  messages = new Map<string, LinterMessage>()
   showTooltip: boolean = true
-  subscriptions: CompositeDisposableType
+  subscriptions = new CompositeDisposable() as CompositeDisposableType
   cursorPosition: Point | null = null
   gutterPosition?: string
   tooltipFollows: string = 'Both'
   showDecorations?: boolean
   showProviderName: boolean = true
-  ignoreTooltipInvocation: boolean
+  ignoreTooltipInvocation: boolean = false
   currentLineMarker: DisplayMarker | null = null
   lastRange?: Range
   lastIsEmpty?: boolean
-  lastCursorPositions: WeakMap<Cursor, Point>
+  lastCursorPositions = new WeakMap<Cursor, Point>()
 
   constructor(textEditor: TextEditor) {
-    this.emitter = new Emitter()
-    this.markers = new Map()
-    this.messages = new Map()
     this.textEditor = textEditor
-    this.subscriptions = new CompositeDisposable() as CompositeDisposableType
-    this.ignoreTooltipInvocation = false
-    this.lastCursorPositions = new WeakMap()
-
     this.subscriptions.add(this.emitter)
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.showTooltip', showTooltip => {
