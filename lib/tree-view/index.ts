@@ -1,11 +1,10 @@
-import { CompositeDisposable, Emitter } from 'atom'
+import { CompositeDisposable } from 'atom'
 import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
 import type { LinterMessage, TreeViewHighlight } from '../types'
 
 export default class TreeView {
-  emitter: Emitter = new Emitter()
   messages: Array<LinterMessage> = []
   decorations: Record<string, TreeViewHighlight> = {}
   subscriptions: CompositeDisposable = new CompositeDisposable()
@@ -13,7 +12,6 @@ export default class TreeView {
 
   constructor() {
     this.subscriptions.add(
-      this.emitter,
       atom.config.observe('linter-ui-default.decorateOnTreeView', decorateOnTreeView => {
         if (typeof this.decorateOnTreeView === 'undefined') {
           this.decorateOnTreeView = decorateOnTreeView
