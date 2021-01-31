@@ -28,11 +28,8 @@
     .linter-excerpt {
       padding: 5px;
 
-      border-right: 1px solid fade(contrast(@inset-panel-background-color), 5%);
-      &:first-child {
-        border-top: 1px solid fade(contrast(@inset-panel-background-color), 5%);
-      }
-      &:last-child {
+      // border between messages
+      &:not(:last-child) {
         border-bottom: 1px solid fade(contrast(@inset-panel-background-color), 5%);
       }
     }
