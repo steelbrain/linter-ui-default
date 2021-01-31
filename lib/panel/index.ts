@@ -16,14 +16,12 @@ export default class Panel {
   showPanelStateMessages: boolean = false
   activationTimer: number
   constructor() {
-    this.subscriptions.add(this.delegate)
     this.subscriptions.add(
+      this.delegate,
       atom.config.observe('linter-ui-default.hidePanelWhenEmpty', hidePanelWhenEmpty => {
         this.hidePanelWhenEmpty = hidePanelWhenEmpty
         this.refresh()
       }),
-    )
-    this.subscriptions.add(
       atom.workspace.onDidDestroyPane(({ pane: destroyedPane }) => {
         const isPaneItemDestroyed = this.panel !== null ? destroyedPane.getItems().includes(this.panel) : true
         if (isPaneItemDestroyed && !this.deactivating) {
@@ -31,22 +29,16 @@ export default class Panel {
           atom.config.set('linter-ui-default.showPanel', false)
         }
       }),
-    )
-    this.subscriptions.add(
       atom.workspace.onDidDestroyPaneItem(({ item: paneItem }) => {
         if (paneItem instanceof PanelDock && !this.deactivating) {
           this.panel = null
           atom.config.set('linter-ui-default.showPanel', false)
         }
       }),
-    )
-    this.subscriptions.add(
       atom.config.observe('linter-ui-default.showPanel', showPanel => {
         this.showPanelConfig = showPanel
         this.refresh()
       }),
-    )
-    this.subscriptions.add(
       atom.workspace.getCenter().observeActivePaneItem(() => {
         this.showPanelStateMessages = !!this.delegate.filteredMessages.length
         this.refresh()
@@ -70,8 +62,6 @@ export default class Panel {
             atom.config.set('linter-ui-default.showPanel', !this.showPanelConfig)
           }
         }),
-      )
-      this.subscriptions.add(
         dock.onDidChangeVisible(visible => {
           if (!this.panel || this.getPanelLocation() !== 'bottom') {
             return
