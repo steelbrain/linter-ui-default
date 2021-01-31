@@ -19,10 +19,12 @@ export default class Element {
     this.item.classList.add('inline-block')
     this.item.classList.add('linter-status-count')
 
-    this.subscriptions.add(this.emitter)
-    this.subscriptions.add(atom.tooltips.add(this.itemErrors, { title: 'Linter Errors' }))
-    this.subscriptions.add(atom.tooltips.add(this.itemWarnings, { title: 'Linter Warnings' }))
-    this.subscriptions.add(atom.tooltips.add(this.itemInfos, { title: 'Linter Infos' }))
+    this.subscriptions.add(
+      this.emitter,
+      atom.tooltips.add(this.itemErrors, { title: 'Linter Errors' }),
+      atom.tooltips.add(this.itemWarnings, { title: 'Linter Warnings' }),
+      atom.tooltips.add(this.itemInfos, { title: 'Linter Infos' }),
+    )
 
     this.itemErrors.onclick = () => this.emitter.emit('click', 'error')
     this.itemWarnings.onclick = () => this.emitter.emit('click', 'warning')
