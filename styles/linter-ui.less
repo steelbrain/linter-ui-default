@@ -18,10 +18,8 @@
   font-family: @font-family;
 
   .message-with-severity(@color) {
-    color: #fff - @inset-panel-background-color; // invert;
-    background: @app-background-color;
-
     border-left: 8px solid @color;
+
     border-right: 1px solid fade(contrast(@inset-panel-background-color), 5%);
     &:first-child {
       border-top: 1px solid fade(contrast(@inset-panel-background-color), 5%);
@@ -33,13 +31,16 @@
     &:last-child::before {
       border-color: transparent transparent @color @color;
     }
+  }
+
+  .linter-message {
+    color: #fff - @inset-panel-background-color; // invert;
+    background: @app-background-color;
 
     a {
       color: @text-color;
     }
-  }
 
-  .linter-message {
     &.error {
       .message-with-severity(@text-color-error);
       &::after {
