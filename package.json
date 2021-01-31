@@ -16,8 +16,9 @@
   "scripts": {
     "format": "prettier --write .",
     "clean": "shx rm -rf dist .parcel-cache",
-    "tsc.dev": "npm run clean && cross-env NODE_ENV=development tsc --watch -p lib/tsconfig.json || echo done",
-    "tsc.build": "npm run clean && cross-env NODE_ENV=production tsc -p lib/tsconfig.json || echo done",
+    "tsc.dev": "npm run clean && cross-env NODE_ENV=development tsc --watch -p lib/tsconfig.json || echo done && npm run babel",
+    "tsc.build": "npm run clean && cross-env NODE_ENV=production tsc -p lib/tsconfig.json || echo done && npm run babel",
+    "babel": "babel dist --out-dir dist --retain-lines",
     "dev": "cross-env NODE_ENV=development parcel watch --target main ./lib/index.ts",
     "build": "cross-env NODE_ENV=production parcel build --target main ./lib/index.ts",
     "build.clean": "npm run clean && npm run build",
@@ -35,12 +36,12 @@
     "disposable-event": "^1.1.0",
     "lodash": "^4.17.20",
     "marked": "^1.2.8",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "sb-react-table": "^1.0.2"
+    "solid-js": "^0.23.11",
+    "solid-simple-table": "^0.1.4"
   },
   "devDependencies": {
-    "@parcel/transformer-typescript-tsc": "^2.0.0-nightly.560",
+    "@babel/cli": "^7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
     "@types/atom": "^1.40.7",
     "@types/chance": "^1.1.1",
     "@types/jasmine": "^3.6.3",
@@ -50,6 +51,8 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "atom-ide-base": "^2.1.6",
+    "babel-preset-atomic": "^3.0.2",
+    "babel-preset-solid": "^0.23.8",
     "build-commit": "0.1.4",
     "chance": "^1.1.7",
     "cross-env": "^7.0.3",
@@ -67,13 +70,15 @@
       "includeNodeModules": {
         "atom": false,
         "electron": false,
-        "react": false,
-        "react-dom": false,
-        "atom-package-deps": false
+        "atom-package-deps": false,
+        "disposable-event": false
       },
       "outputFormat": "commonjs",
       "isLibrary": true
     }
+  },
+  "alias": {
+    "solid-simple-table": "solid-simple-table/dist/SimpleTable.module"
   },
   "providedServices": {
     "linter-ui": {
@@ -103,8 +108,13 @@
     "core:loaded-shell-environment"
   ],
   "package-deps": [
-    { "name": "intentions" },
-    { "name": "linter", "minimumVersion": "3.0.0"}
+    {
+      "name": "intentions"
+    },
+    {
+      "name": "linter",
+      "minimumVersion": "3.0.0"
+    }
   ],
   "configSchema": {
     "showPanel": {

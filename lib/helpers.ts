@@ -154,38 +154,28 @@ export function openExternally(message: LinterMessage) {
 }
 
 export function sortMessages(
-  sortInfo: Array<{ column: string; type: 'asc' | 'desc' }>,
   rows: Array<LinterMessage>,
+  sortDirection: [id: 'severity' | 'linterName' | 'file' | 'line', direction: 'asc' | 'desc'],
 ): Array<LinterMessage> {
-  const sortColumns: {
-    severity?: 'asc' | 'desc'
-    linterName?: 'asc' | 'desc'
-    file?: 'asc' | 'desc'
-    line?: 'asc' | 'desc'
-  } = {}
+  const sortDirectionID = sortDirection[0]
+  const sortDirectionDirection = sortDirection[1]
+  const multiplyWith = sortDirectionDirection === 'asc' ? 1 : -1
 
-  sortInfo.forEach(function (entry) {
-    sortColumns[entry.column] = entry.type
-  })
-
-  return rows.slice().sort(function (a, b) {
-    if (sortColumns.severity) {
-      const multiplyWith = sortColumns.severity === 'asc' ? 1 : -1
+  return rows.sort(function (a, b) {
+    if (sortDirectionID === 'severity') {
       const severityA = severityScore[a.severity]
       const severityB = severityScore[b.severity]
       if (severityA !== severityB) {
         return multiplyWith * (severityA > severityB ? 1 : -1)
       }
     }
-    if (sortColumns.linterName) {
-      const multiplyWith = sortColumns.linterName === 'asc' ? 1 : -1
+    if (sortDirectionID === 'linterName') {
       const sortValue = a.severity.localeCompare(b.severity)
       if (sortValue !== 0) {
         return multiplyWith * sortValue
       }
     }
-    if (sortColumns.file) {
-      const multiplyWith = sortColumns.file === 'asc' ? 1 : -1
+    if (sortDirectionID === 'file') {
       const fileA = getPathOfMessage(a)
       const fileALength = fileA.length
       const fileB = getPathOfMessage(b)
@@ -196,8 +186,7 @@ export function sortMessages(
         return multiplyWith * fileA.localeCompare(fileB)
       }
     }
-    if (sortColumns.line) {
-      const multiplyWith = sortColumns.line === 'asc' ? 1 : -1
+    if (sortDirectionID === 'line') {
       const rangeA = $range(a)
       const rangeB = $range(b)
       if (rangeA && !rangeB) {

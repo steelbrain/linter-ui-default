@@ -1,8 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'solid-js/web'
+import type * as Solid from 'solid-js'
 import { CompositeDisposable, Emitter } from 'atom'
 import type { Disposable, Point, TextEditor, DisplayMarker } from 'atom'
-
 import Delegate from './delegate'
 import MessageElement from './message'
 import { $range } from '../helpers'
@@ -11,7 +10,7 @@ import type { LinterMessage } from '../types'
 export default class TooltipElement {
   marker: DisplayMarker
   element: HTMLElement = document.createElement('div')
-  emitter: Emitter = new Emitter()
+  emitter = new Emitter<{ 'did-destroy': never }>()
   messages: Array<LinterMessage>
   subscriptions: CompositeDisposable = new CompositeDisposable()
 
@@ -31,13 +30,13 @@ export default class TooltipElement {
     })
     this.subscriptions.add(delegate)
 
-    const children: Array<JSX.Element> = []
+    const children: Array<Solid.JSX.Element> = []
     messages.forEach(message => {
       if (message.version === 2) {
         children.push(<MessageElement key={message.key} delegate={delegate} message={message} />)
       }
     })
-    ReactDOM.render(<div className="linter-messages">{children}</div>, this.element)
+    render(() => <div className="linter-messages">{children}</div>, this.element)
 
     // move box above the current editing line
     // HACK: patch the decoration's style so it is shown above the current line
@@ -69,7 +68,7 @@ export default class TooltipElement {
     const range = $range(this.messages[0])
     return Boolean(range && range.containsPoint(position))
   }
-  onDidDestroy(callback: () => any): Disposable {
+  onDidDestroy(callback: () => void): Disposable {
     return this.emitter.on('did-destroy', callback)
   }
   dispose() {

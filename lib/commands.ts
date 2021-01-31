@@ -69,7 +69,7 @@ export default class Commands {
   applyAllSolutions(): void {
     const textEditor = getActiveTextEditor()
     invariant(textEditor, 'textEditor was null on a command supposed to run on text-editors only')
-    const messages = sortMessages([{ column: 'line', type: 'desc' }], filterMessages(this.messages, textEditor.getPath()))
+    const messages = sortMessages(filterMessages(this.messages, textEditor.getPath()), ['line', 'desc'])
     messages.forEach(function (message) {
       if (message.version === 2 && message.solutions && message.solutions.length) {
         applySolution(textEditor, sortSolutions(message.solutions)[0])
@@ -80,13 +80,7 @@ export default class Commands {
     const currentEditor = getActiveTextEditor()
     const currentFile: any = (currentEditor && currentEditor.getPath()) || NaN
     // NOTE: ^ Setting default to NaN so it won't match empty file paths in messages
-    const messages = sortMessages(
-      [
-        { column: 'file', type: 'asc' },
-        { column: 'line', type: 'asc' },
-      ],
-      filterMessages(this.messages, globally ? null : currentFile, severity),
-    )
+    const messages = sortMessages(filterMessages(this.messages, globally ? null : currentFile, severity), ['file', 'asc'])
     const expectedValue = forward ? -1 : 1
 
     if (!currentEditor) {

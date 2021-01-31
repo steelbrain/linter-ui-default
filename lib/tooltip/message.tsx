@@ -1,5 +1,5 @@
+import { createState, createSignal, onMount } from 'solid-js'
 import * as url from 'url'
-import React, { useState, useEffect } from 'react'
 import marked from 'marked'
 
 import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
@@ -18,17 +18,18 @@ function findHref(el: Element | null | undefined): string | null {
 }
 
 type Props = {
+  key: string
   message: Message
   delegate: TooltipDelegate
 }
 
 export default function MessageElement(props: Props) {
-  let descriptionLoading = false
-
-  const [state, setState] = useState({
+  const [state, setState] = createState({
     description: '',
     descriptionShow: false,
   })
+
+  const [descriptionLoading, setDescriptionLoading] = createSignal(false)
 
   function onFixClick(): void {
     const message = props.message
@@ -36,42 +37,6 @@ export default function MessageElement(props: Props) {
     if (textEditor !== null && message.version === 2 && message.solutions && message.solutions.length) {
       applySolution(textEditor, sortSolutions(message.solutions)[0])
     }
-  }
-
-  function thisOpenFile(ev: React.MouseEvent) {
-    if (!(ev.target instanceof HTMLElement)) {
-      return
-    }
-    const href = findHref(ev.target)
-    if (!href) {
-      return
-    }
-    // parse the link. e.g. atom://linter?file=<path>&row=<number>&column=<number>
-    const { protocol, hostname, query } = url.parse(href, true)
-    if (protocol !== 'atom:' || hostname !== 'linter') {
-      return
-    }
-    // TODO: based on the types query is never null
-    if (!query || !query.file) {
-      return
-    } else {
-      const { file, row, column } = query
-      // TODO: will these be an array?
-      openFile(
-        /* file */ Array.isArray(file) ? file[0] : file,
-        /* position */ {
-          row: row ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,
-          column: column ? parseInt(Array.isArray(column) ? column[0] : column, 10) : 0,
-        },
-      )
-    }
-  }
-
-  function canBeFixed(message: LinterMessage): boolean {
-    if (message.version === 2 && message.solutions && message.solutions.length) {
-      return true
-    }
-    return false
   }
 
   function toggleDescription(result: string | null | undefined = null) {
@@ -87,10 +52,10 @@ export default function MessageElement(props: Props) {
       setState({ description: descriptionToUse, descriptionShow: true })
     } else if (typeof description === 'function') {
       setState({ ...state, descriptionShow: true })
-      if (descriptionLoading) {
+      if (descriptionLoading()) {
         return
       }
-      descriptionLoading = true
+      setDescriptionLoading(true)
       new Promise(function (resolve) {
         resolve(description())
       })
@@ -102,7 +67,7 @@ export default function MessageElement(props: Props) {
         })
         .catch(error => {
           console.log('[Linter] Error getting descriptions', error)
-          descriptionLoading = false
+          setDescriptionLoading(false)
           if (state.descriptionShow) {
             toggleDescription()
           }
@@ -112,8 +77,7 @@ export default function MessageElement(props: Props) {
     }
   }
 
-  // componentDidMount
-  useEffect(() => {
+  onMount(() => {
     props.delegate.onShouldUpdate(() => {
       setState({ description: '', descriptionShow: false })
     })
@@ -127,7 +91,7 @@ export default function MessageElement(props: Props) {
         toggleDescription()
       }
     })
-  }, [])
+  })
 
   const { message, delegate } = props
 
@@ -153,14 +117,43 @@ export default function MessageElement(props: Props) {
           <span className="icon linter-icon icon-link" />
         </a>
       )}
-      {state.descriptionShow && (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: state.description || 'Loading...',
-          }}
-          className="linter-line"
-        />
-      )}
+      {state.descriptionShow && <div className="linter-line">{state.description || 'Loading...'}</div>}
     </div>
   )
+}
+
+function canBeFixed(message: LinterMessage): boolean {
+  if (message.version === 2 && message.solutions && message.solutions.length) {
+    return true
+  }
+  return false
+}
+
+function thisOpenFile(ev: MouseEvent) {
+  if (!(ev.target instanceof HTMLElement)) {
+    return
+  }
+  const href = findHref(ev.target)
+  if (!href) {
+    return
+  }
+  // parse the link. e.g. atom://linter?file=<path>&row=<number>&column=<number>
+  const { protocol, hostname, query } = url.parse(href, true)
+  if (protocol !== 'atom:' || hostname !== 'linter') {
+    return
+  }
+  // TODO: based on the types query is never null
+  if (!query || !query.file) {
+    return
+  } else {
+    const { file, row, column } = query
+    // TODO: will these be an array?
+    openFile(
+      /* file */ Array.isArray(file) ? file[0] : file,
+      /* position */ {
+        row: row ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,
+        column: column ? parseInt(Array.isArray(column) ? column[0] : column, 10) : 0,
+      },
+    )
+  }
 }

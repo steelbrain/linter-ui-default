@@ -3,7 +3,7 @@ import { getActiveTextEditor, filterMessages, filterMessagesByRangeOrPoint } fro
 import type { LinterMessage } from '../types'
 
 export default class PanelDelegate {
-  emitter: Emitter = new Emitter()
+  emitter = new Emitter<{}, { 'observe-messages': Array<LinterMessage> }>() // eslint-disable-line @typescript-eslint/ban-types
   messages: Array<LinterMessage> = []
   filteredMessages: Array<LinterMessage> = []
   subscriptions: CompositeDisposable = new CompositeDisposable()
@@ -83,7 +83,7 @@ export default class PanelDelegate {
     this.filteredMessages = this.getFilteredMessages()
     this.emitter.emit('observe-messages', this.filteredMessages)
   }
-  onDidChangeMessages(callback: (messages: Array<LinterMessage>) => any): Disposable {
+  onDidChangeMessages(callback: (messages: Array<LinterMessage>) => void): Disposable {
     return this.emitter.on('observe-messages', callback)
   }
   dispose() {
