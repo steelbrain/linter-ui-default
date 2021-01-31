@@ -1,4 +1,11 @@
 # Changelog
+### 2.5.0
+- Replaces React with Solid-js :tada: (#613)
+- Use solid-simple-table for Panel :tada: (#613)
+- Using solid makes linter more performant! (#613)
+- Better style for the panel (#613)
+- Update dependencies
+
 ### 2.4.1
 - fix: minor null bug fixes
 - fix: faster load time
