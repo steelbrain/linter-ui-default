@@ -44,14 +44,14 @@
       &.info {
         .message-with-severity(@text-color-info);
       }
-    }
 
-    // message severity function
-    .message-with-severity(@color) {
-      border-left: 4px solid @color;
+      // message severity function
+      .message-with-severity(@color) {
+        border-left: 4px solid @color;
 
-      &:last-child::before {
-        border-color: transparent transparent @color @color;
+        &:last-child::before {
+          border-color: transparent transparent @color @color;
+        }
       }
     }
 
