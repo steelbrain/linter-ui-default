@@ -1,4 +1,7 @@
 # Changelog
+### 2.5.1
+- clean up classes (merge subscriptions, emitter types, etc.) (#614)
+
 ### 2.5.0
 - Replaces React with Solid-js :tada: (#613)
 - Use solid-simple-table for Panel :tada: (#613)
