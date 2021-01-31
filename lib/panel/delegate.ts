@@ -10,6 +10,7 @@ export default class PanelDelegate {
   panelRepresents?: 'Entire Project' | 'Current File' | 'Current Line'
 
   constructor() {
+    let changeSubscription: Disposable | null = null
     this.subscriptions.add(
       atom.config.observe('linter-ui-default.panelRepresents', panelRepresents => {
         const notInitial = typeof this.panelRepresents !== 'undefined'
@@ -18,9 +19,6 @@ export default class PanelDelegate {
           this.update()
         }
       }),
-    )
-    let changeSubscription: Disposable | null
-    this.subscriptions.add(
       atom.workspace.getCenter().observeActivePaneItem(() => {
         if (changeSubscription) {
           changeSubscription.dispose()
@@ -44,8 +42,6 @@ export default class PanelDelegate {
           this.update()
         }
       }),
-    )
-    this.subscriptions.add(
       new Disposable(function () {
         if (changeSubscription) {
           changeSubscription.dispose()
