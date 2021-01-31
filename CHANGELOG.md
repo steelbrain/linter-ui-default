@@ -1,4 +1,7 @@
 # Changelog
+### 2.5.2
+- fix: use @font-family (#615)
+
 ### 2.5.1
 - clean up classes (merge subscriptions, emitter types, etc.) (#614)
 
