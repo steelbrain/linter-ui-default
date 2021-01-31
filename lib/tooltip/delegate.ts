@@ -2,7 +2,11 @@ import { CompositeDisposable, Emitter } from 'atom'
 import type { Disposable } from 'atom'
 
 export default class TooltipDelegate {
-  emitter: Emitter = new Emitter()
+  emitter: Emitter = new Emitter<{
+    'should-update': never
+    'should-expand': never
+    'should-collapse': never
+  }>()
   expanded: boolean = false
   subscriptions: CompositeDisposable = new CompositeDisposable()
   showProviderName?: boolean
@@ -48,13 +52,13 @@ export default class TooltipDelegate {
       }),
     )
   }
-  onShouldUpdate(callback: () => any): Disposable {
+  onShouldUpdate(callback: () => void): Disposable {
     return this.emitter.on('should-update', callback)
   }
-  onShouldExpand(callback: () => any): Disposable {
+  onShouldExpand(callback: () => void): Disposable {
     return this.emitter.on('should-expand', callback)
   }
-  onShouldCollapse(callback: () => any): Disposable {
+  onShouldCollapse(callback: () => void): Disposable {
     return this.emitter.on('should-collapse', callback)
   }
   dispose() {
