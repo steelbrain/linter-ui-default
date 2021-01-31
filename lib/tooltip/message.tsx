@@ -5,7 +5,7 @@ import marked from 'marked'
 import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
 import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
-import FixButton from './fix-button'
+import { FixButton } from './fix-button'
 
 function findHref(el: Element | null | undefined): string | null {
   while (el && !el.classList.contains('linter-line')) {

@@ -12,49 +12,42 @@ import { hasParent, mouseEventNearPosition, getBufferPositionFromMouseEvent } fr
 import type { LinterMessage } from '../types'
 
 export default class Editor {
+  textEditor: TextEditor
   gutter: Gutter | null = null
   tooltip: Tooltip | null = null
-  emitter: Emitter
-  markers: Map<string, Array<DisplayMarker | Marker>>
-  messages: Map<string, LinterMessage>
-  textEditor: TextEditor
+  emitter = new Emitter<{ 'did-destroy': never }>()
+  markers = new Map<string, Array<DisplayMarker | Marker>>()
+  messages = new Map<string, LinterMessage>()
   showTooltip: boolean = true
-  subscriptions: CompositeDisposableType
+  subscriptions = new CompositeDisposable() as CompositeDisposableType
   cursorPosition: Point | null = null
   gutterPosition?: string
   tooltipFollows: string = 'Both'
   showDecorations?: boolean
   showProviderName: boolean = true
-  ignoreTooltipInvocation: boolean
+  ignoreTooltipInvocation: boolean = false
   currentLineMarker: DisplayMarker | null = null
   lastRange?: Range
   lastIsEmpty?: boolean
-  lastCursorPositions: WeakMap<Cursor, Point>
+  lastCursorPositions = new WeakMap<Cursor, Point>()
 
   constructor(textEditor: TextEditor) {
-    this.emitter = new Emitter()
-    this.markers = new Map()
-    this.messages = new Map()
     this.textEditor = textEditor
-    this.subscriptions = new CompositeDisposable() as CompositeDisposableType
-    this.ignoreTooltipInvocation = false
-    this.lastCursorPositions = new WeakMap()
 
-    this.subscriptions.add(this.emitter)
+    let tooltipSubscription: CompositeDisposable | null = null
+
     this.subscriptions.add(
-      atom.config.observe('linter-ui-default.showTooltip', showTooltip => {
-        this.showTooltip = showTooltip
-        if (!this.showTooltip && this.tooltip) {
-          this.removeTooltip()
-        }
+      this.emitter,
+      textEditor.onDidDestroy(() => {
+        this.dispose()
       }),
-    )
-    this.subscriptions.add(
+      new Disposable(function () {
+        tooltipSubscription?.dispose()
+      }),
+      // configs
       atom.config.observe('linter-ui-default.showProviderName', showProviderName => {
         this.showProviderName = showProviderName
       }),
-    )
-    this.subscriptions.add(
       atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
         const notInitial = typeof this.showDecorations !== 'undefined'
         this.showDecorations = showDecorations
@@ -62,8 +55,7 @@ export default class Editor {
           this.updateGutter()
         }
       }),
-    )
-    this.subscriptions.add(
+      // gutter config
       atom.config.observe('linter-ui-default.gutterPosition', gutterPosition => {
         const notInitial = typeof this.gutterPosition !== 'undefined'
         this.gutterPosition = gutterPosition
@@ -71,15 +63,13 @@ export default class Editor {
           this.updateGutter()
         }
       }),
-    )
-    this.subscriptions.add(
-      textEditor.onDidDestroy(() => {
-        this.dispose()
+      // tooltip config
+      atom.config.observe('linter-ui-default.showTooltip', showTooltip => {
+        this.showTooltip = showTooltip
+        if (!this.showTooltip && this.tooltip) {
+          this.removeTooltip()
+        }
       }),
-    )
-
-    let tooltipSubscription: CompositeDisposable | null = null
-    this.subscriptions.add(
       atom.config.observe('linter-ui-default.tooltipFollows', tooltipFollows => {
         this.tooltipFollows = tooltipFollows
         if (tooltipSubscription) {
@@ -94,14 +84,7 @@ export default class Editor {
         }
         this.removeTooltip()
       }),
-    )
-    this.subscriptions.add(
-      new Disposable(function () {
-        tooltipSubscription?.dispose()
-      }),
-    )
-
-    this.subscriptions.add(
+      // cursor position change
       textEditor.onDidChangeCursorPosition(({ cursor, newBufferPosition }) => {
         const lastBufferPosition = this.lastCursorPositions.get(cursor)
         if (!lastBufferPosition || !lastBufferPosition.isEqual(newBufferPosition)) {
@@ -112,8 +95,7 @@ export default class Editor {
           this.removeTooltip()
         }
       }),
-    )
-    this.subscriptions.add(
+      // text change
       textEditor.getBuffer().onDidChangeText(() => {
         const cursors = textEditor.getCursors()
         cursors.forEach(cursor => {

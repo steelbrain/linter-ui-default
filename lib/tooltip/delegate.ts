@@ -12,8 +12,8 @@ export default class TooltipDelegate {
   showProviderName?: boolean
 
   constructor() {
-    this.subscriptions.add(this.emitter)
     this.subscriptions.add(
+      this.emitter,
       atom.config.observe('linter-ui-default.showProviderName', showProviderName => {
         const shouldUpdate = typeof this.showProviderName !== 'undefined'
         this.showProviderName = showProviderName
@@ -21,8 +21,6 @@ export default class TooltipDelegate {
           this.emitter.emit('should-update')
         }
       }),
-    )
-    this.subscriptions.add(
       atom.commands.add('atom-workspace', {
         'linter-ui-default:expand-tooltip': event => {
           if (this.expanded) {

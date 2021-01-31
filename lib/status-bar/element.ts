@@ -9,7 +9,7 @@ export default class Element {
   itemWarnings: HTMLElement = Helpers.getElement('alert')
   itemInfos: HTMLElement = Helpers.getElement('info')
 
-  emitter: Emitter = new Emitter()
+  emitter = new Emitter<{}, { click: 'error' | 'warning' | 'info' }>() // eslint-disable-line @typescript-eslint/ban-types
   subscriptions: CompositeDisposable = new CompositeDisposable()
 
   constructor() {
@@ -19,10 +19,12 @@ export default class Element {
     this.item.classList.add('inline-block')
     this.item.classList.add('linter-status-count')
 
-    this.subscriptions.add(this.emitter)
-    this.subscriptions.add(atom.tooltips.add(this.itemErrors, { title: 'Linter Errors' }))
-    this.subscriptions.add(atom.tooltips.add(this.itemWarnings, { title: 'Linter Warnings' }))
-    this.subscriptions.add(atom.tooltips.add(this.itemInfos, { title: 'Linter Infos' }))
+    this.subscriptions.add(
+      this.emitter,
+      atom.tooltips.add(this.itemErrors, { title: 'Linter Errors' }),
+      atom.tooltips.add(this.itemWarnings, { title: 'Linter Warnings' }),
+      atom.tooltips.add(this.itemInfos, { title: 'Linter Infos' }),
+    )
 
     this.itemErrors.onclick = () => this.emitter.emit('click', 'error')
     this.itemWarnings.onclick = () => this.emitter.emit('click', 'warning')
@@ -60,7 +62,7 @@ export default class Element {
       this.itemInfos.classList.remove('text-info')
     }
   }
-  onDidClick(callback: (type: string) => void): Disposable {
+  onDidClick(callback: (type: 'error' | 'warning' | 'info') => void): Disposable {
     return this.emitter.on('click', callback)
   }
   dispose() {

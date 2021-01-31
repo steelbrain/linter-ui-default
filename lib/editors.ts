@@ -45,8 +45,6 @@ export default class Editors {
         }
         this.getEditor(textEditor)
       }),
-    )
-    this.subscriptions.add(
       atom.workspace.getCenter().observeActivePaneItem(paneItem => {
         this.editors.forEach(editor => {
           if (editor.textEditor !== paneItem) {

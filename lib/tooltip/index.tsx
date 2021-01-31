@@ -16,9 +16,6 @@ export default class TooltipElement {
 
   constructor(messages: Array<LinterMessage>, position: Point, textEditor: TextEditor) {
     this.messages = messages
-    this.subscriptions
-
-    this.subscriptions.add(this.emitter)
     this.marker = textEditor.markBufferRange([position, position])
     this.marker.onDidDestroy(() => this.emitter.emit('did-destroy'))
 
@@ -28,7 +25,8 @@ export default class TooltipElement {
       type: 'overlay',
       item: this.element,
     })
-    this.subscriptions.add(delegate)
+
+    this.subscriptions.add(this.emitter, delegate)
 
     const children: Array<Solid.JSX.Element> = []
     messages.forEach(message => {

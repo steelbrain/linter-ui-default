@@ -12,8 +12,8 @@ export default class StatusBar {
   statusBarClickBehavior?: 'Toggle Panel' | 'Jump to next issue' | 'Toggle Status Bar Scope'
 
   constructor() {
-    this.subscriptions.add(this.element)
     this.subscriptions.add(
+      this.element,
       atom.config.observe('linter-ui-default.statusBarRepresents', statusBarRepresents => {
         const notInitial = typeof this.statusBarRepresents !== 'undefined'
         this.statusBarRepresents = statusBarRepresents
@@ -21,8 +21,6 @@ export default class StatusBar {
           this.update()
         }
       }),
-    )
-    this.subscriptions.add(
       atom.config.observe('linter-ui-default.statusBarClickBehavior', statusBarClickBehavior => {
         const notInitial = typeof this.statusBarClickBehavior !== 'undefined'
         this.statusBarClickBehavior = statusBarClickBehavior
@@ -30,13 +28,9 @@ export default class StatusBar {
           this.update()
         }
       }),
-    )
-    this.subscriptions.add(
       atom.config.observe('linter-ui-default.showStatusBar', showStatusBar => {
         this.element.setVisibility('config', showStatusBar)
       }),
-    )
-    this.subscriptions.add(
       atom.workspace.getCenter().observeActivePaneItem(paneItem => {
         const isTextEditor = atom.workspace.isTextEditor(paneItem)
         this.element.setVisibility('pane', isTextEditor)

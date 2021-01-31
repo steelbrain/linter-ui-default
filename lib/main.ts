@@ -23,9 +23,7 @@ export default class LinterUI {
   idleCallbacks: Set<number> = new Set()
 
   constructor() {
-    this.subscriptions.add(this.signal)
-    this.subscriptions.add(this.commands)
-    this.subscriptions.add(this.statusBar)
+    this.subscriptions.add(this.signal, this.commands, this.statusBar)
 
     const obsShowPanelCB = window.requestIdleCallback(
       /* observeShowPanel */ () => {
