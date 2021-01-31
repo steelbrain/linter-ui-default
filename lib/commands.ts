@@ -45,13 +45,9 @@ export default class Commands {
         'linter-ui-default:expand-tooltip': function () {},
         'linter-ui-default:collapse-tooltip': function () {},
       }),
-    )
-    this.subscriptions.add(
       atom.commands.add('atom-text-editor:not([mini])', {
         'linter-ui-default:apply-all-solutions': () => this.applyAllSolutions(),
       }),
-    )
-    this.subscriptions.add(
       atom.commands.add('#linter-panel', {
         'core:copy': () => {
           const selection = document.getSelection()
