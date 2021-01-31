@@ -4,8 +4,6 @@
 .solid-simple-table.linter {
   color: @text-color;
   font-size: @font-size;
-  border: 0;
-  // solid-simple-table adds a border and Atom UI adds a border to wrapper element, so we end up with two
 }
 
 .solid-simple-table.linter thead {
@@ -24,11 +22,7 @@
 
 .solid-simple-table.linter td {
   min-width: 100px;
-}
-
-.solid-simple-table.linter th {
-  border-right-color: @base-border-color;
-  border-bottom-color: @base-border-color;
+  border: (@font-size / 7) solid @base-background-color;
 }
 
 .solid-simple-table.linter td:nth-child(4),
