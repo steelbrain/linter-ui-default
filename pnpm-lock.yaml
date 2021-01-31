@@ -4,7 +4,7 @@ dependencies:
   lodash: 4.17.20
   marked: 1.2.8
   solid-js: 0.23.11
-  solid-simple-table: 0.1.3
+  solid-simple-table: 0.1.4
 devDependencies:
   '@babel/cli': 7.12.10
   '@babel/preset-typescript': 7.12.7
@@ -8692,10 +8692,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-AuDF3QWf99MMHkLjHN03OzvH7eyhCVOeMGmvKMb3ScFo5vkSgACN+GJs4K+DcUxx9TMbxMPHqodn4b1meD3sIw==
-  /solid-simple-table/0.1.3:
+  /solid-simple-table/0.1.4:
     dev: false
     resolution:
-      integrity: sha512-tFEfHjpup70aTtXyhM5rIBL956qQ3xnVX/wX1oOF8bhrqkKcm1JFyZ+D8jVRMe+lcmJsm1NiuwLG/pu6aMStHw==
+      integrity: sha512-u2UhUsQbbsEJvEJbwqz57lIZKIIigKL8D8S4EaLGkTzG9phcOL82CFNozLRGjzOwEMaxB4kSPcIpu54TFwcjnA==
   /source-map-resolve/0.5.3:
     dependencies:
       atob: 2.1.2
@@ -9592,5 +9592,5 @@ specifiers:
   prettier: ^2
   shx: ^0.3.3
   solid-js: ^0.23.11
-  solid-simple-table: ^0.1.3
+  solid-simple-table: ^0.1.4
   typescript: ^4
