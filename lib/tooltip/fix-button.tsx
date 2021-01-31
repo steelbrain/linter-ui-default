@@ -1,5 +1,11 @@
-export default ({ onClick }: { onClick: () => void }) => (
-  <button className="linter-ui-default-fix-btn" onClick={onClick}>
-    Fix
-  </button>
-)
+export interface Props {
+  onClick: () => void
+}
+
+export function FixButton(props: Props) {
+  return (
+    <button className="linter-ui-default-fix-btn" onClick={props.onClick}>
+      Fix
+    </button>
+  )
+}
