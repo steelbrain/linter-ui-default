@@ -42,7 +42,7 @@ export function PanelComponent(props: Props) {
         getRowID={(i: LinterMessage) => i.key}
         bodyRenderer={renderRowColumn}
         style={{ width: '100%' }}
-        className="linter"
+        className="linter dark"
       />
     </div>
   )
