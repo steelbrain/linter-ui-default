@@ -10,7 +10,7 @@ import type { LinterMessage } from '../types'
 export default class TooltipElement {
   marker: DisplayMarker
   element: HTMLElement = document.createElement('div')
-  emitter: Emitter = new Emitter()
+  emitter = new Emitter<{ 'did-destroy': never }>()
   messages: Array<LinterMessage>
   subscriptions: CompositeDisposable = new CompositeDisposable()
 
@@ -68,7 +68,7 @@ export default class TooltipElement {
     const range = $range(this.messages[0])
     return Boolean(range && range.containsPoint(position))
   }
-  onDidDestroy(callback: () => any): Disposable {
+  onDidDestroy(callback: () => void): Disposable {
     return this.emitter.on('did-destroy', callback)
   }
   dispose() {
