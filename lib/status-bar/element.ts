@@ -9,7 +9,7 @@ export default class Element {
   itemWarnings: HTMLElement = Helpers.getElement('alert')
   itemInfos: HTMLElement = Helpers.getElement('info')
 
-  emitter: Emitter = new Emitter()
+  emitter = new Emitter<{}, { click: 'error' | 'warning' | 'info' }>() // eslint-disable-line @typescript-eslint/ban-types
   subscriptions: CompositeDisposable = new CompositeDisposable()
 
   constructor() {
@@ -62,7 +62,7 @@ export default class Element {
       this.itemInfos.classList.remove('text-info')
     }
   }
-  onDidClick(callback: (type: string) => void): Disposable {
+  onDidClick(callback: (type: 'error' | 'warning' | 'info') => void): Disposable {
     return this.emitter.on('click', callback)
   }
   dispose() {
