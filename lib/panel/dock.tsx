@@ -50,8 +50,6 @@ export default class PanelDock {
           this.doPanelResize(true)
         }
       }),
-    )
-    this.subscriptions.add(
       atom.config.observe('linter-ui-default.alwaysTakeMinimumSpace', alwaysTakeMinimumSpace => {
         this.alwaysTakeMinimumSpace = alwaysTakeMinimumSpace
       }),
