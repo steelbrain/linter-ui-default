@@ -12,8 +12,8 @@ export default class TreeView {
   decorateOnTreeView?: 'Files and Directories' | 'Files' | 'None'
 
   constructor() {
-    this.subscriptions.add(this.emitter)
     this.subscriptions.add(
+      this.emitter,
       atom.config.observe('linter-ui-default.decorateOnTreeView', decorateOnTreeView => {
         if (typeof this.decorateOnTreeView === 'undefined') {
           this.decorateOnTreeView = decorateOnTreeView
