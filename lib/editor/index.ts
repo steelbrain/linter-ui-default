@@ -33,21 +33,21 @@ export default class Editor {
 
   constructor(textEditor: TextEditor) {
     this.textEditor = textEditor
-    this.subscriptions.add(this.emitter)
+
+    let tooltipSubscription: CompositeDisposable | null = null
+
     this.subscriptions.add(
-      atom.config.observe('linter-ui-default.showTooltip', showTooltip => {
-        this.showTooltip = showTooltip
-        if (!this.showTooltip && this.tooltip) {
-          this.removeTooltip()
-        }
+      this.emitter,
+      textEditor.onDidDestroy(() => {
+        this.dispose()
       }),
-    )
-    this.subscriptions.add(
+      new Disposable(function () {
+        tooltipSubscription?.dispose()
+      }),
+      // configs
       atom.config.observe('linter-ui-default.showProviderName', showProviderName => {
         this.showProviderName = showProviderName
       }),
-    )
-    this.subscriptions.add(
       atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
         const notInitial = typeof this.showDecorations !== 'undefined'
         this.showDecorations = showDecorations
@@ -55,8 +55,7 @@ export default class Editor {
           this.updateGutter()
         }
       }),
-    )
-    this.subscriptions.add(
+      // gutter config
       atom.config.observe('linter-ui-default.gutterPosition', gutterPosition => {
         const notInitial = typeof this.gutterPosition !== 'undefined'
         this.gutterPosition = gutterPosition
@@ -64,15 +63,13 @@ export default class Editor {
           this.updateGutter()
         }
       }),
-    )
-    this.subscriptions.add(
-      textEditor.onDidDestroy(() => {
-        this.dispose()
+      // tooltip config
+      atom.config.observe('linter-ui-default.showTooltip', showTooltip => {
+        this.showTooltip = showTooltip
+        if (!this.showTooltip && this.tooltip) {
+          this.removeTooltip()
+        }
       }),
-    )
-
-    let tooltipSubscription: CompositeDisposable | null = null
-    this.subscriptions.add(
       atom.config.observe('linter-ui-default.tooltipFollows', tooltipFollows => {
         this.tooltipFollows = tooltipFollows
         if (tooltipSubscription) {
@@ -87,14 +84,7 @@ export default class Editor {
         }
         this.removeTooltip()
       }),
-    )
-    this.subscriptions.add(
-      new Disposable(function () {
-        tooltipSubscription?.dispose()
-      }),
-    )
-
-    this.subscriptions.add(
+      // cursor position change
       textEditor.onDidChangeCursorPosition(({ cursor, newBufferPosition }) => {
         const lastBufferPosition = this.lastCursorPositions.get(cursor)
         if (!lastBufferPosition || !lastBufferPosition.isEqual(newBufferPosition)) {
@@ -105,8 +95,7 @@ export default class Editor {
           this.removeTooltip()
         }
       }),
-    )
-    this.subscriptions.add(
+      // text change
       textEditor.getBuffer().onDidChangeText(() => {
         const cursors = textEditor.getCursors()
         cursors.forEach(cursor => {
