@@ -32,6 +32,16 @@
       &:not(:last-child) {
         border-bottom: 1px solid fade(contrast(@inset-panel-background-color), 5%);
       }
+
+      &.error {
+        .message-with-severity(@text-color-error);
+      }
+      &.warning {
+        .message-with-severity(@text-color-warning);
+      }
+      &.info {
+        .message-with-severity(@text-color-info);
+      }
     }
 
     // message severity function
@@ -43,24 +53,6 @@
       }
     }
 
-    &.error {
-      .message-with-severity(@text-color-error);
-      &::after {
-        color: @text-color-error;
-      }
-    }
-    &.warning {
-      .message-with-severity(@text-color-warning);
-      &::after {
-        color: @text-color-warning;
-      }
-    }
-    &.info {
-      .message-with-severity(@text-color-info);
-      &::after {
-        opacity: 0;
-      }
-    }
 
     // Arrow pointer
     &:last-child::after {

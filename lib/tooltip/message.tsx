@@ -96,7 +96,7 @@ export default function MessageElement(props: Props) {
   const { message, delegate } = props
 
   return (
-    <div className={`linter-message ${message.severity}`} onClick={thisOpenFile}>
+    <div className='linter-message' onClick={thisOpenFile}>
       {
         // fold butotn if has message description
         message.description && (
@@ -105,7 +105,7 @@ export default function MessageElement(props: Props) {
           </a>
         )
       }
-      <div className="linter-excerpt">
+      <div className={`linter-excerpt ${message.severity}`}>
         {
           // fix button
           canBeFixed(message) && <FixButton onClick={() => onFixClick()} />
