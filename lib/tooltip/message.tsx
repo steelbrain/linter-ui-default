@@ -120,24 +120,24 @@ export default function MessageElement(props: Props) {
           // main message text
           message.excerpt
         }
-      </div>
-      <div className='linter-buttons-right'>
-        {
-          // message reference
-          message.reference && message.reference.file && (
-            <a href="#" onClick={() => visitMessage(message, true)}>
-              <span className="icon linter-icon icon-alignment-aligned-to" />
-            </a>
-          )
-        }
-        {
-          // message url
-          message.url && (
-            <a href="#" onClick={() => openExternally(message)}>
-              <span className="icon linter-icon icon-link" />
-            </a>
-          )
-        }
+        <div className='linter-buttons-right'>
+          {
+            // message reference
+            message.reference && message.reference.file && (
+              <a href="#" onClick={() => visitMessage(message, true)}>
+                <span className="icon linter-icon icon-alignment-aligned-to" />
+              </a>
+            )
+          }
+          {
+            // message url
+            message.url && (
+              <a href="#" onClick={() => openExternally(message)}>
+                <span className="icon linter-icon icon-link" />
+              </a>
+            )
+          }
+        </div>
       </div>
       {
         // message description

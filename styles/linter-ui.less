@@ -23,19 +23,8 @@
     color: #fff - @inset-panel-background-color; // invert;
     background: @app-background-color;
 
-    // align button with message
-    .linter-buttons-right {
-      float: right;
-
-      // url button
-      a {
-        color: @text-color;
-      }
-    }
-
     .linter-excerpt {
       padding: 5px;
-      display: inline;
 
       // border between messages
       &:not(:last-child) {
@@ -63,6 +52,17 @@
       .provider-name {
         display: inline;
         font-weight: bolder;
+      }
+
+      // align button with message
+      .linter-buttons-right {
+        margin-left: 10px;
+        float: right;
+
+        // url button
+        a {
+          color: @text-color;
+        }
       }
     }
 
