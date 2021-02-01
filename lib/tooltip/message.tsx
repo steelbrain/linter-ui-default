@@ -97,15 +97,15 @@ export default function MessageElement(props: Props) {
 
   return (
     <div className="linter-message" onClick={thisOpenFile}>
-      {
-        // fold butotn if has message description
-        message.description && (
-          <a href="#" onClick={() => toggleDescription()}>
-            <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
-          </a>
-        )
-      }
       <div className={`linter-excerpt ${message.severity}`}>
+        {
+          // fold butotn if has message description
+          message.description && (
+            <a href="#" onClick={() => toggleDescription()}>
+              <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
+            </a>
+          )
+        }
         {
           // fix button
           canBeFixed(message) && <FixButton onClick={() => onFixClick()} />
