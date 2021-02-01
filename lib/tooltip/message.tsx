@@ -96,7 +96,7 @@ export default function MessageElement(props: Props) {
   const { message, delegate } = props
 
   return (
-    <div className='linter-message' onClick={thisOpenFile}>
+    <div className="linter-message" onClick={thisOpenFile}>
       {
         // fold butotn if has message description
         message.description && (
@@ -110,17 +110,17 @@ export default function MessageElement(props: Props) {
           // fix button
           canBeFixed(message) && <FixButton onClick={() => onFixClick()} />
         }
-        <div className='provider-name'>
-        {
-          // provider name
-          delegate.showProviderName ? `${message.linterName}: ` : ''
-        }
+        <div className="provider-name">
+          {
+            // provider name
+            delegate.showProviderName ? `${message.linterName}: ` : ''
+          }
         </div>
         {
           // main message text
           message.excerpt
         }
-        <div className='linter-buttons-right'>
+        <div className="linter-buttons-right">
           {
             // message reference
             message.reference && message.reference.file && (
