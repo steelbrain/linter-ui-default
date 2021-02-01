@@ -105,7 +105,7 @@ export default function MessageElement(props: Props) {
           </a>
         )
       }
-      <div className='linter-buttons'>
+      <div className='linter-buttons-left'>
         {
           // fix button
           canBeFixed(message) && <FixButton onClick={() => onFixClick()} />
@@ -120,23 +120,25 @@ export default function MessageElement(props: Props) {
           // main message text
           message.excerpt
         }
-      </div>{' '}
-      {
-        // message reference
-        message.reference && message.reference.file && (
-          <a href="#" onClick={() => visitMessage(message, true)}>
-            <span className="icon linter-icon icon-alignment-aligned-to" />
-          </a>
-        )
-      }
-      {
-        // message url
-        message.url && (
-          <a href="#" onClick={() => openExternally(message)}>
-            <span className="icon linter-icon icon-link" />
-          </a>
-        )
-      }
+      </div>
+      <div className='linter-buttons-right'>
+        {
+          // message reference
+          message.reference && message.reference.file && (
+            <a href="#" onClick={() => visitMessage(message, true)}>
+              <span className="icon linter-icon icon-alignment-aligned-to" />
+            </a>
+          )
+        }
+        {
+          // message url
+          message.url && (
+            <a href="#" onClick={() => openExternally(message)}>
+              <span className="icon linter-icon icon-link" />
+            </a>
+          )
+        }
+      </div>
       {
         // message description
         state.descriptionShow && <div className="linter-line">{state.description || 'Loading...'}</div>
