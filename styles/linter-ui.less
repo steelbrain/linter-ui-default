@@ -24,9 +24,6 @@
     background: @app-background-color;
 
     // align button with message
-    .linter-buttons-left {
-      float: left;
-    }
     .linter-buttons-right {
       float: right;
 
@@ -38,7 +35,6 @@
 
     .linter-excerpt {
       padding: 5px;
-      margin-left: 50px;
       display: inline;
 
       // border between messages
@@ -124,7 +120,8 @@ atom-text-editor.editor .linter-row {
   border-color: @button-border-color;
   border-radius: @component-border-radius;
   margin-top: -12px; // css aligment is stupid
-  margin-right: -50px;
+  margin-right: 5px;
+  margin-left: 5px;
   padding-inline: 10px;
   line-height: 2em;
   user-select: none;

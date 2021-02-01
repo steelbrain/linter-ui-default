@@ -105,13 +105,11 @@ export default function MessageElement(props: Props) {
           </a>
         )
       }
-      <div className='linter-buttons-left'>
+      <div className={`linter-excerpt ${message.severity}`}>
         {
           // fix button
           canBeFixed(message) && <FixButton onClick={() => onFixClick()} />
         }
-      </div>
-      <div className={`linter-excerpt ${message.severity}`}>
         {
           // provider name
           delegate.showProviderName ? `${message.linterName}: ` : ''
