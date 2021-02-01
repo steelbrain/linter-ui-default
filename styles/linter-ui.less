@@ -122,11 +122,12 @@ atom-text-editor.editor .linter-row {
   background-color: @button-background-color;
   border-color: @button-border-color;
   border-radius: @component-border-radius;
+  margin-top: -10px; // css aligment is stupid
   margin-right: 5px;
-  padding: 5px 10px;
-  line-height: 100%;
-  font-size: 12px;
-  vertical-align: middle;
+  padding-inline: 10px;
+  line-height: 2em;
+  font-size: var(--editor-font-size);
+
 }
 
 .linter-gutter {
