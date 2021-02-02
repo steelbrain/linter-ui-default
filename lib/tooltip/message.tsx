@@ -110,16 +110,18 @@ export default function MessageElement(props: Props) {
           // fix button
           canBeFixed(message) && <FixButton onClick={() => onFixClick()} />
         }
-        <div className="provider-name">
+        <div className="linter-text">
+          <div className="provider-name">
+            {
+              // provider name
+              delegate.showProviderName ? `${message.linterName}: ` : ''
+            }
+          </div>
           {
-            // provider name
-            delegate.showProviderName ? `${message.linterName}: ` : ''
+            // main message text
+            message.excerpt
           }
         </div>
-        {
-          // main message text
-          message.excerpt
-        }
         <div className="linter-buttons-right">
           {
             // message reference
