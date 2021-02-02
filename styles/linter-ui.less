@@ -25,6 +25,8 @@
 
     .linter-excerpt {
       padding: 5px;
+      display: flex;
+      align-items: center;
 
       // border between messages
       &:not(:last-child) {
@@ -52,13 +54,12 @@
       .provider-name {
         display: inline;
         font-weight: bolder;
+        margin-right: 0.5em;
       }
 
       // align button with message
       .linter-buttons-right {
-        margin-top: 5px; // TODO align
         margin-left: 10px;
-        float: right;
 
         // url button
         a {
