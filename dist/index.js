@@ -8226,9 +8226,6 @@ function FixButton(props) {
   })();
 }
 
-let x;
-console.log(x);
-
 _$delegateEvents(["click"]);
 },{"solid-js/web":"5Vgkw"}],"d6BGW":[function(require,module,exports) {
 "use strict";

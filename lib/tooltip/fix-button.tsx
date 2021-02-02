@@ -9,7 +9,3 @@ export function FixButton(props: Props) {
     </button>
   )
 }
-
-let x;
-
-console.log(x)
