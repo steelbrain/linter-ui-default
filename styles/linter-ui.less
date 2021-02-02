@@ -17,64 +17,89 @@
   padding: 5px 5px 2px 5px;
   font-family: @font-family;
 
-  .message-with-severity(@color) {
+  .linter-message {
+    padding: 10px;
+
     color: #fff - @inset-panel-background-color; // invert;
     background: @app-background-color;
 
-    border-left: 8px solid @color;
-    border-right: 1px solid fade(contrast(@inset-panel-background-color), 5%);
-    &:first-child {
-      border-top: 1px solid fade(contrast(@inset-panel-background-color), 5%);
-    }
-    &:last-child {
-      border-bottom: 1px solid fade(contrast(@inset-panel-background-color), 5%);
-    }
+    .linter-excerpt {
+      padding: 5px;
+      display: flex;
+      align-items: center;
 
-    &:last-child::before {
-      border-color: transparent transparent @color @color;
-    }
+      // border between messages
+      &:not(:last-child) {
+        border-bottom: 1px solid fade(contrast(@inset-panel-background-color), 5%);
+      }
 
-    a {
-      color: @text-color;
-    }
-  }
+      &.error {
+        .message-with-severity(@text-color-error);
+      }
+      &.warning {
+        .message-with-severity(@text-color-warning);
+      }
+      &.info {
+        .message-with-severity(@text-color-info);
+      }
 
-  .linter-message {
-    &.error {
-      .message-with-severity(@text-color-error);
-      &::after {
-        color: @text-color-error;
+      // message severity function
+      .message-with-severity(@color) {
+        border-left: 4px solid @color;
+
+        &:last-child::before {
+          border-color: transparent transparent @color @color;
+        }
+      }
+
+      .linter-text {
+        margin-left: 0.5em;
+      }
+
+      .provider-name {
+        display: inline;
+        font-weight: bolder;
+      }
+
+      // align button with message
+      .linter-buttons-right {
+        margin-left: 10px;
+
+        // url button
+        a {
+          color: @text-color;
+        }
+      }
+
+      .fix-btn {
+        color: @text-color;
+        background-color: @button-background-color;
+        border-color: @button-border-color;
+        border-radius: @component-border-radius;
+        margin-left: 5px;
+        padding: 5px 8px;
+        user-select: none;
+        font-size: var(--editor-font-size);
       }
     }
-    &.warning {
-      .message-with-severity(@text-color-warning);
-      &::after {
-        color: @text-color-warning;
-      }
-    }
-    &.info {
-      .message-with-severity(@text-color-info);
-      &::after {
-        opacity: 0;
-      }
-    }
 
-    // Arrow pointer
-    &:last-child::after {
-      content: '';
-      // so the arrow does not take a row in the tooltip
-      display: block;
-      width: 0;
-      // position it below the tooltip
-      position: relative;
-      left: -20px;
-      top: 3px;
-      // triangle
-      border-top: 0 solid transparent;
-      border-right: 0 solid transparent;
-      border-bottom: 8px solid;
-      border-left: 8px solid transparent;
-    }
+    // TODO: Arrow pointer does not fit in the new design
+    // // Arrow pointer
+    // &:last-child::after {
+    //   content: '';
+    //   // so the arrow does not take a row in the tooltip
+    //   display: block;
+    //   width: 0;
+    //   // position it below the tooltip
+    //   position: relative;
+    //   left: -20px;
+    //   top: 3px;
+    //   // triangle
+    //   border-top: 0 solid transparent;
+    //   border-right: 0 solid transparent;
+    //   border-bottom: 8px solid;
+    //   border-left: 8px solid transparent;
+    // }
     // TODO arrow pointer for before
 
     a {
@@ -109,17 +134,6 @@ atom-text-editor.editor .linter-row {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.linter-ui-default-fix-btn {
-  color: @ui-site-color-1;
-  background-color: @button-background-color;
-  border-color: @button-border-color;
-  border-radius: @component-border-radius;
-  margin: 0 10px;
-  padding: 5px 10px;
-  line-height: 100%;
-  font-size: 12px;
-  vertical-align: middle;
 }
 
 .linter-gutter {

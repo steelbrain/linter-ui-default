@@ -4,7 +4,7 @@ export interface Props {
 
 export function FixButton(props: Props) {
   return (
-    <button className="linter-ui-default-fix-btn" onClick={props.onClick}>
+    <button className="fix-btn" onClick={props.onClick}>
       Fix
     </button>
   )

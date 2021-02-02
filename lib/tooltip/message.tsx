@@ -96,28 +96,55 @@ export default function MessageElement(props: Props) {
   const { message, delegate } = props
 
   return (
-    <div className={`linter-message ${message.severity}`} onClick={thisOpenFile}>
-      {message.description && (
-        <a href="#" onClick={() => toggleDescription()}>
-          <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
-        </a>
-      )}
-      <div className="linter-excerpt">
-        {canBeFixed(message) && <FixButton onClick={() => onFixClick()} />}
-        {delegate.showProviderName ? `${message.linterName}: ` : ''}
-        {message.excerpt}
-      </div>{' '}
-      {message.reference && message.reference.file && (
-        <a href="#" onClick={() => visitMessage(message, true)}>
-          <span className="icon linter-icon icon-alignment-aligned-to" />
-        </a>
-      )}
-      {message.url && (
-        <a href="#" onClick={() => openExternally(message)}>
-          <span className="icon linter-icon icon-link" />
-        </a>
-      )}
-      {state.descriptionShow && <div className="linter-line">{state.description || 'Loading...'}</div>}
+    <div className="linter-message" onClick={thisOpenFile}>
+      <div className={`linter-excerpt ${message.severity}`}>
+        {
+          // fold butotn if has message description
+          message.description && (
+            <a href="#" onClick={() => toggleDescription()}>
+              <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
+            </a>
+          )
+        }
+        {
+          // fix button
+          canBeFixed(message) && <FixButton onClick={() => onFixClick()} />
+        }
+        <div className="linter-text">
+          <div className="provider-name">
+            {
+              // provider name
+              delegate.showProviderName ? `${message.linterName}: ` : ''
+            }
+          </div>
+          {
+            // main message text
+            message.excerpt
+          }
+        </div>
+        <div className="linter-buttons-right">
+          {
+            // message reference
+            message.reference && message.reference.file && (
+              <a href="#" onClick={() => visitMessage(message, true)}>
+                <span className="icon linter-icon icon-alignment-aligned-to" />
+              </a>
+            )
+          }
+          {
+            // message url
+            message.url && (
+              <a href="#" onClick={() => openExternally(message)}>
+                <span className="icon linter-icon icon-link" />
+              </a>
+            )
+          }
+        </div>
+      </div>
+      {
+        // message description
+        state.descriptionShow && <div className="linter-line">{state.description || 'Loading...'}</div>
+      }
     </div>
   )
 }

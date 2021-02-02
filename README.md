@@ -10,8 +10,6 @@
 
 The default UI for linter.
 
-![Preview](https://cloud.githubusercontent.com/assets/4278113/23879933/1ab17e2a-0872-11e7-803d-3fe0ccfc6790.gif)
-
 ### Installation
 
 You can install it from the CLI
@@ -21,6 +19,20 @@ apm install linter-ui-default
 ```
 
 Or you can install from Settings view by searching for `linter-ui-default`.
+
+### Screenshots
+
+![tooltip](https://user-images.githubusercontent.com/16418197/106548395-8577d700-64d4-11eb-9eaa-1974f0903516.png)
+
+![tooltip with multiple messages](https://user-images.githubusercontent.com/16418197/106548492-b5bf7580-64d4-11eb-819c-178c86c652ef.png)
+
+![tooltip with fold button](https://user-images.githubusercontent.com/16418197/106548281-52354800-64d4-11eb-9d66-d26ee702cfa5.png)
+
+<!-- ![tooltip expanded](https://user-images.githubusercontent.com/16418197/106548235-421d6880-64d4-11eb-8c03-89708622043b.png) -->
+
+![full editor](https://user-images.githubusercontent.com/16418197/106548923-8b21ec80-64d5-11eb-894d-c93cb3809ebd.png)
+
+![panel gif](https://cloud.githubusercontent.com/assets/4278113/23879933/1ab17e2a-0872-11e7-803d-3fe0ccfc6790.gif)
 
 ### License
 
