@@ -1,4 +1,8 @@
 # Changelog
+
+### 3.0.1
+- Bypass parcel temporarily
+
 ### 3.0.0
 - Redesigned tooltip :tada: (#616)
 
