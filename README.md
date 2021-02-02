@@ -24,7 +24,7 @@ Or you can install from Settings view by searching for `linter-ui-default`.
 
 ![tooltip](https://user-images.githubusercontent.com/16418197/106548395-8577d700-64d4-11eb-9eaa-1974f0903516.png)
 
-![tooltip with multiple messages](https://user-images.githubusercontent.com/16418197/106548492-b5bf7580-64d4-11eb-819c-178c86c652ef.png)
+![tooltip with multiple messages](https://user-images.githubusercontent.com/16418197/106654351-a89a9900-655d-11eb-8af2-f6a459720bf3.png)
 
 ![tooltip with fold button](https://user-images.githubusercontent.com/16418197/106548281-52354800-64d4-11eb-9d66-d26ee702cfa5.png)
 
