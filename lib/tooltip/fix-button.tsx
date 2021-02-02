@@ -4,8 +4,12 @@ export interface Props {
 
 export function FixButton(props: Props) {
   return (
-    <button className="fix-btn" onClick={props.onClick}>
+    <button className="btn fix-btn" onClick={props.onClick}>
       Fix
     </button>
   )
 }
+
+let x;
+
+console.log(x)
