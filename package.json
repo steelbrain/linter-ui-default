@@ -10,8 +10,8 @@
   "repository": "https://github.com/steelbrain/linter-ui-default",
   "license": "MIT",
   "engines": {
-    "atom": ">=1.19.0 <2.0.0",
-    "electron": ">=5.x"
+    "atom": ">=1.52.0",
+    "electron": ">=6.x"
   },
   "scripts": {
     "format": "prettier --write .",
