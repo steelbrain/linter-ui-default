@@ -51,6 +51,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "atom-ide-base": "^2.1.6",
+    "babel-plugin-transform-globalthis": "^1.0.0",
     "babel-preset-atomic": "^3.0.2",
     "babel-preset-solid": "^0.23.8",
     "build-commit": "0.1.4",
