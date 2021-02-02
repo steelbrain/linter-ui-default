@@ -1,8 +1,11 @@
 # Changelog
+### 3.1.0
+- Make text in the tooltips selectable and copyable
+
 
 ### 3.0.3
 - Use the default button style for Fix button (#619)
-- Add `globalThis` workaround for old Atom (#618) (please update Atom!) 
+- Add `globalThis` workaround for old Atom (#618) (please update Atom!)
 
 ### 3.0.1
 - Bypass parcel temporarily
