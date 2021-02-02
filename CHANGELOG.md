@@ -1,4 +1,7 @@
 # Changelog
+### 3.0.0
+- Redesigned tooltip :tada: (#616)
+
 ### 2.5.2
 - fix: use @font-family (#615)
 
