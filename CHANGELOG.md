@@ -1,6 +1,9 @@
 # Changelog
+### 3.1.1
+- Fix linter panel scroll (#622)
+
 ### 3.1.0
-- Make text in the tooltips selectable and copyable
+- Make text in the tooltips selectable and copyable (#620)
 
 
 ### 3.0.3
