@@ -1,4 +1,7 @@
 # Changelog
+### 3.2.0
+- Render descriptions correctly (#625)
+-
 ### 3.1.1
 - Fix linter panel scroll (#622)
 
