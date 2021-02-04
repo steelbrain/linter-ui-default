@@ -143,7 +143,7 @@ export default function MessageElement(props: Props) {
       </div>
       {
         // message description
-        state.descriptionShow && <div className="linter-line">{state.description || 'Loading...'}</div>
+        state.descriptionShow && <div className="linter-line" innerHTML={state.description || 'Loading...'}></div>
       }
     </div>
   )
