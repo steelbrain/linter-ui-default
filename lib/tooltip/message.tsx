@@ -39,7 +39,7 @@ export default function MessageElement(props: Props) {
     }
   }
 
-  function toggleDescription(result: string | null | undefined = null) {
+  async function toggleDescription(result: string | null | undefined = null) {
     const newStatus = !state.descriptionShow
     const description = state.description || props.message.description
 
@@ -56,22 +56,19 @@ export default function MessageElement(props: Props) {
         return
       }
       setDescriptionLoading(true)
-      new Promise(function (resolve) {
-        resolve(description())
-      })
-        .then(response => {
-          if (typeof response !== 'string') {
-            throw new Error(`Expected result to be string, got: ${typeof response}`)
-          }
-          toggleDescription(response)
-        })
-        .catch(error => {
-          console.log('[Linter] Error getting descriptions', error)
-          setDescriptionLoading(false)
-          if (state.descriptionShow) {
-            toggleDescription()
-          }
-        })
+      const response = await description()
+      if (typeof response !== 'string') {
+        throw new Error(`Expected result to be string, got: ${typeof response}`)
+      }
+      try {
+        await toggleDescription(response)
+      } catch (error) {
+        console.log('[Linter] Error getting descriptions', error)
+        setDescriptionLoading(false)
+        if (state.descriptionShow) {
+          await toggleDescription()
+        }
+      }
     } else {
       console.error('[Linter] Invalid description detected, expected string or function but got:', typeof description)
     }
@@ -81,14 +78,14 @@ export default function MessageElement(props: Props) {
     props.delegate.onShouldUpdate(() => {
       setState({ description: '', descriptionShow: false })
     })
-    props.delegate.onShouldExpand(() => {
+    props.delegate.onShouldExpand(async () => {
       if (!state.descriptionShow) {
-        toggleDescription()
+        await toggleDescription()
       }
     })
-    props.delegate.onShouldCollapse(() => {
+    props.delegate.onShouldCollapse(async () => {
       if (state.descriptionShow) {
-        toggleDescription()
+        await toggleDescription()
       }
     })
   })
@@ -101,7 +98,7 @@ export default function MessageElement(props: Props) {
         {
           // fold butotn if has message description
           message.description && (
-            <a href="#" onClick={() => toggleDescription()}>
+            <a href="#" onClick={async () => await toggleDescription()}>
               <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
             </a>
           )
