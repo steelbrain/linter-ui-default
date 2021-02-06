@@ -1,4 +1,11 @@
 # Changelog
+### 3.2.1
+- fix: use native copy handling in tooltips:
+  - It is faster.
+  - Supports MacOS (cmd+c)
+  - In addition to performance benefits, it also fixes the jumps that happened in the linter when you wanted to copy the text
+- fix: make `toggleDescription` async
+
 ### 3.2.0
 - Render descriptions correctly (#625)
 -
