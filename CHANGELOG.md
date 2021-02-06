@@ -1,4 +1,7 @@
 # Changelog
+### 3.2.2
+- Update deps
+
 ### 3.2.1
 - fix: use native copy handling in tooltips:
   - It is faster.
