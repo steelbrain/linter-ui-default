@@ -16,7 +16,7 @@ devDependencies:
   '@types/node': 14.14.22
   '@types/react': 17.0.0
   '@types/react-dom': 17.0.0
-  atom-ide-base: 2.2.0
+  atom-ide-base: 2.3.0
   babel-plugin-transform-globalthis: 1.0.0
   babel-preset-atomic: 3.0.2_@babel+cli@7.12.10
   babel-preset-solid: 0.23.8
@@ -3439,7 +3439,7 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
-  /atom-ide-base/2.2.0:
+  /atom-ide-base/2.3.0:
     dependencies:
       atom-ide-markdown-service: 1.6.0
       atom-package-deps: 7.1.0
@@ -3453,11 +3453,11 @@ packages:
     engines:
       atom: '>=0.174.0 <2.0.0'
     resolution:
-      integrity: sha512-TIxOJYDbrvRSvT/seDoQ9eaHb2WcH07jB47MRBYw+I9Zo7ox4rIW2I75Q+9igxWsF+8ng3/R9I0HB6/uDkKMdQ==
+      integrity: sha512-XfuDIqcq2L5ePloKUo+X68bIgriVn+6zDMJqnc66A62QSmE+j0dsl3ei1FEawoRPzrHMqDVbqM98uTF07suDXg==
   /atom-ide-markdown-service/1.6.0:
     dependencies:
       dompurify: 2.2.6
-      marked: 1.2.8
+      marked: 1.2.9
     dev: true
     engines:
       atom: '>=1.0.0 <2.0.0'
@@ -6888,11 +6888,19 @@ packages:
     resolution:
       integrity: sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   /marked/1.2.8:
+    dev: false
     engines:
       node: '>= 8.16.2'
     hasBin: true
     resolution:
       integrity: sha512-lzmFjGnzWHkmbk85q/ILZjFoHHJIQGF+SxGEfIdGk/XhiTPhqGs37gbru6Kkd48diJnEyYwnG67nru0Z2gQtuQ==
+  /marked/1.2.9:
+    dev: true
+    engines:
+      node: '>= 8.16.2'
+    hasBin: true
+    resolution:
+      integrity: sha512-H8lIX2SvyitGX+TRdtS06m1jHMijKN/XjfH6Ooii9fvxMlh8QdqBfBDkGUpMWH2kQNrtixjzYUa3SH8ROTgRRw==
   /md5.js/1.3.5:
     dependencies:
       hash-base: 3.1.0
@@ -9593,7 +9601,7 @@ specifiers:
   '@types/node': ^14.14.22
   '@types/react': ^17.0.0
   '@types/react-dom': ^17.0.0
-  atom-ide-base: ^2.2.0
+  atom-ide-base: 2.3.0
   atom-package-deps: ^7.1.0
   babel-plugin-transform-globalthis: ^1.0.0
   babel-preset-atomic: ^3.0.2
