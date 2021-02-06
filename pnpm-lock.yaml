@@ -16,7 +16,7 @@ devDependencies:
   '@types/node': 14.14.22
   '@types/react': 17.0.0
   '@types/react-dom': 17.0.0
-  atom-ide-base: 2.3.0
+  atom-ide-base: 2.3.1
   babel-plugin-transform-globalthis: 1.0.0
   babel-preset-atomic: 3.0.2_@babel+cli@7.12.10
   babel-preset-solid: 0.23.8
@@ -3439,7 +3439,7 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
-  /atom-ide-base/2.3.0:
+  /atom-ide-base/2.3.1:
     dependencies:
       atom-ide-markdown-service: 1.6.0
       atom-package-deps: 7.1.0
@@ -3453,7 +3453,7 @@ packages:
     engines:
       atom: '>=0.174.0 <2.0.0'
     resolution:
-      integrity: sha512-XfuDIqcq2L5ePloKUo+X68bIgriVn+6zDMJqnc66A62QSmE+j0dsl3ei1FEawoRPzrHMqDVbqM98uTF07suDXg==
+      integrity: sha512-iKcDkxpAsLzQ7Tm9f/O0M9WkhlpYHJYfbVCg44oqM31XKRU7ey2jiN4m8RMKZT3rU/y3D17j4ofYh4A9hGctpQ==
   /atom-ide-markdown-service/1.6.0:
     dependencies:
       dompurify: 2.2.6
@@ -9601,7 +9601,7 @@ specifiers:
   '@types/node': ^14.14.22
   '@types/react': ^17.0.0
   '@types/react-dom': ^17.0.0
-  atom-ide-base: 2.3.0
+  atom-ide-base: 2.3.1
   atom-package-deps: ^7.1.0
   babel-plugin-transform-globalthis: ^1.0.0
   babel-preset-atomic: ^3.0.2
