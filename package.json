@@ -36,8 +36,8 @@
     "atom-package-deps": "^7.1.0",
     "disposable-event": "^1.1.0",
     "lodash": "^4.17.20",
-    "marked": "^1.2.8",
-    "solid-js": "^0.23.11",
+    "marked": "^1.2.9",
+    "solid-js": "^0.24.0",
     "solid-simple-table": "^0.1.4"
   },
   "devDependencies": {
