@@ -6,7 +6,7 @@ import Delegate from './delegate'
 import MessageElement from './message'
 import { $range } from '../helpers'
 import type { LinterMessage } from '../types'
-import { makeOverlaySelectable, makeOverLayCopyable } from 'atom-ide-base/commons-ui/float-pane/selectable-overlay'
+import { makeOverlaySelectable } from 'atom-ide-base/commons-ui/float-pane/selectable-overlay'
 
 export default class TooltipElement {
   marker: DisplayMarker
@@ -24,7 +24,6 @@ export default class TooltipElement {
 
     // make tooltips copyable and selectable
     makeOverlaySelectable(textEditor, this.element)
-    makeOverLayCopyable(this.element)
 
     this.element.id = 'linter-tooltip'
 
