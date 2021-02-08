@@ -1,6 +1,6 @@
 import { render } from 'solid-js/web'
 import type * as Solid from 'solid-js'
-import { CompositeDisposable, Emitter } from 'atom'
+import { CompositeDisposable, Emitter, TextEditorElement } from 'atom'
 import type { Disposable, Point, TextEditor, DisplayMarker } from 'atom'
 import Delegate from './delegate'
 import MessageElement from './message'
@@ -54,13 +54,16 @@ export default class TooltipElement {
         if (overlay) {
           overlay.style.transform = `translateY(-${2 + lineHight + hight}px)`
         }
-        // TODO:
-        // } else {
-        // // // move right so it does not overlap with datatip-overlay"
-        // const dataTip = textEditor.getElement().querySelector(".datatip-overlay")
-        // if (dataTip) {
-        //   this.element.style.left = dataTip.clientWidth + "px"
-        // }
+      } else {
+        // move down so it does not overlap with datatip-overlay
+        // @ts-ignore
+        const dataTip = (textEditor.getElement() as TextEditorElement).querySelector('.datatip-overlay') as HTMLElement
+        if (dataTip) {
+          const overlay = this.element.parentElement
+          if (overlay) {
+            overlay.style.transform = `translateY(${dataTip.clientHeight}px)`
+          }
+        }
       }
       this.element.style.visibility = 'visible'
     }, 50)
