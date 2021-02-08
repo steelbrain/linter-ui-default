@@ -3,7 +3,7 @@ dependencies:
   disposable-event: 1.1.0
   lodash: 4.17.20
   marked: 1.2.9
-  solid-js: 0.24.1
+  solid-js: 0.24.2
   solid-simple-table: 0.1.4
 devDependencies:
   '@babel/cli': 7.12.13
@@ -19,7 +19,7 @@ devDependencies:
   atom-ide-base: 2.3.4
   babel-plugin-transform-globalthis: 1.0.0
   babel-preset-atomic: 3.0.2_@babel+cli@7.12.13
-  babel-preset-solid: 0.24.1
+  babel-preset-solid: 0.24.2
   build-commit: 0.1.4
   chance: 1.1.7
   cross-env: 7.0.3
@@ -3712,14 +3712,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-jZVI+s9Zg3IqA/kdi0i6UDCybUI3aSBLnglhYbSSjKlV7yF1F/5LWv8MakQmvYpnbJDS6fcBL2KzHSxNCMtWSQ==
-  /babel-plugin-jsx-dom-expressions/0.25.2:
+  /babel-plugin-jsx-dom-expressions/0.25.4:
     dependencies:
       '@babel/helper-module-imports': 7.12.5
       '@babel/plugin-syntax-jsx': 7.12.1
       '@babel/types': 7.12.13
     dev: true
     resolution:
-      integrity: sha512-ZOhv/koXo5/aitU13+I5SwchhXAqlmG8s+Bm3cOjjylu+o6lX7Zx7PbNXj4EQjkDFZZtLCXSAxao9+byf8ucmA==
+      integrity: sha512-0A5NvJfpOZV/6G5Mu5WfEDGJ3nthYgT911BgL8IT4pKBNjOCzdxMu2HaaiQtycVKw7ZB/0BfGnKZnB/tqOIlEw==
   /babel-plugin-macros/2.8.0:
     dependencies:
       '@babel/runtime': 7.12.5
@@ -3796,12 +3796,12 @@ packages:
       '@babel/core': ^7
     resolution:
       integrity: sha512-TED015QkqUiP53w05g/q8MXp6WT3AqekEjCx4M8Dy9X4NiVx1/HIEiUsDRzGiBPSbzdHUOzulFfr6C/aVPmDmA==
-  /babel-preset-solid/0.24.1:
+  /babel-preset-solid/0.24.2:
     dependencies:
-      babel-plugin-jsx-dom-expressions: 0.25.2
+      babel-plugin-jsx-dom-expressions: 0.25.4
     dev: true
     resolution:
-      integrity: sha512-RNn7ZRQB5ViQz1OwrkJIJhs8aaEDG3kSt7TsV919dpZoJ95dUixS+Zw2DCn48wR5cQvYamDp7ghfsSVfWRl/Aw==
+      integrity: sha512-Ihm37tnVvE6BRDQIAunW9bI598L1+a6OwJS2KdZdMEQiX2fM7sVVc7w2wkpw0a5JP8haJQ92jyLL56OYCfEa9w==
   /babel-runtime/6.26.0:
     dependencies:
       core-js: 2.6.12
@@ -8908,10 +8908,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-FtyOnWN/wCHTVXOMwvSv26d+ko5vWlIDD6zoUJ7LW8vh+ZBC8QdljveRP+crNrtBwioEUWy/4dMtbBjA4ioNlg==
-  /solid-js/0.24.1:
+  /solid-js/0.24.2:
     dev: false
     resolution:
-      integrity: sha512-2yIlOW1P99PSdDDj0Q+YrOig+6ofGiBy9h6Txi5WGjjK0wjjBS6Krt2zN3CsmBqAsSD/D1qBr9Cwucxg/MC8Nw==
+      integrity: sha512-ehM9y9b10y53I3nZSXDkiPXtWgHCNFj7GB3I3TwXu7RpnSX3drbPqNsHEaXFd4XZU6pXMMWFOPDw5GA0ywS0sQ==
   /solid-simple-table/0.1.4:
     dev: false
     resolution:
@@ -9799,7 +9799,7 @@ specifiers:
   atom-package-deps: ^7.2.2
   babel-plugin-transform-globalthis: ^1.0.0
   babel-preset-atomic: ^3.0.2
-  babel-preset-solid: ^0.24.1
+  babel-preset-solid: ^0.24.2
   build-commit: 0.1.4
   chance: ^1.1.7
   cross-env: ^7.0.3
@@ -9812,6 +9812,6 @@ specifiers:
   parcel: 2.0.0-nightly.574
   prettier: ^2
   shx: ^0.3.3
-  solid-js: ^0.24.1
+  solid-js: ^0.24.2
   solid-simple-table: ^0.1.4
   typescript: ^4
