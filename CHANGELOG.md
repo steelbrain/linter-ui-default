@@ -1,4 +1,7 @@
 # Changelog
+### 3.2.3
+- fix: move the linter tooltip down when there is not enough space on top
+
 ### 3.2.2
 - Update deps
 
