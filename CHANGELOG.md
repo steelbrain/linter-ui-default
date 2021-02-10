@@ -1,4 +1,7 @@
 # Changelog
+### 2.2.4
+- fix: fix copying text from tooltips on MacOS
+
 ### 3.2.3
 - fix: move the linter tooltip down when there is not enough space on top
 
