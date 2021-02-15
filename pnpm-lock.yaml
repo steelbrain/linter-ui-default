@@ -3,7 +3,7 @@ dependencies:
   disposable-event: 1.1.0
   lodash: 4.17.20
   marked: 1.2.9
-  solid-js: 0.24.2
+  solid-js: 0.24.7
   solid-simple-table: 0.1.4
 devDependencies:
   '@babel/cli': 7.12.13
@@ -8908,10 +8908,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-FtyOnWN/wCHTVXOMwvSv26d+ko5vWlIDD6zoUJ7LW8vh+ZBC8QdljveRP+crNrtBwioEUWy/4dMtbBjA4ioNlg==
-  /solid-js/0.24.2:
+  /solid-js/0.24.7:
     dev: false
     resolution:
-      integrity: sha512-ehM9y9b10y53I3nZSXDkiPXtWgHCNFj7GB3I3TwXu7RpnSX3drbPqNsHEaXFd4XZU6pXMMWFOPDw5GA0ywS0sQ==
+      integrity: sha512-Hi/Kvf3+e+664bBMG5NhZb+0jkWJHvMbWagCDH1AQMODFwoOZABBpUK1xfOhrtHEWMKpIz3fOzg5jOWwd/cdMA==
   /solid-simple-table/0.1.4:
     dev: false
     resolution:
@@ -9812,6 +9812,6 @@ specifiers:
   parcel: 2.0.0-nightly.574
   prettier: ^2
   shx: ^0.3.3
-  solid-js: ^0.24.2
+  solid-js: ^0.24.7
   solid-simple-table: ^0.1.4
   typescript: ^4

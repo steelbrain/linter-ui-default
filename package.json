@@ -37,7 +37,7 @@
     "disposable-event": "^1.1.0",
     "lodash": "^4.17.20",
     "marked": "^1.2.9",
-    "solid-js": "^0.24.2",
+    "solid-js": "^0.24.7",
     "solid-simple-table": "^0.1.4"
   },
   "devDependencies": {
