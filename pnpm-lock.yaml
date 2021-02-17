@@ -1,5 +1,5 @@
 dependencies:
-  atom-package-deps: 7.1.0
+  atom-package-deps: 7.2.2
   disposable-event: 1.1.0
   lodash: 4.17.20
   marked: 1.2.9
@@ -3606,16 +3606,16 @@ packages:
       atom: '>=1.0.0 <2.0.0'
     resolution:
       integrity: sha512-j7S7QS/G1Fgnl+wDU/ssfp5MxFE9YAcwpZCCmMUbLpOANEJ0+46aTOdHY2HJt5+F76/zGQCv7JwO3Ef1QEQUDA==
-  /atom-package-deps/7.1.0:
-    dev: false
-    hasBin: true
-    resolution:
-      integrity: sha512-qSCRGyL8CE7Pwm/D5e0BeD1MJQF+a05Ky3RdQ4m9buIKdkHOq3cSlU+G9j+2S2GD+clp9Z3Hl4dkrFemv0UxVg==
   /atom-package-deps/7.2.0:
     dev: true
     hasBin: true
     resolution:
       integrity: sha512-P7XnvYv+qYjFrdWWOuRCJ2oOe6Ps0DinwUhJ+h4Zwk/VGStO/x23A/tBDCWyvsZFwEfgGnnhTY+jZ7/pCxxYng==
+  /atom-package-deps/7.2.2:
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-xV4l1Ll987zluBjMiYGtDbZbdM5PF/hOECgaI2mv2+dNzbuugd2M+A2liw1JUenuGrngGw/wcpPqXpAVMGFeDw==
   /available-typed-arrays/1.0.2:
     dependencies:
       array-filter: 1.0.0
@@ -9796,7 +9796,7 @@ specifiers:
   '@types/react': ^17.0.1
   '@types/react-dom': ^17.0.0
   atom-ide-base: 2.3.4
-  atom-package-deps: ^7.1.0
+  atom-package-deps: ^7.2.2
   babel-plugin-transform-globalthis: ^1.0.0
   babel-preset-atomic: ^3.0.2
   babel-preset-solid: ^0.23.8
