@@ -1,5 +1,6 @@
 /* @flow */
 
+import 'module-alias/register'
 import { Range } from 'atom'
 // eslint-disable-next-line no-unused-vars
 import { it, beforeEach, afterEach } from 'jasmine-fix'

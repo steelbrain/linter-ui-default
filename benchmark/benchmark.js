@@ -1,4 +1,5 @@
 /* @flow */
+import 'module-alias/register'
 import { Chance } from 'chance'
 const chance = new Chance()
 import type { Message } from '../lib/types.d'

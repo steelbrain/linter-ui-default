@@ -1,5 +1,6 @@
 /* @flow */
 
+import 'module-alias/register'
 import { beforeEach } from 'jasmine-fix'
 import BusySignal from '../dist/busy-signal'
 import { getLinter } from './helpers'

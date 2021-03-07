@@ -26,6 +26,7 @@ devDependencies:
   eslint: 7.19.0
   eslint-config-atomic: 1.9.0_eslint@7.19.0
   jasmine-fix: 1.3.1
+  module-alias: 2.2.2
   parcel: 2.0.0-nightly.618
   prettier: 2.2.1
   shx: 0.3.3
@@ -1364,7 +1365,7 @@ packages:
       parcel: ^2.0.0-beta.1
     resolution:
       integrity: sha512-Th76g+9ayeOIboPU4eSXFGlDzOAPlU8P+JTSIs8QyZu6cvRuElide9ue3Khzhk+uRhYcqboWaYUXqaekW9hJ9g==
-  /@parcel/cache/2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618:
+  /@parcel/cache/2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d:
     dependencies:
       '@parcel/core': 2.0.0-nightly.618
       '@parcel/logger': 2.0.0-nightly.620
@@ -1387,7 +1388,7 @@ packages:
       node: '>= 12.0.0'
     resolution:
       integrity: sha512-RtYbp7DOH1cew/2jmJPUYNuaunEo2Djo/3pV0uQ1JSBpYs4tsELGbrDGp9yxKx7GuCuyzdm6yv7uLtF0xxeZFQ==
-  /@parcel/config-default/2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618:
+  /@parcel/config-default/2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d:
     dependencies:
       '@parcel/bundler-default': 2.0.0-nightly.620
       '@parcel/core': 2.0.0-nightly.618
@@ -1420,17 +1421,17 @@ packages:
       integrity: sha512-di+1P5gINsSwYGiWlMzPTqHZ4oP8l6Ys677RccSQPlEjgAijbsGzuOmDwoRdhxgfYxNrQJ3yYDExgZma4PWuRQ==
   /@parcel/core/2.0.0-nightly.618:
     dependencies:
-      '@parcel/cache': 2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618
+      '@parcel/cache': 2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d
       '@parcel/diagnostic': 2.0.0-nightly.620
       '@parcel/events': 2.0.0-nightly.620
-      '@parcel/fs': 2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618
+      '@parcel/fs': 2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d
       '@parcel/logger': 2.0.0-nightly.620
-      '@parcel/package-manager': 2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618
+      '@parcel/package-manager': 2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d
       '@parcel/plugin': 2.0.0-nightly.620
       '@parcel/source-map': 2.0.0-alpha.4.21
       '@parcel/types': 2.0.0-nightly.620
       '@parcel/utils': 2.0.0-nightly.620
-      '@parcel/workers': 2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618
+      '@parcel/workers': 2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d
       abortcontroller-polyfill: 1.7.1
       base-x: 3.0.8
       browserslist: 4.16.1
@@ -1480,14 +1481,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-ZHlPy8ZwWiLPtHTtYdso8nB7P6yVL8lWHIKVfkvHoWp+COrVj6L1k3Ikpa40quHlfKsTKbQQgZwVf5pkkLSRtg==
-  /@parcel/fs/2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618:
+  /@parcel/fs/2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d:
     dependencies:
       '@parcel/core': 2.0.0-nightly.618
       '@parcel/fs-search': 2.0.0-nightly.2242
       '@parcel/fs-write-stream-atomic': 2.0.0-nightly.2242
       '@parcel/utils': 2.0.0-nightly.620
       '@parcel/watcher': 2.0.0-alpha.10
-      '@parcel/workers': 2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618
+      '@parcel/workers': 2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d
       graceful-fs: 4.2.4
       mkdirp: 0.5.5
       ncp: 2.0.0
@@ -1609,14 +1610,14 @@ packages:
       parcel: ^2.0.0-beta.1
     resolution:
       integrity: sha512-JJolMjBgz8/ZPiLQojmQgjZnVW83Oiy8Ye1diJMKmDpAdyEQaAqwlr8yQjV9NAh3ojI8j4PJ3J8aUFJrMJFF5Q==
-  /@parcel/package-manager/2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618:
+  /@parcel/package-manager/2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d:
     dependencies:
       '@parcel/core': 2.0.0-nightly.618
       '@parcel/diagnostic': 2.0.0-nightly.620
-      '@parcel/fs': 2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618
+      '@parcel/fs': 2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d
       '@parcel/logger': 2.0.0-nightly.620
       '@parcel/utils': 2.0.0-nightly.620
-      '@parcel/workers': 2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618
+      '@parcel/workers': 2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d
       command-exists: 1.2.9
       cross-spawn: 6.0.5
       nullthrows: 1.1.1
@@ -1982,7 +1983,7 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-8uA7Tmx/1XvmUdGzksg0+oN7uj24pXFFnKJqZr3L3mgYjdrL7CMs3PRIHv1k3LUz/hNRsb/p3qxztSkWz1IGZA==
-  /@parcel/workers/2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618:
+  /@parcel/workers/2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d:
     dependencies:
       '@parcel/core': 2.0.0-nightly.618
       '@parcel/diagnostic': 2.0.0-nightly.620
@@ -5981,6 +5982,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
+  /module-alias/2.2.2:
+    dev: true
+    resolution:
+      integrity: sha512-A/78XjoX2EmNvppVWEhM2oGk3x4lLxnkEA4jTbaK97QKSDjkIoOsKQlfylt/d3kKKi596Qy3NP5XrXJ6fZIC9Q==
   /ms/2.0.0:
     dev: true
     resolution:
@@ -6304,13 +6309,13 @@ packages:
       integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
   /parcel/2.0.0-nightly.618:
     dependencies:
-      '@parcel/config-default': 2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618
+      '@parcel/config-default': 2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d
       '@parcel/core': 2.0.0-nightly.618
       '@parcel/diagnostic': 2.0.0-nightly.620
       '@parcel/events': 2.0.0-nightly.620
-      '@parcel/fs': 2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618
+      '@parcel/fs': 2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d
       '@parcel/logger': 2.0.0-nightly.620
-      '@parcel/package-manager': 2.0.0-nightly.620_@parcel+core@2.0.0-nightly.618
+      '@parcel/package-manager': 2.0.0-nightly.620_c7c242b88e390db9e49b93816f2cfe4d
       '@parcel/reporter-cli': 2.0.0-nightly.620
       '@parcel/reporter-dev-server': 2.0.0-nightly.620
       '@parcel/utils': 2.0.0-nightly.620
@@ -8528,6 +8533,7 @@ specifiers:
   jasmine-fix: ^1.3.1
   lodash: ^4.17.20
   marked: ^1.2.9
+  module-alias: ^2.2.2
   parcel: 2.0.0-nightly.618
   prettier: ^2
   shx: ^0.3.3
