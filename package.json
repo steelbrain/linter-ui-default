@@ -68,7 +68,7 @@
   },
   "targets": {
     "main": {
-      "context": "node",
+      "context": "electron-renderer",
       "includeNodeModules": {
         "atom": false,
         "electron": false,
@@ -80,9 +80,7 @@
     }
   },
   "alias": {
-    "solid-simple-table": "solid-simple-table/dist/SimpleTable.module",
-    "solid-js": "solid-js/dist/solid.js",
-    "solid-js/web": "solid-js/web/dist/web.js"
+    "solid-simple-table": "solid-simple-table/dist/SimpleTable.module"
   },
   "providedServices": {
     "linter-ui": {
