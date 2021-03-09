@@ -36,7 +36,7 @@ export function PanelComponent(props: Props) {
       <SimpleTable
         rows={getMessages()}
         columns={columns}
-        defaultSortDirection={['line', 'asc']}
+        defaultSortDirection={['severity', 'asc']}
         rowSorter={sortMessages}
         accessors={true}
         getRowID={(i: LinterMessage) => i.key}
