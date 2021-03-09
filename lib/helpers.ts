@@ -162,48 +162,55 @@ export function sortMessages(
   const multiplyWith = sortDirectionDirection === 'asc' ? 1 : -1
 
   return rows.sort(function (a, b) {
-    if (sortDirectionID === 'severity') {
-      const severityA = severityScore[a.severity]
-      const severityB = severityScore[b.severity]
-      if (severityA !== severityB) {
-        return multiplyWith * (severityA > severityB ? 1 : -1)
-      }
-    }
-    if (sortDirectionID === 'linterName') {
-      const sortValue = a.severity.localeCompare(b.severity)
-      if (sortValue !== 0) {
-        return multiplyWith * sortValue
-      }
-    }
-    if (sortDirectionID === 'file') {
-      const fileA = getPathOfMessage(a)
-      const fileALength = fileA.length
-      const fileB = getPathOfMessage(b)
-      const fileBLength = fileB.length
-      if (fileALength !== fileBLength) {
-        return multiplyWith * (fileALength > fileBLength ? 1 : -1)
-      } else if (fileA !== fileB) {
-        return multiplyWith * fileA.localeCompare(fileB)
-      }
-    }
-    if (sortDirectionID === 'line') {
-      const rangeA = $range(a)
-      const rangeB = $range(b)
-      if (rangeA && !rangeB) {
-        return 1
-      } else if (rangeB && !rangeA) {
-        return -1
-      } else if (rangeA && rangeB) {
-        if (rangeA.start.row !== rangeB.start.row) {
-          return multiplyWith * (rangeA.start.row > rangeB.start.row ? 1 : -1)
+    switch (sortDirectionID) {
+      case 'severity': {
+        const severityA = severityScore[a.severity]
+        const severityB = severityScore[b.severity]
+        if (severityA !== severityB) {
+          return multiplyWith * (severityA > severityB ? 1 : -1)
         }
-        if (rangeA.start.column !== rangeB.start.column) {
-          return multiplyWith * (rangeA.start.column > rangeB.start.column ? 1 : -1)
+        return 0
+      }
+      case 'linterName': {
+        const sortValue = a.severity.localeCompare(b.severity)
+        if (sortValue !== 0) {
+          return multiplyWith * sortValue
         }
+        return 0
+      }
+      case 'file': {
+        const fileA = getPathOfMessage(a)
+        const fileALength = fileA.length
+        const fileB = getPathOfMessage(b)
+        const fileBLength = fileB.length
+        if (fileALength !== fileBLength) {
+          return multiplyWith * (fileALength > fileBLength ? 1 : -1)
+        } else if (fileA !== fileB) {
+          return multiplyWith * fileA.localeCompare(fileB)
+        }
+        return 0
+      }
+      case 'line': {
+        const rangeA = $range(a)
+        const rangeB = $range(b)
+        if (rangeA && !rangeB) {
+          return 1
+        } else if (rangeB && !rangeA) {
+          return -1
+        } else if (rangeA && rangeB) {
+          if (rangeA.start.row !== rangeB.start.row) {
+            return multiplyWith * (rangeA.start.row > rangeB.start.row ? 1 : -1)
+          }
+          if (rangeA.start.column !== rangeB.start.column) {
+            return multiplyWith * (rangeA.start.column > rangeB.start.column ? 1 : -1)
+          }
+        }
+        return 0
+      }
+      default: {
+        return 0
       }
     }
-
-    return 0
   })
 }
 
