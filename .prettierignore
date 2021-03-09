@@ -6,3 +6,4 @@ changelog.md
 coverage
 build
 dist
+spec/fixtures

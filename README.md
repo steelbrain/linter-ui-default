@@ -30,7 +30,7 @@ Or you can install from Settings view by searching for `linter-ui-default`.
 
 <!-- ![tooltip expanded](https://user-images.githubusercontent.com/16418197/106548235-421d6880-64d4-11eb-8c03-89708622043b.png) -->
 
-![full editor](https://user-images.githubusercontent.com/16418197/106548923-8b21ec80-64d5-11eb-894d-c93cb3809ebd.png)
+![full-editor](https://user-images.githubusercontent.com/16418197/110440831-b375ab80-807e-11eb-8b34-4a85b135f180.png)
 
 ![panel gif](https://cloud.githubusercontent.com/assets/4278113/23879933/1ab17e2a-0872-11e7-803d-3fe0ccfc6790.gif)
 
