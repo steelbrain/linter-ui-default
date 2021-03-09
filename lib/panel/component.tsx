@@ -36,11 +36,11 @@ export function PanelComponent(props: Props) {
       <SimpleTable
         rows={getMessages()}
         columns={columns}
-        defaultSortDirection={['line', 'asc']}
+        defaultSortDirection={['severity', 'asc']}
         rowSorter={sortMessages}
         accessors={true}
         getRowID={(i: LinterMessage) => i.key}
-        bodyRenderer={renderRowColumn}
+        bodyRenderer={bodyRenderer}
         style={{ width: '100%' }}
         className="linter dark"
       />
@@ -48,7 +48,7 @@ export function PanelComponent(props: Props) {
   )
 }
 
-function renderRowColumn(row: LinterMessage, column: string): string {
+function bodyRenderer(row: LinterMessage, column: string): string | HTMLElement {
   const range = $range(row)
 
   switch (column) {
@@ -59,7 +59,10 @@ function renderRowColumn(row: LinterMessage, column: string): string {
     case 'excerpt':
       return row.excerpt
     case 'severity':
-      return severityNames[row.severity]
+      return (
+        <div className={`solid-simple-table linter ${row.severity}`}>{severityNames[row.severity]}</div>
+      ) as HTMLElement
+
     default:
       return row[column]
   }

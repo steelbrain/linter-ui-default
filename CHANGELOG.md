@@ -1,4 +1,8 @@
 # Changelog
+### 3.3.0
+- feat: colorize the severity in the bottom panel
+- fix: sort based on severity (show errors first)
+
 ### 3.2.5
 - fix: bump atom-package-deps to support spaced paths on Windows
 
