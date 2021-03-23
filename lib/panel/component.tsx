@@ -20,14 +20,14 @@ export function PanelComponent(props: Props) {
   const columns = [
     { id: 'severity', label: 'Severity' },
     { id: 'linterName', label: 'Provider' },
-    { id: 'excerpt', label: 'Description', onClick: onClick, sortable: false },
-    { id: 'line', label: 'Line', onClick: onClick },
+    { id: 'excerpt', label: 'Description', onClick, sortable: false },
+    { id: 'line', label: 'Line', onClick },
   ]
   if (props.delegate.panelRepresents === 'Entire Project') {
     columns.push({
       id: 'file',
       label: 'File',
-      onClick: onClick,
+      onClick,
     })
   }
 

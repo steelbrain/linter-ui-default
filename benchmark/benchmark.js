@@ -41,7 +41,7 @@ function generateRandomMessage(
 
 async function getTestFile(filePath: string, numParagraphs: number = 30, numSentences: number = 10) {
   let str: string = ''
-  let parLengths: number[] = new Array(numParagraphs)
+  const parLengths: number[] = new Array(numParagraphs)
   for (let i = 0; i < numParagraphs; i++) {
     const par = chance.paragraph({ sentences: numSentences })
     str = str.concat(par, '\n')
@@ -62,12 +62,13 @@ describe('Editor benchmark', function () {
 
   let editor: Editor
   let textEditor: TextEditor
-  let parLengths, fileLength: number
+  let parLengths: number
+  // let fileLength: number
   beforeEach(async function () {
     // make a test file
     const testFileProps = await getTestFile(filePath, numParagraphs, numSentences)
     parLengths = testFileProps.parLengths
-    fileLength = testFileProps.fileLength
+    // fileLength = testFileProps.fileLength
 
     // open the test file
     await atom.workspace.open(filePath)

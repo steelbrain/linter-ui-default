@@ -115,7 +115,9 @@ export default class Editor {
       this.textEditor.observeCursors(cursor => {
         const handlePositionChange = ({ start, end }: { start: Point; end: Point }) => {
           const gutter = this.gutter
-          if (!gutter || this.subscriptions.disposed) return
+          if (!gutter || this.subscriptions.disposed) {
+            return
+          }
           // We need that Range.fromObject hack below because when we focus index 0 on multi-line selection
           // end.column is the column of the last line but making a range out of two and then accesing
           // the end seems to fix it (black magic?)
@@ -130,7 +132,9 @@ export default class Editor {
           if (start.row !== end.row && currentRange.end.column === 0) {
             linesRange.end.row--
           }
-          if (this.lastRange && this.lastRange.isEqual(linesRange) && currentIsEmpty === this.lastIsEmpty) return
+          if (this.lastRange && this.lastRange.isEqual(linesRange) && currentIsEmpty === this.lastIsEmpty) {
+            return
+          }
           if (this.currentLineMarker) {
             this.currentLineMarker.destroy()
             this.currentLineMarker = null
