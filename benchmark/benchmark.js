@@ -62,12 +62,13 @@ describe('Editor benchmark', function () {
 
   let editor: Editor
   let textEditor: TextEditor
-  let parLengths, fileLength: number
+  let parLengths: number
+  // let fileLength: number
   beforeEach(async function () {
     // make a test file
     const testFileProps = await getTestFile(filePath, numParagraphs, numSentences)
     parLengths = testFileProps.parLengths
-    fileLength = testFileProps.fileLength
+    // fileLength = testFileProps.fileLength
 
     // open the test file
     await atom.workspace.open(filePath)
