@@ -94,6 +94,9 @@ export default class PanelDock {
       atom.config.set('linter-ui-default.panelHeight', updateConfigHeight)
     }
   }
+
+  /* eslint-disable class-methods-use-this */
+  // atom API requires these methods
   getURI() {
     return WORKSPACE_URI
   }
@@ -109,6 +112,8 @@ export default class PanelDock {
   getPreferredHeight() {
     return atom.config.get('linter-ui-default.panelHeight')
   }
+  /* eslint-enable class-methods-use-this */
+
   dispose() {
     this.subscriptions.dispose()
     const paneContainer = getPaneContainer(this)
