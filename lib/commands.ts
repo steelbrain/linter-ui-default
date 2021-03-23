@@ -38,7 +38,7 @@ export default class Commands {
         'linter-ui-default:next-info-in-current-file': () => this.move(true, false, 'info'),
         'linter-ui-default:previous-info-in-current-file': () => this.move(false, false, 'info'),
 
-        'linter-ui-default:toggle-panel': () => this.togglePanel(),
+        'linter-ui-default:toggle-panel': () => togglePanel(),
 
         // NOTE: Add no-ops here so they are recognized by commands registry
         // Real commands are registered when tooltip is shown inside tooltip's delegate
@@ -62,9 +62,7 @@ export default class Commands {
       }),
     )
   }
-  togglePanel(): void {
-    atom.config.set('linter-ui-default.showPanel', !atom.config.get('linter-ui-default.showPanel'))
-  }
+
   // NOTE: Apply solutions from bottom to top, so they don't invalidate each other
   applyAllSolutions(): void {
     const textEditor = getActiveTextEditor()
@@ -135,4 +133,8 @@ export default class Commands {
   dispose(): void {
     this.subscriptions.dispose()
   }
+}
+
+function togglePanel(): void {
+  atom.config.set('linter-ui-default.showPanel', !atom.config.get('linter-ui-default.showPanel'))
 }
