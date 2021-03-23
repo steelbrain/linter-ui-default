@@ -98,7 +98,7 @@ export default function MessageElement(props: Props) {
         {
           // fold butotn if has message description
           message.description && (
-            <a href="#" onClick={async () => await toggleDescription()}>
+            <a href="#" onClick={() => toggleDescription()}>
               <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
             </a>
           )
