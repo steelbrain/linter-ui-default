@@ -42,8 +42,8 @@ export default class Commands {
 
         // NOTE: Add no-ops here so they are recognized by commands registry
         // Real commands are registered when tooltip is shown inside tooltip's delegate
-        'linter-ui-default:expand-tooltip': function () {},
-        'linter-ui-default:collapse-tooltip': function () {},
+        'linter-ui-default:expand-tooltip'() {},
+        'linter-ui-default:collapse-tooltip'() {},
       }),
       atom.commands.add('atom-text-editor:not([mini])', {
         'linter-ui-default:apply-all-solutions': () => this.applyAllSolutions(),

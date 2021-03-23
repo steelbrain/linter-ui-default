@@ -40,7 +40,7 @@ export default class Panel {
         this.refresh()
       }),
       atom.workspace.getCenter().observeActivePaneItem(() => {
-        this.showPanelStateMessages = !!this.delegate.filteredMessages.length
+        this.showPanelStateMessages = Boolean(this.delegate.filteredMessages.length)
         this.refresh()
       }),
     )
@@ -113,7 +113,7 @@ export default class Panel {
       this.messages = newMessages
     }
     this.delegate.update(this.messages)
-    this.showPanelStateMessages = !!this.delegate.filteredMessages.length
+    this.showPanelStateMessages = Boolean(this.delegate.filteredMessages.length)
     this.refresh()
   }
   async refresh() {

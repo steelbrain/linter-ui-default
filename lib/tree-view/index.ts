@@ -88,7 +88,7 @@ export default class TreeView {
       const element =
         elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
       if (element) {
-        this.handleDecoration(element, !!this.decorations[filePath], decorations[filePath])
+        this.handleDecoration(element, Boolean(this.decorations[filePath]), decorations[filePath])
         appliedDecorations[filePath] = decorations[filePath]
       }
     })
