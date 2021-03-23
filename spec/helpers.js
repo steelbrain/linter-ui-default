@@ -15,7 +15,9 @@ export function getLinter(name: ?string = 'some'): Object {
   return {
     name,
     grammarScopes: [],
-    lint() {},
+    lint() {
+      /* no operation */
+    },
   }
 }
 
