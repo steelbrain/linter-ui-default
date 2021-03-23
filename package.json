@@ -34,10 +34,10 @@
     "prepublishOnly": "npm run build-commit"
   },
   "dependencies": {
-    "atom-package-deps": "^7.2.2",
+    "atom-package-deps": "^7.2.3",
     "disposable-event": "^1.1.0",
-    "lodash": "^4.17.20",
-    "marked": "^1.2.9",
+    "lodash": "^4.17.21",
+    "marked": "^2.0.1",
     "solid-js": "^0.23.11",
     "solid-simple-table": "^0.1.4"
   },
