@@ -127,8 +127,5 @@ function handleDecoration(element: HTMLElement, update = false, highlights: Tree
 }
 
 function removeDecoration(element: HTMLElement) {
-  const decoration = element.querySelector('linter-decoration')
-  if (decoration) {
-    decoration.remove()
-  }
+  element.querySelector('linter-decoration')?.remove()
 }
