@@ -31,14 +31,6 @@ export default function MessageElement(props: Props) {
 
   const [descriptionLoading, setDescriptionLoading] = createSignal(false)
 
-  function onFixClick(): void {
-    const message = props.message
-    const textEditor = getActiveTextEditor()
-    if (textEditor !== null && message.version === 2 && message.solutions && message.solutions.length) {
-      applySolution(textEditor, sortSolutions(message.solutions)[0])
-    }
-  }
-
   async function toggleDescription(result: string | null | undefined = null) {
     const newStatus = !state.descriptionShow
     const description = state.description || props.message.description
@@ -90,6 +82,7 @@ export default function MessageElement(props: Props) {
     })
   })
 
+  // These props are static (non-reactive)
   const { message, delegate } = props
 
   return (
@@ -105,7 +98,7 @@ export default function MessageElement(props: Props) {
         }
         {
           // fix button
-          canBeFixed(message) && <FixButton onClick={() => onFixClick()} />
+          canBeFixed(message) && <FixButton onClick={() => onFixClick(message)} />
         }
         <div className="linter-text">
           <div className="provider-name">
@@ -144,6 +137,13 @@ export default function MessageElement(props: Props) {
       }
     </div>
   )
+}
+
+function onFixClick(message: Message): void {
+  const textEditor = getActiveTextEditor()
+  if (textEditor !== null && message.version === 2 && message.solutions && message.solutions.length) {
+    applySolution(textEditor, sortSolutions(message.solutions)[0])
+  }
 }
 
 function canBeFixed(message: LinterMessage): boolean {
