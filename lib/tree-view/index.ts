@@ -88,7 +88,7 @@ export default class TreeView {
       const element =
         elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
       if (element) {
-        handleDecoration(element, Boolean(this.decorations[filePath]), decorations[filePath])
+        handleDecoration(element, decorations[filePath], Boolean(this.decorations[filePath]))
         appliedDecorations[filePath] = decorations[filePath]
       }
     })
@@ -106,7 +106,7 @@ export default class TreeView {
   }
 }
 
-function handleDecoration(element: HTMLElement, update = false, highlights: TreeViewHighlight) {
+function handleDecoration(element: HTMLElement, highlights: TreeViewHighlight, update: boolean = false) {
   let decoration: HTMLElement | null = null
   if (update) {
     decoration = element.querySelector('linter-decoration')
