@@ -15,6 +15,9 @@
   },
   "scripts": {
     "format": "prettier --write .",
+    "test.format": "prettier . --check",
+    "lint": "eslint . --fix",
+    "test.lint": "eslint .",
     "clean": "shx rm -rf dist .parcel-cache",
     "tsc.dev": "npm run clean && cross-env NODE_ENV=development tsc --watch -p lib/tsconfig.json || echo done && npm run babel",
     "tsc.build": "npm run clean && cross-env NODE_ENV=production tsc -p lib/tsconfig.json || echo done && npm run babel",
@@ -26,8 +29,6 @@
     "test.only": "atom --test spec",
     "test": "npm run tsc.build && npm run build && npm run test.only",
     "benchmark": "cross-env NODE_ENV=production npm run tsc.build && atom --test ./benchmark/benchmark.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix && npm run format",
     "prepare": "npm run build",
     "build-commit": "npm run clean && build-commit -o dist",
     "prepublishOnly": "npm run build-commit"
