@@ -76,7 +76,7 @@ export default class TreeView {
         const element =
           elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
         if (element) {
-          this.removeDecoration(element)
+          removeDecoration(element)
         }
       }
     })
@@ -88,38 +88,12 @@ export default class TreeView {
       const element =
         elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
       if (element) {
-        this.handleDecoration(element, Boolean(this.decorations[filePath]), decorations[filePath])
+        handleDecoration(element, Boolean(this.decorations[filePath]), decorations[filePath])
         appliedDecorations[filePath] = decorations[filePath]
       }
     })
 
     this.decorations = appliedDecorations
-  }
-
-  handleDecoration(element: HTMLElement, update = false, highlights: TreeViewHighlight) {
-    let decoration: HTMLElement | null = null
-    if (update) {
-      decoration = element.querySelector('linter-decoration')
-    }
-    if (decoration !== null) {
-      decoration.className = ''
-    } else {
-      decoration = document.createElement('linter-decoration')
-      element.appendChild(decoration)
-    }
-    if (highlights.error) {
-      decoration.classList.add('linter-error')
-    } else if (highlights.warning) {
-      decoration.classList.add('linter-warning')
-    } else if (highlights.info) {
-      decoration.classList.add('linter-info')
-    }
-  }
-  removeDecoration(element: HTMLElement) {
-    const decoration = element.querySelector('linter-decoration')
-    if (decoration) {
-      decoration.remove()
-    }
   }
   dispose() {
     this.subscriptions.dispose()
@@ -129,5 +103,32 @@ export default class TreeView {
   }
   static getElementByPath(parent: HTMLElement, filePath: string): HTMLElement | null {
     return parent.querySelector(`[data-path=${CSS.escape(filePath)}]`)
+  }
+}
+
+function handleDecoration(element: HTMLElement, update = false, highlights: TreeViewHighlight) {
+  let decoration: HTMLElement | null = null
+  if (update) {
+    decoration = element.querySelector('linter-decoration')
+  }
+  if (decoration !== null) {
+    decoration.className = ''
+  } else {
+    decoration = document.createElement('linter-decoration')
+    element.appendChild(decoration)
+  }
+  if (highlights.error) {
+    decoration.classList.add('linter-error')
+  } else if (highlights.warning) {
+    decoration.classList.add('linter-warning')
+  } else if (highlights.info) {
+    decoration.classList.add('linter-info')
+  }
+}
+
+function removeDecoration(element: HTMLElement) {
+  const decoration = element.querySelector('linter-decoration')
+  if (decoration) {
+    decoration.remove()
   }
 }
