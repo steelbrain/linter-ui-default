@@ -14,7 +14,7 @@ describe('activation and installation', () => {
     await atom.packages.activatePackage('linter-ui-default')
   })
 
-  it('Installation', async function () {
+  it('Installation', function () {
     expect(atom.packages.isPackageLoaded('linter-ui-default')).toBeTruthy()
     const allDeps = atom.packages.getAvailablePackageNames()
     deps.forEach(dep => {
@@ -22,7 +22,7 @@ describe('activation and installation', () => {
     })
   })
 
-  it('Activation', async function () {
+  it('Activation', function () {
     expect(atom.packages.isPackageLoaded('linter-ui-default')).toBeTruthy()
     deps.forEach(async dep => {
       await atom.packages.activatePackage(dep)
