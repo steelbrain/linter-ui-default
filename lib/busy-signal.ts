@@ -25,8 +25,12 @@ export default class BusySignal {
   }
   update() {
     const provider = this.provider
-    if (!provider) return
-    if (!this.useBusySignal) return
+    if (!provider) {
+      return
+    }
+    if (!this.useBusySignal) {
+      return
+    }
     const fileMap: Map<string | null | undefined, Array<string>> = new Map()
     const currentTitles = new Set()
 

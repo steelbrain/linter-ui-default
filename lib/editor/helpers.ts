@@ -10,7 +10,9 @@ export function getBufferPositionFromMouseEvent(
 ): Point | null {
   const pixelPosition = editorElement.getComponent().pixelPositionForMouseEvent(event)
   const screenPosition = editorElement.getComponent().screenPositionForPixelPosition(pixelPosition)
-  if (Number.isNaN(screenPosition.row) || Number.isNaN(screenPosition.column)) return null
+  if (Number.isNaN(screenPosition.row) || Number.isNaN(screenPosition.column)) {
+    return null
+  }
   // ^ Workaround for NaN bug steelbrain/linter-ui-default#191
   const expectedPixelPosition = editorElement.pixelPositionForScreenPosition(screenPosition)
   const differenceTop = pixelPosition.top - expectedPixelPosition.top

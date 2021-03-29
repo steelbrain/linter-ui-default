@@ -1,8 +1,17 @@
 # Changelog
-### 2.2.5
+### 3.3.1
+- fix: update dependencies #639
+  fix: the issue with atom-package-deps not installing the linter dependency #639
+- minor optimizations #639
+
+### 3.3.0
+- feat: colorize the severity in the bottom panel
+- fix: sort based on severity (show errors first)
+
+### 3.2.5
 - fix: bump atom-package-deps to support spaced paths on Windows
 
-### 2.2.4
+### 3.2.4
 - fix: fix copying text from tooltips on MacOS
 
 ### 3.2.3

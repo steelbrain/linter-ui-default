@@ -29,3 +29,21 @@
 .solid-simple-table.linter td:nth-child(5) {
   cursor: pointer;
 }
+
+.solid-simple-table.linter {
+  &.error {
+    .message-with-severity(@text-color-error);
+  }
+  &.warning {
+    .message-with-severity(@text-color-warning);
+  }
+  &.info {
+    .message-with-severity(@text-color-info);
+  }
+
+  // message severity function
+  .message-with-severity(@color) {
+    border-left: 4px solid @color;
+    padding-left: 8px;
+  }
+}

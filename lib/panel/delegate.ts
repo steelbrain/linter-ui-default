@@ -55,11 +55,15 @@ export default class PanelDelegate {
       filteredMessages = this.messages
     } else if (this.panelRepresents === 'Current File') {
       const activeEditor = getActiveTextEditor()
-      if (!activeEditor) return []
+      if (!activeEditor) {
+        return []
+      }
       filteredMessages = filterMessages(this.messages, activeEditor.getPath())
     } else if (this.panelRepresents === 'Current Line') {
       const activeEditor = getActiveTextEditor()
-      if (!activeEditor) return []
+      if (!activeEditor) {
+        return []
+      }
       const activeLine = activeEditor.getCursors()[0].getBufferRow()
       filteredMessages = filterMessagesByRangeOrPoint(
         this.messages,
