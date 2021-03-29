@@ -38,7 +38,7 @@
     "disposable-event": "^1.1.0",
     "lodash": "^4.17.21",
     "marked": "^2.0.1",
-    "solid-js": "^0.24.13",
+    "solid-js": "^0.25.0",
     "solid-simple-table": "^0.2.1"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "atom-ide-base": "2.5.0",
     "babel-plugin-transform-globalthis": "^1.0.0",
     "babel-preset-atomic": "^3.0.3",
-    "babel-preset-solid": "^0.24.13",
+    "babel-preset-solid": "^0.25.0",
     "build-commit": "0.1.4",
     "chance": "^1.1.7",
     "cross-env": "^7.0.3",
