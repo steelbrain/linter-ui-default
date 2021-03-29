@@ -39,7 +39,7 @@
     "lodash": "^4.17.21",
     "marked": "^2.0.1",
     "solid-js": "^0.25.0",
-    "solid-simple-table": "^0.2.1"
+    "solid-simple-table": "^0.2.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.10",
