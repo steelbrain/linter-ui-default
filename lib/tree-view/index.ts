@@ -2,7 +2,13 @@ import { CompositeDisposable } from 'atom'
 import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
-import type { LinterMessage, TreeViewHighlight } from '../types'
+import type { LinterMessage } from '../types'
+
+export type TreeViewHighlight = {
+  info: boolean
+  error: boolean
+  warning: boolean
+}
 
 export default class TreeView {
   messages: Array<LinterMessage> = []

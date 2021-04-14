@@ -1,10 +1,10 @@
 import LinterUI from './main'
 import type Intentions from './intentions'
-import type { /* IntentionsListProvider, */ RequestIdleCallbackHandle, PackageExtra } from './types'
+import type { /* IntentionsListProvider, */ PackageExtra } from './types'
 import type { StatusBar as StatusBarRegistry } from 'atom/status-bar'
 import type { BusySignalRegistry } from 'atom-ide-base'
 
-const idleCallbacks: Set<RequestIdleCallbackHandle> = new Set()
+const idleCallbacks: Set<IdleCallbackHandle> = new Set()
 
 const instances: Set<LinterUI> = new Set()
 let signalRegistry: BusySignalRegistry
