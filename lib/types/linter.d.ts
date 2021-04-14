@@ -1,1 +1,1 @@
-export * from "./linter/types/linter"
+export * from './linter/types/linter'
