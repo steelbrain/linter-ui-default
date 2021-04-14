@@ -7,3 +7,4 @@ coverage
 build
 dist
 spec/fixtures
+lib/types/linter
