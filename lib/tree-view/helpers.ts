@@ -1,6 +1,7 @@
 import Path from 'path'
 import { $file } from '../helpers'
-import type { LinterMessage, TreeViewHighlight } from '../types'
+import type { LinterMessage } from '../types'
+import type { TreeViewHighlight } from './index'
 
 export function getChunks(filePath: string, projectPath: string): Array<string> {
   const toReturn: Array<string> = []

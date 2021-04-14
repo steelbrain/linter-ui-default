@@ -2,7 +2,15 @@ import { CompositeDisposable } from 'atom'
 import type { TextEditor } from 'atom'
 import Editor from './editor'
 import { $file, getEditorsMap, filterMessages, isLargeFile } from './helpers'
-import type { LinterMessage, MessagesPatch, EditorsPatch } from './types'
+import type { LinterMessage, MessagesPatch } from './types'
+
+export type EditorsPatch = {
+  added: Array<LinterMessage>
+  removed: Array<LinterMessage>
+  editors: Array<Editor>
+}
+
+export type EditorsMap = Map<string, EditorsPatch>
 
 export default class Editors {
   editors: Set<Editor> = new Set()

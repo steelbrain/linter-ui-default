@@ -29,6 +29,7 @@
     "test.only": "atom --test spec",
     "test": "npm run tsc.build && npm run build && npm run test.only",
     "benchmark": "cross-env NODE_ENV=production npm run tsc.build && atom --test ./benchmark/benchmark.js",
+    "get.linter-types": "node ./lib/types/download-linter-types.js",
     "prepare": "npm run build",
     "build-commit": "npm run clean && build-commit -o dist",
     "prepublishOnly": "npm run build-commit"

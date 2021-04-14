@@ -16,7 +16,7 @@
     "inlineSourceMap": false,
     "inlineSources": true,
     "preserveSymlinks": true,
-    "removeComments": true,
+    "removeComments": false,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "lib": ["ES2018", "dom"],
