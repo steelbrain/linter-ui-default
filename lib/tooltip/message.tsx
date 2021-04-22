@@ -29,7 +29,7 @@ export default function MessageElement(props: Props) {
     descriptionShow: false,
   })
 
-  const [descriptionLoading, setDescriptionLoading] = createSignal(false)
+  const [descriptionLoading, setDescriptionLoading] = createSignal(false, false)
 
   async function toggleDescription(result: string | null | undefined = null) {
     const newStatus = !state.descriptionShow

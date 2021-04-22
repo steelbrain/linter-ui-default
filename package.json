@@ -40,11 +40,11 @@
     "disposable-event": "^1.1.0",
     "lodash": "^4.17.21",
     "marked": "^2.0.1",
-    "solid-js": "0.25.0",
-    "solid-simple-table": "0.2.2"
+    "solid-js": "0.26.2",
+    "solid-simple-table": "0.2.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.14",
+    "@babel/cli": "^7.13.16",
     "@babel/preset-typescript": "^7.13.0",
     "@types/atom": "^1.40.10",
     "@types/chance": "^1.1.1",
@@ -57,8 +57,8 @@
     "@types/requestidlecallback": "^0.3.1",
     "atom-ide-base": "2.5.0",
     "babel-plugin-transform-globalthis": "^1.0.0",
-    "babel-preset-atomic": "^3.0.4",
-    "babel-preset-solid": "0.25.0",
+    "babel-preset-atomic": "^4.1.0",
+    "babel-preset-solid": "0.26.0",
     "build-commit": "0.1.4",
     "chance": "^1.1.7",
     "cross-env": "^7.0.3",
@@ -67,7 +67,7 @@
     "gitly": "^2.0.3",
     "jasmine-fix": "^1.3.1",
     "module-alias": "^2.2.2",
-    "parcel": "2.0.0-nightly.630",
+    "parcel": "2.0.0-nightly.643",
     "prettier-config-atomic": "^1.0.1",
     "shx": "^0.3.3",
     "typescript": "^4"
