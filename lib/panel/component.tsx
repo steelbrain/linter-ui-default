@@ -9,7 +9,7 @@ type Props = {
 }
 
 export function PanelComponent(props: Props) {
-  const [getMessages, setMessages] = createSignal(props.delegate.filteredMessages)
+  const [getMessages, setMessages] = createSignal(props.delegate.filteredMessages, false)
 
   onMount(() => {
     props.delegate.onDidChangeMessages(messages => {
