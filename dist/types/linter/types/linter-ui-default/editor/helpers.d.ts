@@ -1,5 +1,5 @@
 import type { Point, TextEditor, TextEditorElement, PointLike } from 'atom';
-import type Tooltip from '../tooltip/index';
+import type TooltipElement from '../tooltip/index';
 export declare function getBufferPositionFromMouseEvent(event: MouseEvent, editor: TextEditor, editorElement: TextEditorElement): Point | null;
 export declare function mouseEventNearPosition({ event, editor, editorElement, tooltipElement, screenPosition, }: {
     event: {
@@ -8,7 +8,7 @@ export declare function mouseEventNearPosition({ event, editor, editorElement, t
     };
     editor: TextEditor;
     editorElement: TextEditorElement;
-    tooltipElement: Tooltip['element'];
+    tooltipElement: TooltipElement['element'];
     screenPosition: PointLike;
 }): boolean;
 export declare function hasParent(givenElement: HTMLElement, selector: string): boolean;

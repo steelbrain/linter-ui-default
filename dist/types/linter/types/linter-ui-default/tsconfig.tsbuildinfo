@@ -142,8 +142,8 @@
         "affectsGlobalScope": true
       },
       "../node_modules/solid-js/types/jsx.d.ts": {
-        "version": "ba32c620247e2a979def46398de1f325ade95f220caf09f2d0603b042b063588",
-        "signature": "ba32c620247e2a979def46398de1f325ade95f220caf09f2d0603b042b063588",
+        "version": "c477c3a2b7a9d87bd4e77ce83d4e6255a6aa9681c12554f8b56a66ba8d5cd4f9",
+        "signature": "c477c3a2b7a9d87bd4e77ce83d4e6255a6aa9681c12554f8b56a66ba8d5cd4f9",
         "affectsGlobalScope": false
       },
       "../node_modules/solid-js/jsx-runtime.d.ts": {
@@ -692,28 +692,23 @@
         "affectsGlobalScope": true
       },
       "../lib/types/atom.d.ts": {
-        "version": "40a7ce0f1cb1da0cd28d6ca0e783fb3287a9909d3b4894a08d9506fcb20a15ae",
-        "signature": "40a7ce0f1cb1da0cd28d6ca0e783fb3287a9909d3b4894a08d9506fcb20a15ae",
+        "version": "a15f2a12954a886f8fd661959ede3eff4c6ac7093d455f5960bc4ead3723b2b4",
+        "signature": "a15f2a12954a886f8fd661959ede3eff4c6ac7093d455f5960bc4ead3723b2b4",
         "affectsGlobalScope": false
       },
       "../lib/types/intentions.d.ts": {
-        "version": "5eba907c51c97728375acf5ac1054b81cee0598fc74fbb88d291d6007f248228",
-        "signature": "5eba907c51c97728375acf5ac1054b81cee0598fc74fbb88d291d6007f248228",
-        "affectsGlobalScope": false
-      },
-      "../lib/types/linter/types/linter.d.ts": {
-        "version": "584593f180c6d9cd9963ecd767b6992d78dfb81e7e412321f3d6ab2a33ef8e9e",
-        "signature": "584593f180c6d9cd9963ecd767b6992d78dfb81e7e412321f3d6ab2a33ef8e9e",
+        "version": "c9cae8294e5b37b3126bb55d3bfde951bc7f72b429dbcc718f80ec913f4dc822",
+        "signature": "c9cae8294e5b37b3126bb55d3bfde951bc7f72b429dbcc718f80ec913f4dc822",
         "affectsGlobalScope": false
       },
       "../lib/types/linter.d.ts": {
-        "version": "cc99ebf53e6d6132e544f1f33e1251ed6f67004e70423be3cf6408218641bda0",
-        "signature": "cc99ebf53e6d6132e544f1f33e1251ed6f67004e70423be3cf6408218641bda0",
+        "version": "4fd65c4bcec6e55435591a95d3b7c602372b75d0cb65367da6c803d707de6cdf",
+        "signature": "4fd65c4bcec6e55435591a95d3b7c602372b75d0cb65367da6c803d707de6cdf",
         "affectsGlobalScope": false
       },
       "../lib/types/index.d.ts": {
-        "version": "3de199e46f47f48db134861f1d401f981e496c335b57f7c914c30c66d4895b54",
-        "signature": "3de199e46f47f48db134861f1d401f981e496c335b57f7c914c30c66d4895b54",
+        "version": "447bae588f598035fe555331dc91c9ec68c9e3c2a68a606a29c932754e2cb8e6",
+        "signature": "447bae588f598035fe555331dc91c9ec68c9e3c2a68a606a29c932754e2cb8e6",
         "affectsGlobalScope": false
       },
       "../node_modules/atom-ide-base/types-packages/uri.d.ts": {
@@ -891,94 +886,9 @@
         "signature": "a5f9563c1315cffbc1e73072d96dcd42332f4eebbdffd7c3e904f545c9e9fe24",
         "affectsGlobalScope": false
       },
-      "../node_modules/solid-js/types/reactive/signal.d.ts": {
-        "version": "6df9df7b714c2ece84cd992f543f68c0d9e82b0c715f71a5195bc4a40b7f87ea",
-        "signature": "6df9df7b714c2ece84cd992f543f68c0d9e82b0c715f71a5195bc4a40b7f87ea",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/solid-js/types/reactive/state.d.ts": {
-        "version": "359882c1f85356a70ded2918ab435f694e3457ebd068a54881f2d851cc95c58a",
-        "signature": "359882c1f85356a70ded2918ab435f694e3457ebd068a54881f2d851cc95c58a",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/types/reactive/mutable.d.ts": {
-        "version": "b8ae93362f3a394702e32a709bd5b5fd5f0b41f70a7c69c6aebee3ab9b372fce",
-        "signature": "b8ae93362f3a394702e32a709bd5b5fd5f0b41f70a7c69c6aebee3ab9b372fce",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/types/reactive/statemodifiers.d.ts": {
-        "version": "fd12aa9f1885ab224a4aab7a606fa97e64cc001a43c0d9ba9cf61ce17af66d3b",
-        "signature": "fd12aa9f1885ab224a4aab7a606fa97e64cc001a43c0d9ba9cf61ce17af66d3b",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/types/reactive/scheduler.d.ts": {
-        "version": "a6d2eb77f390448a229ca63b4adadbcc549d203b8c038f1f7627a118f732969d",
-        "signature": "a6d2eb77f390448a229ca63b4adadbcc549d203b8c038f1f7627a118f732969d",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/types/reactive/array.d.ts": {
-        "version": "04232a3b351dc1cdd59fe7778e0f1524071cfbc25ee8c3a225fa5388a3f89737",
-        "signature": "04232a3b351dc1cdd59fe7778e0f1524071cfbc25ee8c3a225fa5388a3f89737",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/types/render/component.d.ts": {
-        "version": "862a9781c3759d0300abf33695ffb750d806e61b7cd9b6511dc03cf53dfe75bc",
-        "signature": "862a9781c3759d0300abf33695ffb750d806e61b7cd9b6511dc03cf53dfe75bc",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/types/render/flow.d.ts": {
-        "version": "de414dc1e6b864dc413b0121c7516b5a863bbde720c23ee0560ac5748c9901e3",
-        "signature": "de414dc1e6b864dc413b0121c7516b5a863bbde720c23ee0560ac5748c9901e3",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/types/render/suspense.d.ts": {
-        "version": "f13defcd8560dfa204e972a738ff1023b7ee53cc3feb915eb79e21b180801633",
-        "signature": "f13defcd8560dfa204e972a738ff1023b7ee53cc3feb915eb79e21b180801633",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/types/render/hydration.d.ts": {
-        "version": "7d5e1a0a8229bff4e09ada4d800cc5ff52524ded0a80dcd8c355388bfa669f72",
-        "signature": "7d5e1a0a8229bff4e09ada4d800cc5ff52524ded0a80dcd8c355388bfa669f72",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/types/render/index.d.ts": {
-        "version": "28b7e6541ccdfd120ccefb0f9f9ba5b4fed0ac2914f2e878746e31a4bad66411",
-        "signature": "28b7e6541ccdfd120ccefb0f9f9ba5b4fed0ac2914f2e878746e31a4bad66411",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/types/index.d.ts": {
-        "version": "4cf68f67ed6899971ccb2be9984871b543eb57f571e14863828f7c4760c8b9cc",
-        "signature": "4cf68f67ed6899971ccb2be9984871b543eb57f571e14863828f7c4760c8b9cc",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/solid-js/web/types/jsx.d.ts": {
-        "version": "9d53c8091b2951c68b580811ed0e37c9d329a6324d4e0a556653d0e3268bc3de",
-        "signature": "9d53c8091b2951c68b580811ed0e37c9d329a6324d4e0a556653d0e3268bc3de",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/web/types/client.d.ts": {
-        "version": "e8343b35406d3cbd124b6d355fba0aa4e65a6efcd29639f860530f819f2936bf",
-        "signature": "e8343b35406d3cbd124b6d355fba0aa4e65a6efcd29639f860530f819f2936bf",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/web/types/server-mock.d.ts": {
-        "version": "491f6dc8aaffa14de166473626914b40a34db57ff68b481aa56c3ab232caa6f4",
-        "signature": "491f6dc8aaffa14de166473626914b40a34db57ff68b481aa56c3ab232caa6f4",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/solid-js/web/types/index.d.ts": {
-        "version": "c3a6311037aec5005d4a9de27c22fd17c9d097fd2e50b1975d6c0aa7f0b0d29e",
-        "signature": "c3a6311037aec5005d4a9de27c22fd17c9d097fd2e50b1975d6c0aa7f0b0d29e",
-        "affectsGlobalScope": false
-      },
       "../lib/tooltip/delegate.ts": {
         "version": "62eb1d242f53fd724d56d0494602488e4cd310907919d69c443f2e01074107f8",
         "signature": "1d03f9e614b7a9bf6e9a48fe4d3dc6bbd813fbe6ac8c033931132bf884b8fdbe",
-        "affectsGlobalScope": false
-      },
-      "../lib/tooltip/fix-button.tsx": {
-        "version": "36619ab92cb61e450e895b70d8b9976f021e04d9d9593477359b170d6b078ead",
-        "signature": "0eda21d391c98c91ec2582de0d29b39427c0383b053cbc5226ada7ffb70b3549",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/marked/index.d.ts": {
@@ -986,9 +896,14 @@
         "signature": "89f2f3843659ca5b5d9586344480a5f0faf7f2bb01241e5e2b65e9ab4ee28dbe",
         "affectsGlobalScope": false
       },
+      "../lib/tooltip/fix-button.tsx": {
+        "version": "36619ab92cb61e450e895b70d8b9976f021e04d9d9593477359b170d6b078ead",
+        "signature": "17ee725bae130d6123f090e4b0b46b4614d067c31b3f0b2e32f91b000446ab99",
+        "affectsGlobalScope": false
+      },
       "../lib/tooltip/message.tsx": {
-        "version": "6b7afed6ff5e1db9662061a840e24bbbeb95b92225ad9a07c2eccb0a05b5c523",
-        "signature": "22472aaae438ef698d70e4d83809cf2b0624b8ab9d7a4f7bd5399d75c22b6a51",
+        "version": "a90c383f725944b6b54a32a6fb781b3b910b2b18bfc14c0d3d77c014f0034cbc",
+        "signature": "943283d4370a64287391f509e7acf0350fb64558c2f9354bb1727b0262b5ab9d",
         "affectsGlobalScope": false
       },
       "../node_modules/atom-ide-base/commons-ui/float-pane/selectable-overlay.d.ts": {
@@ -997,13 +912,13 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/index.tsx": {
-        "version": "53a09fea2d16400294e3e421b11e885677dd3e4979a20ca536e3041bf564a77d",
-        "signature": "e03425a4965d3d77eac47bba6d6b2b44ce9047df71801a4239fcd0e40f538701",
+        "version": "34b4f86615185c69986bfe2105dd6d96225ce51a0da88124cf4a743dea00ebfa",
+        "signature": "4cabc8b6cfba4693efb8d714bab661857abda08cf1fed44ac0a3100389e3406a",
         "affectsGlobalScope": false
       },
       "../lib/editor/helpers.ts": {
-        "version": "c3f5be3318c2f025609890e1e5bc47d416a97c3eae7d683ca8cd0fd04df32471",
-        "signature": "7eaf142651f5d148c5a97c50a94be178e5f54e2e5b5b975cb5fe102f9248fa4b",
+        "version": "d8e4eda385da46148ef8ecd4bee96598f2dc291c141533f685ced541a86dfe66",
+        "signature": "599ccb446218a915b2923bd147cca92af4ba1ac9685099094de6daa8166fc6b4",
         "affectsGlobalScope": false
       },
       "../lib/editor/index.ts": {
@@ -1012,12 +927,12 @@
         "affectsGlobalScope": false
       },
       "../lib/editors.ts": {
-        "version": "faf42a44c1dfc9a8166c7ab279e1af6deb9112415405a277652b40f010e7c522",
+        "version": "85af53b1e18d78674f5726abe56be830bf3f9db6a2314af33f9ee1d0c529b238",
         "signature": "c8ef9761c9e40d5da5dbb7b3769e754fde649595991e66e9a32083e09baa47c4",
         "affectsGlobalScope": false
       },
       "../lib/helpers.ts": {
-        "version": "71f20777d4992bddb269933b39460ec26dc85fecd1ebddf3911d2bdad800a801",
+        "version": "18ebd812eb4930322b16d03a2c83f23ba1dbb53560beb148d092c7008e0fecc0",
         "signature": "197444df664951c4f57e10b41523e8a7e877cbfdd51b5c215002ca70978216be",
         "affectsGlobalScope": false
       },
@@ -1037,13 +952,13 @@
         "affectsGlobalScope": false
       },
       "../node_modules/solid-simple-table/dist/simpletable.d.ts": {
-        "version": "d477f592fd673d3734769066ac3954506a9067762c75a59732afdf5ab7f1baf3",
-        "signature": "d477f592fd673d3734769066ac3954506a9067762c75a59732afdf5ab7f1baf3",
+        "version": "0b5ff35cf730a7b23b1cc6d333bd7080db023593dc05a44e56b6538981985c6d",
+        "signature": "0b5ff35cf730a7b23b1cc6d333bd7080db023593dc05a44e56b6538981985c6d",
         "affectsGlobalScope": false
       },
       "../lib/panel/component.tsx": {
-        "version": "27ee5f6be7d2a0f256b72a910b3e8142406bce9594aaad07924ebdaab98fa126",
-        "signature": "22773fc06ac278e620435f0c3ccf4225f1949099ee19cbc724227475a552258b",
+        "version": "d397e82095d4fd8e4766e5677251d0ab745327617371a285383bba0ca73c2cfb",
+        "signature": "fb29ed5135b76c611c4ec4503e0bec7e090a14630c7f6c9c0085ae4cedf6f7ee",
         "affectsGlobalScope": false
       },
       "../lib/panel/dock.tsx": {
@@ -1087,12 +1002,12 @@
         "affectsGlobalScope": false
       },
       "../lib/tree-view/helpers.ts": {
-        "version": "c599797f2a3b023cc49bc2503f4320a15adf77dfc17a1b88b46b2d3e713c1b15",
+        "version": "013fce80ebaee2a12d9d4f8846c6fd070a58a94ea441cbaa57f73a9136ca7098",
         "signature": "4410f87441965abd11a6cb99bd7a98fa16f93641e9d6b29ffa85f0dd8968f1af",
         "affectsGlobalScope": false
       },
       "../lib/tree-view/index.ts": {
-        "version": "fdbe5be2f6759f3db18a3b19536eefabff3fc065e0366ce375ea6a40f4851f24",
+        "version": "35c54495ba8574e55e29ee94c82138f364ff6fa980b31a5bfa8179d021f46f5d",
         "signature": "0f31a655da0d90f64662f74fe722a93894388e6f025170840725a9de53f88984",
         "affectsGlobalScope": false
       },
@@ -1102,7 +1017,7 @@
         "affectsGlobalScope": false
       },
       "../lib/index.ts": {
-        "version": "1165c4e59a9260e83ea23b095ddae624d00f98ecbc99eae1fc0248b90cfd3403",
+        "version": "6bbd7d3e36f1174a5ec9242608e82d3c9101f82a6473c5aa287c7a7ab8e2219e",
         "signature": "1fa370a2c6fb6b116341bc2a682b30851e728dcdd7ffb62844331d31094ac161",
         "affectsGlobalScope": false
       },
@@ -1226,10 +1141,10 @@
       "outDir": "./",
       "paths": {
         "solid-js": [
-          "../node_modules/solid-js/types/index.d.ts"
+          "../node_modules/solid-js/dist/solid.js"
         ],
         "solid-js/web": [
-          "../node_modules/solid-js/web/types/index.d.ts"
+          "../node_modules/solid-js/web/dist/web.js"
         ]
       },
       "pathsBasePath": "C:/Users/aminy/Documents/GitHub/JavaScript/@linter/linter-ui-default/lib",
@@ -1310,7 +1225,6 @@
         "../lib/panel/delegate.ts",
         "../lib/types/index.d.ts",
         "../node_modules/solid-js/jsx-runtime.d.ts",
-        "../node_modules/solid-js/types/index.d.ts",
         "../node_modules/solid-simple-table/dist/simpletable.d.ts"
       ],
       "../lib/panel/delegate.ts": [
@@ -1324,8 +1238,7 @@
         "../lib/panel/component.tsx",
         "../lib/panel/delegate.ts",
         "../node_modules/@types/atom/index.d.ts",
-        "../node_modules/solid-js/jsx-runtime.d.ts",
-        "../node_modules/solid-js/web/types/index.d.ts"
+        "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
       "../lib/panel/index.ts": [
         "../lib/panel/delegate.ts",
@@ -1364,8 +1277,7 @@
         "../lib/types/index.d.ts",
         "../node_modules/@types/atom/index.d.ts",
         "../node_modules/atom-ide-base/commons-ui/float-pane/selectable-overlay.d.ts",
-        "../node_modules/solid-js/jsx-runtime.d.ts",
-        "../node_modules/solid-js/web/types/index.d.ts"
+        "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
       "../lib/tooltip/message.tsx": [
         "../lib/helpers.ts",
@@ -1374,8 +1286,7 @@
         "../lib/types/index.d.ts",
         "../node_modules/@types/marked/index.d.ts",
         "../node_modules/@types/node/url.d.ts",
-        "../node_modules/solid-js/jsx-runtime.d.ts",
-        "../node_modules/solid-js/types/index.d.ts"
+        "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
       "../lib/tree-view/helpers.ts": [
         "../lib/helpers.ts",
@@ -1403,9 +1314,6 @@
         "../node_modules/@types/atom/index.d.ts"
       ],
       "../lib/types/linter.d.ts": [
-        "../lib/types/linter/types/linter.d.ts"
-      ],
-      "../lib/types/linter/types/linter.d.ts": [
         "../node_modules/@types/atom/index.d.ts"
       ],
       "../node_modules/@types/atom/dependencies/first-mate/index.d.ts": [
@@ -2159,57 +2067,6 @@
       ],
       "../node_modules/solid-js/jsx-runtime.d.ts": [
         "../node_modules/solid-js/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/types/index.d.ts": [
-        "../node_modules/solid-js/types/jsx.d.ts",
-        "../node_modules/solid-js/types/reactive/array.d.ts",
-        "../node_modules/solid-js/types/reactive/mutable.d.ts",
-        "../node_modules/solid-js/types/reactive/scheduler.d.ts",
-        "../node_modules/solid-js/types/reactive/signal.d.ts",
-        "../node_modules/solid-js/types/reactive/state.d.ts",
-        "../node_modules/solid-js/types/reactive/statemodifiers.d.ts",
-        "../node_modules/solid-js/types/render/index.d.ts"
-      ],
-      "../node_modules/solid-js/types/reactive/mutable.d.ts": [
-        "../node_modules/solid-js/types/reactive/state.d.ts"
-      ],
-      "../node_modules/solid-js/types/reactive/signal.d.ts": [
-        "../node_modules/solid-js/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/types/reactive/statemodifiers.d.ts": [
-        "../node_modules/solid-js/types/reactive/state.d.ts"
-      ],
-      "../node_modules/solid-js/types/render/component.d.ts": [
-        "../node_modules/solid-js/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/types/render/flow.d.ts": [
-        "../node_modules/solid-js/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/types/render/index.d.ts": [
-        "../node_modules/solid-js/types/render/component.d.ts",
-        "../node_modules/solid-js/types/render/flow.d.ts",
-        "../node_modules/solid-js/types/render/hydration.d.ts",
-        "../node_modules/solid-js/types/render/suspense.d.ts"
-      ],
-      "../node_modules/solid-js/types/render/suspense.d.ts": [
-        "../node_modules/solid-js/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/web/types/client.d.ts": [
-        "../node_modules/solid-js/web/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/web/types/index.d.ts": [
-        "../node_modules/solid-js/types/index.d.ts",
-        "../node_modules/solid-js/web/types/client.d.ts",
-        "../node_modules/solid-js/web/types/server-mock.d.ts"
-      ],
-      "../node_modules/solid-js/web/types/jsx.d.ts": [
-        "../node_modules/solid-js/types/index.d.ts"
-      ],
-      "../node_modules/solid-js/web/types/server-mock.d.ts": [
-        "../node_modules/@types/node/index.d.ts"
-      ],
-      "../node_modules/solid-simple-table/dist/simpletable.d.ts": [
-        "../node_modules/solid-js/types/index.d.ts"
       ],
       "../../../../../../node_modules/@types/glob/index.d.ts": [
         "../../../../../../node_modules/@types/minimatch/index.d.ts",
@@ -2269,7 +2126,7 @@
       ],
       "../lib/panel/component.tsx": [
         "../lib/panel/delegate.ts",
-        "../node_modules/solid-js/types/index.d.ts"
+        "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
       "../lib/panel/delegate.ts": [
         "../lib/types/index.d.ts",
@@ -2298,7 +2155,7 @@
         "../node_modules/@types/atom/index.d.ts"
       ],
       "../lib/tooltip/fix-button.tsx": [
-        "../node_modules/solid-js/types/index.d.ts"
+        "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
       "../lib/tooltip/index.tsx": [
         "../lib/types/index.d.ts",
@@ -2307,7 +2164,7 @@
       "../lib/tooltip/message.tsx": [
         "../lib/tooltip/delegate.ts",
         "../lib/types/index.d.ts",
-        "../node_modules/solid-js/types/index.d.ts"
+        "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
       "../lib/tree-view/helpers.ts": [
         "../lib/tree-view/index.ts",
@@ -2329,9 +2186,6 @@
         "../node_modules/@types/atom/index.d.ts"
       ],
       "../lib/types/linter.d.ts": [
-        "../lib/types/linter/types/linter.d.ts"
-      ],
-      "../lib/types/linter/types/linter.d.ts": [
         "../node_modules/@types/atom/index.d.ts"
       ],
       "../node_modules/@types/atom/dependencies/first-mate/index.d.ts": [
@@ -3085,57 +2939,6 @@
       ],
       "../node_modules/solid-js/jsx-runtime.d.ts": [
         "../node_modules/solid-js/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/types/index.d.ts": [
-        "../node_modules/solid-js/types/jsx.d.ts",
-        "../node_modules/solid-js/types/reactive/array.d.ts",
-        "../node_modules/solid-js/types/reactive/mutable.d.ts",
-        "../node_modules/solid-js/types/reactive/scheduler.d.ts",
-        "../node_modules/solid-js/types/reactive/signal.d.ts",
-        "../node_modules/solid-js/types/reactive/state.d.ts",
-        "../node_modules/solid-js/types/reactive/statemodifiers.d.ts",
-        "../node_modules/solid-js/types/render/index.d.ts"
-      ],
-      "../node_modules/solid-js/types/reactive/mutable.d.ts": [
-        "../node_modules/solid-js/types/reactive/state.d.ts"
-      ],
-      "../node_modules/solid-js/types/reactive/signal.d.ts": [
-        "../node_modules/solid-js/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/types/reactive/statemodifiers.d.ts": [
-        "../node_modules/solid-js/types/reactive/state.d.ts"
-      ],
-      "../node_modules/solid-js/types/render/component.d.ts": [
-        "../node_modules/solid-js/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/types/render/flow.d.ts": [
-        "../node_modules/solid-js/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/types/render/index.d.ts": [
-        "../node_modules/solid-js/types/render/component.d.ts",
-        "../node_modules/solid-js/types/render/flow.d.ts",
-        "../node_modules/solid-js/types/render/hydration.d.ts",
-        "../node_modules/solid-js/types/render/suspense.d.ts"
-      ],
-      "../node_modules/solid-js/types/render/suspense.d.ts": [
-        "../node_modules/solid-js/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/web/types/client.d.ts": [
-        "../node_modules/solid-js/web/types/jsx.d.ts"
-      ],
-      "../node_modules/solid-js/web/types/index.d.ts": [
-        "../node_modules/solid-js/types/index.d.ts",
-        "../node_modules/solid-js/web/types/client.d.ts",
-        "../node_modules/solid-js/web/types/server-mock.d.ts"
-      ],
-      "../node_modules/solid-js/web/types/jsx.d.ts": [
-        "../node_modules/solid-js/types/index.d.ts"
-      ],
-      "../node_modules/solid-js/web/types/server-mock.d.ts": [
-        "../node_modules/@types/node/index.d.ts"
-      ],
-      "../node_modules/solid-simple-table/dist/simpletable.d.ts": [
-        "../node_modules/solid-js/types/index.d.ts"
       ],
       "../../../../../../node_modules/@types/glob/index.d.ts": [
         "../../../../../../node_modules/@types/minimatch/index.d.ts",
@@ -3277,7 +3080,7 @@
         [
           {
             "file": "../lib/tooltip/message.tsx",
-            "start": 4957,
+            "start": 4633,
             "length": 17,
             "code": 2345,
             "category": 1,
@@ -3302,7 +3105,6 @@
       "../lib/types/index.d.ts",
       "../lib/types/intentions.d.ts",
       "../lib/types/linter.d.ts",
-      "../lib/types/linter/types/linter.d.ts",
       "../node_modules/.pnpm/typescript@4.1.3/node_modules/typescript/lib/lib.dom.d.ts",
       "../node_modules/.pnpm/typescript@4.1.3/node_modules/typescript/lib/lib.es2015.collection.d.ts",
       "../node_modules/.pnpm/typescript@4.1.3/node_modules/typescript/lib/lib.es2015.core.d.ts",
@@ -3493,23 +3295,7 @@
       "../node_modules/atom-ide-base/types-packages/uri.d.ts",
       "../node_modules/csstype/index.d.ts",
       "../node_modules/solid-js/jsx-runtime.d.ts",
-      "../node_modules/solid-js/types/index.d.ts",
       "../node_modules/solid-js/types/jsx.d.ts",
-      "../node_modules/solid-js/types/reactive/array.d.ts",
-      "../node_modules/solid-js/types/reactive/mutable.d.ts",
-      "../node_modules/solid-js/types/reactive/scheduler.d.ts",
-      "../node_modules/solid-js/types/reactive/signal.d.ts",
-      "../node_modules/solid-js/types/reactive/state.d.ts",
-      "../node_modules/solid-js/types/reactive/statemodifiers.d.ts",
-      "../node_modules/solid-js/types/render/component.d.ts",
-      "../node_modules/solid-js/types/render/flow.d.ts",
-      "../node_modules/solid-js/types/render/hydration.d.ts",
-      "../node_modules/solid-js/types/render/index.d.ts",
-      "../node_modules/solid-js/types/render/suspense.d.ts",
-      "../node_modules/solid-js/web/types/client.d.ts",
-      "../node_modules/solid-js/web/types/index.d.ts",
-      "../node_modules/solid-js/web/types/jsx.d.ts",
-      "../node_modules/solid-js/web/types/server-mock.d.ts",
       "../node_modules/solid-simple-table/dist/simpletable.d.ts",
       "../../../../../../node_modules/@types/glob/index.d.ts",
       "../../../../../../node_modules/@types/minimatch/index.d.ts"

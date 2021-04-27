@@ -5,5 +5,5 @@ declare type Props = {
     message: Message;
     delegate: TooltipDelegate;
 };
-export default function MessageElement(props: Props): import("solid-js").JSX.Element;
+export default function MessageElement(props: Props): import("solid-js/jsx-runtime").JSX.Element;
 export {};

@@ -1,7 +1,7 @@
 import { CompositeDisposable, Emitter } from 'atom';
 import type { Disposable, Point, TextEditor, DisplayMarker } from 'atom';
 import type { LinterMessage } from '../types';
-export default class Tooltip {
+export default class TooltipElement {
     marker: DisplayMarker;
     element: HTMLElement;
     emitter: Emitter<{
