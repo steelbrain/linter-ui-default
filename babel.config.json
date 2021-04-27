@@ -1,5 +1,4 @@
 {
-  "presets": ["@babel/preset-typescript", "babel-preset-solid", "babel-preset-atomic"],
-  "plugins": ["babel-plugin-transform-globalthis"],
-  "exclude": "node_modules/**"
+  "presets": ["babel-preset-solid", "@babel/preset-typescript", "@parcel/babel-preset-env", "babel-preset-atomic"],
+  "plugins": ["@parcel/babel-plugin-transform-runtime", "babel-plugin-transform-globalthis"]
 }
