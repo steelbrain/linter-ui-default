@@ -1,7 +1,6 @@
 import { createState, createSignal, onMount } from 'solid-js'
 import * as url from 'url'
-import marked from 'marked'
-
+let marked: typeof import('marked') | undefined
 import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
 import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
@@ -40,6 +39,10 @@ export default function MessageElement(props: Props) {
       return
     }
     if (typeof description === 'string' || result) {
+      if (marked === undefined) {
+        // eslint-disable-next-line require-atomic-updates
+        marked = (await import('marked')).default
+      }
       const descriptionToUse = marked(result || (description as string))
       setState({ description: descriptionToUse, descriptionShow: true })
     } else if (typeof description === 'function') {

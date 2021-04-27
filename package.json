@@ -25,7 +25,7 @@
     "babel": "babel dist --out-dir dist --retain-lines",
     "babel.globalThis": "babel dist --out-dir dist --plugins babel-plugin-transform-globalthis --retain-lines",
     "dev": "cross-env NODE_ENV=development parcel watch --target main ./lib/index.ts",
-    "build.parcel": "cross-env NODE_ENV=production parcel build --target main ./lib/index.ts && npm run babel.globalThis",
+    "build.parcel": "cross-env NODE_ENV=production parcel build --target main ./lib/index.ts --detailed-report 50 && npm run babel.globalThis",
     "build": "npm run tsc.types && npm run build.parcel",
     "test.only": "atom --test spec",
     "test": "npm run tsc.build && npm run build && npm run test.only",
@@ -40,12 +40,13 @@
     "disposable-event": "^1.1.0",
     "lodash": "^4.17.21",
     "marked": "^2.0.1",
-    "solid-js": "0.26.2",
-    "solid-simple-table": "0.2.3"
+    "solid-js": "~0.26.3",
+    "solid-simple-table": "0.2.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/preset-typescript": "^7.13.0",
+    "@parcel/babel-plugin-transform-runtime": "^2.0.0-nightly.1823",
     "@types/atom": "^1.40.10",
     "@types/chance": "^1.1.1",
     "@types/jasmine": "^3.6.9",
@@ -58,7 +59,7 @@
     "atom-ide-base": "2.5.0",
     "babel-plugin-transform-globalthis": "^1.0.0",
     "babel-preset-atomic": "^4.1.0",
-    "babel-preset-solid": "0.26.0",
+    "babel-preset-solid": "~0.26.0",
     "build-commit": "0.1.4",
     "chance": "^1.1.7",
     "cross-env": "^7.0.3",
@@ -86,7 +87,10 @@
     }
   },
   "alias": {
-    "solid-simple-table": "solid-simple-table/dist/SimpleTable.module"
+    "solid-js": "solid-js/dist/solid.js",
+    "solid-js/web": "solid-js/web/dist/web.js",
+    "solid-simple-table": "solid-simple-table/dist/SimpleTable.module.js",
+    "marked": "marked/lib/marked.esm.js"
   },
   "_moduleAliases": {
     "solid-js": "./node_modules/solid-js/dist/solid.cjs",
