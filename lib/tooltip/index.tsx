@@ -4,7 +4,7 @@ import type { Disposable, Point, TextEditor, DisplayMarker } from 'atom'
 import Delegate from './delegate'
 import MessageElement from './message'
 import { $range } from '../helpers'
-import type { LinterMessage, Message } from '../types'
+import type { LinterMessage } from '../types'
 import { makeOverlaySelectable } from 'atom-ide-base/commons-ui/float-pane/selectable-overlay'
 
 export default class Tooltip {
@@ -77,7 +77,7 @@ export default class Tooltip {
   }
 }
 
-function TooltipElement(messages: Message[], delegate: Delegate) {
+function TooltipElement(messages: LinterMessage[], delegate: Delegate) {
   return (
     <div className="linter-messages">
       <For each={messages}>
