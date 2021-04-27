@@ -25,7 +25,7 @@
     "babel": "babel dist --out-dir dist --retain-lines",
     "babel.globalThis": "babel dist --out-dir dist --plugins babel-plugin-transform-globalthis --retain-lines",
     "dev": "cross-env NODE_ENV=development parcel watch --target main ./lib/index.ts",
-    "build.parcel": "cross-env NODE_ENV=production parcel build --target main ./lib/index.ts && npm run babel.globalThis",
+    "build.parcel": "cross-env NODE_ENV=production parcel build --target main ./lib/index.ts --detailed-report 50 && npm run babel.globalThis",
     "build": "npm run tsc.types && npm run build.parcel",
     "test.only": "atom --test spec",
     "test": "npm run tsc.build && npm run build && npm run test.only",
@@ -87,7 +87,10 @@
     }
   },
   "alias": {
-    "solid-simple-table": "solid-simple-table/dist/SimpleTable.module"
+    "solid-js": "solid-js/dist/solid.js",
+    "solid-js/web": "solid-js/web/dist/web.js",
+    "solid-simple-table": "solid-simple-table/dist/SimpleTable.module.js",
+    "marked": "marked/lib/marked.esm.js"
   },
   "_moduleAliases": {
     "solid-js": "./node_modules/solid-js/dist/solid.cjs",
