@@ -1,14 +1,13 @@
-import { render } from 'solid-js/web'
-import type * as Solid from 'solid-js'
+import { For, render } from 'solid-js/web'
 import { CompositeDisposable, Emitter, TextEditorElement } from 'atom'
 import type { Disposable, Point, TextEditor, DisplayMarker } from 'atom'
 import Delegate from './delegate'
 import MessageElement from './message'
 import { $range } from '../helpers'
-import type { LinterMessage } from '../types'
+import type { LinterMessage, Message } from '../types'
 import { makeOverlaySelectable } from 'atom-ide-base/commons-ui/float-pane/selectable-overlay'
 
-export default class TooltipElement {
+export default class Tooltip {
   marker: DisplayMarker
   element: HTMLElement = document.createElement('div')
   emitter = new Emitter<{ 'did-destroy': never }>()
@@ -34,13 +33,7 @@ export default class TooltipElement {
 
     this.subscriptions.add(this.emitter, delegate)
 
-    const children: Array<Solid.JSX.Element> = []
-    messages.forEach(message => {
-      if (message.version === 2) {
-        children.push(<MessageElement key={message.key} delegate={delegate} message={message} />)
-      }
-    })
-    render(() => <div className="linter-messages">{children}</div>, this.element)
+    render(() => TooltipElement(messages, delegate), this.element)
 
     // move box above the current editing line
     // HACK: patch the decoration's style so it is shown above the current line
@@ -82,4 +75,19 @@ export default class TooltipElement {
     this.emitter.emit('did-destroy')
     this.subscriptions.dispose()
   }
+}
+
+function TooltipElement(messages: Message[], delegate: Delegate) {
+  return (
+    <div className="linter-messages">
+      <For each={messages}>
+        {message => {
+          if (message.version === 2) {
+            return <MessageElement key={message.key} delegate={delegate} message={message} />
+          }
+          return undefined
+        }}
+      </For>
+    </div>
+  )
 }

@@ -1,5 +1,5 @@
 import type { Point, TextEditor, TextEditorElement, PointLike } from 'atom'
-import type TooltipElement from '../tooltip/index'
+import type Tooltip from '../tooltip/index'
 
 const TOOLTIP_WIDTH_HIDE_OFFSET = 30
 
@@ -37,7 +37,7 @@ export function mouseEventNearPosition({
   event: { clientX: number; clientY: number }
   editor: TextEditor
   editorElement: TextEditorElement
-  tooltipElement: TooltipElement['element']
+  tooltipElement: Tooltip['element']
   screenPosition: PointLike
 }): boolean {
   const pixelPosition = editorElement.getComponent().pixelPositionForMouseEvent(event)
