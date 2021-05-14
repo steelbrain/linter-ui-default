@@ -3,6 +3,7 @@ import type { Point, PointLike, RangeCompatible, TextEditor, WorkspaceOpenOption
 import { shell } from 'electron'
 import type { default as Editors, EditorsMap } from './editors'
 import type { LinterMessage, MessageSolution, TextEditorExtra } from './types'
+import { isLargeFile } from "atom-ide-base"
 
 let lastPaneItem: TextEditorExtra | null = null
 export const severityScore = {
