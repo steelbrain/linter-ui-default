@@ -1,8 +1,9 @@
 /* @flow */
+// eslint-disable-next-line import/no-unassigned-import
 import 'module-alias/register'
 import { Chance } from 'chance'
 const chance = new Chance()
-import type { Message } from '../lib/types.d'
+import type { Message } from '../lib/types'
 import { Range } from 'atom'
 import type { TextEditor } from 'atom'
 import Editor from '../dist/editor'
