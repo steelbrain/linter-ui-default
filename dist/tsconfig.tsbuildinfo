@@ -987,7 +987,7 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/message.tsx": {
-        "version": "6b7afed6ff5e1db9662061a840e24bbbeb95b92225ad9a07c2eccb0a05b5c523",
+        "version": "2bb03978b147d4ed2eaf04de5694d68fe36d4a4ae732e0b7246c29a583a2ba7a",
         "signature": "22472aaae438ef698d70e4d83809cf2b0624b8ab9d7a4f7bd5399d75c22b6a51",
         "affectsGlobalScope": false
       },
@@ -997,12 +997,12 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/index.tsx": {
-        "version": "53a09fea2d16400294e3e421b11e885677dd3e4979a20ca536e3041bf564a77d",
+        "version": "795add782d25547cfb6884f059f8b11ab17355f2313fc8e5e0d29fc92519fe7c",
         "signature": "e03425a4965d3d77eac47bba6d6b2b44ce9047df71801a4239fcd0e40f538701",
         "affectsGlobalScope": false
       },
       "../lib/editor/helpers.ts": {
-        "version": "c3f5be3318c2f025609890e1e5bc47d416a97c3eae7d683ca8cd0fd04df32471",
+        "version": "3cc3d7b7cc87789f5ab1e4e1240615d01ee384f26009dd0be94c8fb98a036a0c",
         "signature": "7eaf142651f5d148c5a97c50a94be178e5f54e2e5b5b975cb5fe102f9248fa4b",
         "affectsGlobalScope": false
       },
@@ -1022,7 +1022,7 @@
         "affectsGlobalScope": false
       },
       "../lib/commands.ts": {
-        "version": "c46d8e3ea53314443053ab8b19d4a27ab1d3da5d689e757e4eb29854511cfecd",
+        "version": "f7898eff79a547cb9b77963268fdfad556b3304eabacb2f35f61a08118dfb268",
         "signature": "e3b0846145d67a98d09320181dad898b65204af76903a7aa1126a9dca7f51880",
         "affectsGlobalScope": false
       },
@@ -1082,7 +1082,7 @@
         "affectsGlobalScope": false
       },
       "../lib/intentions.ts": {
-        "version": "644c92cb420c78214618ddb7b728831545b3f9db758a481d67ce4f05ee8994e8",
+        "version": "8fa99383f394a430d11375b5e75bfb9f1e8ae4169f0ff2d42d907f286c6754cb",
         "signature": "18cce54dd18e92ad8dc5acc51f66e1aaa17f0807c714d66daa215fc1d9bd0cb3",
         "affectsGlobalScope": false
       },
@@ -3145,30 +3145,7 @@
     },
     "semanticDiagnosticsPerFile": [
       "../lib/busy-signal.ts",
-      [
-        "../lib/commands.ts",
-        [
-          {
-            "file": "../lib/commands.ts",
-            "start": 3234,
-            "length": 17,
-            "code": 2345,
-            "category": 1,
-            "messageText": {
-              "messageText": "Argument of type 'MessageSolution[] | (() => Promise<MessageSolution[]>)' is not assignable to parameter of type 'MessageSolution[]'.",
-              "category": 1,
-              "code": 2345,
-              "next": [
-                {
-                  "messageText": "Type '() => Promise<MessageSolution[]>' is not assignable to type 'MessageSolution[]'.",
-                  "category": 1,
-                  "code": 2322
-                }
-              ]
-            }
-          }
-        ]
-      ],
+      "../lib/commands.ts",
       "../lib/editor/helpers.ts",
       [
         "../lib/editor/index.ts",
@@ -3225,30 +3202,7 @@
       "../lib/electron.d.ts",
       "../lib/helpers.ts",
       "../lib/index.ts",
-      [
-        "../lib/intentions.ts",
-        [
-          {
-            "file": "../lib/intentions.ts",
-            "start": 955,
-            "length": 9,
-            "code": 2322,
-            "category": 1,
-            "messageText": {
-              "messageText": "Type 'MessageSolution[] | (() => Promise<MessageSolution[]>)' is not assignable to type 'MessageSolution[]'.",
-              "category": 1,
-              "code": 2322,
-              "next": [
-                {
-                  "messageText": "Type '() => Promise<MessageSolution[]>' is not assignable to type 'MessageSolution[]'.",
-                  "category": 1,
-                  "code": 2322
-                }
-              ]
-            }
-          }
-        ]
-      ],
+      "../lib/intentions.ts",
       "../lib/main.ts",
       "../lib/panel/component.tsx",
       "../lib/panel/delegate.ts",
@@ -3272,30 +3226,7 @@
       ],
       "../lib/tooltip/fix-button.tsx",
       "../lib/tooltip/index.tsx",
-      [
-        "../lib/tooltip/message.tsx",
-        [
-          {
-            "file": "../lib/tooltip/message.tsx",
-            "start": 4957,
-            "length": 17,
-            "code": 2345,
-            "category": 1,
-            "messageText": {
-              "messageText": "Argument of type 'MessageSolution[] | (() => Promise<MessageSolution[]>)' is not assignable to parameter of type 'MessageSolution[]'.",
-              "category": 1,
-              "code": 2345,
-              "next": [
-                {
-                  "messageText": "Type '() => Promise<MessageSolution[]>' is missing the following properties from type 'MessageSolution[]': pop, push, concat, join, and 25 more.",
-                  "category": 1,
-                  "code": 2740
-                }
-              ]
-            }
-          }
-        ]
-      ],
+      "../lib/tooltip/message.tsx",
       "../lib/tree-view/helpers.ts",
       "../lib/tree-view/index.ts",
       "../lib/types/atom.d.ts",
