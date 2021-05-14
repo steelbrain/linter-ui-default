@@ -1,7 +1,8 @@
 import { CompositeDisposable } from 'atom'
 import type { TextEditor } from 'atom'
 import Editor from './editor'
-import { $file, getEditorsMap, filterMessages, isLargeFile } from './helpers'
+import { $file, getEditorsMap, filterMessages } from './helpers'
+import { largeness } from 'atom-ide-base/commons-atom/editor-largeness'
 import type { LinterMessage, MessagesPatch } from './types'
 
 export type EditorsPatch = {
@@ -19,10 +20,14 @@ export default class Editors {
   subscriptions: CompositeDisposable = new CompositeDisposable()
 
   constructor() {
+    // TODO move the config to a separate package
+    const largeLineCount = atom.config.get('linter-ui-default.largeFileLineCount')
+    const longLineLength = atom.config.get('linter-ui-default.longLineLength')
+
     this.subscriptions.add(
       atom.workspace.observeTextEditors(textEditor => {
         // TODO we do this check only at the begining. Probably we should do this later too?
-        if (isLargeFile(textEditor)) {
+        if (largeness(textEditor, largeLineCount, longLineLength)) {
           const notif = atom.notifications.addWarning('Linter: Large/Minified file detected', {
             detail:
               'Adding inline linter markers are skipped for this file for performance reasons (linter pane is still active)',
