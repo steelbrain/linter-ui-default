@@ -25,7 +25,7 @@ export default class Intentions {
 
       const messageSolutions = message.solutions
       if (message.version === 2) {
-        if (Array.isArray(messageSolutions) && messageSolutions.length !== 0) {
+        if (Array.isArray(messageSolutions) && messageSolutions.length > 0) {
           const solutions = messageSolutions
           intentions = intentions.concat(
             solutions.map(solution => ({

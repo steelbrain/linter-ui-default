@@ -146,7 +146,7 @@ function onFixClick(message: Message): void {
   const messageSolutions = message.solutions
   const textEditor = getActiveTextEditor()
   if (textEditor !== null && message.version === 2) {
-    if (Array.isArray(messageSolutions) && messageSolutions.length !== 0) {
+    if (Array.isArray(messageSolutions) && messageSolutions.length > 0) {
       applySolution(textEditor, sortSolutions(messageSolutions)[0])
     }
   }
