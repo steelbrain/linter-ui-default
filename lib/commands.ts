@@ -64,12 +64,13 @@ export default class Commands {
   }
 
   // NOTE: Apply solutions from bottom to top, so they don't invalidate each other
+  // NOTE: This only apply the solutions that are not async
   applyAllSolutions(): void {
     const textEditor = getActiveTextEditor()
     invariant(textEditor, 'textEditor was null on a command supposed to run on text-editors only')
     const messages = sortMessages(filterMessages(this.messages, textEditor.getPath()), ['line', 'desc'])
     messages.forEach(function (message) {
-      if (message.version === 2 && message.solutions && message.solutions.length) {
+      if (message.version === 2 && Array.isArray(message.solutions) && message.solutions.length > 0) {
         applySolution(textEditor, sortSolutions(message.solutions)[0])
       }
     })

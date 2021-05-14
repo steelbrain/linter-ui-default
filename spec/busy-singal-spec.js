@@ -1,5 +1,5 @@
 /* @flow */
-
+// eslint-disable-next-line import/no-unassigned-import
 import 'module-alias/register'
 import { beforeEach } from 'jasmine-fix'
 import BusySignal from '../dist/busy-signal'
