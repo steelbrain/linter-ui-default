@@ -1,5 +1,6 @@
 import { CompositeDisposable, Emitter } from 'atom'
 import type { Disposable } from 'atom'
+import { CommandEventExtra } from '../types'
 
 export default class TooltipDelegate {
   emitter: Emitter = new Emitter<{
@@ -22,7 +23,7 @@ export default class TooltipDelegate {
         }
       }),
       atom.commands.add('atom-workspace', {
-        'linter-ui-default:expand-tooltip': event => {
+        'linter-ui-default:expand-tooltip': (event: CommandEventExtra) => {
           if (this.expanded) {
             return
           }
@@ -30,7 +31,7 @@ export default class TooltipDelegate {
           this.emitter.emit('should-expand')
 
           // If bound to a key, collapse when that key is released, just like old times
-          if (event?.originalEvent?.isTrusted) {
+          if (event.originalEvent?.isTrusted === true) {
             // $FlowIgnore: document.body is never null
             document.body.addEventListener(
               'keyup',
