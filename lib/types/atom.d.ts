@@ -1,4 +1,4 @@
-import { TextEditor, Package } from 'atom'
+import { TextEditor, Package, CommandEvent } from 'atom'
 
 // TODO: uses internal API
 export type TextEditorExtra = TextEditor & {
@@ -13,4 +13,10 @@ interface PackageDepsList {
 
 export type PackageExtra = Package & {
   metadata: PackageDepsList
+}
+
+export interface CommandEventExtra<T extends Event = Event> extends CommandEvent {
+  // TODO add to @types/atom
+  // TODO will it be undefined?
+  originalEvent?: T
 }

@@ -45,7 +45,7 @@ export default class Editors {
                 onDidClick: async () => {
                   await atom.workspace.open('atom://config/packages/linter-ui-default')
                   // it is the 16th setting :D
-                  document.querySelectorAll('.control-group')[16]?.scrollIntoView()
+                  document.querySelectorAll('.control-group')[16].scrollIntoView()
                   notif.dismiss()
                 },
               },

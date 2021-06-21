@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "babel-preset-solid",
+    [
+      "babel-preset-atomic",
+      {
+        "addModuleExports": false,
+        "react": false,
+        "typescript": true
+      }
+    ]
+  ],
+  "sourceMap": "inline"
+}
