@@ -21,7 +21,7 @@
     "clean": "shx rm -rf dist .parcel-cache",
     "tsc.dev": "npm run clean && cross-env NODE_ENV=development tsc --watch -p lib/tsconfig.json || echo done && npm run babel",
     "tsc.build": "npm run clean && cross-env NODE_ENV=production tsc -p lib/tsconfig.json || echo done && npm run babel",
-    "tsc.types": "(tsc -p ./lib/tsconfig.json --emitDeclarationOnly || echo done) && shx cp -r ./lib/types/ dist/types",
+    "tsc.types": "(tsc -p ./lib/tsconfig.json --emitDeclarationOnly || echo done) && (shx cp -r ./lib/types/ dist/types && shx rm -rf ./dist/types/linter/)",
     "babel": "babel dist --out-dir dist --retain-lines",
     "babel.globalThis": "babel dist --out-dir dist --plugins babel-plugin-transform-globalthis --retain-lines",
     "dev": "cross-env NODE_ENV=development parcel watch --target main ./lib/index.ts",
