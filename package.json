@@ -28,7 +28,7 @@
     "get.linter-types": "node ./scripts/get-linter-types.js",
     "benchmark": "cross-env NODE_ENV=production npm run build.unit && atom --test ./benchmark/benchmark.js",
     "prepare": "npm run get.linter-types && npm run build",
-    "build-commit": "npm run clean && build-commit -o dist",
+    "build-commit": "npm run clean && npm run types && build-commit -o dist",
     "prepublishOnly": "npm run build-commit"
   },
   "dependencies": {
