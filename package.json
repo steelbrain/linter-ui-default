@@ -64,6 +64,7 @@
     "parcel": "2.0.0-nightly.729",
     "prettier-config-atomic": "^2.0.5",
     "shx": "^0.3.3",
+    "terser-config-atomic": "^0.1.0",
     "typescript": "^4"
   },
   "targets": {
