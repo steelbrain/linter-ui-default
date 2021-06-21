@@ -32,4 +32,3 @@ export declare function openExternally(message: LinterMessage): void;
 export declare function sortMessages(rows: Array<LinterMessage>, sortDirection: [id: 'severity' | 'linterName' | 'file' | 'line', direction: 'asc' | 'desc']): Array<LinterMessage>;
 export declare function sortSolutions(solutions: MessageSolution[]): MessageSolution[];
 export declare function applySolution(textEditor: TextEditor, solution: MessageSolution): boolean;
-export declare function isLargeFile(editor: TextEditor): boolean;
