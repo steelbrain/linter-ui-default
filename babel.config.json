@@ -1,4 +1,3 @@
 {
-  "presets": ["babel-preset-solid", "@babel/preset-typescript", "@parcel/babel-preset-env", "babel-preset-atomic"],
-  "plugins": ["@parcel/babel-plugin-transform-runtime", "babel-plugin-transform-globalthis"]
+  "presets": ["babel-preset-solid"]
 }
