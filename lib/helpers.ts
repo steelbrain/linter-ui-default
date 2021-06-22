@@ -240,3 +240,27 @@ export function applySolution(textEditor: TextEditor, solution: MessageSolution)
   textEditor.setTextInBufferRange(range, replaceWith)
   return true
 }
+
+/**
+ * A function to get a value from the cache or calculate it if it is not available (and store it in the cache after calculation)
+ *
+ * @param map A reference to a Map of key to values that is used as the cache
+ * @param key The current key to get calculate or get the cache for
+ * @param calculate The function that is used to calculate the value if the cache is not hit
+ */
+export function get<Key, Value>(map: Map<Key, Value>, key: Key, calculate: () => Value | null): Value | null {
+  // get cache
+  const cachedValue = map.get(key)
+  if (cachedValue !== undefined) {
+    // cache hit
+    return cachedValue
+  } else {
+    // calculate
+    const calculatedValue = calculate()
+    if (calculatedValue !== null) {
+      // calculation successful
+      map.set(key, calculatedValue)
+    }
+    return calculatedValue
+  }
+}

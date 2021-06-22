@@ -2,6 +2,7 @@ import { CompositeDisposable } from 'atom'
 import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
+import { get } from '../helpers'
 import type { LinterMessage } from '../types'
 import { TargetWithAddEventListener } from 'disposable-event/src/target'
 
@@ -80,33 +81,19 @@ export default class TreeView {
     for (const filePath of filePaths) {
       if (!(filePath in decorations)) {
         // Removed
-        const cachedElement = elementCache.get(filePath)
-        if (cachedElement !== undefined) {
-          removeDecoration(cachedElement)
-        } else {
-          const newElement = TreeView.getElementByPath(treeViewElement, filePath)
-          if (newElement !== null) {
-            elementCache.set(filePath, newElement)
-            removeDecoration(newElement)
-          }
+        const element = get(elementCache, filePath, () => TreeView.getElementByPath(treeViewElement, filePath))
+        if (element !== null) {
+          removeDecoration(element)
         }
       }
     }
 
     const filePathsNew = Object.keys(decorations)
     for (const filePath of filePathsNew) {
-      const cachedElement = elementCache.get(filePath)
-      if (cachedElement !== undefined) {
-        handleDecoration(cachedElement, decorations[filePath], Boolean(this.decorations[filePath]))
+      const element = get(elementCache, filePath, () => TreeView.getElementByPath(treeViewElement, filePath))
+      if (element !== null) {
+        handleDecoration(element, decorations[filePath], Boolean(this.decorations[filePath]))
         appliedDecorations[filePath] = decorations[filePath]
-      } else {
-        const newElement = TreeView.getElementByPath(treeViewElement, filePath)
-        if (newElement !== null) {
-          elementCache.set(filePath, newElement)
-
-          handleDecoration(newElement, decorations[filePath], Boolean(this.decorations[filePath]))
-          appliedDecorations[filePath] = decorations[filePath]
-        }
       }
     }
 
