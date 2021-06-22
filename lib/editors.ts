@@ -98,7 +98,7 @@ export default class Editors {
       if (editorsMap.has(filePath)) {
         const { added, removed, editors } = editorsMap.get(filePath) as EditorsPatch
         if (added.length || removed.length) {
-          editors.forEach(editor => editor.apply(added, removed))
+          editors.forEach(editor => editor.applyChanges(added, removed))
         }
       }
     })
@@ -126,7 +126,7 @@ export default class Editors {
         this.getEditor(textEditor)
       }),
     )
-    editor.apply(filterMessages(this.messages, textEditor.getPath()), [])
+    editor.applyChanges(filterMessages(this.messages, textEditor.getPath()), [])
     return editor
   }
   dispose() {

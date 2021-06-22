@@ -90,7 +90,7 @@ describe('Editor benchmark', function () {
     atom.packages.loadPackage('linter-ui-default')
   })
 
-  it('apply benchmark', function () {
+  it('applyChanges benchmark', function () {
     console.log('it adds the messages to the editor and then removes them')
 
     // test for different number of messages
@@ -108,7 +108,7 @@ describe('Editor benchmark', function () {
 
       const ti_add = window.performance.now()
 
-      editor.apply(messages, [])
+      editor.applyChanges(messages, [])
 
       const tf_add = window.performance.now()
 
@@ -122,7 +122,7 @@ describe('Editor benchmark', function () {
       // Remove
       const ti_remove = window.performance.now()
 
-      editor.apply([], messages)
+      editor.applyChanges([], messages)
 
       const tf_remove = window.performance.now()
 
