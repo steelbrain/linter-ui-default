@@ -73,28 +73,40 @@ export default class TreeView {
       return
     }
 
-    const elementCache: Record<string, HTMLElement | null | undefined> = {}
+    const elementCache = new Map<string, HTMLElement>()
     const appliedDecorations: Record<string, TreeViewHighlight> = {}
 
     const filePaths = Object.keys(this.decorations)
     for (const filePath of filePaths) {
       if (!(filePath in decorations)) {
         // Removed
-        const element =
-          elementCache[filePath] ?? (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
-        if (element !== null) {
-          removeDecoration(element)
+        const cachedElement = elementCache.get(filePath)
+        if (cachedElement !== undefined) {
+          removeDecoration(cachedElement)
+        } else {
+          const newElement = TreeView.getElementByPath(treeViewElement, filePath)
+          if (newElement !== null) {
+            elementCache.set(filePath, newElement)
+            removeDecoration(newElement)
+          }
         }
       }
     }
 
     const filePathsNew = Object.keys(decorations)
     for (const filePath of filePathsNew) {
-      const element =
-        elementCache[filePath] ?? (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
-      if (element !== null) {
-        handleDecoration(element, decorations[filePath], Boolean(this.decorations[filePath]))
+      const cachedElement = elementCache.get(filePath)
+      if (cachedElement !== undefined) {
+        handleDecoration(cachedElement, decorations[filePath], Boolean(this.decorations[filePath]))
         appliedDecorations[filePath] = decorations[filePath]
+      } else {
+        const newElement = TreeView.getElementByPath(treeViewElement, filePath)
+        if (newElement !== null) {
+          elementCache.set(filePath, newElement)
+
+          handleDecoration(newElement, decorations[filePath], Boolean(this.decorations[filePath]))
+          appliedDecorations[filePath] = decorations[filePath]
+        }
       }
     }
 
