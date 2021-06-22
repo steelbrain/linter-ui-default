@@ -51,6 +51,7 @@ export default class TreeView {
       )
     }, 100)
   }
+
   update(givenMessages: Array<LinterMessage> | null | undefined = null) {
     if (Array.isArray(givenMessages)) {
       this.messages = givenMessages
@@ -65,6 +66,7 @@ export default class TreeView {
 
     this.applyDecorations(calculateDecorations(decorateOnTreeView, messages))
   }
+
   applyDecorations(decorations: Record<string, TreeViewHighlight>) {
     const treeViewElement = TreeView.getElement()
     if (!treeViewElement) {
@@ -74,10 +76,8 @@ export default class TreeView {
     const elementCache = {}
     const appliedDecorations = {}
 
-    Object.keys(this.decorations).forEach(filePath => {
-      if (!(filePath in this.decorations)) {
-        return
-      }
+    const filePaths = Object.keys(this.decorations)
+    for (const filePath of filePaths) {
       if (!decorations[filePath]) {
         // Removed
         const element =
@@ -86,28 +86,29 @@ export default class TreeView {
           removeDecoration(element)
         }
       }
-    })
+    }
 
-    Object.keys(decorations).forEach(filePath => {
-      if (!(filePath in decorations)) {
-        return
-      }
+    const filePathsNew = Object.keys(decorations)
+    for (const filePath of filePathsNew) {
       const element =
         elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
       if (element) {
         handleDecoration(element, decorations[filePath], Boolean(this.decorations[filePath]))
         appliedDecorations[filePath] = decorations[filePath]
       }
-    })
+    }
 
     this.decorations = appliedDecorations
   }
+
   dispose() {
     this.subscriptions.dispose()
   }
+
   static getElement(): HTMLElement | null {
     return document.querySelector('.tree-view')
   }
+
   static getElementByPath(parent: HTMLElement, filePath: string): HTMLElement | null {
     return parent.querySelector(`[data-path=${CSS.escape(filePath)}]`)
   }
