@@ -32,3 +32,11 @@ export declare function openExternally(message: LinterMessage): void;
 export declare function sortMessages(rows: Array<LinterMessage>, sortDirection: [id: 'severity' | 'linterName' | 'file' | 'line', direction: 'asc' | 'desc']): Array<LinterMessage>;
 export declare function sortSolutions(solutions: MessageSolution[]): MessageSolution[];
 export declare function applySolution(textEditor: TextEditor, solution: MessageSolution): boolean;
+/**
+ * A function to get a value from the cache or calculate it if it is not available (and store it in the cache after calculation)
+ *
+ * @param map A reference to a Map of key to values that is used as the cache
+ * @param key The current key to get calculate or get the cache for
+ * @param calculate The function that is used to calculate the value if the cache is not hit
+ */
+export declare function get<Key, Value>(map: Map<Key, Value>, key: Key, calculate: () => Value | null): Value | null;

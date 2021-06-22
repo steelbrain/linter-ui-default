@@ -28,13 +28,13 @@ export default class Editor {
     lastCursorPositions: WeakMap<Cursor, Point>;
     constructor(textEditor: TextEditor);
     listenForCurrentLine(): void;
-    listenForMouseMovement(): any;
+    listenForMouseMovement(): import("event-kit").Disposable;
     listenForKeyboardMovement(): Disposable;
     updateGutter(): void;
     removeGutter(): void;
     updateTooltip(position: Point | null | undefined): void;
     removeTooltip(): void;
-    apply(added: Array<LinterMessage>, removed: Array<LinterMessage>): void;
+    applyChanges(added: Array<LinterMessage>, removed: Array<LinterMessage>): void;
     decorateMarker(message: LinterMessage, marker: DisplayMarker | Marker, paint?: 'gutter' | 'editor' | 'both'): void;
     saveMarker(key: string, marker: DisplayMarker | Marker): void;
     destroyMarker(key: string): void;

@@ -722,8 +722,8 @@
         "affectsGlobalScope": true
       },
       "../lib/types/atom.d.ts": {
-        "version": "460eecdb5984438bfe9ff029c170ece66d449bf2e2b2b93da227cd0a33b72b48",
-        "signature": "460eecdb5984438bfe9ff029c170ece66d449bf2e2b2b93da227cd0a33b72b48",
+        "version": "e4a961e2bb1236f5b19926a24fa0b61ce063745dc6264ad0e669707dafe3dac3",
+        "signature": "e4a961e2bb1236f5b19926a24fa0b61ce063745dc6264ad0e669707dafe3dac3",
         "affectsGlobalScope": false
       },
       "../lib/types/intentions.d.ts": {
@@ -782,8 +782,8 @@
         "affectsGlobalScope": false
       },
       "../node_modules/atom-ide-base/types-packages/definitions.d.ts": {
-        "version": "e1306cd9eab6c0b3a5b488e9798b350244bbe7327d4ca845d982e1d6a1826a1a",
-        "signature": "e1306cd9eab6c0b3a5b488e9798b350244bbe7327d4ca845d982e1d6a1826a1a",
+        "version": "dcae2d4b58c4562a410821b554321861fb22a8d4c82348b0d733e23d2a908810",
+        "signature": "dcae2d4b58c4562a410821b554321861fb22a8d4c82348b0d733e23d2a908810",
         "affectsGlobalScope": false
       },
       "../node_modules/atom-ide-base/types-packages/find-references.d.ts": {
@@ -802,8 +802,8 @@
         "affectsGlobalScope": false
       },
       "../node_modules/atom-ide-base/types-packages/sig-help.d.ts": {
-        "version": "1fa32cdf99c6edc163d4b24059f066800a7ad0c000c43f660c1cead431de5853",
-        "signature": "1fa32cdf99c6edc163d4b24059f066800a7ad0c000c43f660c1cead431de5853",
+        "version": "bbd6304770e40338e35fda415a20b9dba0e38f7e1ba0b6ce26f42333e031e704",
+        "signature": "bbd6304770e40338e35fda415a20b9dba0e38f7e1ba0b6ce26f42333e031e704",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/trusted-types/index.d.ts": {
@@ -921,6 +921,21 @@
         "signature": "a5f9563c1315cffbc1e73072d96dcd42332f4eebbdffd7c3e904f545c9e9fe24",
         "affectsGlobalScope": false
       },
+      "../node_modules/@types/event-kit/index.d.ts": {
+        "version": "9e1bdfa0384e78728613882f18f7ae756fdbafb8d02b33a590879be47e8e232e",
+        "signature": "9e1bdfa0384e78728613882f18f7ae756fdbafb8d02b33a590879be47e8e232e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/disposable-event/src/target.d.ts": {
+        "version": "ed251cefaff0211e06028ef4326dbfe06cc1ba14a2d8b2b7bf0156e38f82dfd5",
+        "signature": "ed251cefaff0211e06028ef4326dbfe06cc1ba14a2d8b2b7bf0156e38f82dfd5",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/disposable-event/src/index.d.ts": {
+        "version": "0740ac75a74e4337c20da0c6a058c11a081e16cf41e52a7ed809c2f7f5af87c1",
+        "signature": "0740ac75a74e4337c20da0c6a058c11a081e16cf41e52a7ed809c2f7f5af87c1",
+        "affectsGlobalScope": false
+      },
       "../node_modules/solid-js/types/reactive/signal.d.ts": {
         "version": "6df9df7b714c2ece84cd992f543f68c0d9e82b0c715f71a5195bc4a40b7f87ea",
         "signature": "6df9df7b714c2ece84cd992f543f68c0d9e82b0c715f71a5195bc4a40b7f87ea",
@@ -1002,7 +1017,7 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/delegate.ts": {
-        "version": "3eab58a5aa313b2c04ed675f9f60fc03f0fcbb6e372f2bb7a5fdb55badc258f5",
+        "version": "feb53903d33da635d96cf46a3c81429587bef77fb0b6c36fd7e54331748b8e78",
         "signature": "1d03f9e614b7a9bf6e9a48fe4d3dc6bbd813fbe6ac8c033931132bf884b8fdbe",
         "affectsGlobalScope": false
       },
@@ -1037,8 +1052,8 @@
         "affectsGlobalScope": false
       },
       "../lib/editor/index.ts": {
-        "version": "472f470532bebc661c43c7376cf36042069e019ba41296aa1a12fb45f442251e",
-        "signature": "99b97bdab52c6f74ea49ea5da2f90f540bb20ba5d38fffa438c9ee99fbab47bf",
+        "version": "fba5a8e985647bf2273b27a88580094492fc864972d3f008cdb03c4930060114",
+        "signature": "383a284f9fcae13d2928a69e126391efc0cc1c8e12eacc391c5b559c494b2996",
         "affectsGlobalScope": false
       },
       "../node_modules/atom-ide-base/commons-atom/editor-largeness.d.ts": {
@@ -1047,13 +1062,13 @@
         "affectsGlobalScope": false
       },
       "../lib/editors.ts": {
-        "version": "6ceadc0ed0c95500b1b3a324cda1c75e39573b035cbf544703fe78c4c9fa6766",
+        "version": "f6fb7fe1611c14f47f86bfeed3ce3a88c199ce765b6d069e50f8e57e8204d8dd",
         "signature": "c8ef9761c9e40d5da5dbb7b3769e754fde649595991e66e9a32083e09baa47c4",
         "affectsGlobalScope": false
       },
       "../lib/helpers.ts": {
-        "version": "378e0d8b57f739f374a538dd858d10d98fa80a9a5de15eca589a6bdd27ea4632",
-        "signature": "7f7aab2bc430bc2f84348423bec678228731920576eead2372140e72de6342c3",
+        "version": "a969222dfd4fb9f922a2ef716cad7e5f600a2702306d2bff35f73c169a5f7e81",
+        "signature": "cf0e7b50db5a856030abf6907a4ce693843da92a2352a966fd7e6b425a3b5450",
         "affectsGlobalScope": false
       },
       "../lib/commands.ts": {
@@ -1117,7 +1132,7 @@
         "affectsGlobalScope": false
       },
       "../lib/intentions.ts": {
-        "version": "0c4cc4cbadaf01294837d0977bb6a36d6df08b9651a1e0b7c68b88e9a05e48ac",
+        "version": "5b258d2d51c284467a732fd83d12d4e36d0ec123243c2abe884ec21991741c38",
         "signature": "18cce54dd18e92ad8dc5acc51f66e1aaa17f0807c714d66daa215fc1d9bd0cb3",
         "affectsGlobalScope": false
       },
@@ -1127,7 +1142,7 @@
         "affectsGlobalScope": false
       },
       "../lib/tree-view/index.ts": {
-        "version": "fdbe5be2f6759f3db18a3b19536eefabff3fc065e0366ce375ea6a40f4851f24",
+        "version": "dcfef0fc3a8cea9ab1a26c443ba55a4d6017f5426c60470cbf9891fa57675ccd",
         "signature": "0f31a655da0d90f64662f74fe722a93894388e6f025170840725a9de53f88984",
         "affectsGlobalScope": false
       },
@@ -1298,6 +1313,8 @@
         "../lib/types/index.d.ts",
         "../node_modules/@types/atom/index.d.ts",
         "../node_modules/@types/lodash/debounce.d.ts",
+        "../node_modules/disposable-event/src/index.d.ts",
+        "../node_modules/disposable-event/src/target.d.ts",
         "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
       "../lib/editors.ts": [
@@ -1422,10 +1439,13 @@
         "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
       "../lib/tree-view/index.ts": [
+        "../lib/helpers.ts",
         "../lib/tree-view/helpers.ts",
         "../lib/types/index.d.ts",
         "../node_modules/@types/atom/index.d.ts",
         "../node_modules/@types/lodash/debounce.d.ts",
+        "../node_modules/disposable-event/src/index.d.ts",
+        "../node_modules/disposable-event/src/target.d.ts",
         "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
       "../lib/types/atom.d.ts": [
@@ -2175,6 +2195,10 @@
       "../node_modules/atom-ide-base/types-packages/text-edit.d.ts": [
         "../node_modules/@types/atom/index.d.ts"
       ],
+      "../node_modules/disposable-event/src/index.d.ts": [
+        "../node_modules/@types/event-kit/index.d.ts",
+        "../node_modules/disposable-event/src/target.d.ts"
+      ],
       "../node_modules/solid-js/jsx-runtime.d.ts": [
         "../node_modules/solid-js/types/jsx.d.ts"
       ],
@@ -2247,7 +2271,8 @@
       "../lib/editor/index.ts": [
         "../lib/tooltip/index.tsx",
         "../lib/types/index.d.ts",
-        "../node_modules/@types/atom/index.d.ts"
+        "../node_modules/@types/atom/index.d.ts",
+        "../node_modules/@types/event-kit/index.d.ts"
       ],
       "../lib/editors.ts": [
         "../lib/editor/index.ts",
@@ -3077,6 +3102,10 @@
       "../node_modules/atom-ide-base/types-packages/text-edit.d.ts": [
         "../node_modules/@types/atom/index.d.ts"
       ],
+      "../node_modules/disposable-event/src/index.d.ts": [
+        "../node_modules/@types/event-kit/index.d.ts",
+        "../node_modules/disposable-event/src/target.d.ts"
+      ],
       "../node_modules/solid-js/jsx-runtime.d.ts": [
         "../node_modules/solid-js/types/jsx.d.ts"
       ],
@@ -3141,7 +3170,7 @@
         [
           {
             "file": "../lib/editor/index.ts",
-            "start": 10812,
+            "start": 11256,
             "length": 18,
             "code": 2339,
             "category": 1,
@@ -3149,7 +3178,7 @@
           },
           {
             "file": "../lib/editor/index.ts",
-            "start": 11205,
+            "start": 11661,
             "length": 6,
             "code": 2345,
             "category": 1,
@@ -3168,7 +3197,7 @@
           },
           {
             "file": "../lib/editor/index.ts",
-            "start": 11610,
+            "start": 12076,
             "length": 6,
             "code": 2345,
             "category": 1,
@@ -3307,6 +3336,7 @@
       "../node_modules/@types/atom/status-bar/index.d.ts",
       "../node_modules/@types/chance/index.d.ts",
       "../node_modules/@types/dompurify/index.d.ts",
+      "../node_modules/@types/event-kit/index.d.ts",
       "../node_modules/@types/http-proxy/index.d.ts",
       "../node_modules/@types/jasmine/index.d.ts",
       "../node_modules/@types/json-schema/index.d.ts",
@@ -3409,6 +3439,8 @@
       "../node_modules/atom-ide-base/types-packages/text-edit.d.ts",
       "../node_modules/atom-ide-base/types-packages/uri.d.ts",
       "../node_modules/csstype/index.d.ts",
+      "../node_modules/disposable-event/src/index.d.ts",
+      "../node_modules/disposable-event/src/target.d.ts",
       "../node_modules/solid-js/jsx-runtime.d.ts",
       "../node_modules/solid-js/types/index.d.ts",
       "../node_modules/solid-js/types/jsx.d.ts",
