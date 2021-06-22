@@ -1,5 +1,6 @@
 import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
+import { TargetWithAddEventListener } from 'disposable-event/src/target'
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
 type CompositeDisposableType = CompositeDisposable & { disposed: boolean }
 
@@ -186,7 +187,7 @@ export default class Editor {
     const editorElement = atom.views.getView(this.textEditor)
 
     return disposableEvent(
-      editorElement,
+      editorElement as unknown as TargetWithAddEventListener,
       'mousemove',
       debounce(event => {
         if (!editorElement.getComponent() || this.subscriptions.disposed || !hasParent(event.target, 'div.scroll-view')) {
@@ -273,7 +274,7 @@ export default class Editor {
 
     this.tooltip = new Tooltip(messages, position, this.textEditor)
     const tooltipMarker = this.tooltip.marker
-    // save markers of the tooltip (for destorying them in this.apply)
+    // save markers of the tooltip (for destorying them in this.applyChanges)
     messages.forEach(message => {
       this.saveMarker(message.key, tooltipMarker)
     })
@@ -288,7 +289,7 @@ export default class Editor {
       this.tooltip.marker.destroy()
     }
   }
-  apply(added: Array<LinterMessage>, removed: Array<LinterMessage>) {
+  applyChanges(added: Array<LinterMessage>, removed: Array<LinterMessage>) {
     const textBuffer = this.textEditor.getBuffer()
 
     for (let i = 0, length = removed.length; i < length; i++) {

@@ -2,7 +2,9 @@ import { CompositeDisposable } from 'atom'
 import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
+import { get } from '../helpers'
 import type { LinterMessage } from '../types'
+import { TargetWithAddEventListener } from 'disposable-event/src/target'
 
 export type TreeViewHighlight = {
   info: boolean
@@ -40,7 +42,7 @@ export default class TreeView {
       // Subscription is only added if the CompositeDisposable hasn't been disposed
       this.subscriptions.add(
         disposableEvent(
-          element,
+          element as unknown as TargetWithAddEventListener,
           'click',
           debounce(() => {
             this.update()
@@ -50,6 +52,7 @@ export default class TreeView {
       )
     }, 100)
   }
+
   update(givenMessages: Array<LinterMessage> | null | undefined = null) {
     if (Array.isArray(givenMessages)) {
       this.messages = givenMessages
@@ -64,49 +67,47 @@ export default class TreeView {
 
     this.applyDecorations(calculateDecorations(decorateOnTreeView, messages))
   }
+
   applyDecorations(decorations: Record<string, TreeViewHighlight>) {
     const treeViewElement = TreeView.getElement()
     if (!treeViewElement) {
       return
     }
 
-    const elementCache = {}
-    const appliedDecorations = {}
+    const elementCache = new Map<string, HTMLElement>()
+    const appliedDecorations: Record<string, TreeViewHighlight> = {}
 
-    Object.keys(this.decorations).forEach(filePath => {
-      if (!{}.hasOwnProperty.call(this.decorations, filePath)) {
-        return
-      }
-      if (!decorations[filePath]) {
+    const filePaths = Object.keys(this.decorations)
+    for (const filePath of filePaths) {
+      if (!(filePath in decorations)) {
         // Removed
-        const element =
-          elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
-        if (element) {
+        const element = get(elementCache, filePath, () => TreeView.getElementByPath(treeViewElement, filePath))
+        if (element !== null) {
           removeDecoration(element)
         }
       }
-    })
+    }
 
-    Object.keys(decorations).forEach(filePath => {
-      if (!{}.hasOwnProperty.call(decorations, filePath)) {
-        return
-      }
-      const element =
-        elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
-      if (element) {
+    const filePathsNew = Object.keys(decorations)
+    for (const filePath of filePathsNew) {
+      const element = get(elementCache, filePath, () => TreeView.getElementByPath(treeViewElement, filePath))
+      if (element !== null) {
         handleDecoration(element, decorations[filePath], Boolean(this.decorations[filePath]))
         appliedDecorations[filePath] = decorations[filePath]
       }
-    })
+    }
 
     this.decorations = appliedDecorations
   }
+
   dispose() {
     this.subscriptions.dispose()
   }
+
   static getElement(): HTMLElement | null {
     return document.querySelector('.tree-view')
   }
+
   static getElementByPath(parent: HTMLElement, filePath: string): HTMLElement | null {
     return parent.querySelector(`[data-path=${CSS.escape(filePath)}]`)
   }
