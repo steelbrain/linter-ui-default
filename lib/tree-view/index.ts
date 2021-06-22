@@ -73,16 +73,16 @@ export default class TreeView {
       return
     }
 
-    const elementCache = {}
-    const appliedDecorations = {}
+    const elementCache: Record<string, HTMLElement | null | undefined> = {}
+    const appliedDecorations: Record<string, TreeViewHighlight> = {}
 
     const filePaths = Object.keys(this.decorations)
     for (const filePath of filePaths) {
-      if (!decorations[filePath]) {
+      if (!(filePath in decorations)) {
         // Removed
         const element =
-          elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
-        if (element) {
+          elementCache[filePath] ?? (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
+        if (element !== null) {
           removeDecoration(element)
         }
       }
@@ -91,8 +91,8 @@ export default class TreeView {
     const filePathsNew = Object.keys(decorations)
     for (const filePath of filePathsNew) {
       const element =
-        elementCache[filePath] || (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
-      if (element) {
+        elementCache[filePath] ?? (elementCache[filePath] = TreeView.getElementByPath(treeViewElement, filePath))
+      if (element !== null) {
         handleDecoration(element, decorations[filePath], Boolean(this.decorations[filePath]))
         appliedDecorations[filePath] = decorations[filePath]
       }
