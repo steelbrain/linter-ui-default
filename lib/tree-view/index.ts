@@ -3,6 +3,7 @@ import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
 import type { LinterMessage } from '../types'
+import { TargetWithAddEventListener } from 'disposable-event/src/target'
 
 export type TreeViewHighlight = {
   info: boolean
@@ -40,7 +41,7 @@ export default class TreeView {
       // Subscription is only added if the CompositeDisposable hasn't been disposed
       this.subscriptions.add(
         disposableEvent(
-          element,
+          element as unknown as TargetWithAddEventListener,
           'click',
           debounce(() => {
             this.update()

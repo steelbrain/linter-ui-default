@@ -1,5 +1,6 @@
 import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
+import { TargetWithAddEventListener } from 'disposable-event/src/target'
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
 type CompositeDisposableType = CompositeDisposable & { disposed: boolean }
 
@@ -186,7 +187,7 @@ export default class Editor {
     const editorElement = atom.views.getView(this.textEditor)
 
     return disposableEvent(
-      editorElement,
+      editorElement as unknown as TargetWithAddEventListener,
       'mousemove',
       debounce(event => {
         if (!editorElement.getComponent() || this.subscriptions.disposed || !hasParent(event.target, 'div.scroll-view')) {
