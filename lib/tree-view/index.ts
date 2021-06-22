@@ -75,7 +75,7 @@ export default class TreeView {
     const appliedDecorations = {}
 
     Object.keys(this.decorations).forEach(filePath => {
-      if (!{}.hasOwnProperty.call(this.decorations, filePath)) {
+      if (!(filePath in this.decorations)) {
         return
       }
       if (!decorations[filePath]) {
@@ -89,7 +89,7 @@ export default class TreeView {
     })
 
     Object.keys(decorations).forEach(filePath => {
-      if (!{}.hasOwnProperty.call(decorations, filePath)) {
+      if (!(filePath in decorations)) {
         return
       }
       const element =
