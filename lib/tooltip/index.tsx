@@ -1,4 +1,4 @@
-import { For, render } from 'solid-js/web'
+import { For, Show, render } from 'solid-js/web'
 import { CompositeDisposable, Emitter, TextEditorElement } from 'atom'
 import type { Disposable, Point, TextEditor, DisplayMarker } from 'atom'
 import Delegate from './delegate'
@@ -80,12 +80,11 @@ function TooltipElement(messages: LinterMessage[], delegate: Delegate) {
   return (
     <div className="linter-messages">
       <For each={messages}>
-        {message => {
-          if (message.version === 2) {
-            return <MessageElement key={message.key} delegate={delegate} message={message} />
-          }
-          return undefined
-        }}
+        {message => (
+          <Show when={message.version === 2}>
+            <MessageElement key={message.key} delegate={delegate} message={message} />
+          </Show>
+        )}
       </For>
     </div>
   )
