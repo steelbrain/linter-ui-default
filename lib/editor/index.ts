@@ -163,14 +163,10 @@ export default class Editor {
               end: newTailScreenPosition,
             })
           }),
-        )
-        subscriptions.add(
           cursor.onDidDestroy(() => {
             this.subscriptions.remove(subscriptions)
             subscriptions.dispose()
           }),
-        )
-        subscriptions.add(
           new Disposable(() => {
             if (this.currentLineMarker) {
               this.currentLineMarker.destroy()
