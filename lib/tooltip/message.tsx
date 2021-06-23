@@ -1,11 +1,12 @@
 import { createState, createSignal, onMount, Show } from 'solid-js'
 import * as url from 'url'
+import once from 'lodash/once'
+import debounce from 'lodash/debounce'
 let marked: typeof import('marked') | undefined
+
 import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
 import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
-import once from 'lodash/once'
-import debounce from 'lodash/debounce'
 // TODO why do we need to debounce/once these buttons? They shouldn't be called multiple times
 
 function findHref(el: Element | null | undefined): string | null {
@@ -40,14 +41,11 @@ export default function MessageElement(props: Props) {
       setState({ ...state, descriptionShow: false })
       return
     }
-    if (typeof description === 'string' || result !== undefined) {
-      if (marked === undefined) {
-        // eslint-disable-next-line require-atomic-updates
-        marked = (await import('marked')).default
-      }
-      const descriptionToUse = marked(result ?? (description as string))
+    if (result !== undefined || typeof description === 'string') {
+      const descriptionToUse = await renderStringDescription(result ?? (description as string))
       setState({ description: descriptionToUse, descriptionShow: true })
     } else if (typeof description === 'function') {
+      // TODO simplify
       setState({ ...state, descriptionShow: true })
       if (descriptionLoading()) {
         return
@@ -183,4 +181,12 @@ function thisOpenFile(ev: MouseEvent) {
       },
     )
   }
+}
+
+async function renderStringDescription(description: string) {
+  if (marked === undefined) {
+    // eslint-disable-next-line require-atomic-updates
+    marked = (await import('marked')).default
+  }
+  return marked(description)
 }
