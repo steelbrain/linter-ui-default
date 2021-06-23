@@ -93,7 +93,7 @@ export default function MessageElement(props: Props) {
       <div className={`linter-excerpt ${message.severity}`}>
         {/* fold button if has message description */}
         <Show when={message.description !== undefined}>
-          <a href="#" onClick={() => toggleDescription()}>
+          <a onClick={() => toggleDescription()}>
             <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
           </a>
         </Show>
@@ -114,13 +114,13 @@ export default function MessageElement(props: Props) {
         <div className="linter-buttons-right">
           {/* message reference */}
           <Show when={message.reference?.file !== undefined}>
-            <a href="#" onClick={() => visitMessage(message, true)}>
+            <a onClick={() => visitMessage(message, true)}>
               <span className="icon linter-icon icon-alignment-aligned-to" />
             </a>
           </Show>
           {/* message url */}
           <Show when={message.url !== undefined}>
-            <a href="#" onClick={() => openExternally(message)}>
+            <a onClick={() => openExternally(message)}>
               <span className="icon linter-icon icon-link" />
             </a>
           </Show>
