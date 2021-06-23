@@ -75,9 +75,9 @@ export default class Commands {
       }
     })
   }
-  move(forward: boolean, globally: boolean, severity: string | null | undefined = null): void {
+  async move(forward: boolean, globally: boolean, severity: string | null | undefined = null) {
     const currentEditor = getActiveTextEditor()
-    const currentFile: any = (currentEditor && currentEditor.getPath()) || NaN
+    const currentFile: any = currentEditor?.getPath() ?? NaN
     // NOTE: ^ Setting default to NaN so it won't match empty file paths in messages
     const messages = sortMessages(filterMessages(this.messages, globally ? null : currentFile, severity), ['file', 'asc'])
     const expectedValue = forward ? -1 : 1
@@ -85,7 +85,7 @@ export default class Commands {
     if (!currentEditor) {
       const message = forward ? messages[0] : messages[messages.length - 1]
       if (message) {
-        visitMessage(message)
+        await visitMessage(message)
       }
       return
     }
@@ -108,7 +108,7 @@ export default class Commands {
       if (!currentFileEncountered && messageFile === currentFile) {
         currentFileEncountered = true
       }
-      if (messageFile && messageRange) {
+      if (typeof messageFile === 'string' && messageRange) {
         if (currentFileEncountered && messageFile !== currentFile) {
           found = message
           break
@@ -125,7 +125,7 @@ export default class Commands {
     }
 
     if (found) {
-      visitMessage(found)
+      await visitMessage(found)
     }
   }
   update(messages: Array<LinterMessage>) {
@@ -137,5 +137,5 @@ export default class Commands {
 }
 
 function togglePanel(): void {
-  atom.config.set('linter-ui-default.showPanel', !atom.config.get('linter-ui-default.showPanel'))
+  atom.config.set('linter-ui-default.showPanel', !(atom.config.get('linter-ui-default.showPanel') as boolean))
 }

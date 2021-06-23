@@ -21,8 +21,8 @@ export default class Editors {
 
   constructor() {
     // TODO move the config to a separate package
-    const largeLineCount = atom.config.get('linter-ui-default.largeFileLineCount')
-    const longLineLength = atom.config.get('linter-ui-default.longLineLength')
+    const largeLineCount = atom.config.get('linter-ui-default.largeFileLineCount') as number
+    const longLineLength = atom.config.get('linter-ui-default.longLineLength') as number
 
     this.subscriptions.add(
       atom.workspace.observeTextEditors(textEditor => {
@@ -80,7 +80,7 @@ export default class Editors {
         return
       }
       const filePath = $file(message)
-      if (filePath && editorsMap.has(filePath)) {
+      if (typeof filePath === 'string' && editorsMap.has(filePath)) {
         editorsMap.get(filePath)!.added.push(message)
       }
     })
@@ -89,7 +89,7 @@ export default class Editors {
         return
       }
       const filePath = $file(message)
-      if (filePath && editorsMap.has(filePath)) {
+      if (typeof filePath === 'string' && editorsMap.has(filePath)) {
         editorsMap.get(filePath)!.removed.push(message)
       }
     })

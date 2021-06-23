@@ -33,7 +33,7 @@ export function copySelection() {
   }
 }
 export function getPathOfMessage(message: LinterMessage): string {
-  return atom.project.relativizePath($file(message) || '')[1]
+  return atom.project.relativizePath($file(message) ?? '')[1]
 }
 export function getActiveTextEditor(): TextEditor | null {
   let paneItem = atom.workspace.getCenter().getActivePaneItem() as TextEditorExtra | null
@@ -83,7 +83,7 @@ export function filterMessages(
     if (!message || !message.location) {
       return
     }
-    if ((filePath === null || $file(message) === filePath) && (!severity || message.severity === severity)) {
+    if ((!filePath || $file(message) === filePath) && (!severity || message.severity === severity)) {
       filtered.push(message)
     }
   })
@@ -104,7 +104,7 @@ export function filterMessagesByRangeOrPoint(
     const file = $file(message)
     const range = $range(message)
     if (
-      file &&
+      typeof file === 'string' &&
       range &&
       file === filePath &&
       typeof range.intersectsWith === 'function' &&
@@ -116,16 +116,16 @@ export function filterMessagesByRangeOrPoint(
   return filtered
 }
 
-export function openFile(file: string, position: PointLike | null | undefined) {
+export async function openFile(file: string, position: PointLike | null | undefined) {
   const options: WorkspaceOpenOptions = { searchAllPanes: true }
   if (position) {
     options.initialLine = position.row
     options.initialColumn = position.column
   }
-  atom.workspace.open(file, options)
+  await atom.workspace.open(file, options)
 }
 
-export function visitMessage(message: LinterMessage, reference = false) {
+export async function visitMessage(message: LinterMessage, reference = false) {
   let messageFile: string | undefined | null
   let messagePosition: Point | undefined
   if (reference) {
@@ -142,13 +142,13 @@ export function visitMessage(message: LinterMessage, reference = false) {
       messagePosition = messageRange.start
     }
   }
-  if (messageFile) {
-    openFile(messageFile, messagePosition)
+  if (typeof messageFile === 'string') {
+    await openFile(messageFile, messagePosition)
   }
 }
 
 export function openExternally(message: LinterMessage) {
-  if (message.version === 2 && message.url) {
+  if (message.version === 2 && message.url !== undefined) {
     shell.openExternal(message.url)
   }
 }

@@ -14,21 +14,27 @@ export default class StatusBar {
   constructor() {
     this.subscriptions.add(
       this.element,
-      atom.config.observe('linter-ui-default.statusBarRepresents', statusBarRepresents => {
-        const notInitial = typeof this.statusBarRepresents !== 'undefined'
-        this.statusBarRepresents = statusBarRepresents
-        if (notInitial) {
-          this.update()
-        }
-      }),
-      atom.config.observe('linter-ui-default.statusBarClickBehavior', statusBarClickBehavior => {
-        const notInitial = typeof this.statusBarClickBehavior !== 'undefined'
-        this.statusBarClickBehavior = statusBarClickBehavior
-        if (notInitial) {
-          this.update()
-        }
-      }),
-      atom.config.observe('linter-ui-default.showStatusBar', showStatusBar => {
+      atom.config.observe(
+        'linter-ui-default.statusBarRepresents',
+        (statusBarRepresents: StatusBar['statusBarRepresents']) => {
+          const notInitial = typeof this.statusBarRepresents !== 'undefined'
+          this.statusBarRepresents = statusBarRepresents
+          if (notInitial) {
+            this.update()
+          }
+        },
+      ),
+      atom.config.observe(
+        'linter-ui-default.statusBarClickBehavior',
+        (statusBarClickBehavior: StatusBar['statusBarClickBehavior']) => {
+          const notInitial = typeof this.statusBarClickBehavior !== 'undefined'
+          this.statusBarClickBehavior = statusBarClickBehavior
+          if (notInitial) {
+            this.update()
+          }
+        },
+      ),
+      atom.config.observe('linter-ui-default.showStatusBar', (showStatusBar: boolean) => {
         this.element.setVisibility('config', showStatusBar)
       }),
       atom.workspace.getCenter().observeActivePaneItem(paneItem => {
@@ -40,10 +46,10 @@ export default class StatusBar {
       }),
     )
 
-    this.element.onDidClick(type => {
+    this.element.onDidClick(async type => {
       const workspaceView = atom.views.getView(atom.workspace)
       if (this.statusBarClickBehavior === 'Toggle Panel') {
-        atom.commands.dispatch(workspaceView, 'linter-ui-default:toggle-panel')
+        await atom.commands.dispatch(workspaceView, 'linter-ui-default:toggle-panel')
       } else if (this.statusBarClickBehavior === 'Toggle Status Bar Scope') {
         atom.config.set(
           'linter-ui-default.statusBarRepresents',
@@ -51,12 +57,12 @@ export default class StatusBar {
         )
       } else {
         const postfix = this.statusBarRepresents === 'Current File' ? '-in-current-file' : ''
-        atom.commands.dispatch(workspaceView, `linter-ui-default:next-${type}${postfix}`)
+        await atom.commands.dispatch(workspaceView, `linter-ui-default:next-${type}${postfix}`)
       }
     })
   }
-  update(messages: Array<LinterMessage> | null | undefined = null): void {
-    if (messages) {
+  update(messages?: Array<LinterMessage>): void {
+    if (messages !== undefined) {
       this.messages = messages
     } else {
       messages = this.messages
@@ -64,7 +70,7 @@ export default class StatusBar {
 
     const count = { error: 0, warning: 0, info: 0 }
     const currentTextEditor = getActiveTextEditor()
-    const currentPath = (currentTextEditor && currentTextEditor.getPath()) || NaN
+    const currentPath = currentTextEditor?.getPath() ?? NaN
     // NOTE: ^ Setting default to NaN so it won't match empty file paths in messages
 
     messages.forEach(message => {

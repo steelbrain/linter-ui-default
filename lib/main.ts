@@ -26,10 +26,10 @@ export default class LinterUI {
     this.subscriptions.add(this.signal, this.commands, this.statusBar)
 
     const obsShowPanelCB = window.requestIdleCallback(
-      /* observeShowPanel */ () => {
+      /* observeShowPanel */ async () => {
         this.idleCallbacks.delete(obsShowPanelCB)
         this.panel = new Panel()
-        this.panel.update(this.messages)
+        await this.panel.update(this.messages)
       },
     )
     this.idleCallbacks.add(obsShowPanelCB)
@@ -38,7 +38,7 @@ export default class LinterUI {
       /* observeShowDecorations */ () => {
         this.idleCallbacks.delete(obsShowDecorationsCB)
         this.subscriptions.add(
-          atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
+          atom.config.observe('linter-ui-default.showDecorations', (showDecorations: boolean) => {
             if (showDecorations && !this.editors) {
               this.editors = new Editors()
               this.editors.update({
@@ -56,7 +56,8 @@ export default class LinterUI {
     )
     this.idleCallbacks.add(obsShowDecorationsCB)
   }
-  render(difference: MessagesPatch) {
+
+  async render(difference: MessagesPatch) {
     const editors = this.editors
 
     this.messages = difference.messages
@@ -79,12 +80,13 @@ export default class LinterUI {
     this.treeview.update(difference.messages)
 
     if (this.panel) {
-      this.panel.update(difference.messages)
+      await this.panel.update(difference.messages)
     }
     this.commands.update(difference.messages)
     this.intentions.update(difference.messages)
     this.statusBar.update(difference.messages)
   }
+
   didBeginLinting(linter: Linter, filePath: string) {
     this.signal.didBeginLinting(linter, filePath)
   }
