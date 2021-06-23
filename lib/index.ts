@@ -7,11 +7,11 @@ import type { BusySignalRegistry } from 'atom-ide-base'
 const idleCallbacks: Set<IdleCallbackHandle> = new Set()
 
 const instances: Set<LinterUI> = new Set()
-let signalRegistry: BusySignalRegistry
-let statusBarRegistry: StatusBarRegistry
+let signalRegistry: BusySignalRegistry | undefined
+let statusBarRegistry: StatusBarRegistry | undefined
 
 export function activate() {
-  if (atom.config.get('linter-ui-default.useBusySignal')) {
+  if (atom.config.get('linter-ui-default.useBusySignal') as boolean) {
     // This is a necessary evil, see steelbrain/linter#1355
     ;(atom.packages.getLoadedPackage('linter-ui-default') as PackageExtra).metadata['package-deps'].push('busy-signal')
   }
@@ -52,13 +52,13 @@ export function provideIntentions(): Array<Intentions> {
 export function consumeSignal(signalService: BusySignalRegistry) {
   signalRegistry = signalService
   instances.forEach(function (instance) {
-    instance.signal.attach(signalRegistry)
+    instance.signal.attach(signalRegistry as BusySignalRegistry)
   })
 }
 
 export function consumeStatusBar(statusBarService: StatusBarRegistry) {
   statusBarRegistry = statusBarService
   instances.forEach(function (instance) {
-    instance.statusBar.attach(statusBarRegistry)
+    instance.statusBar.attach(statusBarRegistry as StatusBarRegistry)
   })
 }

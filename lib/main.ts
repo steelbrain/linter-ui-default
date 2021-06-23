@@ -38,7 +38,7 @@ export default class LinterUI {
       /* observeShowDecorations */ () => {
         this.idleCallbacks.delete(obsShowDecorationsCB)
         this.subscriptions.add(
-          atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
+          atom.config.observe('linter-ui-default.showDecorations', (showDecorations: boolean) => {
             if (showDecorations && !this.editors) {
               this.editors = new Editors()
               this.editors.update({
