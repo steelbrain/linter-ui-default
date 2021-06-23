@@ -1,4 +1,4 @@
-import { createState, createSignal, onMount } from 'solid-js'
+import { createState, createSignal, onMount, Show } from 'solid-js'
 import * as url from 'url'
 let marked: typeof import('marked') | undefined
 import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
@@ -91,24 +91,20 @@ export default function MessageElement(props: Props) {
   return (
     <div className="linter-message" onClick={thisOpenFile}>
       <div className={`linter-excerpt ${message.severity}`}>
-        {
-          // fold butotn if has message description
-          message.description !== undefined ? (
-            <a href="#" onClick={() => toggleDescription()}>
-              <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
-            </a>
-          ) : undefined
-        }
-        {
-          // fix button
-          canBeFixed(message) ? <FixButton onClick={() => onFixClick(message)} /> : undefined
-        }
+        {/* fold button if has message description */}
+        <Show when={message.description !== undefined}>
+          <a href="#" onClick={() => toggleDescription()}>
+            <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
+          </a>
+        </Show>
+        {/* fix button */}
+        <Show when={canBeFixed(message)}>
+          <FixButton onClick={() => onFixClick(message)} />
+        </Show>
         <div className="linter-text">
           <div className="provider-name">
-            {
-              // provider name
-              delegate.showProviderName === true ? `${message.linterName}: ` : ''
-            }
+            {/* provider name */}
+            <Show when={delegate.showProviderName === true}>{`${message.linterName}: `}</Show>
           </div>
           {
             // main message text
@@ -116,28 +112,24 @@ export default function MessageElement(props: Props) {
           }
         </div>
         <div className="linter-buttons-right">
-          {
-            // message reference
-            message.reference?.file !== undefined ? (
-              <a href="#" onClick={() => visitMessage(message, true)}>
-                <span className="icon linter-icon icon-alignment-aligned-to" />
-              </a>
-            ) : undefined
-          }
-          {
-            // message url
-            message.url !== undefined ? (
-              <a href="#" onClick={() => openExternally(message)}>
-                <span className="icon linter-icon icon-link" />
-              </a>
-            ) : undefined
-          }
+          {/* message reference */}
+          <Show when={message.reference?.file !== undefined}>
+            <a href="#" onClick={() => visitMessage(message, true)}>
+              <span className="icon linter-icon icon-alignment-aligned-to" />
+            </a>
+          </Show>
+          {/* message url */}
+          <Show when={message.url !== undefined}>
+            <a href="#" onClick={() => openExternally(message)}>
+              <span className="icon linter-icon icon-link" />
+            </a>
+          </Show>
         </div>
       </div>
-      {
-        // message description
-        state.descriptionShow && <div className="linter-line" innerHTML={state.description || 'Loading...'}></div>
-      }
+      {/* message description */}
+      <Show when={state.descriptionShow}>
+        <div className="linter-line" innerHTML={state.description || 'Loading...'}></div>
+      </Show>
     </div>
   )
 }
