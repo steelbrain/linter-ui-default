@@ -82,7 +82,7 @@ export default class PanelDock {
       minimumHeight !== null && !forConfigHeight ? Math.min(minimumHeight, this.panelHeight) : this.panelHeight
 
     // Person resized the panel, save new resized value to config
-    if (this.lastSetPaneHeight !== null && paneContainer.state.size !== this.lastSetPaneHeight && !forConfigHeight) {
+    if (this.lastSetPaneHeight !== undefined && paneContainer.state.size !== this.lastSetPaneHeight && !forConfigHeight) {
       updateConfigHeight = paneContainer.state.size
     }
 
