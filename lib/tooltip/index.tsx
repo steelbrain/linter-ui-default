@@ -33,7 +33,7 @@ export default class Tooltip {
 
     this.subscriptions.add(this.emitter, delegate)
 
-    render(() => TooltipElement(messages, delegate), this.element)
+    render(() => <TooltipElement messages={messages} delegate={delegate} />, this.element)
     // move box above the current editing line
     // HACK: patch the decoration's style so it is shown above the current line
     setTimeout(() => {
@@ -76,13 +76,18 @@ export default class Tooltip {
   }
 }
 
-function TooltipElement(messages: LinterMessage[], delegate: Delegate) {
+interface TooltipElementProps {
+  messages: LinterMessage[]
+  delegate: Delegate
+}
+
+function TooltipElement(props: TooltipElementProps) {
   return (
     <div className="linter-messages">
-      <For each={messages}>
+      <For each={props.messages}>
         {message => (
           <Show when={message.version === 2}>
-            <MessageElement key={message.key} delegate={delegate} message={message} />
+            <MessageElement key={message.key} delegate={props.delegate} message={message} />
           </Show>
         )}
       </For>

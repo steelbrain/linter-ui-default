@@ -42,7 +42,7 @@ export default class TreeView {
       // Subscription is only added if the CompositeDisposable hasn't been disposed
       this.subscriptions.add(
         disposableEvent(
-          element as unknown as TargetWithAddEventListener,
+          (element as unknown) as TargetWithAddEventListener,
           'click',
           debounce(() => {
             this.update()

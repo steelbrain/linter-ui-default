@@ -80,7 +80,7 @@ export default class Editors {
         return
       }
       const filePath = $file(message)
-      if (typeof filePath === "string" && editorsMap.has(filePath)) {
+      if (typeof filePath === 'string' && editorsMap.has(filePath)) {
         editorsMap.get(filePath)!.added.push(message)
       }
     })
@@ -89,7 +89,7 @@ export default class Editors {
         return
       }
       const filePath = $file(message)
-      if (typeof filePath === "string" && editorsMap.has(filePath)) {
+      if (typeof filePath === 'string' && editorsMap.has(filePath)) {
         editorsMap.get(filePath)!.removed.push(message)
       }
     })

@@ -187,7 +187,7 @@ export default class Editor {
     const editorElement = atom.views.getView(this.textEditor)
 
     return disposableEvent(
-      editorElement as unknown as TargetWithAddEventListener,
+      (editorElement as unknown) as TargetWithAddEventListener,
       'mousemove',
       debounce((event: MouseEvent) => {
         if (
