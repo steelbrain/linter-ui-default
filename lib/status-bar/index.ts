@@ -14,21 +14,27 @@ export default class StatusBar {
   constructor() {
     this.subscriptions.add(
       this.element,
-      atom.config.observe('linter-ui-default.statusBarRepresents', statusBarRepresents => {
-        const notInitial = typeof this.statusBarRepresents !== 'undefined'
-        this.statusBarRepresents = statusBarRepresents
-        if (notInitial) {
-          this.update()
-        }
-      }),
-      atom.config.observe('linter-ui-default.statusBarClickBehavior', statusBarClickBehavior => {
-        const notInitial = typeof this.statusBarClickBehavior !== 'undefined'
-        this.statusBarClickBehavior = statusBarClickBehavior
-        if (notInitial) {
-          this.update()
-        }
-      }),
-      atom.config.observe('linter-ui-default.showStatusBar', showStatusBar => {
+      atom.config.observe(
+        'linter-ui-default.statusBarRepresents',
+        (statusBarRepresents: StatusBar['statusBarRepresents']) => {
+          const notInitial = typeof this.statusBarRepresents !== 'undefined'
+          this.statusBarRepresents = statusBarRepresents
+          if (notInitial) {
+            this.update()
+          }
+        },
+      ),
+      atom.config.observe(
+        'linter-ui-default.statusBarClickBehavior',
+        (statusBarClickBehavior: StatusBar['statusBarClickBehavior']) => {
+          const notInitial = typeof this.statusBarClickBehavior !== 'undefined'
+          this.statusBarClickBehavior = statusBarClickBehavior
+          if (notInitial) {
+            this.update()
+          }
+        },
+      ),
+      atom.config.observe('linter-ui-default.showStatusBar', (showStatusBar: boolean) => {
         this.element.setVisibility('config', showStatusBar)
       }),
       atom.workspace.getCenter().observeActivePaneItem(paneItem => {
@@ -40,7 +46,7 @@ export default class StatusBar {
       }),
     )
 
-    this.element.onDidClick(async (type) => {
+    this.element.onDidClick(async type => {
       const workspaceView = atom.views.getView(atom.workspace)
       if (this.statusBarClickBehavior === 'Toggle Panel') {
         await atom.commands.dispatch(workspaceView, 'linter-ui-default:toggle-panel')
