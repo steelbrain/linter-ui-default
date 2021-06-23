@@ -133,7 +133,7 @@ export default class Editor {
           if (start.row !== end.row && currentRange.end.column === 0) {
             linesRange.end.row--
           }
-          if (this.lastRange && this.lastRange.isEqual(linesRange) && currentIsEmpty === this.lastIsEmpty) {
+          if (this.lastRange?.isEqual(linesRange) === true && currentIsEmpty === this.lastIsEmpty) {
             return
           }
           if (this.currentLineMarker) {
@@ -228,7 +228,7 @@ export default class Editor {
   }
   updateGutter() {
     this.removeGutter()
-    if (!this.showDecorations) {
+    if (this.showDecorations !== true) {
       this.gutter = null
       return
     }
@@ -256,7 +256,7 @@ export default class Editor {
     }
   }
   updateTooltip(position: Point | null | undefined) {
-    if (!position || (this.tooltip && this.tooltip.isValid(position, this.messages))) {
+    if (!position || (this.tooltip?.isValid(position, this.messages) === true)) {
       return
     }
     this.removeTooltip()
@@ -335,7 +335,7 @@ export default class Editor {
     const gutter = this.gutter
     if (gutter && (paint === 'both' || paint === 'gutter')) {
       const element = document.createElement('span')
-      element.className = `linter-gutter linter-gutter-${message.severity} icon icon-${message.icon || 'primitive-dot'}`
+      element.className = `linter-gutter linter-gutter-${message.severity} icon icon-${message.icon ?? 'primitive-dot'}`
       gutter.decorateMarker(marker, {
         class: 'linter-row',
         item: element,
@@ -345,7 +345,7 @@ export default class Editor {
 
   // add marker to the message => marker map
   saveMarker(key: string, marker: DisplayMarker | Marker) {
-    const allMarkers = this.markers.get(key) || []
+    const allMarkers = this.markers.get(key) ?? []
     allMarkers.push(marker)
     this.markers.set(key, allMarkers)
   }
@@ -355,16 +355,14 @@ export default class Editor {
     const markers = this.markers.get(key)
     if (markers) {
       markers.forEach(marker => {
-        if (marker) {
-          marker.destroy()
-        }
+        marker?.destroy()
       })
     }
     this.markers.delete(key)
     this.messages.delete(key)
   }
 
-  onDidDestroy(callback: (value?: any) => void) {
+  onDidDestroy(callback: () => void) {
     return this.emitter.on('did-destroy', callback)
   }
   dispose() {
