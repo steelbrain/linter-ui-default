@@ -3,7 +3,7 @@ import { $file } from '../helpers'
 import type { LinterMessage } from '../types'
 import type { TreeViewHighlight } from './index'
 
-export function getChunks(filePath: string, projectPath: string): Array<string> {
+function getChunks(filePath: string, projectPath: string): Array<string> {
   const toReturn: Array<string> = []
   const chunks = filePath.split(Path.sep)
   while (chunks.length) {
@@ -21,7 +21,7 @@ export function getChunks(filePath: string, projectPath: string): Array<string> 
   return toReturn
 }
 
-export function getChunksByProjects(filePath: string, projectPaths: Array<string>): Array<string> {
+function getChunksByProjects(filePath: string, projectPaths: Array<string>): Array<string> {
   const matchingProjectPath = projectPaths.find(p => filePath.startsWith(p))
   if (matchingProjectPath === undefined) {
     return [filePath]
@@ -29,7 +29,7 @@ export function getChunksByProjects(filePath: string, projectPaths: Array<string
   return getChunks(filePath, matchingProjectPath)
 }
 
-export function mergeChange(change: Record<string, TreeViewHighlight>, filePath: string, severity: string): void {
+function mergeChange(change: Record<string, TreeViewHighlight>, filePath: string, severity: string): void {
   if (!change[filePath]) {
     change[filePath] = {
       info: false,
