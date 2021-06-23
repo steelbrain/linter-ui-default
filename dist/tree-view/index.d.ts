@@ -12,7 +12,7 @@ export default class TreeView {
     decorateOnTreeView?: 'Files and Directories' | 'Files' | 'None';
     constructor();
     update(givenMessages?: Array<LinterMessage> | null | undefined): void;
-    applyDecorations(decorations: Record<string, TreeViewHighlight>): void;
+    applyDecorations(decorations: Record<string, TreeViewHighlight | undefined>): void;
     dispose(): void;
     static getElement(): HTMLElement | null;
     static getElementByPath(parent: HTMLElement, filePath: string): HTMLElement | null;

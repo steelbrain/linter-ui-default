@@ -26,8 +26,8 @@ export declare function getEditorsMap(editors: Editors): {
 };
 export declare function filterMessages(messages: Array<LinterMessage>, filePath: string | null | undefined, severity?: string | null | undefined): Array<LinterMessage>;
 export declare function filterMessagesByRangeOrPoint(messages: Set<LinterMessage> | Array<LinterMessage> | Map<string, LinterMessage>, filePath: string | undefined, rangeOrPoint: Point | RangeCompatible): Array<LinterMessage>;
-export declare function openFile(file: string, position: PointLike | null | undefined): void;
-export declare function visitMessage(message: LinterMessage, reference?: boolean): void;
+export declare function openFile(file: string, position: PointLike | null | undefined): Promise<void>;
+export declare function visitMessage(message: LinterMessage, reference?: boolean): Promise<void>;
 export declare function openExternally(message: LinterMessage): void;
 export declare function sortMessages(rows: Array<LinterMessage>, sortDirection: [id: 'severity' | 'linterName' | 'file' | 'line', direction: 'asc' | 'desc']): Array<LinterMessage>;
 export declare function sortSolutions(solutions: MessageSolution[]): MessageSolution[];

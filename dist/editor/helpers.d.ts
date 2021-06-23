@@ -11,4 +11,4 @@ export declare function mouseEventNearPosition({ event, editor, editorElement, t
     tooltipElement: Tooltip['element'];
     screenPosition: PointLike;
 }): boolean;
-export declare function hasParent(givenElement: HTMLElement, selector: string): boolean;
+export declare function hasParent(givenElement: HTMLElement | null, selector: string): boolean;

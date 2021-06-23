@@ -14,9 +14,9 @@ export default class Panel {
     showPanelStateMessages: boolean;
     activationTimer: number;
     constructor();
-    getPanelLocation(): string | null;
+    private getPanelLocation;
     activate(): Promise<void>;
-    update(newMessages?: Array<LinterMessage> | null | undefined): void;
+    update(newMessages?: Array<LinterMessage> | null | undefined): Promise<void>;
     refresh(): Promise<void>;
     dispose(): void;
 }

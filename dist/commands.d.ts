@@ -5,7 +5,7 @@ export default class Commands {
     subscriptions: CompositeDisposable;
     constructor();
     applyAllSolutions(): void;
-    move(forward: boolean, globally: boolean, severity?: string | null | undefined): void;
+    move(forward: boolean, globally: boolean, severity?: string | null | undefined): Promise<void>;
     update(messages: Array<LinterMessage>): void;
     dispose(): void;
 }

@@ -9,7 +9,7 @@ export default class StatusBar {
     statusBarRepresents?: 'Entire Project' | 'Current File';
     statusBarClickBehavior?: 'Toggle Panel' | 'Jump to next issue' | 'Toggle Status Bar Scope';
     constructor();
-    update(messages?: Array<LinterMessage> | null | undefined): void;
+    update(messages?: Array<LinterMessage>): void;
     attach(statusBarRegistry: StatusBarRegistry): void;
     dispose(): void;
 }

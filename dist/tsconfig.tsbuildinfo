@@ -847,7 +847,7 @@
         "affectsGlobalScope": false
       },
       "../lib/busy-signal.ts": {
-        "version": "bf9cc9bed41647683dfae9e8aec7c4ba10ead47213dc399e94c2e9c66c73752a",
+        "version": "263755298b10f2a335e20a4407eb317f8d404a024f370763d4ca0636e6fdb65b",
         "signature": "a8a49b38f8d7ad08b4a5a1ec7c8592244f281d732fd6e48743b1cbb073128dd5",
         "affectsGlobalScope": false
       },
@@ -1032,7 +1032,7 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/message.tsx": {
-        "version": "ebee325a78bb382eba1e453d2a2fa5b1e866c910657bb0c841f372dbb9e52ea7",
+        "version": "61214a79a4b5485188d28683d58eee8d40f4d7f8ceb476d1833768e52000649d",
         "signature": "22472aaae438ef698d70e4d83809cf2b0624b8ab9d7a4f7bd5399d75c22b6a51",
         "affectsGlobalScope": false
       },
@@ -1042,18 +1042,18 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/index.tsx": {
-        "version": "714d71268d8867eae2ab5e6d1533e8ba86f1968b1a24fa99cac71ece355f09f3",
+        "version": "80ab2e4cac241ed2db41c35f264b67d4c53685375bd4b699126926f31847d95e",
         "signature": "e03425a4965d3d77eac47bba6d6b2b44ce9047df71801a4239fcd0e40f538701",
         "affectsGlobalScope": false
       },
       "../lib/editor/helpers.ts": {
-        "version": "3cc3d7b7cc87789f5ab1e4e1240615d01ee384f26009dd0be94c8fb98a036a0c",
-        "signature": "7eaf142651f5d148c5a97c50a94be178e5f54e2e5b5b975cb5fe102f9248fa4b",
+        "version": "1e730dbc541aa14461ded1b38def64fbb116fabc080b94fb5dfb07ec704476a5",
+        "signature": "af51f1260f87e1e8224ce73ea9e17aca576c75ba8c6baf824f80d11921f97224",
         "affectsGlobalScope": false
       },
       "../lib/editor/index.ts": {
-        "version": "fba5a8e985647bf2273b27a88580094492fc864972d3f008cdb03c4930060114",
-        "signature": "383a284f9fcae13d2928a69e126391efc0cc1c8e12eacc391c5b559c494b2996",
+        "version": "f49a881d54024faad795d30b483a38157961bd5158b54d642c62e476743aee2e",
+        "signature": "44143fc2944485376cfa35d78377ed9a9fd2f9ec0140744765de8386b941a7dd",
         "affectsGlobalScope": false
       },
       "../node_modules/atom-ide-base/commons-atom/editor-largeness.d.ts": {
@@ -1062,18 +1062,18 @@
         "affectsGlobalScope": false
       },
       "../lib/editors.ts": {
-        "version": "fad1fe2e77734c77709383dee53e9731b7d9f8bb1a552a9653cd4d5955fe2735",
+        "version": "970fb875106b721fb7159cc876b945ca54b7f37e86263091cc0c02176d22229a",
         "signature": "c8ef9761c9e40d5da5dbb7b3769e754fde649595991e66e9a32083e09baa47c4",
         "affectsGlobalScope": false
       },
       "../lib/helpers.ts": {
-        "version": "0b1e9dbd89f7c2c12223c67dd85a34254e8187005eccbbd1230a6d1d254b07fc",
-        "signature": "cf0e7b50db5a856030abf6907a4ce693843da92a2352a966fd7e6b425a3b5450",
+        "version": "aa4baeb5aeae16249818a4bf2faa2b17ab87011e671952594b8a37e6bb605e4d",
+        "signature": "98052078797bef494c50562ea0c4e590e7bf63095c7da42537616a4e16ffdff3",
         "affectsGlobalScope": false
       },
       "../lib/commands.ts": {
-        "version": "53aaf623f3ca9ca86d0bf1a23f04692a81b5a4f1b613d7cd0f0d58fb4d8fa808",
-        "signature": "e3b0846145d67a98d09320181dad898b65204af76903a7aa1126a9dca7f51880",
+        "version": "05b7d91b4e85f4ebb64528aaf7629e313b647de18bd2107195ae000459ef6af5",
+        "signature": "df0625431f8b4f0627817d51de9ddb6ab57419556e72e9c624df71fa42f813c0",
         "affectsGlobalScope": false
       },
       "../lib/electron.d.ts": {
@@ -1092,18 +1092,18 @@
         "affectsGlobalScope": false
       },
       "../lib/panel/component.tsx": {
-        "version": "27ee5f6be7d2a0f256b72a910b3e8142406bce9594aaad07924ebdaab98fa126",
+        "version": "500869da875a9e50e3468d6fc08bb32bad1812461463d3543d6791b93a92dd62",
         "signature": "22773fc06ac278e620435f0c3ccf4225f1949099ee19cbc724227475a552258b",
         "affectsGlobalScope": false
       },
       "../lib/panel/dock.tsx": {
-        "version": "421bc864c12962d7ab6f53c57b36c150e648d97a9ab36b3ae38758b2fe0bf887",
+        "version": "e3602ebdce2abc685ec148dae7587dde923846a422863b9715370b0c75e3c524",
         "signature": "1adc4fa874a53ce71d149db4c72a45921582bf9b28853092a460cafb7a75247e",
         "affectsGlobalScope": false
       },
       "../lib/panel/index.ts": {
-        "version": "05b7768d3216ce05b8a9560e86b7b675fc79bbbbedd71728a8fc0240f0729e51",
-        "signature": "76e1d39e9498bc4eb348463a4f2132c27706a7f412f659109043a157a06a1318",
+        "version": "42e9daef614f0f04ecc185b8d01770dcf38458d99de25dc096433a55f70313f1",
+        "signature": "82d31921059c1c301bebeb94966210419ebd5a17903de7b51ea35033482d9870",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/atom/status-bar/config.d.ts": {
@@ -1122,37 +1122,37 @@
         "affectsGlobalScope": false
       },
       "../lib/status-bar/element.ts": {
-        "version": "7505bc61efbee123fcc4cebc01989c299e4df33d5c129ff03aa28e722a32bfcf",
+        "version": "66f219266e73caadb0df09ceb09afe005af44edb90d17d6fc97e19d5e9f1288e",
         "signature": "8cceaf14f69f096da343e9723083ae1fb7e9583a4d911a4729b0adf1682cdb2e",
         "affectsGlobalScope": false
       },
       "../lib/status-bar/index.ts": {
-        "version": "be3612b70101288319177258c1b59d3c289877e2927b16d522279e3c56ed31f7",
-        "signature": "121fd11abfde60f83f9da10698fcbbced635a7297bfe29b6ca818acd101df4d7",
+        "version": "0fa5dc9b2117bc0d1ebfd66f5072c4ab628dfe48a8d78101fc421a2098b52e52",
+        "signature": "57c429081c73670bcb46ab3ed97a05b8852de8e53da07c01790a84b99c7c4c73",
         "affectsGlobalScope": false
       },
       "../lib/intentions.ts": {
-        "version": "8f209b81fdaf71c2057b4c452c13f740e4659aa494ada5b388977eb72b13f3ea",
+        "version": "5b258d2d51c284467a732fd83d12d4e36d0ec123243c2abe884ec21991741c38",
         "signature": "18cce54dd18e92ad8dc5acc51f66e1aaa17f0807c714d66daa215fc1d9bd0cb3",
         "affectsGlobalScope": false
       },
       "../lib/tree-view/helpers.ts": {
-        "version": "c599797f2a3b023cc49bc2503f4320a15adf77dfc17a1b88b46b2d3e713c1b15",
-        "signature": "4410f87441965abd11a6cb99bd7a98fa16f93641e9d6b29ffa85f0dd8968f1af",
+        "version": "94ed583445bba4f307a8e4016af4b051abfadf45c95fcf3f6c0f0e30b1ea311c",
+        "signature": "a6e12c77cdd782a1e9d6f0ec3b9fd3956772e0bb291021274c3b4d0b737f83dc",
         "affectsGlobalScope": false
       },
       "../lib/tree-view/index.ts": {
-        "version": "dcfef0fc3a8cea9ab1a26c443ba55a4d6017f5426c60470cbf9891fa57675ccd",
-        "signature": "0f31a655da0d90f64662f74fe722a93894388e6f025170840725a9de53f88984",
+        "version": "c5157048173df269ff443fd3b8e7b5e0dae3534c43af7a150c8e348355a5b423",
+        "signature": "a3bee0717b7edf9b2e0482dd2817606858913d6e89aafbbeaf6ad842e0d57835",
         "affectsGlobalScope": false
       },
       "../lib/main.ts": {
-        "version": "f1f3cc33851cc9d50585b031ee1107effc7897f87cbbbff275f87fce3b1086f3",
-        "signature": "3f9e88e281218daa150372aaef305635eda6c12c4c05fc3762719d2a02accbdb",
+        "version": "32dbbd5d556b94e64049966af0b0b56c27e338538bad741bbf2d7a3a874a2e79",
+        "signature": "c92376f8c12f93944c3ae9122bb302943cfa4f63b233f93b7b901216b6a1bb72",
         "affectsGlobalScope": false
       },
       "../lib/index.ts": {
-        "version": "1165c4e59a9260e83ea23b095ddae624d00f98ecbc99eae1fc0248b90cfd3403",
+        "version": "29d9b84ef05ba58fcf756297526d1f5d482ec7848fbd702bb188cdd7e0f949b4",
         "signature": "1fa370a2c6fb6b116341bc2a682b30851e728dcdd7ffb62844331d31094ac161",
         "affectsGlobalScope": false
       },
@@ -3171,7 +3171,7 @@
         [
           {
             "file": "../lib/editor/index.ts",
-            "start": 11256,
+            "start": 11308,
             "length": 18,
             "code": 2339,
             "category": 1,
@@ -3179,7 +3179,7 @@
           },
           {
             "file": "../lib/editor/index.ts",
-            "start": 11661,
+            "start": 11713,
             "length": 6,
             "code": 2345,
             "category": 1,
@@ -3198,7 +3198,7 @@
           },
           {
             "file": "../lib/editor/index.ts",
-            "start": 12076,
+            "start": 12128,
             "length": 6,
             "code": 2345,
             "category": 1,

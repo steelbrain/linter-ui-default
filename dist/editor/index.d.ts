@@ -38,7 +38,7 @@ export default class Editor {
     decorateMarker(message: LinterMessage, marker: DisplayMarker | Marker, paint?: 'gutter' | 'editor' | 'both'): void;
     saveMarker(key: string, marker: DisplayMarker | Marker): void;
     destroyMarker(key: string): void;
-    onDidDestroy(callback: (value?: any) => void): Disposable;
+    onDidDestroy(callback: () => void): Disposable;
     dispose(): void;
 }
 export {};

@@ -20,7 +20,7 @@ export default class LinterUI {
     subscriptions: CompositeDisposable;
     idleCallbacks: Set<number>;
     constructor();
-    render(difference: MessagesPatch): void;
+    render(difference: MessagesPatch): Promise<void>;
     didBeginLinting(linter: Linter, filePath: string): void;
     didFinishLinting(linter: Linter, filePath: string): void;
     dispose(): void;
