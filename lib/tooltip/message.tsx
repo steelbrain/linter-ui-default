@@ -1,10 +1,9 @@
 import { createState, createSignal, onMount, Show } from 'solid-js'
-import * as url from 'url'
 import once from 'lodash/once'
 import debounce from 'lodash/debounce'
 let marked: typeof import('marked') | undefined
 
-import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
+import { visitMessage, openExternally, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
 import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
 // TODO why do we need to debounce/once these buttons? They shouldn't be called multiple times
@@ -79,7 +78,7 @@ export default function MessageElement(props: Props) {
   const { message, delegate } = props
 
   return (
-    <div className="linter-message" onClick={thisOpenFile}>
+    <div className="linter-message">
       <div className={`linter-excerpt ${message.severity}`}>
         {/* fold button if has message description */}
         <Show when={message.description !== undefined}>
@@ -142,46 +141,6 @@ function canBeFixed(message: LinterMessage): boolean {
     return true
   }
   return false
-}
-
-function thisOpenFile(ev: MouseEvent) {
-  if (!(ev.target instanceof HTMLElement)) {
-    return
-  }
-  const href = findHref(ev.target)
-  if (href === null) {
-    return
-  }
-  // parse the link. e.g. atom://linter?file=<path>&row=<number>&column=<number>
-  const { protocol, hostname, query } = url.parse(href, true)
-  if (protocol !== 'atom:' || hostname !== 'linter') {
-    return
-  }
-  // TODO: based on the types query is never null
-  if (query?.file === undefined) {
-    return
-  } else {
-    const { file, row, column } = query
-    // TODO: will these be an array?
-    openFile(
-      /* file */ Array.isArray(file) ? file[0] : file,
-      /* position */ {
-        row: row !== undefined ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,
-        column: column !== undefined ? parseInt(Array.isArray(column) ? column[0] : column, 10) : 0,
-      },
-    )
-  }
-}
-
-function findHref(elementGiven: HTMLElement): string | null {
-  let el: HTMLElement | null = elementGiven
-  while (el && !el.classList.contains('linter-line')) {
-    if (el instanceof HTMLAnchorElement) {
-      return el.href
-    }
-    el = el.parentElement
-  }
-  return null
 }
 
 async function renderStringDescription(description: string) {
