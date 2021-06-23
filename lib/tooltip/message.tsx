@@ -4,7 +4,6 @@ let marked: typeof import('marked') | undefined
 import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
 import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
-import { FixButton } from './fix-button'
 import once from 'lodash/once'
 import debounce from 'lodash/debounce'
 // TODO why do we need to debounce/once these buttons? They shouldn't be called multiple times
@@ -102,7 +101,9 @@ export default function MessageElement(props: Props) {
         </Show>
         {/* fix button */}
         <Show when={canBeFixed(message)}>
-          <FixButton onClick={once(() => onFixClick(message))} />
+          <button className="btn fix-btn" onClick={once(() => onFixClick(message))}>
+            Fix
+          </button>
         </Show>
         <div className="linter-text">
           <div className="provider-name">
