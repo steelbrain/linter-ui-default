@@ -40,10 +40,10 @@ export default class StatusBar {
       }),
     )
 
-    this.element.onDidClick(type => {
+    this.element.onDidClick(async (type) => {
       const workspaceView = atom.views.getView(atom.workspace)
       if (this.statusBarClickBehavior === 'Toggle Panel') {
-        atom.commands.dispatch(workspaceView, 'linter-ui-default:toggle-panel')
+        await atom.commands.dispatch(workspaceView, 'linter-ui-default:toggle-panel')
       } else if (this.statusBarClickBehavior === 'Toggle Status Bar Scope') {
         atom.config.set(
           'linter-ui-default.statusBarRepresents',
@@ -51,7 +51,7 @@ export default class StatusBar {
         )
       } else {
         const postfix = this.statusBarRepresents === 'Current File' ? '-in-current-file' : ''
-        atom.commands.dispatch(workspaceView, `linter-ui-default:next-${type}${postfix}`)
+        await atom.commands.dispatch(workspaceView, `linter-ui-default:next-${type}${postfix}`)
       }
     })
   }
