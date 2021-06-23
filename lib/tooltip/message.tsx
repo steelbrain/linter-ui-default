@@ -129,7 +129,7 @@ export default function MessageElement(props: Props) {
 function onFixClick(message: Message): void {
   const messageSolutions = message.solutions
   const textEditor = getActiveTextEditor()
-  if (textEditor !== null && message.version === 2) {
+  if (textEditor !== null) {
     if (Array.isArray(messageSolutions) && messageSolutions.length > 0) {
       applySolution(textEditor, sortSolutions(messageSolutions)[0])
     }
@@ -138,7 +138,7 @@ function onFixClick(message: Message): void {
 
 function canBeFixed(message: LinterMessage): boolean {
   const messageSolutions = message.solutions
-  if (message.version === 2 && Array.isArray(messageSolutions) && messageSolutions.length > 0) {
+  if (Array.isArray(messageSolutions) && messageSolutions.length > 0) {
     return true
   }
   return false
