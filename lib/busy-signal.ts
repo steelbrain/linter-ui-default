@@ -43,7 +43,7 @@ export default class BusySignal {
     }
 
     for (const [filePath, names] of fileMap) {
-      const path = filePath ? ` on ${atom.project.relativizePath(filePath)[1]}` : ''
+      const path = typeof filePath === 'string' ? ` on ${atom.project.relativizePath(filePath)[1]}` : ''
       names.forEach(name => {
         const title = `${name}${path}`
         currentTitles.add(title)
