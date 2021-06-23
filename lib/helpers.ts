@@ -33,7 +33,7 @@ export function copySelection() {
   }
 }
 export function getPathOfMessage(message: LinterMessage): string {
-  return atom.project.relativizePath($file(message) || '')[1]
+  return atom.project.relativizePath($file(message) ?? '')[1]
 }
 export function getActiveTextEditor(): TextEditor | null {
   let paneItem = atom.workspace.getCenter().getActivePaneItem() as TextEditorExtra | null
@@ -104,7 +104,7 @@ export function filterMessagesByRangeOrPoint(
     const file = $file(message)
     const range = $range(message)
     if (
-      file &&
+      typeof file === 'string' &&
       range &&
       file === filePath &&
       typeof range.intersectsWith === 'function' &&
@@ -142,13 +142,13 @@ export function visitMessage(message: LinterMessage, reference = false) {
       messagePosition = messageRange.start
     }
   }
-  if (messageFile) {
+  if (typeof messageFile === 'string') {
     openFile(messageFile, messagePosition)
   }
 }
 
 export function openExternally(message: LinterMessage) {
-  if (message.version === 2 && message.url) {
+  if (message.version === 2 && message.url !== undefined) {
     shell.openExternal(message.url)
   }
 }
