@@ -34,7 +34,6 @@ export default class Tooltip {
     this.subscriptions.add(this.emitter, delegate)
 
     render(() => TooltipElement(messages, delegate), this.element)
-
     // move box above the current editing line
     // HACK: patch the decoration's style so it is shown above the current line
     setTimeout(() => {
@@ -44,16 +43,16 @@ export default class Tooltip {
       const availableHight = (position.row - textEditor.getFirstVisibleScreenRow()) * lineHight
       if (hight < availableHight) {
         const overlay = this.element.parentElement
-        if (overlay) {
+        if (overlay !== null) {
           overlay.style.transform = `translateY(-${2 + lineHight + hight}px)`
         }
       } else {
         // move down so it does not overlap with datatip-overlay
         // @ts-ignore
-        const dataTip = (textEditor.getElement() as TextEditorElement).querySelector('.datatip-overlay') as HTMLElement
-        if (dataTip) {
+        const dataTip = (textEditor.getElement() as TextEditorElement).querySelector<HTMLElement>('.datatip-overlay')
+        if (dataTip !== null) {
           const overlay = this.element.parentElement
-          if (overlay) {
+          if (overlay !== null) {
             overlay.style.transform = `translateY(${dataTip.clientHeight}px)`
           }
         }
@@ -66,7 +65,7 @@ export default class Tooltip {
       return false
     }
     const range = $range(this.messages[0])
-    return Boolean(range && range.containsPoint(position))
+    return range?.containsPoint(position) === true
   }
   onDidDestroy(callback: () => void): Disposable {
     return this.emitter.on('did-destroy', callback)

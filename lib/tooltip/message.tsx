@@ -34,16 +34,16 @@ export default function MessageElement(props: Props) {
     const newStatus = !state.descriptionShow
     const description = state.description || props.message.description
 
-    if (!newStatus && !result) {
+    if (!newStatus && result === null) {
       setState({ ...state, descriptionShow: false })
       return
     }
-    if (typeof description === 'string' || result) {
+    if (typeof description === 'string' || result !== null) {
       if (marked === undefined) {
         // eslint-disable-next-line require-atomic-updates
         marked = (await import('marked')).default
       }
-      const descriptionToUse = marked(result || (description as string))
+      const descriptionToUse = marked(result ?? (description as string))
       setState({ description: descriptionToUse, descriptionShow: true })
     } else if (typeof description === 'function') {
       setState({ ...state, descriptionShow: true })
@@ -93,21 +93,21 @@ export default function MessageElement(props: Props) {
       <div className={`linter-excerpt ${message.severity}`}>
         {
           // fold butotn if has message description
-          message.description && (
+          message.description !== undefined ? (
             <a href="#" onClick={() => toggleDescription()}>
               <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
             </a>
-          )
+          ) : undefined
         }
         {
           // fix button
-          canBeFixed(message) && <FixButton onClick={() => onFixClick(message)} />
+          canBeFixed(message) ? <FixButton onClick={() => onFixClick(message)} /> : undefined
         }
         <div className="linter-text">
           <div className="provider-name">
             {
               // provider name
-              delegate.showProviderName ? `${message.linterName}: ` : ''
+              delegate.showProviderName === true ? `${message.linterName}: ` : ''
             }
           </div>
           {
@@ -118,19 +118,19 @@ export default function MessageElement(props: Props) {
         <div className="linter-buttons-right">
           {
             // message reference
-            message.reference && message.reference.file && (
+            message.reference?.file !== undefined ? (
               <a href="#" onClick={() => visitMessage(message, true)}>
                 <span className="icon linter-icon icon-alignment-aligned-to" />
               </a>
-            )
+            ) : undefined
           }
           {
             // message url
-            message.url && (
+            message.url !== undefined ? (
               <a href="#" onClick={() => openExternally(message)}>
                 <span className="icon linter-icon icon-link" />
               </a>
-            )
+            ) : undefined
           }
         </div>
       </div>
@@ -164,7 +164,7 @@ function thisOpenFile(ev: MouseEvent) {
     return
   }
   const href = findHref(ev.target)
-  if (!href) {
+  if (href === null) {
     return
   }
   // parse the link. e.g. atom://linter?file=<path>&row=<number>&column=<number>
@@ -173,7 +173,7 @@ function thisOpenFile(ev: MouseEvent) {
     return
   }
   // TODO: based on the types query is never null
-  if (!query || !query.file) {
+  if (query?.file === undefined) {
     return
   } else {
     const { file, row, column } = query
@@ -181,8 +181,8 @@ function thisOpenFile(ev: MouseEvent) {
     openFile(
       /* file */ Array.isArray(file) ? file[0] : file,
       /* position */ {
-        row: row ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,
-        column: column ? parseInt(Array.isArray(column) ? column[0] : column, 10) : 0,
+        row: row !== undefined ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,
+        column: column !== undefined ? parseInt(Array.isArray(column) ? column[0] : column, 10) : 0,
       },
     )
   }
