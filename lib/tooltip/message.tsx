@@ -30,15 +30,15 @@ export default function MessageElement(props: Props) {
 
   const [descriptionLoading, setDescriptionLoading] = createSignal(false, false)
 
-  async function toggleDescription(result: string | null | undefined = null) {
+  async function toggleDescription(result?: string) {
     const newStatus = !state.descriptionShow
     const description = state.description || props.message.description
 
-    if (!newStatus && result === null) {
+    if (!newStatus && result === undefined) {
       setState({ ...state, descriptionShow: false })
       return
     }
-    if (typeof description === 'string' || result !== null) {
+    if (typeof description === 'string' || result !== undefined) {
       if (marked === undefined) {
         // eslint-disable-next-line require-atomic-updates
         marked = (await import('marked')).default
