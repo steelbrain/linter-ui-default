@@ -87,14 +87,16 @@ export default class Panel {
       await this.activate()
     })
   }
-  getPanelLocation() {
+
+  private getPanelLocation() {
     if (!this.panel) {
       return null
     }
     // @ts-ignore internal API
-    const paneContainer: PaneContainer = atom.workspace.paneContainerForItem(this.panel)
-    return (paneContainer && paneContainer.location) || null
+    const paneContainer: PaneContainer | undefined = atom.workspace.paneContainerForItem(this.panel)
+    return paneContainer?.location
   }
+
   async activate() {
     if (this.panel) {
       return
@@ -108,6 +110,7 @@ export default class Panel {
     await this.update()
     await this.refresh()
   }
+
   async update(newMessages: Array<LinterMessage> | null | undefined = null) {
     if (newMessages) {
       this.messages = newMessages
@@ -116,6 +119,7 @@ export default class Panel {
     this.showPanelStateMessages = Boolean(this.delegate.filteredMessages.length)
     await this.refresh()
   }
+
   async refresh() {
     const panel = this.panel
     if (panel === null) {
@@ -125,8 +129,8 @@ export default class Panel {
       return
     }
     // @ts-ignore internal API
-    const paneContainer: PaneContainer = atom.workspace.paneContainerForItem(panel)
-    if (!paneContainer || paneContainer.location !== 'bottom') {
+    const paneContainer: PaneContainer | undefined = atom.workspace.paneContainerForItem(panel)
+    if (paneContainer?.location !== 'bottom') {
       return
     }
     const isActivePanel = paneContainer.getActivePaneItem() === panel
@@ -142,6 +146,7 @@ export default class Panel {
       paneContainer.hide()
     }
   }
+
   dispose() {
     this.deactivating = true
     if (this.panel) {
