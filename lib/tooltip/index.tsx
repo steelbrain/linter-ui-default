@@ -34,32 +34,9 @@ export default class Tooltip {
     this.subscriptions.add(this.emitter, delegate)
 
     render(() => <TooltipElement messages={messages} delegate={delegate} />, this.element)
-    // move box above the current editing line
-    // HACK: patch the decoration's style so it is shown above the current line
-    setTimeout(() => {
-      const hight = this.element.getBoundingClientRect().height
-      const lineHight = textEditor.getLineHeightInPixels()
-      // @ts-ignore: internal API
-      const availableHight = (position.row - textEditor.getFirstVisibleScreenRow()) * lineHight
-      if (hight < availableHight) {
-        const overlay = this.element.parentElement
-        if (overlay !== null) {
-          overlay.style.transform = `translateY(-${2 + lineHight + hight}px)`
-        }
-      } else {
-        // move down so it does not overlap with datatip-overlay
-        // @ts-ignore
-        const dataTip = (textEditor.getElement() as TextEditorElement).querySelector<HTMLElement>('.datatip-overlay')
-        if (dataTip !== null) {
-          const overlay = this.element.parentElement
-          if (overlay !== null) {
-            overlay.style.transform = `translateY(${dataTip.clientHeight}px)`
-          }
-        }
-      }
-      this.element.style.visibility = 'visible'
-    }, 50)
+    moveElement(this.element, position, textEditor)
   }
+
   isValid(position: Point, messages: Map<string, LinterMessage>): boolean {
     if (this.messages.length !== 1 || !messages.has(this.messages[0].key)) {
       return false
@@ -93,4 +70,32 @@ function TooltipElement(props: TooltipElementProps) {
       </For>
     </div>
   )
+}
+
+/** Move box above the current editing line */
+// HACK: patch the decoration's style so it is shown above the current line
+function moveElement(element: HTMLElement, position: Point, textEditor: TextEditor) {
+  setTimeout(() => {
+    const hight = element.getBoundingClientRect().height
+    const lineHight = textEditor.getLineHeightInPixels()
+    // @ts-ignore: internal API
+    const availableHight = (position.row - textEditor.getFirstVisibleScreenRow()) * lineHight
+    if (hight < availableHight) {
+      const overlay = element.parentElement
+      if (overlay !== null) {
+        overlay.style.transform = `translateY(-${2 + lineHight + hight}px)`
+      }
+    } else {
+      // move down so it does not overlap with datatip-overlay
+      // @ts-ignore
+      const dataTip = (textEditor.getElement() as TextEditorElement).querySelector<HTMLElement>('.datatip-overlay')
+      if (dataTip !== null) {
+        const overlay = element.parentElement
+        if (overlay !== null) {
+          overlay.style.transform = `translateY(${dataTip.clientHeight}px)`
+        }
+      }
+    }
+    element.style.visibility = 'visible'
+  }, 50)
 }
