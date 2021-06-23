@@ -189,8 +189,12 @@ export default class Editor {
     return disposableEvent(
       editorElement as unknown as TargetWithAddEventListener,
       'mousemove',
-      debounce(event => {
-        if (!editorElement.getComponent() || this.subscriptions.disposed || !hasParent(event.target, 'div.scroll-view')) {
+      debounce((event: MouseEvent) => {
+        if (
+          !editorElement.getComponent() ||
+          this.subscriptions.disposed ||
+          !hasParent(event.target as HTMLElement | null, 'div.scroll-view')
+        ) {
           return
         }
         const tooltip = this.tooltip
@@ -256,7 +260,7 @@ export default class Editor {
     }
   }
   updateTooltip(position: Point | null | undefined) {
-    if (!position || (this.tooltip?.isValid(position, this.messages) === true)) {
+    if (!position || this.tooltip?.isValid(position, this.messages) === true) {
       return
     }
     this.removeTooltip()

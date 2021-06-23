@@ -74,13 +74,16 @@ export function mouseEventNearPosition({
   return true
 }
 
-export function hasParent(givenElement: HTMLElement, selector: string): boolean {
+export function hasParent(givenElement: HTMLElement | null, selector: string): boolean {
   let element: HTMLElement | null = givenElement
+  if (element === null) {
+    return false
+  }
   do {
     if (element.matches(selector)) {
       return true
     }
     element = element.parentElement
-  } while (element && element.nodeName !== 'HTML')
+  } while (element !== null && element.nodeName !== 'HTML')
   return false
 }
