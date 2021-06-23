@@ -23,7 +23,7 @@ export function getChunks(filePath: string, projectPath: string): Array<string> 
 
 export function getChunksByProjects(filePath: string, projectPaths: Array<string>): Array<string> {
   const matchingProjectPath = projectPaths.find(p => filePath.startsWith(p))
-  if (!matchingProjectPath) {
+  if (matchingProjectPath === undefined) {
     return [filePath]
   }
   return getChunks(filePath, matchingProjectPath)
@@ -48,7 +48,7 @@ export function calculateDecorations(
   const projectPaths: Array<string> = atom.project.getPaths()
   messages.forEach(function (message) {
     const filePath = $file(message)
-    if (filePath) {
+    if (typeof filePath === 'string') {
       const chunks = decorateOnTreeView === 'Files' ? [filePath] : getChunksByProjects(filePath, projectPaths)
       chunks.forEach(chunk => mergeChange(toReturn, chunk, message.severity))
     }
