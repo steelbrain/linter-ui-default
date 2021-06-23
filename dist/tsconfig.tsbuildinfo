@@ -1017,13 +1017,13 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/delegate.ts": {
-        "version": "feb53903d33da635d96cf46a3c81429587bef77fb0b6c36fd7e54331748b8e78",
+        "version": "427f731e73b9ceef10977606f698b25cba9313dcf04ba0e8b1cc54e5e8445221",
         "signature": "1d03f9e614b7a9bf6e9a48fe4d3dc6bbd813fbe6ac8c033931132bf884b8fdbe",
         "affectsGlobalScope": false
       },
-      "../lib/tooltip/fix-button.tsx": {
-        "version": "36619ab92cb61e450e895b70d8b9976f021e04d9d9593477359b170d6b078ead",
-        "signature": "0eda21d391c98c91ec2582de0d29b39427c0383b053cbc5226ada7ffb70b3549",
+      "../node_modules/@types/lodash/once.d.ts": {
+        "version": "ec2cafc034f8779c271b16804832587757feb09466a29efbb2502cf4bd11ab70",
+        "signature": "ec2cafc034f8779c271b16804832587757feb09466a29efbb2502cf4bd11ab70",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/marked/index.d.ts": {
@@ -1032,7 +1032,7 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/message.tsx": {
-        "version": "1b8a15711fca58b345b6b0e62b14acb0e914abdc692eb1543c91b5b09eaa1290",
+        "version": "ebee325a78bb382eba1e453d2a2fa5b1e866c910657bb0c841f372dbb9e52ea7",
         "signature": "22472aaae438ef698d70e4d83809cf2b0624b8ab9d7a4f7bd5399d75c22b6a51",
         "affectsGlobalScope": false
       },
@@ -1042,7 +1042,7 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/index.tsx": {
-        "version": "795add782d25547cfb6884f059f8b11ab17355f2313fc8e5e0d29fc92519fe7c",
+        "version": "714d71268d8867eae2ab5e6d1533e8ba86f1968b1a24fa99cac71ece355f09f3",
         "signature": "e03425a4965d3d77eac47bba6d6b2b44ce9047df71801a4239fcd0e40f538701",
         "affectsGlobalScope": false
       },
@@ -1062,12 +1062,12 @@
         "affectsGlobalScope": false
       },
       "../lib/editors.ts": {
-        "version": "f6fb7fe1611c14f47f86bfeed3ce3a88c199ce765b6d069e50f8e57e8204d8dd",
+        "version": "fad1fe2e77734c77709383dee53e9731b7d9f8bb1a552a9653cd4d5955fe2735",
         "signature": "c8ef9761c9e40d5da5dbb7b3769e754fde649595991e66e9a32083e09baa47c4",
         "affectsGlobalScope": false
       },
       "../lib/helpers.ts": {
-        "version": "a969222dfd4fb9f922a2ef716cad7e5f600a2702306d2bff35f73c169a5f7e81",
+        "version": "0b1e9dbd89f7c2c12223c67dd85a34254e8187005eccbbd1230a6d1d254b07fc",
         "signature": "cf0e7b50db5a856030abf6907a4ce693843da92a2352a966fd7e6b425a3b5450",
         "affectsGlobalScope": false
       },
@@ -1132,7 +1132,7 @@
         "affectsGlobalScope": false
       },
       "../lib/intentions.ts": {
-        "version": "5b258d2d51c284467a732fd83d12d4e36d0ec123243c2abe884ec21991741c38",
+        "version": "8f209b81fdaf71c2057b4c452c13f740e4659aa494ada5b388977eb72b13f3ea",
         "signature": "18cce54dd18e92ad8dc5acc51f66e1aaa17f0807c714d66daa215fc1d9bd0cb3",
         "affectsGlobalScope": false
       },
@@ -1408,9 +1408,6 @@
         "../node_modules/@types/atom/index.d.ts",
         "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
-      "../lib/tooltip/fix-button.tsx": [
-        "../node_modules/solid-js/jsx-runtime.d.ts"
-      ],
       "../lib/tooltip/index.tsx": [
         "../lib/helpers.ts",
         "../lib/tooltip/delegate.ts",
@@ -1424,8 +1421,9 @@
       "../lib/tooltip/message.tsx": [
         "../lib/helpers.ts",
         "../lib/tooltip/delegate.ts",
-        "../lib/tooltip/fix-button.tsx",
         "../lib/types/index.d.ts",
+        "../node_modules/@types/lodash/debounce.d.ts",
+        "../node_modules/@types/lodash/once.d.ts",
         "../node_modules/@types/marked/index.d.ts",
         "../node_modules/@types/node/url.d.ts",
         "../node_modules/solid-js/jsx-runtime.d.ts",
@@ -1912,6 +1910,9 @@
         "../node_modules/@types/lodash/common/string.d.ts",
         "../node_modules/@types/lodash/common/util.d.ts"
       ],
+      "../node_modules/@types/lodash/once.d.ts": [
+        "../node_modules/@types/lodash/index.d.ts"
+      ],
       "../node_modules/@types/mdast/index.d.ts": [
         "../node_modules/@types/unist/index.d.ts"
       ],
@@ -2334,9 +2335,6 @@
       ],
       "../lib/tooltip/delegate.ts": [
         "../node_modules/@types/atom/index.d.ts"
-      ],
-      "../lib/tooltip/fix-button.tsx": [
-        "../node_modules/solid-js/types/index.d.ts"
       ],
       "../lib/tooltip/index.tsx": [
         "../lib/types/index.d.ts",
@@ -2819,6 +2817,9 @@
         "../node_modules/@types/lodash/common/string.d.ts",
         "../node_modules/@types/lodash/common/util.d.ts"
       ],
+      "../node_modules/@types/lodash/once.d.ts": [
+        "../node_modules/@types/lodash/index.d.ts"
+      ],
       "../node_modules/@types/mdast/index.d.ts": [
         "../node_modules/@types/unist/index.d.ts"
       ],
@@ -3230,7 +3231,6 @@
       "../lib/status-bar/helpers.ts",
       "../lib/status-bar/index.ts",
       "../lib/tooltip/delegate.ts",
-      "../lib/tooltip/fix-button.tsx",
       "../lib/tooltip/index.tsx",
       "../lib/tooltip/message.tsx",
       "../lib/tree-view/helpers.ts",
@@ -3355,6 +3355,7 @@
       "../node_modules/@types/lodash/common/util.d.ts",
       "../node_modules/@types/lodash/debounce.d.ts",
       "../node_modules/@types/lodash/index.d.ts",
+      "../node_modules/@types/lodash/once.d.ts",
       "../node_modules/@types/marked/index.d.ts",
       "../node_modules/@types/mdast/index.d.ts",
       "../node_modules/@types/node/assert.d.ts",
