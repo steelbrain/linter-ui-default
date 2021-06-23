@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
 import { TargetWithAddEventListener } from 'disposable-event/src/target'
-import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
+import { CompositeDisposable, Disposable, Emitter, Range, CursorPositionChangedEvent } from 'atom'
 type CompositeDisposableType = CompositeDisposable & { disposed: boolean }
 
 // $FlowIgnore: Cursor is a type
@@ -224,7 +224,7 @@ export default class Editor {
   }
   listenForKeyboardMovement() {
     return this.textEditor.onDidChangeCursorPosition(
-      debounce(({ newBufferPosition }) => {
+      debounce(({ newBufferPosition }: CursorPositionChangedEvent) => {
         this.cursorPosition = newBufferPosition
         this.updateTooltip(newBufferPosition)
       }, 16),
