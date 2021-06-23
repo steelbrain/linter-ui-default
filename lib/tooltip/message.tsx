@@ -175,7 +175,7 @@ function thisOpenFile(ev: MouseEvent) {
 
 function findHref(elementGiven: HTMLElement): string | null {
   let el: HTMLElement | null = elementGiven
-  while (el && !el.classList.contains('linter-line')) {
+  while (el !== null && !el.classList.contains('linter-line')) {
     if (el instanceof HTMLAnchorElement) {
       return el.href
     }
