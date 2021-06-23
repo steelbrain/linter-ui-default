@@ -1,4 +1,4 @@
-import { createState, createSignal, onMount, Show } from 'solid-js'
+import { createSignal, onMount, createEffect, Show } from 'solid-js'
 import * as url from 'url'
 import once from 'lodash/once'
 import debounce from 'lodash/debounce'
@@ -16,62 +16,37 @@ type Props = {
 }
 
 export default function MessageElement(props: Props) {
-  const [state, setState] = createState({
-    description: '',
-    descriptionShow: false,
-  })
+  const [getDescription, setDescription] = createSignal('Loading ...')
+  const [getShowDescription, setShowDescription] = createSignal(false)
 
-  const [descriptionLoading, setDescriptionLoading] = createSignal(false, false)
-
-  async function toggleDescription(result?: string) {
-    const newStatus = !state.descriptionShow
-    const description = state.description || props.message.description
-
-    if (!newStatus && result === undefined) {
-      setState({ ...state, descriptionShow: false })
-      return
-    }
-    if (result !== undefined || typeof description === 'string') {
-      const descriptionToUse = await renderStringDescription(result ?? (description as string))
-      setState({ description: descriptionToUse, descriptionShow: true })
-    } else if (typeof description === 'function') {
-      // TODO simplify
-      setState({ ...state, descriptionShow: true })
-      if (descriptionLoading()) {
-        return
-      }
-      setDescriptionLoading(true)
-      const response = await description()
-      if (typeof response !== 'string') {
-        throw new Error(`Expected result to be string, got: ${typeof response}`)
-      }
-      try {
-        await toggleDescription(response)
-      } catch (error) {
-        console.log('[Linter] Error getting descriptions', error)
-        setDescriptionLoading(false)
-        if (state.descriptionShow) {
-          await toggleDescription()
+  createEffect(async () => {
+    if (getShowDescription()) {
+      const description = props.message.description
+      console.log(description)
+      if (typeof description === 'string') {
+        setDescription(await renderMarkdown(description))
+      } else if (typeof description === 'function') {
+        const response = await description()
+        if (typeof response !== 'string') {
+          throw new Error(`Expected result to be string, got: ${typeof response}`)
         }
+        setDescription(response)
+      } else {
+        console.error('[Linter] Invalid description detected, expected string or function but got:', typeof description)
       }
-    } else {
-      console.error('[Linter] Invalid description detected, expected string or function but got:', typeof description)
     }
-  }
+  })
 
   onMount(() => {
     props.delegate.onShouldUpdate(() => {
-      setState({ description: '', descriptionShow: false })
+      setShowDescription(false)
+      setDescription('Loading ...')
     })
-    props.delegate.onShouldExpand(async () => {
-      if (!state.descriptionShow) {
-        await toggleDescription()
-      }
+    props.delegate.onShouldExpand(() => {
+      setShowDescription(true)
     })
-    props.delegate.onShouldCollapse(async () => {
-      if (state.descriptionShow) {
-        await toggleDescription()
-      }
+    props.delegate.onShouldCollapse(() => {
+      setShowDescription(false)
     })
   })
 
@@ -83,8 +58,8 @@ export default function MessageElement(props: Props) {
       <div className={`linter-excerpt ${message.severity}`}>
         {/* fold button if has message description */}
         <Show when={message.description !== undefined}>
-          <a onClick={() => toggleDescription()}>
-            <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
+          <a onClick={() => setShowDescription(!getShowDescription())}>
+            <span className={`icon linter-icon icon-${getShowDescription() ? 'chevron-down' : 'chevron-right'}`} />
           </a>
         </Show>
         {/* fix button */}
@@ -119,8 +94,8 @@ export default function MessageElement(props: Props) {
         </div>
       </div>
       {/* message description */}
-      <Show when={state.descriptionShow}>
-        <div className="linter-line" innerHTML={state.description || 'Loading...'}></div>
+      <Show when={getShowDescription()}>
+        <div className="linter-line" innerHTML={getDescription()}></div>
       </Show>
     </div>
   )
@@ -184,7 +159,7 @@ function findHref(elementGiven: HTMLElement): string | null {
   return null
 }
 
-async function renderStringDescription(description: string) {
+async function renderMarkdown(description: string) {
   if (marked === undefined) {
     // eslint-disable-next-line require-atomic-updates
     marked = (await import('marked')).default
