@@ -145,7 +145,8 @@ function onFixClick(message: Message): void {
 }
 
 function canBeFixed(message: LinterMessage): boolean {
-  if (message.version === 2 && message.solutions && message.solutions.length) {
+  const messageSolutions = message.solutions
+  if (message.version === 2 && Array.isArray(messageSolutions) && messageSolutions.length > 0) {
     return true
   }
   return false
