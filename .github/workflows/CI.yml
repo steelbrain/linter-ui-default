@@ -58,14 +58,18 @@ jobs:
         name: Commit lint ✨
         uses: wagoid/commitlint-github-action@v2
 
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6
+
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Format ✨
-        run: npm run test.format
+        run: pnpm run test.format
 
       - name: Lint ✨
-        run: npm run test.lint
+        run: pnpm run test.lint
 
   # Release:
   #   needs: [Test, Lint]
