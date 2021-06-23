@@ -83,7 +83,7 @@ export function filterMessages(
     if (!message || !message.location) {
       return
     }
-    if ((filePath === null || $file(message) === filePath) && (!severity || message.severity === severity)) {
+    if ((!filePath || $file(message) === filePath) && (!severity || message.severity === severity)) {
       filtered.push(message)
     }
   })
