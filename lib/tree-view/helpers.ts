@@ -29,22 +29,22 @@ function getChunksByProjects(filePath: string, projectPaths: Array<string>): Arr
   return getChunks(filePath, matchingProjectPath)
 }
 
-function mergeChange(change: Record<string, TreeViewHighlight>, filePath: string, severity: string): void {
-  if (!change[filePath]) {
+function mergeChange(change: Record<string, TreeViewHighlight | undefined>, filePath: string, severity: string): void {
+  if (change[filePath] === undefined) {
     change[filePath] = {
       info: false,
       error: false,
       warning: false,
     }
   }
-  change[filePath][severity] = true
+  change[filePath]![severity] = true
 }
 
 export function calculateDecorations(
   decorateOnTreeView: 'Files and Directories' | 'Files' | undefined,
   messages: Array<LinterMessage>,
-): Record<string, TreeViewHighlight> {
-  const toReturn = {}
+): Record<string, TreeViewHighlight | undefined> {
+  const toReturn: Record<string, TreeViewHighlight | undefined> = {}
   const projectPaths: Array<string> = atom.project.getPaths()
   messages.forEach(function (message) {
     const filePath = $file(message)

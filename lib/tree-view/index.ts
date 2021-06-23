@@ -68,7 +68,7 @@ export default class TreeView {
     this.applyDecorations(calculateDecorations(decorateOnTreeView, messages))
   }
 
-  applyDecorations(decorations: Record<string, TreeViewHighlight>) {
+  applyDecorations(decorations: Record<string, TreeViewHighlight | undefined>) {
     const treeViewElement = TreeView.getElement()
     if (!treeViewElement) {
       return
@@ -92,8 +92,10 @@ export default class TreeView {
     for (const filePath of filePathsNew) {
       const element = get(elementCache, filePath, () => TreeView.getElementByPath(treeViewElement, filePath))
       if (element !== null) {
-        handleDecoration(element, decorations[filePath], Boolean(this.decorations[filePath]))
-        appliedDecorations[filePath] = decorations[filePath]
+        // decorations[filePath] is not undefined because we are looping over the existing keys
+        const decoration = decorations[filePath] as TreeViewHighlight
+        handleDecoration(element, decoration, Boolean(this.decorations[filePath]))
+        appliedDecorations[filePath] = decoration
       }
     }
 
