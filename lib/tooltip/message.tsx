@@ -5,6 +5,9 @@ import { visitMessage, openExternally, openFile, applySolution, getActiveTextEdi
 import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
 import { FixButton } from './fix-button'
+import once from 'lodash/once'
+import debounce from 'lodash/debounce'
+// TODO why do we need to debounce/once these buttons? They shouldn't be called multiple times
 
 function findHref(el: Element | null | undefined): string | null {
   while (el && !el.classList.contains('linter-line')) {
@@ -99,7 +102,7 @@ export default function MessageElement(props: Props) {
         </Show>
         {/* fix button */}
         <Show when={canBeFixed(message)}>
-          <FixButton onClick={() => onFixClick(message)} />
+          <FixButton onClick={once(() => onFixClick(message))} />
         </Show>
         <div className="linter-text">
           <div className="provider-name">
@@ -114,13 +117,13 @@ export default function MessageElement(props: Props) {
         <div className="linter-buttons-right">
           {/* message reference */}
           <Show when={message.reference?.file !== undefined}>
-            <a onClick={() => visitMessage(message, true)}>
+            <a onClick={debounce(() => visitMessage(message, true))}>
               <span className="icon linter-icon icon-alignment-aligned-to" />
             </a>
           </Show>
           {/* message url */}
           <Show when={message.url !== undefined}>
-            <a onClick={() => openExternally(message)}>
+            <a onClick={debounce(() => openExternally(message))}>
               <span className="icon linter-icon icon-link" />
             </a>
           </Show>
