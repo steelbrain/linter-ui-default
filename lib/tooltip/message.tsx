@@ -9,16 +9,6 @@ import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
 // TODO why do we need to debounce/once these buttons? They shouldn't be called multiple times
 
-function findHref(el: Element | null | undefined): string | null {
-  while (el && !el.classList.contains('linter-line')) {
-    if (el instanceof HTMLAnchorElement) {
-      return el.href
-    }
-    el = el.parentElement
-  }
-  return null
-}
-
 type Props = {
   key: string
   message: Message
@@ -181,6 +171,17 @@ function thisOpenFile(ev: MouseEvent) {
       },
     )
   }
+}
+
+function findHref(elementGiven: HTMLElement): string | null {
+  let el: HTMLElement | null = elementGiven
+  while (el && !el.classList.contains('linter-line')) {
+    if (el instanceof HTMLAnchorElement) {
+      return el.href
+    }
+    el = el.parentElement
+  }
+  return null
 }
 
 async function renderStringDescription(description: string) {
