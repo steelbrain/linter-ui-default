@@ -61,8 +61,8 @@ export default class StatusBar {
       }
     })
   }
-  update(messages: Array<LinterMessage> | null | undefined = null): void {
-    if (messages) {
+  update(messages?: Array<LinterMessage>): void {
+    if (messages !== undefined) {
       this.messages = messages
     } else {
       messages = this.messages
@@ -70,7 +70,7 @@ export default class StatusBar {
 
     const count = { error: 0, warning: 0, info: 0 }
     const currentTextEditor = getActiveTextEditor()
-    const currentPath = (currentTextEditor?.getPath()) ?? NaN
+    const currentPath = currentTextEditor?.getPath() ?? NaN
     // NOTE: ^ Setting default to NaN so it won't match empty file paths in messages
 
     messages.forEach(message => {
