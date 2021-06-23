@@ -1,4 +1,4 @@
-import { For, render } from 'solid-js/web'
+import { For, Show, render } from 'solid-js/web'
 import { CompositeDisposable, Emitter, TextEditorElement } from 'atom'
 import type { Disposable, Point, TextEditor, DisplayMarker } from 'atom'
 import Delegate from './delegate'
@@ -34,7 +34,6 @@ export default class Tooltip {
     this.subscriptions.add(this.emitter, delegate)
 
     render(() => TooltipElement(messages, delegate), this.element)
-
     // move box above the current editing line
     // HACK: patch the decoration's style so it is shown above the current line
     setTimeout(() => {
@@ -44,16 +43,16 @@ export default class Tooltip {
       const availableHight = (position.row - textEditor.getFirstVisibleScreenRow()) * lineHight
       if (hight < availableHight) {
         const overlay = this.element.parentElement
-        if (overlay) {
+        if (overlay !== null) {
           overlay.style.transform = `translateY(-${2 + lineHight + hight}px)`
         }
       } else {
         // move down so it does not overlap with datatip-overlay
         // @ts-ignore
-        const dataTip = (textEditor.getElement() as TextEditorElement).querySelector('.datatip-overlay') as HTMLElement
-        if (dataTip) {
+        const dataTip = (textEditor.getElement() as TextEditorElement).querySelector<HTMLElement>('.datatip-overlay')
+        if (dataTip !== null) {
           const overlay = this.element.parentElement
-          if (overlay) {
+          if (overlay !== null) {
             overlay.style.transform = `translateY(${dataTip.clientHeight}px)`
           }
         }
@@ -66,7 +65,7 @@ export default class Tooltip {
       return false
     }
     const range = $range(this.messages[0])
-    return Boolean(range && range.containsPoint(position))
+    return range?.containsPoint(position) === true
   }
   onDidDestroy(callback: () => void): Disposable {
     return this.emitter.on('did-destroy', callback)
@@ -81,12 +80,11 @@ function TooltipElement(messages: LinterMessage[], delegate: Delegate) {
   return (
     <div className="linter-messages">
       <For each={messages}>
-        {message => {
-          if (message.version === 2) {
-            return <MessageElement key={message.key} delegate={delegate} message={message} />
-          }
-          return undefined
-        }}
+        {message => (
+          <Show when={message.version === 2}>
+            <MessageElement key={message.key} delegate={delegate} message={message} />
+          </Show>
+        )}
       </For>
     </div>
   )

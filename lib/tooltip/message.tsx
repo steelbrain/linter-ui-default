@@ -1,20 +1,13 @@
-import { createState, createSignal, onMount } from 'solid-js'
+import { createState, createSignal, onMount, Show } from 'solid-js'
 import * as url from 'url'
+import once from 'lodash/once'
+import debounce from 'lodash/debounce'
 let marked: typeof import('marked') | undefined
+
 import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
 import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
-import { FixButton } from './fix-button'
-
-function findHref(el: Element | null | undefined): string | null {
-  while (el && !el.classList.contains('linter-line')) {
-    if (el instanceof HTMLAnchorElement) {
-      return el.href
-    }
-    el = el.parentElement
-  }
-  return null
-}
+// TODO why do we need to debounce/once these buttons? They shouldn't be called multiple times
 
 type Props = {
   key: string
@@ -30,22 +23,19 @@ export default function MessageElement(props: Props) {
 
   const [descriptionLoading, setDescriptionLoading] = createSignal(false, false)
 
-  async function toggleDescription(result: string | null | undefined = null) {
+  async function toggleDescription(result?: string) {
     const newStatus = !state.descriptionShow
     const description = state.description || props.message.description
 
-    if (!newStatus && !result) {
+    if (!newStatus && result === undefined) {
       setState({ ...state, descriptionShow: false })
       return
     }
-    if (typeof description === 'string' || result) {
-      if (marked === undefined) {
-        // eslint-disable-next-line require-atomic-updates
-        marked = (await import('marked')).default
-      }
-      const descriptionToUse = marked(result || (description as string))
+    if (result !== undefined || typeof description === 'string') {
+      const descriptionToUse = await renderStringDescription(result ?? (description as string))
       setState({ description: descriptionToUse, descriptionShow: true })
     } else if (typeof description === 'function') {
+      // TODO simplify
       setState({ ...state, descriptionShow: true })
       if (descriptionLoading()) {
         return
@@ -91,24 +81,22 @@ export default function MessageElement(props: Props) {
   return (
     <div className="linter-message" onClick={thisOpenFile}>
       <div className={`linter-excerpt ${message.severity}`}>
-        {
-          // fold butotn if has message description
-          message.description && (
-            <a href="#" onClick={() => toggleDescription()}>
-              <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
-            </a>
-          )
-        }
-        {
-          // fix button
-          canBeFixed(message) && <FixButton onClick={() => onFixClick(message)} />
-        }
+        {/* fold button if has message description */}
+        <Show when={message.description !== undefined}>
+          <a onClick={() => toggleDescription()}>
+            <span className={`icon linter-icon icon-${state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
+          </a>
+        </Show>
+        {/* fix button */}
+        <Show when={canBeFixed(message)}>
+          <button className="btn fix-btn" onClick={once(() => onFixClick(message))}>
+            Fix
+          </button>
+        </Show>
         <div className="linter-text">
           <div className="provider-name">
-            {
-              // provider name
-              delegate.showProviderName ? `${message.linterName}: ` : ''
-            }
+            {/* provider name */}
+            <Show when={delegate.showProviderName === true}>{`${message.linterName}: `}</Show>
           </div>
           {
             // main message text
@@ -116,28 +104,24 @@ export default function MessageElement(props: Props) {
           }
         </div>
         <div className="linter-buttons-right">
-          {
-            // message reference
-            message.reference && message.reference.file && (
-              <a href="#" onClick={() => visitMessage(message, true)}>
-                <span className="icon linter-icon icon-alignment-aligned-to" />
-              </a>
-            )
-          }
-          {
-            // message url
-            message.url && (
-              <a href="#" onClick={() => openExternally(message)}>
-                <span className="icon linter-icon icon-link" />
-              </a>
-            )
-          }
+          {/* message reference */}
+          <Show when={message.reference?.file !== undefined}>
+            <a onClick={debounce(() => visitMessage(message, true))}>
+              <span className="icon linter-icon icon-alignment-aligned-to" />
+            </a>
+          </Show>
+          {/* message url */}
+          <Show when={message.url !== undefined}>
+            <a onClick={debounce(() => openExternally(message))}>
+              <span className="icon linter-icon icon-link" />
+            </a>
+          </Show>
         </div>
       </div>
-      {
-        // message description
-        state.descriptionShow && <div className="linter-line" innerHTML={state.description || 'Loading...'}></div>
-      }
+      {/* message description */}
+      <Show when={state.descriptionShow}>
+        <div className="linter-line" innerHTML={state.description || 'Loading...'}></div>
+      </Show>
     </div>
   )
 }
@@ -153,7 +137,8 @@ function onFixClick(message: Message): void {
 }
 
 function canBeFixed(message: LinterMessage): boolean {
-  if (message.version === 2 && message.solutions && message.solutions.length) {
+  const messageSolutions = message.solutions
+  if (message.version === 2 && Array.isArray(messageSolutions) && messageSolutions.length > 0) {
     return true
   }
   return false
@@ -164,7 +149,7 @@ function thisOpenFile(ev: MouseEvent) {
     return
   }
   const href = findHref(ev.target)
-  if (!href) {
+  if (href === null) {
     return
   }
   // parse the link. e.g. atom://linter?file=<path>&row=<number>&column=<number>
@@ -173,7 +158,7 @@ function thisOpenFile(ev: MouseEvent) {
     return
   }
   // TODO: based on the types query is never null
-  if (!query || !query.file) {
+  if (query?.file === undefined) {
     return
   } else {
     const { file, row, column } = query
@@ -181,9 +166,28 @@ function thisOpenFile(ev: MouseEvent) {
     openFile(
       /* file */ Array.isArray(file) ? file[0] : file,
       /* position */ {
-        row: row ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,
-        column: column ? parseInt(Array.isArray(column) ? column[0] : column, 10) : 0,
+        row: row !== undefined ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,
+        column: column !== undefined ? parseInt(Array.isArray(column) ? column[0] : column, 10) : 0,
       },
     )
   }
+}
+
+function findHref(elementGiven: HTMLElement): string | null {
+  let el: HTMLElement | null = elementGiven
+  while (el && !el.classList.contains('linter-line')) {
+    if (el instanceof HTMLAnchorElement) {
+      return el.href
+    }
+    el = el.parentElement
+  }
+  return null
+}
+
+async function renderStringDescription(description: string) {
+  if (marked === undefined) {
+    // eslint-disable-next-line require-atomic-updates
+    marked = (await import('marked')).default
+  }
+  return marked(description)
 }
