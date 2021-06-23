@@ -18,9 +18,9 @@ export default class Panel {
   constructor() {
     this.subscriptions.add(
       this.delegate,
-      atom.config.observe('linter-ui-default.hidePanelWhenEmpty', hidePanelWhenEmpty => {
+      atom.config.observe('linter-ui-default.hidePanelWhenEmpty', async (hidePanelWhenEmpty: boolean) => {
         this.hidePanelWhenEmpty = hidePanelWhenEmpty
-        this.refresh()
+        await this.refresh()
       }),
       atom.workspace.onDidDestroyPane(({ pane: destroyedPane }) => {
         const isPaneItemDestroyed = this.panel !== null ? destroyedPane.getItems().includes(this.panel) : true
@@ -35,16 +35,16 @@ export default class Panel {
           atom.config.set('linter-ui-default.showPanel', false)
         }
       }),
-      atom.config.observe('linter-ui-default.showPanel', showPanel => {
+      atom.config.observe('linter-ui-default.showPanel', async (showPanel: boolean) => {
         this.showPanelConfig = showPanel
-        this.refresh()
+        await this.refresh()
       }),
-      atom.workspace.getCenter().observeActivePaneItem(() => {
+      atom.workspace.getCenter().observeActivePaneItem(async () => {
         this.showPanelStateMessages = Boolean(this.delegate.filteredMessages.length)
-        this.refresh()
+        await this.refresh()
       }),
     )
-    this.activationTimer = window.requestIdleCallback(() => {
+    this.activationTimer = window.requestIdleCallback(async () => {
       let firstTime = true
       const dock = atom.workspace.getBottomDock()
       this.subscriptions.add(
@@ -84,7 +84,7 @@ export default class Panel {
         }),
       )
 
-      this.activate()
+      await this.activate()
     })
   }
   getPanelLocation() {
@@ -105,16 +105,16 @@ export default class Panel {
       activateItem: false,
       searchAllPanes: true,
     })
-    this.update()
-    this.refresh()
+    await this.update()
+    await this.refresh()
   }
-  update(newMessages: Array<LinterMessage> | null | undefined = null): void {
+  async update(newMessages: Array<LinterMessage> | null | undefined = null) {
     if (newMessages) {
       this.messages = newMessages
     }
     this.delegate.update(this.messages)
     this.showPanelStateMessages = Boolean(this.delegate.filteredMessages.length)
-    this.refresh()
+    await this.refresh()
   }
   async refresh() {
     const panel = this.panel
