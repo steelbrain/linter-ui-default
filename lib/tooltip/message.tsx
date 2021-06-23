@@ -144,7 +144,7 @@ function canBeFixed(message: LinterMessage): boolean {
   return false
 }
 
-function thisOpenFile(ev: MouseEvent) {
+async function thisOpenFile(ev: MouseEvent) {
   if (!(ev.target instanceof HTMLElement)) {
     return
   }
@@ -163,7 +163,7 @@ function thisOpenFile(ev: MouseEvent) {
   } else {
     const { file, row, column } = query
     // TODO: will these be an array?
-    openFile(
+    await openFile(
       /* file */ Array.isArray(file) ? file[0] : file,
       /* position */ {
         row: row !== undefined ? parseInt(Array.isArray(row) ? row[0] : row, 10) : 0,

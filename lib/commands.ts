@@ -75,7 +75,7 @@ export default class Commands {
       }
     })
   }
-  move(forward: boolean, globally: boolean, severity: string | null | undefined = null): void {
+  async move(forward: boolean, globally: boolean, severity: string | null | undefined = null) {
     const currentEditor = getActiveTextEditor()
     const currentFile: any = (currentEditor && currentEditor.getPath()) || NaN
     // NOTE: ^ Setting default to NaN so it won't match empty file paths in messages
@@ -85,7 +85,7 @@ export default class Commands {
     if (!currentEditor) {
       const message = forward ? messages[0] : messages[messages.length - 1]
       if (message) {
-        visitMessage(message)
+        await visitMessage(message)
       }
       return
     }
@@ -125,7 +125,7 @@ export default class Commands {
     }
 
     if (found) {
-      visitMessage(found)
+      await visitMessage(found)
     }
   }
   update(messages: Array<LinterMessage>) {

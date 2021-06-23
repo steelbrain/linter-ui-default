@@ -116,16 +116,16 @@ export function filterMessagesByRangeOrPoint(
   return filtered
 }
 
-export function openFile(file: string, position: PointLike | null | undefined) {
+export async function openFile(file: string, position: PointLike | null | undefined) {
   const options: WorkspaceOpenOptions = { searchAllPanes: true }
   if (position) {
     options.initialLine = position.row
     options.initialColumn = position.column
   }
-  atom.workspace.open(file, options)
+  await atom.workspace.open(file, options)
 }
 
-export function visitMessage(message: LinterMessage, reference = false) {
+export async function visitMessage(message: LinterMessage, reference = false) {
   let messageFile: string | undefined | null
   let messagePosition: Point | undefined
   if (reference) {
@@ -143,7 +143,7 @@ export function visitMessage(message: LinterMessage, reference = false) {
     }
   }
   if (typeof messageFile === 'string') {
-    openFile(messageFile, messagePosition)
+    await openFile(messageFile, messagePosition)
   }
 }
 
