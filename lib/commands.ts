@@ -1,16 +1,7 @@
 import invariant from 'assert'
 import { CompositeDisposable } from 'atom'
 
-import {
-  $file,
-  $range,
-  getActiveTextEditor,
-  visitMessage,
-  sortMessages,
-  sortSolutions,
-  filterMessages,
-  applySolution,
-} from './helpers'
+import { $file, $range, visitMessage, sortMessages, sortSolutions, filterMessages, applySolution } from './helpers'
 import type { LinterMessage, Message } from './types'
 
 export default class Commands {
@@ -66,8 +57,8 @@ export default class Commands {
   // NOTE: Apply solutions from bottom to top, so they don't invalidate each other
   // NOTE: This only apply the solutions that are not async
   applyAllSolutions(): void {
-    const textEditor = getActiveTextEditor()
-    invariant(textEditor, 'textEditor was null on a command supposed to run on text-editors only')
+    const textEditor = atom.workspace.getActiveTextEditor()
+    invariant(textEditor !== undefined, 'textEditor was null on a command supposed to run on text-editors only')
     const messages = sortMessages(filterMessages(this.messages, textEditor.getPath()), ['line', 'desc'])
     messages.forEach(function (message) {
       if (message.version === 2 && Array.isArray(message.solutions) && message.solutions.length > 0) {
@@ -76,7 +67,7 @@ export default class Commands {
     })
   }
   async move(forward: boolean, globally: boolean, severity: string | null | undefined = null) {
-    const currentEditor = getActiveTextEditor()
+    const currentEditor = atom.workspace.getActiveTextEditor()
     const currentFile: any = currentEditor?.getPath() ?? NaN
     // NOTE: ^ Setting default to NaN so it won't match empty file paths in messages
     const messages = sortMessages(filterMessages(this.messages, globally ? null : currentFile, severity), ['file', 'asc'])

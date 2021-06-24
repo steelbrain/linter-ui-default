@@ -1,5 +1,5 @@
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
-import { getActiveTextEditor, filterMessages, filterMessagesByRangeOrPoint } from '../helpers'
+import { filterMessages, filterMessagesByRangeOrPoint } from '../helpers'
 import type { LinterMessage } from '../types'
 
 export default class PanelDelegate {
@@ -24,8 +24,8 @@ export default class PanelDelegate {
           changeSubscription.dispose()
           changeSubscription = null
         }
-        const textEditor = getActiveTextEditor()
-        if (textEditor !== null) {
+        const textEditor = atom.workspace.getActiveTextEditor()
+        if (textEditor !== undefined) {
           if (this.panelRepresents !== 'Entire Project') {
             this.update()
           }
@@ -38,7 +38,7 @@ export default class PanelDelegate {
           })
         }
 
-        if (this.panelRepresents !== 'Entire Project' || textEditor !== null) {
+        if (this.panelRepresents !== 'Entire Project' || textEditor !== undefined) {
           this.update()
         }
       }),
@@ -52,13 +52,13 @@ export default class PanelDelegate {
     if (this.panelRepresents === 'Entire Project') {
       filteredMessages = this.messages
     } else if (this.panelRepresents === 'Current File') {
-      const activeEditor = getActiveTextEditor()
+      const activeEditor = atom.workspace.getActiveTextEditor()
       if (!activeEditor) {
         return []
       }
       filteredMessages = filterMessages(this.messages, activeEditor.getPath())
     } else if (this.panelRepresents === 'Current Line') {
-      const activeEditor = getActiveTextEditor()
+      const activeEditor = atom.workspace.getActiveTextEditor()
       if (!activeEditor) {
         return []
       }

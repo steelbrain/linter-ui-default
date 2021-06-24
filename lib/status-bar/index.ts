@@ -1,7 +1,7 @@
 import { CompositeDisposable, Disposable } from 'atom'
 import type { StatusBar as StatusBarRegistry, Tile as StatusBarTile } from 'atom/status-bar'
 import Element from './element'
-import { $file, getActiveTextEditor } from '../helpers'
+import { $file } from '../helpers'
 import type { LinterMessage } from '../types'
 
 export default class StatusBar {
@@ -69,7 +69,7 @@ export default class StatusBar {
     }
 
     const count = { error: 0, warning: 0, info: 0 }
-    const currentTextEditor = getActiveTextEditor()
+    const currentTextEditor = atom.workspace.getActiveTextEditor()
     const currentPath = currentTextEditor?.getPath() ?? NaN
     // NOTE: ^ Setting default to NaN so it won't match empty file paths in messages
 

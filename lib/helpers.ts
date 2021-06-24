@@ -2,9 +2,8 @@ import { Range } from 'atom'
 import type { Point, PointLike, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
 import { shell } from 'electron'
 import type { default as Editors, EditorsMap } from './editors'
-import type { LinterMessage, MessageSolution, TextEditorExtra } from './types'
+import type { LinterMessage, MessageSolution } from './types'
 
-let lastPaneItem: TextEditorExtra | null = null
 export const severityScore = {
   error: 3,
   warning: 2,
@@ -34,22 +33,6 @@ export function copySelection() {
 }
 export function getPathOfMessage(message: LinterMessage): string {
   return atom.project.relativizePath($file(message) ?? '')[1]
-}
-export function getActiveTextEditor(): TextEditor | null {
-  let paneItem = atom.workspace.getCenter().getActivePaneItem() as TextEditorExtra | null
-  const paneIsTextEditor = paneItem !== null ? atom.workspace.isTextEditor(paneItem) : false
-  if (
-    !paneIsTextEditor &&
-    paneItem !== null &&
-    lastPaneItem !== null &&
-    paneItem.getURI?.() === WORKSPACE_URI &&
-    (!lastPaneItem.isAlive || lastPaneItem.isAlive())
-  ) {
-    paneItem = lastPaneItem
-  } else {
-    lastPaneItem = paneItem
-  }
-  return paneIsTextEditor ? paneItem : null
 }
 
 export function getEditorsMap(editors: Editors): { editorsMap: EditorsMap; filePaths: Array<string> } {
