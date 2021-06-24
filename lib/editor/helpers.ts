@@ -8,8 +8,9 @@ export function getBufferPositionFromMouseEvent(
   editor: TextEditor,
   editorElement: TextEditorElement,
 ): Point | null {
-  const pixelPosition = editorElement.getComponent().pixelPositionForMouseEvent(event)
-  const screenPosition = editorElement.getComponent().screenPositionForPixelPosition(pixelPosition)
+  const editorComponent = editorElement.getComponent()
+  const pixelPosition = editorComponent.pixelPositionForMouseEvent(event)
+  const screenPosition = editorComponent.screenPositionForPixelPosition(pixelPosition)
   if (Number.isNaN(screenPosition.row) || Number.isNaN(screenPosition.column)) {
     return null
   }
