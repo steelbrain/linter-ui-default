@@ -21,14 +21,14 @@
     "clean": "shx rm -rf dist",
     "types": "(tsc -p ./lib/tsconfig.json --emitDeclarationOnly || echo done) && (shx cp -r ./lib/types/ dist/types && shx rm -rf ./dist/types/linter/)",
     "build.unit": "npm run types && babel ./lib --out-dir ./dist --config-file ./babel.unit.config.json --extensions .tsx,.ts",
-    "dev": "cross-env NODE_ENV=development parcel watch --target main ./lib/index.ts",
-    "build": "cross-env NODE_ENV=production parcel build --target main ./lib/index.ts --detailed-report 50",
+    "dev": "cross-env NODE_ENV=development parcel watch --target main ./lib/index.js",
+    "build": "cross-env NODE_ENV=production parcel build --target main ./lib/index.js --detailed-report 50",
     "test.only": "atom --test spec",
     "test": "npm run build.unit && npm run build && npm run test.only",
     "get.linter-types": "node ./scripts/get-linter-types.js",
     "benchmark": "cross-env NODE_ENV=production npm run build.unit && atom --test ./benchmark/benchmark.js",
     "prepare": "npm run get.linter-types && npm run build",
-    "build-commit": "npm run clean && npm run types && build-commit -o dist",
+    "build-commit": "npm run clean && build-commit -o dist",
     "prepublishOnly": "npm run build-commit"
   },
   "dependencies": {
