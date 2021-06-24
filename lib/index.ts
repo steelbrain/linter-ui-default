@@ -17,14 +17,26 @@ export function activate() {
     ;(packages.getLoadedPackage('linter-ui-default') as PackageExtra).metadata['package-deps'].push('busy-signal')
   }
 
-  const callbackID = window.requestIdleCallback(function installLinterUIDefaultDeps() {
+  const callbackID = window.requestIdleCallback(async () => {
     idleCallbacks.delete(callbackID)
     if (!atom.inSpecMode()) {
-      const { install } = require('atom-package-deps')
-      install('linter-ui-default')
+      await package_deps()
     }
   })
   idleCallbacks.add(callbackID)
+}
+
+/** Install Atom package dependencies if not already loaded */
+async function package_deps() {
+  // (to prevent loading atom-package-deps and package.json when the deps are already loaded)
+  if (!atom.packages.isPackageLoaded('linter') || !atom.packages.isPackageLoaded('intentions')) {
+    // install if not installed
+    await (await import('atom-package-deps')).install('linter-ui-default', true)
+    // enable if disabled
+    atom.notifications.addInfo(`Enabling package linter and intentions that are needed for "linter-ui-default"`)
+    atom.packages.enablePackage('linter')
+    atom.packages.enablePackage('intentions')
+  }
 }
 
 export function deactivate() {
