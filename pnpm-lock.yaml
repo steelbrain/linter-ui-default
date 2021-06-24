@@ -24,14 +24,14 @@ specifiers:
   gitly: ^2.1.1
   jasmine-fix: ^1.3.1
   lodash: ^4.17.21
-  marked: ^2.1.1
+  marked: ^2.1.2
   module-alias: ^2.2.2
   parcel: 2.0.0-nightly.729
   prettier-config-atomic: ^2.0.5
   shx: ^0.3.3
   solid-js: ~0.26.5
   solid-simple-table: 0.2.6
-  terser-config-atomic: ^0.1.0
+  terser-config-atomic: ^0.1.1
   typescript: ^4
 
 dependencies:
@@ -39,7 +39,7 @@ dependencies:
   atom-package-deps: 7.2.3
   disposable-event: 2.0.0
   lodash: 4.17.21
-  marked: 2.1.1
+  marked: 2.1.2
   solid-js: 0.26.5
   solid-simple-table: 0.2.6
 
@@ -67,7 +67,7 @@ devDependencies:
   parcel: 2.0.0-nightly.729
   prettier-config-atomic: 2.0.5
   shx: 0.3.3
-  terser-config-atomic: 0.1.0
+  terser-config-atomic: 0.1.1
   typescript: 4.1.3
 
 packages:
@@ -6149,9 +6149,9 @@ packages:
     hasBin: true
     dev: false
 
-  /marked/2.1.1:
-    resolution: {integrity: sha512-5XFS69o9CzDpQDSpUYC+AN2xvq8yl1EGa5SG/GI1hP78/uTeo3PDfiDNmsUyiahpyhToDDJhQk7fNtJsga+KVw==}
-    engines: {node: '>= 12'}
+  /marked/2.1.2:
+    resolution: {integrity: sha512-ueJhIvklJJw04qxQbGIAu63EXwwOCYc7yKMBjgagTM4rjC5QtWyqSNgW7jCosV1/Km/1TUfs5qEpAqcGG0Mo5g==}
+    engines: {node: '>= 10'}
     hasBin: true
     dev: false
 
@@ -8297,8 +8297,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /terser-config-atomic/0.1.0:
-    resolution: {integrity: sha512-M+E/ej8HnfbY/LKrPiKfdvz+XVQn0q2VX+xkb6IvFdakDX5WIxb0+T+8xL2/e5ByFBn/0mqkNMwAIUcfvB36/w==}
+  /terser-config-atomic/0.1.1:
+    resolution: {integrity: sha512-HRAHqjCFq990eFbLpy54joStSsUMZQoD73XMk2/Akquqm7vI0AOggfO9GMvSFGEucRRNZUfLQdDjotGGsZxCtA==}
     dev: true
 
   /terser/5.5.1:

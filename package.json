@@ -36,7 +36,7 @@
     "atom-package-deps": "^7.2.3",
     "disposable-event": "^2.0.0",
     "lodash": "^4.17.21",
-    "marked": "^2.1.1",
+    "marked": "^2.1.2",
     "solid-js": "~0.26.5",
     "solid-simple-table": "0.2.6"
   },
@@ -64,7 +64,7 @@
     "parcel": "2.0.0-nightly.729",
     "prettier-config-atomic": "^2.0.5",
     "shx": "^0.3.3",
-    "terser-config-atomic": "^0.1.0",
+    "terser-config-atomic": "^0.1.1",
     "typescript": "^4"
   },
   "targets": {
