@@ -38,9 +38,7 @@
     "lodash": "^4.17.21",
     "marked": "^2.1.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "solid-js": "~0.26.5",
-    "solid-simple-table": "0.2.6"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
@@ -85,14 +83,7 @@
     }
   },
   "alias": {
-    "solid-js": "solid-js/dist/solid.js",
-    "solid-js/web": "solid-js/web/dist/web.js",
-    "solid-simple-table": "solid-simple-table/dist/SimpleTable.module.js",
     "marked": "marked/lib/marked.esm.js"
-  },
-  "_moduleAliases": {
-    "solid-js": "./node_modules/solid-js/dist/solid.cjs",
-    "solid-js/web": "./node_modules/solid-js/web/dist/web.cjs"
   },
   "providedServices": {
     "linter-ui": {
