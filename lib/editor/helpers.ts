@@ -49,27 +49,14 @@ export function mouseEventNearPosition({
   const elementHeight = tooltipElement.offsetHeight + editorLineHeight
   const elementWidth = tooltipElement.offsetWidth
 
-  if (differenceTop > 0) {
-    // Cursor is below the line
-    if (differenceTop > elementHeight + 1.5 * editorLineHeight) {
-      return false
-    }
-  } else if (differenceTop < 0) {
-    // Cursor is above the line
-    if (differenceTop < -1.5 * editorLineHeight) {
-      return false
-    }
-  }
-  if (differenceLeft > 0) {
-    // Right of the start of highlight
-    if (differenceLeft > elementWidth + TOOLTIP_WIDTH_HIDE_OFFSET) {
-      return false
-    }
-  } else if (differenceLeft < 0) {
-    // Left of start of highlight
-    if (differenceLeft < -1 * TOOLTIP_WIDTH_HIDE_OFFSET) {
-      return false
-    }
+  if (
+    /* Cursor is below the line*/ (differenceTop > 0 && differenceTop > elementHeight + 1.5 * editorLineHeight) ||
+    /* Cursor is above the line */ (differenceTop < 0 && differenceTop < -1.5 * editorLineHeight) ||
+    /* Right of the start of highlight */ (differenceLeft > 0 &&
+      differenceLeft > elementWidth + TOOLTIP_WIDTH_HIDE_OFFSET) ||
+    /* Left of start of highlight */ (differenceTop < 0 && differenceLeft < -1 * TOOLTIP_WIDTH_HIDE_OFFSET)
+  ) {
+    return false
   }
   return true
 }
