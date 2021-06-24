@@ -15,7 +15,7 @@ export default class TooltipDelegate {
   constructor() {
     this.subscriptions.add(
       this.emitter,
-      atom.config.observe('linter-ui-default.showProviderName', showProviderName => {
+      atom.config.observe('linter-ui-default.showProviderName', (showProviderName: boolean) => {
         const shouldUpdate = typeof this.showProviderName !== 'undefined'
         this.showProviderName = showProviderName
         if (shouldUpdate) {

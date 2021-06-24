@@ -12,7 +12,7 @@ export default class PanelDelegate {
   constructor() {
     let changeSubscription: Disposable | null = null
     this.subscriptions.add(
-      atom.config.observe('linter-ui-default.panelRepresents', panelRepresents => {
+      atom.config.observe('linter-ui-default.panelRepresents', (panelRepresents: PanelDelegate['panelRepresents']) => {
         const notInitial = typeof this.panelRepresents !== 'undefined'
         this.panelRepresents = panelRepresents
         if (notInitial) {

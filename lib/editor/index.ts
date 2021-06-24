@@ -46,10 +46,10 @@ export default class Editor {
         tooltipSubscription?.dispose()
       }),
       // configs
-      atom.config.observe('linter-ui-default.showProviderName', showProviderName => {
+      atom.config.observe('linter-ui-default.showProviderName', (showProviderName: boolean) => {
         this.showProviderName = showProviderName
       }),
-      atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
+      atom.config.observe('linter-ui-default.showDecorations', (showDecorations: boolean) => {
         const notInitial = typeof this.showDecorations !== 'undefined'
         this.showDecorations = showDecorations
         if (notInitial) {
@@ -57,7 +57,7 @@ export default class Editor {
         }
       }),
       // gutter config
-      atom.config.observe('linter-ui-default.gutterPosition', gutterPosition => {
+      atom.config.observe('linter-ui-default.gutterPosition', (gutterPosition: string | undefined) => {
         const notInitial = typeof this.gutterPosition !== 'undefined'
         this.gutterPosition = gutterPosition
         if (notInitial) {
@@ -65,13 +65,13 @@ export default class Editor {
         }
       }),
       // tooltip config
-      atom.config.observe('linter-ui-default.showTooltip', showTooltip => {
+      atom.config.observe('linter-ui-default.showTooltip', (showTooltip: boolean) => {
         this.showTooltip = showTooltip
         if (!this.showTooltip && this.tooltip) {
           this.removeTooltip()
         }
       }),
-      atom.config.observe('linter-ui-default.tooltipFollows', tooltipFollows => {
+      atom.config.observe('linter-ui-default.tooltipFollows', (tooltipFollows: string) => {
         this.tooltipFollows = tooltipFollows
         if (tooltipSubscription) {
           tooltipSubscription.dispose()

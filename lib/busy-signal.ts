@@ -14,7 +14,7 @@ export default class BusySignal {
 
   constructor() {
     this.subscriptions.add(
-      atom.config.observe('linter-ui-default.useBusySignal', useBusySignal => {
+      atom.config.observe('linter-ui-default.useBusySignal', (useBusySignal: boolean) => {
         this.useBusySignal = useBusySignal
       }),
     )

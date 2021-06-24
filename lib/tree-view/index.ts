@@ -20,7 +20,7 @@ export default class TreeView {
 
   constructor() {
     this.subscriptions.add(
-      atom.config.observe('linter-ui-default.decorateOnTreeView', decorateOnTreeView => {
+      atom.config.observe('linter-ui-default.decorateOnTreeView', (decorateOnTreeView: TreeView['decorateOnTreeView']) => {
         if (typeof this.decorateOnTreeView === 'undefined') {
           this.decorateOnTreeView = decorateOnTreeView
         } else if (decorateOnTreeView === 'None') {
