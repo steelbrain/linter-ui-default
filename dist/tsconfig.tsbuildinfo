@@ -847,7 +847,7 @@
         "affectsGlobalScope": false
       },
       "../lib/busy-signal.ts": {
-        "version": "a706e28f03a3e6eba9cdcc55801052c389996ce4e034e782dce953bbc94cd522",
+        "version": "abff90cff8ff498dc4f33a7299dedb21780e5190bc12929cb63b7ab61e833a78",
         "signature": "a8a49b38f8d7ad08b4a5a1ec7c8592244f281d732fd6e48743b1cbb073128dd5",
         "affectsGlobalScope": false
       },
@@ -947,7 +947,7 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/delegate.ts": {
-        "version": "e150856848cd7296db01baf56db8551f57f78d9c51721335c13ca5f586dd6912",
+        "version": "295d81c56be920a395e3472e9d6b5dd3aef91e3006ec04f66ee4e1d1e45527e5",
         "signature": "1d03f9e614b7a9bf6e9a48fe4d3dc6bbd813fbe6ac8c033931132bf884b8fdbe",
         "affectsGlobalScope": false
       },
@@ -957,7 +957,7 @@
         "affectsGlobalScope": false
       },
       "../lib/tooltip/message.tsx": {
-        "version": "c3f2f3dbf5354bc94b54c4d85218f07ac6295b91f80ebc95011fa547500e534e",
+        "version": "c54e313bad8d2f861fa005acb2b4ba79322c1ef626960ecccfe4c3d5bc13cb3c",
         "signature": "22472aaae438ef698d70e4d83809cf2b0624b8ab9d7a4f7bd5399d75c22b6a51",
         "affectsGlobalScope": false
       },
@@ -972,12 +972,12 @@
         "affectsGlobalScope": false
       },
       "../lib/editor/helpers.ts": {
-        "version": "072eabd0459e8237286232e3f979b1183cdd1e6e5ded437c1d17ca72a85b2942",
+        "version": "579e24def565dc14a6bd4503be75ee19b7e738d44348bf7522cd6802fa1199f9",
         "signature": "af51f1260f87e1e8224ce73ea9e17aca576c75ba8c6baf824f80d11921f97224",
         "affectsGlobalScope": false
       },
       "../lib/editor/index.ts": {
-        "version": "f6c704da397332579b73bb2e04692d8f0eca8485fa510f39146f63bc4d0d4ffc",
+        "version": "d05f0622fdb61d9305e4ecab906712a06c5f94ffa1bc5da6036cb398ad2c5a6c",
         "signature": "44143fc2944485376cfa35d78377ed9a9fd2f9ec0140744765de8386b941a7dd",
         "affectsGlobalScope": false
       },
@@ -987,17 +987,17 @@
         "affectsGlobalScope": false
       },
       "../lib/editors.ts": {
-        "version": "86ed2d8a131069af04dabb2a97548d680ee74e721c522de4adae8e2103c4f2b5",
+        "version": "c40cbeb00c7be8e589fe675f1abea0acc511276c5c97e81d2a077536ced1ebcd",
         "signature": "c8ef9761c9e40d5da5dbb7b3769e754fde649595991e66e9a32083e09baa47c4",
         "affectsGlobalScope": false
       },
       "../lib/helpers.ts": {
-        "version": "9a39bf7179bc0e23c0d0b522f60ab53aac8bf6f7792ddf0117b0da314dbcf54e",
+        "version": "02962e7e9658d634a9efd663c8c890d2cfd20468abfd8f8b8421927937ddc9d6",
         "signature": "a75d640d0375402d7297ecb8276550aade307f8900e5a13e8c87e16a3473ba32",
         "affectsGlobalScope": false
       },
       "../lib/commands.ts": {
-        "version": "08a31912ba8ccc54aacaaa581da923c4b8bc97a7dd8432e06e89c4e7391b35ce",
+        "version": "307b69b249016f023ea964d8dbdc6d6bbfbb02866f9c88289f2fff60254ca7db",
         "signature": "df0625431f8b4f0627817d51de9ddb6ab57419556e72e9c624df71fa42f813c0",
         "affectsGlobalScope": false
       },
@@ -1007,7 +1007,7 @@
         "affectsGlobalScope": false
       },
       "../lib/panel/delegate.ts": {
-        "version": "e54071120e80ef13772d563c8b6f386a8756f7293a6f498ae43c9fdd75ea1c4b",
+        "version": "083035bc9696d5cca89ca97f54b7019d123b4afedb6c8687532b8e3eedaff1ae",
         "signature": "e2ceef2b5027b550a18ef3e1f3d087b78b534bebd1c87f03bd370a165d6b343b",
         "affectsGlobalScope": false
       },
@@ -1022,12 +1022,12 @@
         "affectsGlobalScope": false
       },
       "../lib/panel/dock.tsx": {
-        "version": "0d02ee2ae0d142b67dd5eedad9241f9fe6f31e3759074d5fed55c03940ea626b",
+        "version": "d8656e6d0465c02cc4d43a9ab8de1b7289723b4dc56406737258ea2d42683608",
         "signature": "1adc4fa874a53ce71d149db4c72a45921582bf9b28853092a460cafb7a75247e",
         "affectsGlobalScope": false
       },
       "../lib/panel/index.ts": {
-        "version": "b73449dea0585e9403c13562340ddc64f56fc65975f670f87857d51e39365569",
+        "version": "57a749257f79c1efa73753f87fa1f4bb9efca44dc32743d9de2a6df0d7df1760",
         "signature": "82d31921059c1c301bebeb94966210419ebd5a17903de7b51ea35033482d9870",
         "affectsGlobalScope": false
       },
@@ -1047,12 +1047,12 @@
         "affectsGlobalScope": false
       },
       "../lib/status-bar/element.ts": {
-        "version": "63c63a28d3f11796f0488dbd9461312790f486094c053790665468e4ff636339",
+        "version": "c8f4003d6d4effd15a7a8e863c1bbf54f40d56ed81f97f6cf1615f3ed402443b",
         "signature": "8cceaf14f69f096da343e9723083ae1fb7e9583a4d911a4729b0adf1682cdb2e",
         "affectsGlobalScope": false
       },
       "../lib/status-bar/index.ts": {
-        "version": "c5d022d892c104d41a315205f871a6e55e24d43cf68958cf9aa8de98ad003b4c",
+        "version": "92cd407b6b76bb2099502d5b7b5c6904ed7cc7ea1346b1aa1691aea935a830d0",
         "signature": "57c429081c73670bcb46ab3ed97a05b8852de8e53da07c01790a84b99c7c4c73",
         "affectsGlobalScope": false
       },
@@ -1062,22 +1062,27 @@
         "affectsGlobalScope": false
       },
       "../lib/tree-view/helpers.ts": {
-        "version": "23c6c5a80ba7f660ad801ea02db9412b1d3122c966bc34ef982b4718e0f90824",
+        "version": "719c6b3e65f56be667361346f2045a1eebfcdbb8b1c0676b095b6edd71c5b893",
         "signature": "a6e12c77cdd782a1e9d6f0ec3b9fd3956772e0bb291021274c3b4d0b737f83dc",
         "affectsGlobalScope": false
       },
       "../lib/tree-view/index.ts": {
-        "version": "52d047f4ad6ff5918a665042977c312dc4aeb071d1c9efdfeebd81a5b84a412f",
+        "version": "a8fff5544f1522e78c5a31ac69c681a1a4742b4e17283379ffefede6629caa34",
         "signature": "a3bee0717b7edf9b2e0482dd2817606858913d6e89aafbbeaf6ad842e0d57835",
         "affectsGlobalScope": false
       },
       "../lib/main.ts": {
-        "version": "14657644ed49567f402d1ac063587969ec88a228ff6e35aedd0452e48d628ac7",
+        "version": "3f3cef1a0f42102463053c16fa6dc9fafc408250d2b3e3742a6acba6568a3bd3",
         "signature": "c92376f8c12f93944c3ae9122bb302943cfa4f63b233f93b7b901216b6a1bb72",
         "affectsGlobalScope": false
       },
+      "../node_modules/atom-package-deps/lib/index.d.ts": {
+        "version": "ae52fd54d9bb9eef999cab2d6d8566846393bf4cca109053db68dc8c03d6157a",
+        "signature": "ae52fd54d9bb9eef999cab2d6d8566846393bf4cca109053db68dc8c03d6157a",
+        "affectsGlobalScope": false
+      },
       "../lib/index.ts": {
-        "version": "54aa9366402bae7ee57d6cfae4376b601e9e7b2607ab3cf387d1a7a8772c6fa6",
+        "version": "9af8c3d0c32de1c863e3507327b6f927ec9cd5965c178aadf4d940baf3f2e6c3",
         "signature": "1fa370a2c6fb6b116341bc2a682b30851e728dcdd7ffb62844331d31094ac161",
         "affectsGlobalScope": false
       },
@@ -1327,6 +1332,7 @@
         "../lib/types/index.d.ts",
         "../node_modules/@types/atom/status-bar/index.d.ts",
         "../node_modules/atom-ide-base/types-packages/main.d.ts",
+        "../node_modules/atom-package-deps/lib/index.d.ts",
         "../node_modules/solid-js/jsx-runtime.d.ts"
       ],
       "../lib/intentions.ts": [
@@ -3145,7 +3151,7 @@
         [
           {
             "file": "../lib/editor/index.ts",
-            "start": 11237,
+            "start": 10928,
             "length": 18,
             "code": 2339,
             "category": 1,
@@ -3153,7 +3159,7 @@
           },
           {
             "file": "../lib/editor/index.ts",
-            "start": 11642,
+            "start": 11321,
             "length": 6,
             "code": 2345,
             "category": 1,
@@ -3172,7 +3178,7 @@
           },
           {
             "file": "../lib/editor/index.ts",
-            "start": 12057,
+            "start": 11726,
             "length": 6,
             "code": 2345,
             "category": 1,
@@ -3411,6 +3417,7 @@
       "../node_modules/atom-ide-base/types-packages/sig-help.d.ts",
       "../node_modules/atom-ide-base/types-packages/text-edit.d.ts",
       "../node_modules/atom-ide-base/types-packages/uri.d.ts",
+      "../node_modules/atom-package-deps/lib/index.d.ts",
       "../node_modules/csstype/index.d.ts",
       "../node_modules/disposable-event/src/index.d.ts",
       "../node_modules/disposable-event/src/target.d.ts",
