@@ -1,10 +1,10 @@
 import { Range } from 'atom'
+const { workspace, project, clipboard } = atom
 import type { Point, PointLike, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
 import { shell } from 'electron'
 import type { default as Editors, EditorsMap } from './editors'
-import type { LinterMessage, MessageSolution, TextEditorExtra } from './types'
+import type { LinterMessage, MessageSolution } from './types'
 
-let lastPaneItem: TextEditorExtra | null = null
 export const severityScore = {
   error: 3,
   warning: 2,
@@ -29,28 +29,11 @@ export function $file(message: LinterMessage): string | null | undefined {
 export function copySelection() {
   const selection = getSelection()
   if (selection) {
-    atom.clipboard.write(selection.toString())
+    clipboard.write(selection.toString())
   }
 }
 export function getPathOfMessage(message: LinterMessage): string {
-  return atom.project.relativizePath($file(message) ?? '')[1]
-}
-export function getActiveTextEditor(): TextEditor | null {
-  let paneItem = atom.workspace.getCenter().getActivePaneItem() as TextEditorExtra | null
-  const paneIsTextEditor = paneItem !== null ? atom.workspace.isTextEditor(paneItem) : false
-  if (
-    !paneIsTextEditor &&
-    paneItem &&
-    lastPaneItem &&
-    paneItem.getURI &&
-    paneItem.getURI() === WORKSPACE_URI &&
-    (!lastPaneItem.isAlive || lastPaneItem.isAlive())
-  ) {
-    paneItem = lastPaneItem
-  } else {
-    lastPaneItem = paneItem
-  }
-  return paneIsTextEditor ? paneItem : null
+  return project.relativizePath($file(message) ?? '')[1]
 }
 
 export function getEditorsMap(editors: Editors): { editorsMap: EditorsMap; filePaths: Array<string> } {
@@ -122,7 +105,7 @@ export async function openFile(file: string, position: PointLike | null | undefi
     options.initialLine = position.row
     options.initialColumn = position.column
   }
-  await atom.workspace.open(file, options)
+  await workspace.open(file, options)
 }
 
 export async function visitMessage(message: LinterMessage, reference = false) {
@@ -262,5 +245,35 @@ export function get<Key, Value>(map: Map<Key, Value>, key: Key, calculate: () =>
       map.set(key, calculatedValue)
     }
     return calculatedValue
+  }
+}
+
+/** A faster vresion of lodash.debounce */
+/* eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
+export function debounce<T extends (...args: any[]) => void>(func: T, wait?: number): T {
+  let timeoutId: NodeJS.Timeout | undefined
+  // @ts-ignore
+  return (...args: Parameters<T>) => {
+    if (timeoutId !== undefined) {
+      clearTimeout(timeoutId)
+    }
+    timeoutId = setTimeout(() => {
+      func(...args)
+    }, wait)
+  }
+}
+
+/** A faster vresion of lodash.once */
+/* eslint-disable-next-line @typescript-eslint/ban-types */
+export function once<T extends Function>(func: T): T {
+  let result: any
+  let called = false
+  // @ts-ignore
+  return (...args: Parameters<T>) => {
+    if (!called) {
+      result = func(...args)
+      called = true
+    }
+    return result
   }
 }

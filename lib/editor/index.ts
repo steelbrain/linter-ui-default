@@ -1,14 +1,15 @@
-import debounce from 'lodash/debounce'
+import { debounce, $range, filterMessagesByRangeOrPoint } from '../helpers'
 import disposableEvent from 'disposable-event'
 import { TargetWithAddEventListener } from 'disposable-event/src/target'
 import { CompositeDisposable, Disposable, Emitter, Range, CursorPositionChangedEvent } from 'atom'
+const { config, views } = atom
 type CompositeDisposableType = CompositeDisposable & { disposed: boolean }
 
 // $FlowIgnore: Cursor is a type
 import type { TextEditor, DisplayMarker, Marker, Gutter, Point, Cursor } from 'atom'
 
 import Tooltip from '../tooltip'
-import { $range, filterMessagesByRangeOrPoint } from '../helpers'
+
 import { hasParent, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
 import type { LinterMessage } from '../types'
 
@@ -46,10 +47,10 @@ export default class Editor {
         tooltipSubscription?.dispose()
       }),
       // configs
-      atom.config.observe('linter-ui-default.showProviderName', showProviderName => {
+      config.observe('linter-ui-default.showProviderName', (showProviderName: boolean) => {
         this.showProviderName = showProviderName
       }),
-      atom.config.observe('linter-ui-default.showDecorations', showDecorations => {
+      config.observe('linter-ui-default.showDecorations', (showDecorations: boolean) => {
         const notInitial = typeof this.showDecorations !== 'undefined'
         this.showDecorations = showDecorations
         if (notInitial) {
@@ -57,7 +58,7 @@ export default class Editor {
         }
       }),
       // gutter config
-      atom.config.observe('linter-ui-default.gutterPosition', gutterPosition => {
+      config.observe('linter-ui-default.gutterPosition', (gutterPosition: string | undefined) => {
         const notInitial = typeof this.gutterPosition !== 'undefined'
         this.gutterPosition = gutterPosition
         if (notInitial) {
@@ -65,17 +66,15 @@ export default class Editor {
         }
       }),
       // tooltip config
-      atom.config.observe('linter-ui-default.showTooltip', showTooltip => {
+      config.observe('linter-ui-default.showTooltip', (showTooltip: boolean) => {
         this.showTooltip = showTooltip
-        if (!this.showTooltip && this.tooltip) {
+        if (!showTooltip && this.tooltip !== null) {
           this.removeTooltip()
         }
       }),
-      atom.config.observe('linter-ui-default.tooltipFollows', tooltipFollows => {
+      config.observe('linter-ui-default.tooltipFollows', (tooltipFollows: string) => {
         this.tooltipFollows = tooltipFollows
-        if (tooltipSubscription) {
-          tooltipSubscription.dispose()
-        }
+        tooltipSubscription?.dispose()
         tooltipSubscription = new CompositeDisposable()
         if (tooltipFollows === 'Mouse' || tooltipFollows === 'Both') {
           tooltipSubscription.add(this.listenForMouseMovement())
@@ -88,7 +87,7 @@ export default class Editor {
       // cursor position change
       textEditor.onDidChangeCursorPosition(({ cursor, newBufferPosition }) => {
         const lastBufferPosition = this.lastCursorPositions.get(cursor)
-        if (!lastBufferPosition || !lastBufferPosition.isEqual(newBufferPosition)) {
+        if (lastBufferPosition === undefined || !lastBufferPosition.isEqual(newBufferPosition)) {
           this.lastCursorPositions.set(cursor, newBufferPosition)
           this.ignoreTooltipInvocation = false
         }
@@ -99,9 +98,9 @@ export default class Editor {
       // text change
       textEditor.getBuffer().onDidChangeText(() => {
         const cursors = textEditor.getCursors()
-        cursors.forEach(cursor => {
+        for (const cursor of cursors) {
           this.lastCursorPositions.set(cursor, cursor.getBufferPosition())
-        })
+        }
         if (this.tooltipFollows !== 'Mouse') {
           this.ignoreTooltipInvocation = true
           this.removeTooltip()
@@ -116,7 +115,7 @@ export default class Editor {
       this.textEditor.observeCursors(cursor => {
         const handlePositionChange = ({ start, end }: { start: Point; end: Point }) => {
           const gutter = this.gutter
-          if (!gutter || this.subscriptions.disposed) {
+          if (gutter === null || this.subscriptions.disposed) {
             return
           }
           // We need that Range.fromObject hack below because when we focus index 0 on multi-line selection
@@ -180,22 +179,18 @@ export default class Editor {
     )
   }
   listenForMouseMovement() {
-    const editorElement = atom.views.getView(this.textEditor)
+    const editorElement = views.getView(this.textEditor)
 
     return disposableEvent(
       (editorElement as unknown) as TargetWithAddEventListener,
       'mousemove',
       debounce((event: MouseEvent) => {
-        if (
-          !editorElement.getComponent() ||
-          this.subscriptions.disposed ||
-          !hasParent(event.target as HTMLElement | null, 'div.scroll-view')
-        ) {
+        if (this.subscriptions.disposed || !hasParent(event.target as HTMLElement | null, 'div.scroll-view')) {
           return
         }
         const tooltip = this.tooltip
         if (
-          tooltip &&
+          tooltip !== null &&
           mouseEventNearPosition({
             event,
             editor: this.textEditor,
@@ -237,14 +232,14 @@ export default class Editor {
       name: 'linter-ui-default',
       priority,
     })
-    this.markers.forEach((markers, key) => {
+    for (const [key, markers] of this.markers) {
       const message = this.messages.get(key)
       if (message) {
         for (const marker of markers) {
           this.decorateMarker(message, marker, 'gutter')
         }
       }
-    })
+    }
   }
   removeGutter() {
     if (this.gutter) {
@@ -268,16 +263,16 @@ export default class Editor {
     }
 
     const messages = filterMessagesByRangeOrPoint(this.messages, this.textEditor.getPath(), position)
-    if (!messages.length) {
+    if (messages.length === 0) {
       return
     }
 
     this.tooltip = new Tooltip(messages, position, this.textEditor)
     const tooltipMarker = this.tooltip.marker
     // save markers of the tooltip (for destorying them in this.applyChanges)
-    messages.forEach(message => {
+    for (const message of messages) {
       this.saveMarker(message.key, tooltipMarker)
-    })
+    }
 
     // $FlowIgnore: this.tooltip is not null
     this.tooltip.onDidDestroy(() => {
@@ -285,9 +280,7 @@ export default class Editor {
     })
   }
   removeTooltip() {
-    if (this.tooltip) {
-      this.tooltip.marker.destroy()
-    }
+    this.tooltip?.marker.destroy()
   }
   applyChanges(added: Array<LinterMessage>, removed: Array<LinterMessage>) {
     const textBuffer = this.textEditor.getBuffer()
@@ -354,9 +347,9 @@ export default class Editor {
   destroyMarker(key: string) {
     const markers = this.markers.get(key)
     if (markers) {
-      markers.forEach(marker => {
+      for (const marker of markers) {
         marker?.destroy()
-      })
+      }
     }
     this.markers.delete(key)
     this.messages.delete(key)

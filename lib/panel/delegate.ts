@@ -1,5 +1,6 @@
 import { CompositeDisposable, Disposable, Emitter, Range } from 'atom'
-import { getActiveTextEditor, filterMessages, filterMessagesByRangeOrPoint } from '../helpers'
+const { config, workspace } = atom
+import { filterMessages, filterMessagesByRangeOrPoint } from '../helpers'
 import type { LinterMessage } from '../types'
 
 export default class PanelDelegate {
@@ -12,20 +13,20 @@ export default class PanelDelegate {
   constructor() {
     let changeSubscription: Disposable | null = null
     this.subscriptions.add(
-      atom.config.observe('linter-ui-default.panelRepresents', panelRepresents => {
+      config.observe('linter-ui-default.panelRepresents', (panelRepresents: PanelDelegate['panelRepresents']) => {
         const notInitial = typeof this.panelRepresents !== 'undefined'
         this.panelRepresents = panelRepresents
         if (notInitial) {
           this.update()
         }
       }),
-      atom.workspace.getCenter().observeActivePaneItem(() => {
+      workspace.getCenter().observeActivePaneItem(() => {
         if (changeSubscription) {
           changeSubscription.dispose()
           changeSubscription = null
         }
-        const textEditor = getActiveTextEditor()
-        if (textEditor) {
+        const textEditor = workspace.getActiveTextEditor()
+        if (textEditor !== undefined) {
           if (this.panelRepresents !== 'Entire Project') {
             this.update()
           }
@@ -38,14 +39,12 @@ export default class PanelDelegate {
           })
         }
 
-        if (this.panelRepresents !== 'Entire Project' || textEditor) {
+        if (this.panelRepresents !== 'Entire Project' || textEditor !== undefined) {
           this.update()
         }
       }),
-      new Disposable(function () {
-        if (changeSubscription) {
-          changeSubscription.dispose()
-        }
+      new Disposable(() => {
+        changeSubscription?.dispose()
       }),
     )
   }
@@ -54,13 +53,13 @@ export default class PanelDelegate {
     if (this.panelRepresents === 'Entire Project') {
       filteredMessages = this.messages
     } else if (this.panelRepresents === 'Current File') {
-      const activeEditor = getActiveTextEditor()
+      const activeEditor = workspace.getActiveTextEditor()
       if (!activeEditor) {
         return []
       }
       filteredMessages = filterMessages(this.messages, activeEditor.getPath())
     } else if (this.panelRepresents === 'Current Line') {
-      const activeEditor = getActiveTextEditor()
+      const activeEditor = workspace.getActiveTextEditor()
       if (!activeEditor) {
         return []
       }

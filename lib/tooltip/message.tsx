@@ -1,10 +1,9 @@
+const { workspace } = atom
 import { createSignal, onMount, createEffect, Show } from 'solid-js'
 import * as url from 'url'
-import once from 'lodash/once'
-import debounce from 'lodash/debounce'
+import { debounce, once, visitMessage, openExternally, openFile, applySolution, sortSolutions } from '../helpers'
 let marked: typeof import('marked') | undefined
 
-import { visitMessage, openExternally, openFile, applySolution, getActiveTextEditor, sortSolutions } from '../helpers'
 import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
 // TODO why do we need to debounce/once these buttons? They shouldn't be called multiple times
@@ -103,8 +102,8 @@ export default function MessageElement(props: Props) {
 
 function onFixClick(message: Message): void {
   const messageSolutions = message.solutions
-  const textEditor = getActiveTextEditor()
-  if (textEditor !== null) {
+  const textEditor = workspace.getActiveTextEditor()
+  if (textEditor !== undefined) {
     if (Array.isArray(messageSolutions) && messageSolutions.length > 0) {
       applySolution(textEditor, sortSolutions(messageSolutions)[0])
     }

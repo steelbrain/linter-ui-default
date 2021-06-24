@@ -1,3 +1,4 @@
+const { project } = atom
 import Path from 'path'
 import { $file } from '../helpers'
 import type { LinterMessage } from '../types'
@@ -45,7 +46,7 @@ export function calculateDecorations(
   messages: Array<LinterMessage>,
 ): Record<string, TreeViewHighlight | undefined> {
   const toReturn: Record<string, TreeViewHighlight | undefined> = {}
-  const projectPaths: Array<string> = atom.project.getPaths()
+  const projectPaths: Array<string> = project.getPaths()
   messages.forEach(function (message) {
     const filePath = $file(message)
     if (typeof filePath === 'string') {
