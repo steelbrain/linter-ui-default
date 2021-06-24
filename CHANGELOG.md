@@ -1,5 +1,10 @@
 # Changelog
 
+### 3.4.1
+
+- fix: skip loading package-deps if linter is already loaded
+- fix: do not destructure atom.inSpecMode
+
 ### 3.4.0
 
 - improve the size of the package. The package is only 52 KB!
