@@ -1,4 +1,4 @@
-const { config, packages, inSpecMode } = atom
+const { config, packages } = atom
 import LinterUI from './main'
 import type Intentions from './intentions'
 import type { /* IntentionsListProvider, */ PackageExtra } from './types'
@@ -19,7 +19,7 @@ export function activate() {
 
   const callbackID = window.requestIdleCallback(function installLinterUIDefaultDeps() {
     idleCallbacks.delete(callbackID)
-    if (!inSpecMode()) {
+    if (!atom.inSpecMode()) {
       const { install } = require('atom-package-deps')
       install('linter-ui-default')
     }
