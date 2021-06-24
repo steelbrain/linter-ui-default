@@ -1,4 +1,4 @@
-import debounce from 'lodash/debounce'
+import { debounce, $range, filterMessagesByRangeOrPoint } from '../helpers'
 import disposableEvent from 'disposable-event'
 import { TargetWithAddEventListener } from 'disposable-event/src/target'
 import { CompositeDisposable, Disposable, Emitter, Range, CursorPositionChangedEvent } from 'atom'
@@ -9,7 +9,7 @@ type CompositeDisposableType = CompositeDisposable & { disposed: boolean }
 import type { TextEditor, DisplayMarker, Marker, Gutter, Point, Cursor } from 'atom'
 
 import Tooltip from '../tooltip'
-import { $range, filterMessagesByRangeOrPoint } from '../helpers'
+
 import { hasParent, mouseEventNearPosition, getBufferPositionFromMouseEvent } from './helpers'
 import type { LinterMessage } from '../types'
 

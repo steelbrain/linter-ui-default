@@ -1,11 +1,9 @@
 const { workspace } = atom
 import { createSignal, onMount, createEffect, Show } from 'solid-js'
 import * as url from 'url'
-import once from 'lodash/once'
-import debounce from 'lodash/debounce'
+import { debounce, once, visitMessage, openExternally, openFile, applySolution, sortSolutions } from '../helpers'
 let marked: typeof import('marked') | undefined
 
-import { visitMessage, openExternally, openFile, applySolution, sortSolutions } from '../helpers'
 import type TooltipDelegate from './delegate'
 import type { Message, LinterMessage } from '../types'
 // TODO why do we need to debounce/once these buttons? They shouldn't be called multiple times

@@ -247,3 +247,33 @@ export function get<Key, Value>(map: Map<Key, Value>, key: Key, calculate: () =>
     return calculatedValue
   }
 }
+
+/** A faster vresion of lodash.debounce */
+/* eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
+export function debounce<T extends (...args: any[]) => void>(func: T, wait?: number): T {
+  let timeoutId: NodeJS.Timeout | undefined
+  // @ts-ignore
+  return (...args: Parameters<T>) => {
+    if (timeoutId !== undefined) {
+      clearTimeout(timeoutId)
+    }
+    timeoutId = setTimeout(() => {
+      func(...args)
+    }, wait)
+  }
+}
+
+/** A faster vresion of lodash.once */
+/* eslint-disable-next-line @typescript-eslint/ban-types */
+export function once<T extends Function>(func: T): T {
+  let result: any
+  let called = false
+  // @ts-ignore
+  return (...args: Parameters<T>) => {
+    if (!called) {
+      result = func(...args)
+      called = true
+    }
+    return result
+  }
+}

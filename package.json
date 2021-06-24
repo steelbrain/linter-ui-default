@@ -35,7 +35,6 @@
     "atom-ide-base": "3.1.1",
     "atom-package-deps": "^7.2.3",
     "disposable-event": "^2.0.0",
-    "lodash": "^4.17.21",
     "marked": "^2.1.2",
     "solid-js": "~0.26.5",
     "solid-simple-table": "0.2.6"

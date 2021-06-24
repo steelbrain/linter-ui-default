@@ -1,11 +1,11 @@
 import { CompositeDisposable } from 'atom'
 const { config } = atom
-import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
+import type { TargetWithAddEventListener } from 'disposable-event/src/target'
+
+import { debounce, get } from '../helpers'
 import { calculateDecorations } from './helpers'
-import { get } from '../helpers'
 import type { LinterMessage } from '../types'
-import { TargetWithAddEventListener } from 'disposable-event/src/target'
 
 export type TreeViewHighlight = {
   info: boolean
