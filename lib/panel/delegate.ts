@@ -25,7 +25,7 @@ export default class PanelDelegate {
           changeSubscription = null
         }
         const textEditor = getActiveTextEditor()
-        if (textEditor) {
+        if (textEditor !== null) {
           if (this.panelRepresents !== 'Entire Project') {
             this.update()
           }
@@ -38,14 +38,12 @@ export default class PanelDelegate {
           })
         }
 
-        if (this.panelRepresents !== 'Entire Project' || textEditor) {
+        if (this.panelRepresents !== 'Entire Project' || textEditor !== null) {
           this.update()
         }
       }),
-      new Disposable(function () {
-        if (changeSubscription) {
-          changeSubscription.dispose()
-        }
+      new Disposable(() => {
+        changeSubscription?.dispose()
       }),
     )
   }

@@ -40,10 +40,9 @@ export function getActiveTextEditor(): TextEditor | null {
   const paneIsTextEditor = paneItem !== null ? atom.workspace.isTextEditor(paneItem) : false
   if (
     !paneIsTextEditor &&
-    paneItem &&
-    lastPaneItem &&
-    paneItem.getURI &&
-    paneItem.getURI() === WORKSPACE_URI &&
+    paneItem !== null &&
+    lastPaneItem !== null &&
+    paneItem.getURI?.() === WORKSPACE_URI &&
     (!lastPaneItem.isAlive || lastPaneItem.isAlive())
   ) {
     paneItem = lastPaneItem
