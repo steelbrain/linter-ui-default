@@ -19,7 +19,6 @@ export declare function $range(message: LinterMessage): Range | null | undefined
 export declare function $file(message: LinterMessage): string | null | undefined;
 export declare function copySelection(): void;
 export declare function getPathOfMessage(message: LinterMessage): string;
-export declare function getActiveTextEditor(): TextEditor | null;
 export declare function getEditorsMap(editors: Editors): {
     editorsMap: EditorsMap;
     filePaths: Array<string>;
@@ -40,3 +39,7 @@ export declare function applySolution(textEditor: TextEditor, solution: MessageS
  * @param calculate The function that is used to calculate the value if the cache is not hit
  */
 export declare function get<Key, Value>(map: Map<Key, Value>, key: Key, calculate: () => Value | null): Value | null;
+/** A faster vresion of lodash.debounce */
+export declare function debounce<T extends (...args: any[]) => void>(func: T, wait?: number): T;
+/** A faster vresion of lodash.once */
+export declare function once<T extends Function>(func: T): T;
