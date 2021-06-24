@@ -20,6 +20,8 @@ apm install linter-ui-default
 
 Or you can install from Settings view by searching for `linter-ui-default`.
 
+Linter UI require a recent version of Atom. Download the latest official version from: https://atom.io/
+
 ### Screenshots
 
 ![tooltip](https://user-images.githubusercontent.com/16418197/106548395-8577d700-64d4-11eb-9eaa-1974f0903516.png)
