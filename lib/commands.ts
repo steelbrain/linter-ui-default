@@ -1,6 +1,6 @@
 import invariant from 'assert'
 import { CompositeDisposable } from 'atom'
-
+const { config, workspace, commands, clipboard } = atom
 import { $file, $range, visitMessage, sortMessages, sortSolutions, filterMessages, applySolution } from './helpers'
 import type { LinterMessage, Message } from './types'
 
@@ -10,7 +10,7 @@ export default class Commands {
 
   constructor() {
     this.subscriptions.add(
-      atom.commands.add('atom-workspace', {
+      commands.add('atom-workspace', {
         'linter-ui-default:next': () => this.move(true, true),
         'linter-ui-default:previous': () => this.move(false, true),
         'linter-ui-default:next-error': () => this.move(true, true, 'error'),
@@ -40,14 +40,14 @@ export default class Commands {
           /* no operation */
         },
       }),
-      atom.commands.add('atom-text-editor:not([mini])', {
+      commands.add('atom-text-editor:not([mini])', {
         'linter-ui-default:apply-all-solutions': () => this.applyAllSolutions(),
       }),
-      atom.commands.add('#linter-panel', {
+      commands.add('#linter-panel', {
         'core:copy': () => {
           const selection = document.getSelection()
           if (selection) {
-            atom.clipboard.write(selection.toString())
+            clipboard.write(selection.toString())
           }
         },
       }),
@@ -57,7 +57,7 @@ export default class Commands {
   // NOTE: Apply solutions from bottom to top, so they don't invalidate each other
   // NOTE: This only apply the solutions that are not async
   applyAllSolutions(): void {
-    const textEditor = atom.workspace.getActiveTextEditor()
+    const textEditor = workspace.getActiveTextEditor()
     invariant(textEditor !== undefined, 'textEditor was null on a command supposed to run on text-editors only')
     const messages = sortMessages(filterMessages(this.messages, textEditor.getPath()), ['line', 'desc'])
     messages.forEach(function (message) {
@@ -67,7 +67,7 @@ export default class Commands {
     })
   }
   async move(forward: boolean, globally: boolean, severity: string | null | undefined = null) {
-    const currentEditor = atom.workspace.getActiveTextEditor()
+    const currentEditor = workspace.getActiveTextEditor()
     const currentFile: any = currentEditor?.getPath() ?? NaN
     // NOTE: ^ Setting default to NaN so it won't match empty file paths in messages
     const messages = sortMessages(filterMessages(this.messages, globally ? null : currentFile, severity), ['file', 'asc'])
@@ -128,5 +128,5 @@ export default class Commands {
 }
 
 function togglePanel(): void {
-  atom.config.set('linter-ui-default.showPanel', !(atom.config.get('linter-ui-default.showPanel') as boolean))
+  config.set('linter-ui-default.showPanel', !(config.get('linter-ui-default.showPanel') as boolean))
 }

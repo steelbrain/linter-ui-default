@@ -1,3 +1,4 @@
+const { config, packages, inSpecMode } = atom
 import LinterUI from './main'
 import type Intentions from './intentions'
 import type { /* IntentionsListProvider, */ PackageExtra } from './types'
@@ -11,14 +12,14 @@ let signalRegistry: BusySignalRegistry | undefined
 let statusBarRegistry: StatusBarRegistry | undefined
 
 export function activate() {
-  if (atom.config.get('linter-ui-default.useBusySignal') as boolean) {
+  if (config.get('linter-ui-default.useBusySignal') as boolean) {
     // This is a necessary evil, see steelbrain/linter#1355
-    ;(atom.packages.getLoadedPackage('linter-ui-default') as PackageExtra).metadata['package-deps'].push('busy-signal')
+    ;(packages.getLoadedPackage('linter-ui-default') as PackageExtra).metadata['package-deps'].push('busy-signal')
   }
 
   const callbackID = window.requestIdleCallback(function installLinterUIDefaultDeps() {
     idleCallbacks.delete(callbackID)
-    if (!atom.inSpecMode()) {
+    if (!inSpecMode()) {
       const { install } = require('atom-package-deps')
       install('linter-ui-default')
     }

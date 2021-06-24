@@ -1,3 +1,4 @@
+const { workspace } = atom
 import { createSignal, onMount, createEffect, Show } from 'solid-js'
 import * as url from 'url'
 import once from 'lodash/once'
@@ -103,7 +104,7 @@ export default function MessageElement(props: Props) {
 
 function onFixClick(message: Message): void {
   const messageSolutions = message.solutions
-  const textEditor = atom.workspace.getActiveTextEditor()
+  const textEditor = workspace.getActiveTextEditor()
   if (textEditor !== undefined) {
     if (Array.isArray(messageSolutions) && messageSolutions.length > 0) {
       applySolution(textEditor, sortSolutions(messageSolutions)[0])

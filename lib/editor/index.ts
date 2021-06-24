@@ -2,6 +2,7 @@ import debounce from 'lodash/debounce'
 import disposableEvent from 'disposable-event'
 import { TargetWithAddEventListener } from 'disposable-event/src/target'
 import { CompositeDisposable, Disposable, Emitter, Range, CursorPositionChangedEvent } from 'atom'
+const { config, views } = atom
 type CompositeDisposableType = CompositeDisposable & { disposed: boolean }
 
 // $FlowIgnore: Cursor is a type
@@ -46,10 +47,10 @@ export default class Editor {
         tooltipSubscription?.dispose()
       }),
       // configs
-      atom.config.observe('linter-ui-default.showProviderName', (showProviderName: boolean) => {
+      config.observe('linter-ui-default.showProviderName', (showProviderName: boolean) => {
         this.showProviderName = showProviderName
       }),
-      atom.config.observe('linter-ui-default.showDecorations', (showDecorations: boolean) => {
+      config.observe('linter-ui-default.showDecorations', (showDecorations: boolean) => {
         const notInitial = typeof this.showDecorations !== 'undefined'
         this.showDecorations = showDecorations
         if (notInitial) {
@@ -57,7 +58,7 @@ export default class Editor {
         }
       }),
       // gutter config
-      atom.config.observe('linter-ui-default.gutterPosition', (gutterPosition: string | undefined) => {
+      config.observe('linter-ui-default.gutterPosition', (gutterPosition: string | undefined) => {
         const notInitial = typeof this.gutterPosition !== 'undefined'
         this.gutterPosition = gutterPosition
         if (notInitial) {
@@ -65,13 +66,13 @@ export default class Editor {
         }
       }),
       // tooltip config
-      atom.config.observe('linter-ui-default.showTooltip', (showTooltip: boolean) => {
+      config.observe('linter-ui-default.showTooltip', (showTooltip: boolean) => {
         this.showTooltip = showTooltip
         if (!showTooltip && this.tooltip !== null) {
           this.removeTooltip()
         }
       }),
-      atom.config.observe('linter-ui-default.tooltipFollows', (tooltipFollows: string) => {
+      config.observe('linter-ui-default.tooltipFollows', (tooltipFollows: string) => {
         this.tooltipFollows = tooltipFollows
         tooltipSubscription?.dispose()
         tooltipSubscription = new CompositeDisposable()
@@ -178,7 +179,7 @@ export default class Editor {
     )
   }
   listenForMouseMovement() {
-    const editorElement = atom.views.getView(this.textEditor)
+    const editorElement = views.getView(this.textEditor)
 
     return disposableEvent(
       (editorElement as unknown) as TargetWithAddEventListener,

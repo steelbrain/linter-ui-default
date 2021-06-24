@@ -1,4 +1,5 @@
 import { CompositeDisposable, Emitter } from 'atom'
+const { tooltips } = atom
 import type { Disposable } from 'atom'
 
 import * as Helpers from './helpers'
@@ -21,9 +22,9 @@ export default class Element {
 
     this.subscriptions.add(
       this.emitter,
-      atom.tooltips.add(this.itemErrors, { title: 'Linter Errors' }),
-      atom.tooltips.add(this.itemWarnings, { title: 'Linter Warnings' }),
-      atom.tooltips.add(this.itemInfos, { title: 'Linter Infos' }),
+      tooltips.add(this.itemErrors, { title: 'Linter Errors' }),
+      tooltips.add(this.itemWarnings, { title: 'Linter Warnings' }),
+      tooltips.add(this.itemInfos, { title: 'Linter Infos' }),
     )
 
     this.itemErrors.onclick = () => this.emitter.emit('click', 'error')

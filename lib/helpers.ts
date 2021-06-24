@@ -1,4 +1,5 @@
 import { Range } from 'atom'
+const { workspace, project, clipboard } = atom
 import type { Point, PointLike, RangeCompatible, TextEditor, WorkspaceOpenOptions } from 'atom'
 import { shell } from 'electron'
 import type { default as Editors, EditorsMap } from './editors'
@@ -28,11 +29,11 @@ export function $file(message: LinterMessage): string | null | undefined {
 export function copySelection() {
   const selection = getSelection()
   if (selection) {
-    atom.clipboard.write(selection.toString())
+    clipboard.write(selection.toString())
   }
 }
 export function getPathOfMessage(message: LinterMessage): string {
-  return atom.project.relativizePath($file(message) ?? '')[1]
+  return project.relativizePath($file(message) ?? '')[1]
 }
 
 export function getEditorsMap(editors: Editors): { editorsMap: EditorsMap; filePaths: Array<string> } {
@@ -104,7 +105,7 @@ export async function openFile(file: string, position: PointLike | null | undefi
     options.initialLine = position.row
     options.initialColumn = position.column
   }
-  await atom.workspace.open(file, options)
+  await workspace.open(file, options)
 }
 
 export async function visitMessage(message: LinterMessage, reference = false) {

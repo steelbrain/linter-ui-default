@@ -1,4 +1,5 @@
 import { CompositeDisposable } from 'atom'
+const { config, workspace } = atom
 import Delegate from './delegate'
 import PanelDock from './dock'
 import type { LinterMessage } from '../types'
@@ -18,35 +19,35 @@ export default class Panel {
   constructor() {
     this.subscriptions.add(
       this.delegate,
-      atom.config.observe('linter-ui-default.hidePanelWhenEmpty', async (hidePanelWhenEmpty: boolean) => {
+      config.observe('linter-ui-default.hidePanelWhenEmpty', async (hidePanelWhenEmpty: boolean) => {
         this.hidePanelWhenEmpty = hidePanelWhenEmpty
         await this.refresh()
       }),
-      atom.workspace.onDidDestroyPane(({ pane: destroyedPane }) => {
+      workspace.onDidDestroyPane(({ pane: destroyedPane }) => {
         const isPaneItemDestroyed = this.panel !== null ? destroyedPane.getItems().includes(this.panel) : true
         if (isPaneItemDestroyed && !this.deactivating) {
           this.panel = null
-          atom.config.set('linter-ui-default.showPanel', false)
+          config.set('linter-ui-default.showPanel', false)
         }
       }),
-      atom.workspace.onDidDestroyPaneItem(({ item: paneItem }) => {
+      workspace.onDidDestroyPaneItem(({ item: paneItem }) => {
         if (paneItem instanceof PanelDock && !this.deactivating) {
           this.panel = null
-          atom.config.set('linter-ui-default.showPanel', false)
+          config.set('linter-ui-default.showPanel', false)
         }
       }),
-      atom.config.observe('linter-ui-default.showPanel', async (showPanel: boolean) => {
+      config.observe('linter-ui-default.showPanel', async (showPanel: boolean) => {
         this.showPanelConfig = showPanel
         await this.refresh()
       }),
-      atom.workspace.getCenter().observeActivePaneItem(async () => {
+      workspace.getCenter().observeActivePaneItem(async () => {
         this.showPanelStateMessages = Boolean(this.delegate.filteredMessages.length)
         await this.refresh()
       }),
     )
     this.activationTimer = window.requestIdleCallback(async () => {
       let firstTime = true
-      const dock = atom.workspace.getBottomDock()
+      const dock = workspace.getBottomDock()
       this.subscriptions.add(
         dock.onDidChangeActivePaneItem(paneItem => {
           if (!this.panel || this.getPanelLocation() !== 'bottom') {
@@ -59,7 +60,7 @@ export default class Panel {
           const isFocusIn = paneItem === this.panel
           const externallyToggled = isFocusIn !== this.showPanelConfig
           if (externallyToggled) {
-            atom.config.set('linter-ui-default.showPanel', !this.showPanelConfig)
+            config.set('linter-ui-default.showPanel', !this.showPanelConfig)
           }
         }),
         dock.onDidChangeVisible(visible => {
@@ -79,7 +80,7 @@ export default class Panel {
           }
           const externallyToggled = visible !== this.showPanelConfig
           if (externallyToggled) {
-            atom.config.set('linter-ui-default.showPanel', !this.showPanelConfig)
+            config.set('linter-ui-default.showPanel', !this.showPanelConfig)
           }
         }),
       )
@@ -93,7 +94,7 @@ export default class Panel {
       return null
     }
     // @ts-ignore internal API
-    const paneContainer: PaneContainer | undefined = atom.workspace.paneContainerForItem(this.panel)
+    const paneContainer: PaneContainer | undefined = workspace.paneContainerForItem(this.panel)
     return paneContainer?.location
   }
 
@@ -102,7 +103,7 @@ export default class Panel {
       return
     }
     this.panel = new PanelDock(this.delegate)
-    await atom.workspace.open(this.panel, {
+    await workspace.open(this.panel, {
       activatePane: false,
       activateItem: false,
       searchAllPanes: true,
@@ -129,7 +130,7 @@ export default class Panel {
       return
     }
     // @ts-ignore internal API
-    const paneContainer: PaneContainer | undefined = atom.workspace.paneContainerForItem(panel)
+    const paneContainer: PaneContainer | undefined = workspace.paneContainerForItem(panel)
     if (paneContainer?.location !== 'bottom') {
       return
     }

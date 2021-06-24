@@ -1,4 +1,5 @@
 import { CompositeDisposable, Dock, WorkspaceCenter } from 'atom'
+const { config, workspace, views } = atom
 import { WORKSPACE_URI, DOCK_ALLOWED_LOCATIONS, DOCK_DEFAULT_LOCATION } from '../helpers'
 import type Delegate from './delegate'
 import { render } from 'solid-js/web'
@@ -16,7 +17,7 @@ export type PaneContainer = Dock & {
 
 // eslint-disable-next-line no-use-before-define
 function getPaneContainer(item: PanelDock): PaneContainer | null {
-  const paneContainer = atom.workspace.paneContainerForItem(item)
+  const paneContainer = workspace.paneContainerForItem(item)
   // NOTE: This is an internal API access
   // It's necessary because there's no Public API for it yet
   if (
@@ -43,14 +44,14 @@ export default class PanelDock {
 
   constructor(delegate: Delegate) {
     this.subscriptions.add(
-      atom.config.observe('linter-ui-default.panelHeight', panelHeight => {
+      config.observe('linter-ui-default.panelHeight', panelHeight => {
         const changed = typeof this.panelHeight === 'number'
         this.panelHeight = panelHeight
         if (changed) {
           this.doPanelResize(true)
         }
       }),
-      atom.config.observe('linter-ui-default.alwaysTakeMinimumSpace', alwaysTakeMinimumSpace => {
+      config.observe('linter-ui-default.alwaysTakeMinimumSpace', alwaysTakeMinimumSpace => {
         this.alwaysTakeMinimumSpace = alwaysTakeMinimumSpace
       }),
     )
@@ -65,7 +66,7 @@ export default class PanelDock {
     }
     let minimumHeight: number | null = null
 
-    const paneContainerView = atom.views.getView(paneContainer)
+    const paneContainerView = views.getView(paneContainer)
     if (paneContainerView && this.alwaysTakeMinimumSpace) {
       // NOTE: Super horrible hack but the only possible way I could find :((
       const dockNamesElement = paneContainerView.querySelector('.list-inline.tab-bar.inset-panel')
@@ -91,7 +92,7 @@ export default class PanelDock {
     paneContainer.render(paneContainer.state)
 
     if (updateConfigHeight !== null) {
-      atom.config.set('linter-ui-default.panelHeight', updateConfigHeight)
+      config.set('linter-ui-default.panelHeight', updateConfigHeight)
     }
   }
 
@@ -110,7 +111,7 @@ export default class PanelDock {
     return DOCK_ALLOWED_LOCATIONS
   }
   getPreferredHeight() {
-    return atom.config.get('linter-ui-default.panelHeight')
+    return config.get('linter-ui-default.panelHeight')
   }
   /* eslint-enable class-methods-use-this */
 
@@ -118,7 +119,7 @@ export default class PanelDock {
     this.subscriptions.dispose()
     const paneContainer = getPaneContainer(this)
     if (paneContainer !== null && !this.alwaysTakeMinimumSpace && paneContainer.state.size !== this.panelHeight) {
-      atom.config.set('linter-ui-default.panelHeight', paneContainer.state.size)
+      config.set('linter-ui-default.panelHeight', paneContainer.state.size)
       paneContainer.paneForItem(this)?.destroyItem(this, true)
     }
   }

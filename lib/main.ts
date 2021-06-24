@@ -1,4 +1,5 @@
 import { CompositeDisposable } from 'atom'
+const { config } = atom
 import Panel from './panel'
 import Commands from './commands'
 import StatusBar from './status-bar'
@@ -38,7 +39,7 @@ export default class LinterUI {
       /* observeShowDecorations */ () => {
         this.idleCallbacks.delete(obsShowDecorationsCB)
         this.subscriptions.add(
-          atom.config.observe('linter-ui-default.showDecorations', (showDecorations: boolean) => {
+          config.observe('linter-ui-default.showDecorations', (showDecorations: boolean) => {
             if (showDecorations && !this.editors) {
               this.editors = new Editors()
               this.editors.update({

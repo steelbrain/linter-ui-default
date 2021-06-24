@@ -1,4 +1,5 @@
 import { CompositeDisposable } from 'atom'
+const { config, project } = atom
 import type { Linter } from './types'
 import { BusySignalProvider, BusySignalRegistry } from 'atom-ide-base'
 
@@ -14,7 +15,7 @@ export default class BusySignal {
 
   constructor() {
     this.subscriptions.add(
-      atom.config.observe('linter-ui-default.useBusySignal', (useBusySignal: boolean) => {
+      config.observe('linter-ui-default.useBusySignal', (useBusySignal: boolean) => {
         this.useBusySignal = useBusySignal
       }),
     )
@@ -43,7 +44,7 @@ export default class BusySignal {
     }
 
     for (const [filePath, names] of fileMap) {
-      const path = typeof filePath === 'string' ? ` on ${atom.project.relativizePath(filePath)[1]}` : ''
+      const path = typeof filePath === 'string' ? ` on ${project.relativizePath(filePath)[1]}` : ''
       names.forEach(name => {
         const title = `${name}${path}`
         currentTitles.add(title)

@@ -1,4 +1,5 @@
 import { CompositeDisposable, Emitter } from 'atom'
+const { config, workspace, views, commands } = atom
 import type { Disposable } from 'atom'
 import { CommandEventExtra } from '../types'
 
@@ -15,14 +16,14 @@ export default class TooltipDelegate {
   constructor() {
     this.subscriptions.add(
       this.emitter,
-      atom.config.observe('linter-ui-default.showProviderName', (showProviderName: boolean) => {
+      config.observe('linter-ui-default.showProviderName', (showProviderName: boolean) => {
         const shouldUpdate = typeof this.showProviderName !== 'undefined'
         this.showProviderName = showProviderName
         if (shouldUpdate) {
           this.emitter.emit('should-update')
         }
       }),
-      atom.commands.add('atom-workspace', {
+      commands.add('atom-workspace', {
         'linter-ui-default:expand-tooltip': (event: CommandEventExtra) => {
           if (this.expanded) {
             return
@@ -38,7 +39,7 @@ export default class TooltipDelegate {
               async function eventListener() {
                 // $FlowIgnore: document.body is never null
                 document.body.removeEventListener('keyup', eventListener)
-                await atom.commands.dispatch(atom.views.getView(atom.workspace), 'linter-ui-default:collapse-tooltip')
+                await commands.dispatch(views.getView(workspace), 'linter-ui-default:collapse-tooltip')
               },
               { passive: true },
             )
