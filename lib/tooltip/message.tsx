@@ -131,10 +131,7 @@ async function thisOpenFile(ev: MouseEvent) {
   if (protocol !== 'atom:' || hostname !== 'linter') {
     return
   }
-  // TODO: based on the types query is never null
-  if (query?.file === undefined) {
-    return
-  } else {
+  if (query.file !== undefined) {
     const { file, row, column } = query
     // TODO: will these be an array?
     await openFile(
