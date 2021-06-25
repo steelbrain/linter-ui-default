@@ -53,7 +53,7 @@ export default function MessageElement(props: Props) {
   const { message, delegate } = props
 
   return (
-    <div className="linter-message" onClick={thisOpenFile}>
+    <div className="linter-message" onClick={debounce(openFileHandler)}>
       <div className={`linter-excerpt ${message.severity}`}>
         {/* fold button if has message description */}
         <Show when={message.description !== undefined}>
@@ -118,7 +118,7 @@ function canBeFixed(message: LinterMessage): boolean {
   return false
 }
 
-async function thisOpenFile(ev: MouseEvent) {
+async function openFileHandler(ev: MouseEvent) {
   if (!(ev.target instanceof HTMLElement)) {
     return
   }
