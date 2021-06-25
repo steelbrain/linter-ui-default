@@ -346,7 +346,7 @@ export default class Editor {
     const markers = this.markers.get(key)
     if (markers) {
       for (const marker of markers) {
-        marker?.destroy()
+        marker.destroy()
       }
     }
     this.markers.delete(key)
