@@ -6,7 +6,7 @@ const { config, views } = atom
 type CompositeDisposableType = CompositeDisposable & { disposed: boolean }
 
 // $FlowIgnore: Cursor is a type
-import type { TextEditor, DisplayMarker, Marker, Gutter, Point, Cursor } from 'atom'
+import type { TextEditor, DisplayMarker, Gutter, Point, Cursor } from 'atom'
 
 import Tooltip from '../tooltip'
 
@@ -18,7 +18,7 @@ export default class Editor {
   gutter: Gutter | null = null
   tooltip: Tooltip | null = null
   emitter = new Emitter<{ 'did-destroy': never }>()
-  markers = new Map<string, Array<DisplayMarker | Marker>>()
+  markers = new Map<string, Array<DisplayMarker>>()
   messages = new Map<string, LinterMessage>()
   showTooltip: boolean = true
   subscriptions = new CompositeDisposable() as CompositeDisposableType
@@ -283,8 +283,6 @@ export default class Editor {
     this.tooltip?.marker.destroy()
   }
   applyChanges(added: Array<LinterMessage>, removed: Array<LinterMessage>) {
-    const textBuffer = this.textEditor.getBuffer()
-
     for (let i = 0, length = removed.length; i < length; i++) {
       const message = removed[i]
       this.destroyMarker(message.key)
@@ -297,24 +295,24 @@ export default class Editor {
         // Only for backward compatibility
         continue
       }
-      // TODO this marker is Marker no DisplayMarker!!
-      const marker: Marker = textBuffer.markRange(markerRange, {
+      const marker = this.textEditor.markBufferRange(markerRange, {
         invalidate: 'never',
       })
       this.decorateMarker(message, marker)
-      marker.onDidChange(({ oldHeadPosition, newHeadPosition, isValid }) => {
-        if (!isValid || (newHeadPosition.row === 0 && oldHeadPosition.row !== 0)) {
+      marker.onDidChange(({ oldHeadBufferPosition, newHeadBufferPosition, newTailBufferPosition, isValid }) => {
+        // TODO each change triggers this function twice. Do we need to debounce it?
+        if (!isValid || (newHeadBufferPosition.row === 0 && oldHeadBufferPosition.row !== 0)) {
           return
         }
         if (message.version === 2) {
-          message.location.position = marker.previousEventState.range
+          message.location.position = new Range(newTailBufferPosition, newHeadBufferPosition)
         }
       })
     }
 
     this.updateTooltip(this.cursorPosition)
   }
-  decorateMarker(message: LinterMessage, marker: DisplayMarker | Marker, paint: 'gutter' | 'editor' | 'both' = 'both') {
+  decorateMarker(message: LinterMessage, marker: DisplayMarker, paint: 'gutter' | 'editor' | 'both' = 'both') {
     this.saveMarker(message.key, marker)
     this.messages.set(message.key, message)
 
@@ -337,7 +335,7 @@ export default class Editor {
   }
 
   // add marker to the message => marker map
-  saveMarker(key: string, marker: DisplayMarker | Marker) {
+  saveMarker(key: string, marker: DisplayMarker) {
     const allMarkers = this.markers.get(key) ?? []
     allMarkers.push(marker)
     this.markers.set(key, allMarkers)
