@@ -86,6 +86,7 @@ export default class Panel {
         }),
       )
 
+      // Skip activating the panel if the setting "createPanelOnStart" has been unchecked
       if (config.get('linter-ui-default.createPanelOnStart') as boolean) {
         await this.activate()
       }
@@ -127,6 +128,7 @@ export default class Panel {
   }
 
   async refresh() {
+    // Skip refreshing the panel if it hasn't been fully initialized yet
     if (!this.initialized) {
       return
     }
