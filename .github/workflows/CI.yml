@@ -34,16 +34,18 @@ jobs:
       - name: Versions
         run: apm -v
 
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 6
+
       - name: Install dependencies
-        run: |
-          apm install --production
-          npm install --only=dev
+        run: pnpm i
 
       - name: Run tests 👩🏾‍💻
-        run: npm run test
+        run: pnpm run test
 
       - name: Run benchmarks
-        run: npm run benchmark
+        run: pnpm run benchmark
 
   Lint:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
