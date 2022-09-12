@@ -38,6 +38,10 @@ jobs:
         with:
           version: 6
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 12.x
+
       - name: Install dependencies
         run: pnpm i
 
