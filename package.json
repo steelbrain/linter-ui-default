@@ -162,6 +162,13 @@
       "default": true,
       "order": 1
     },
+    "createPanelOnStart": {
+      "title": "Create Panel On Start",
+      "description": "Controls whether or not the linter UI panel is created when the editor is first loaded",
+      "type": "boolean",
+      "default": true,
+      "order": 1
+    },
     "hidePanelWhenEmpty": {
       "description": "Hide panel when there are no issues to display",
       "type": "boolean",

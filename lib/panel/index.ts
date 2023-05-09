@@ -16,6 +16,7 @@ export default class Panel {
   hidePanelWhenEmpty: boolean = true
   showPanelStateMessages: boolean = false
   activationTimer: number
+  initialized: boolean = false
   constructor() {
     this.subscriptions.add(
       this.delegate,
@@ -85,7 +86,12 @@ export default class Panel {
         }),
       )
 
-      await this.activate()
+      // Skip activating the panel if the setting "createPanelOnStart" has been unchecked
+      if (config.get('linter-ui-default.createPanelOnStart') as boolean) {
+        await this.activate()
+      }
+
+      this.initialized = true
     })
   }
 
@@ -122,6 +128,10 @@ export default class Panel {
   }
 
   async refresh() {
+    // Skip refreshing the panel if it hasn't been fully initialized yet
+    if (!this.initialized) {
+      return
+    }
     const panel = this.panel
     if (panel === null) {
       if (this.showPanelConfig) {
